@@ -11,6 +11,30 @@ const mix = require('laravel-mix');
  |
  */
 
+
 mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .sourceMaps();
+
+
+
+//Login JS 
+mix.js('resources/js/login/js/app.js', 'public/js/login/app.js')
+    .vue();
+    
+//Login CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/login/style.css',
+    ], 'public/css/login/app.css');
+
+
+//dashboard JS 
+mix.js('resources/js/dashboard/js/app.js', 'public/js/dashboard/app.js')
+    .vue();
+    
+//dashboard CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/dashboard/style.css',
+    ], 'public/css/dashboard/app.css');

@@ -13,6 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Login
+Route::namespace('App\Http\Controllers\Login')->group(function(){
+
+    Route::get('/login', 'IndexController@login')->name('login');
+    Route::post('/login_action', 'IndexController@login_action');
+    Route::get('/logout', 'IndexController@logout');
+
 });
+
+
+Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
+
+    //Route::get('/', 'IndexController@index')->middleware('auth');
+    Route::namespace('Dashboard')->group(function(){
+        Route::get('{any?}', 'IndexController@index')->name('dashboard');
+    });
+    
+
+});
+
+
+
