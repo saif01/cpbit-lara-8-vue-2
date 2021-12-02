@@ -13,7 +13,7 @@
         <div v-if="preloader" class="loader">
             <div class="loader-icon">Loading...</div>
         </div>
-        <index-component></index-component>
+        <index-component authuser="{{ Auth::user() }}"></index-component>
     </div>
     <script src="{{ asset('js/dashboard/app.js') }}"></script>
 </body>

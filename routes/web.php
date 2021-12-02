@@ -20,6 +20,8 @@ Route::namespace('App\Http\Controllers\Login')->group(function(){
     Route::post('/login_action', 'IndexController@login_action');
     Route::get('/logout', 'IndexController@logout');
 
+    Route::get('/test', 'ADLogin@Data');
+
 });
 
 
@@ -27,6 +29,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
     //Route::get('/', 'IndexController@index')->middleware('auth');
     Route::namespace('Dashboard')->group(function(){
+
         Route::get('{any?}', 'IndexController@index')->name('dashboard');
     });
     
