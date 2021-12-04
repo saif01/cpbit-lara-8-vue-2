@@ -20,7 +20,7 @@ Route::namespace('App\Http\Controllers\Login')->group(function(){
     Route::post('/login_action', 'IndexController@login_action');
     Route::get('/logout', 'IndexController@logout');
 
-    Route::get('/test', 'ADLogin@Data');
+    Route::get('/test', 'ADLogin@Data'); 
 
 });
 

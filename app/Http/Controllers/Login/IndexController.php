@@ -16,6 +16,7 @@ use Cookie;
 use Cache;
 use App\Http\Controllers\Login\Authentication;
 use App\Http\Controllers\Login\Log;
+use App\Http\Controllers\Login\ADLogin;
 
 class IndexController extends Controller
 {
@@ -33,23 +34,16 @@ class IndexController extends Controller
 
     // login_action
     public function login_action(Request $request){
-
-        //$XSRFTOKEN =  Cookie::get('XSRF-TOKEN');
-
-        //$attamed = $this->seCacheByName($cookie_name = $XSRFTOKEN, $data = 1, $life_time_sec = 60);
-       
-        // dd($attamed,  $XSRFTOKEN, $request->all(), $request);
-
-
-        // Store Login Log
-        Log::Store($request->login, 1);
-
         
         // Validations
         request()->validate([
             'login' => 'required|max:20',
             'password' => 'required|max:20',
         ]);
+
+        $login      = $request->login;
+        $password   = $request->password;
+
 
         // login attempts more than five times in a minute
         if( $this->suspiciousLoginCheck() ){
@@ -62,14 +56,20 @@ class IndexController extends Controller
             return response()->json($allData);
         }
 
-      
-        // dd(Cache::get(Cookie::get('XSRF-TOKEN')), $this->suspiciousLoginCheck(), $request->all(), $request);
+        if( env('APP_DEBUG') == false ){
+            // Production mode App debug false
+            $response = $this->adLogin($login, $password);
 
-        // Login 
-        $responseDB = $this->localLogin($request);
+        }else{
+            // local mode App debug true
+            $response = $this->localLogin($login);
+
+        }
+
+        // dd($response);
 
 
-        return response()->json($responseDB, 200);
+        return response()->json($response, 200);
 
     }
 
@@ -79,57 +79,126 @@ class IndexController extends Controller
 
 
     // Local login
-    private function localLogin($request){
-
-        $login      = $request->login;
-        $password   = $request->password;
+    private function localLogin($login =null){
 
         $allData = User::where('login', $login)->first();
 
         if($allData){
 
-            if($allData->status != 1 ){
-                // User Blocked
-                $responseDB = [
-                    'status'    => 'error',
-                    'code'      => 203,
-                    'msg'       => 'You are blocked ! Contact with IT',
-                    'user'      => '',
-                ];
-            }else{
-                Auth::login($allData);
-                $responseDB = [
-                    'status'    => 'success',
-                    'code'      => 200,
-                    'msg'       => 'User Data Found Successfully',
-                    'user'      => $allData,
-                ];
-            }
+            if($allData->status == 1){
 
-            return $responseDB;
+                //Local Server Authentication passed...
+                Auth::login($allData);
+
+                // Store Login Log status code 1 everything ok
+                Log::Store($login, 1);
+
+                $response = (object) [
+                    'status'    => 'success',
+                    'msg'       => 'Data found in CPB-IT',
+                    'data'      => $allData,
+                ];
+                return $response;
+
+            }else{
+
+                // Store Login Log status code 2 user blocked
+                Log::Store($login, 2);
+                // Logout
+                Auth::logout();
+
+                $response = (object) [
+                    'status'    => 'error',
+                    'msg'       => 'Your ID was blocked !',
+                    'data'      => '',
+                ];
+                return $response;
+            }
 
         }else{
 
             
             Auth::logout();
+            // Store Login Log status code 0 means Data not found in CPB-IT
+            Log::Store($login, 0);
 
-            $responseDB = [
+            $response = (object) [
                 'status'    => 'error',
-                'code'      => 204,
-                'msg'       => 'User Data Not Found',
-                'user'      => '',
+                'msg'       => 'Data not found in CPB-IT',
+                'data'      => $allData,
             ];
-            return $responseDB;
+            return $response;
+
         }
 
 
     }
 
 
-    // AD server Login
-    private function adServerLogin(){
+    // AD Login
+    private function adLogin($login =null , $password = null){
+
+
+        // Login Check By AD
+        $adResponse = ADLogin::Data($login, $password);
+        if($adResponse->status == 'success'){
+
+            $response = $this->localLogin($login);
+
+           
+            // dd( $adData, $localData, $response, $adResponse);
+
+            if( $response->status == 'success' ){
+
+                // Local DB data
+                $localData  = $response->data;
+                // AD response data
+                $adData     = $adResponse->data;
+
+                // dd($adData, $localData);
+
+                $localData->name             = $adData->UserName;
+                $localData->designation      = $adData->Designation;
+                $localData->office_id        = $adData->OfficeID;
+                $localData->office_contact   = $adData->OfficeMobile;
+                $localData->personal_contact = $adData->PersonalMobile;
+                $localData->office_email     = $adData->OfficeEmail;
+                $localData->personal_email   = $adData->PersonalEmail;
+                $localData->office           = $adData->Office;
+                $localData->business_unit    = $adData->BusinessUnit;
+                $localData->nid              = $adData->NationalID;
+                $localData->save();
+
+                $response = (object) [
+                    'status'    => 'success',
+                    'msg'       => 'Data found in CPB-IT & Sync.',
+                    'data'      => $localData,
+                ];
+                return $response;
+
+            }else{
+
+                return $response;
+
+            }
+
+           
+        }else{
+            // Store Login Log status code 3 user Not Found AD 
+            Log::Store($login, 3);
+
+            $response = (object) [
+                'status'    => 'error',
+                'msg'       => 'Data not found in AD',
+                'data'      => '',
+            ];
+            return $response;
+        }
+        
+
 
     }
+
 
 
 

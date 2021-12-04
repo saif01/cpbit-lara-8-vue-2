@@ -35,7 +35,7 @@ class ADLogin extends Controller
 
                     $response = (object) [
                         'status' => 'success',
-                        'msg' => 'Data Not found',
+                        'msg' => 'Data found',
                         'data' => $userInfoObj,
                     ];
                     return $response;

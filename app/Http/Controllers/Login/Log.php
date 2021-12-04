@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Login\DeviceInfo;
-use App\Models\LoginLog;
+use App\Models\UserLoginLog;
 
 class Log extends Controller
 {
@@ -17,7 +17,7 @@ class Log extends Controller
         $info = DeviceInfo::user_ip_details();
         // dd($info, $info->country, $info->city, $info->lat, $info->lon, $info->isp );
         
-        $data = new LoginLog();
+        $data = new UserLoginLog();
 
         $data->login_id     =  $login_id;
         $data->status       =  $status;

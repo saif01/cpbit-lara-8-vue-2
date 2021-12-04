@@ -139,7 +139,7 @@
                 // Form
                 form: new Form({
                     login: 'syful.isl',
-                    password: '123'
+                    password: 'Saif5683@5'
                 }),
             };
         },
