@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ADLogin extends Controller
 {
     //Login
-    public static function Data( $userId='syful.isl', $password='Saif5683@5' ){
+    public static function Data( $userId=null, $password=null ){
 
         $ldapHost = "10.64.1.3";
         // $ldapHost = "10.242.97.10";
