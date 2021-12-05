@@ -27,6 +27,16 @@ Route::namespace('App\Http\Controllers\Login')->group(function(){
 
 Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
+
+    Route::namespace('SuperAdmin')->prefix('super-admin')->group(function(){
+
+        Route::get('{any?}', 'IndexController@index')->name('super.admin.dashboard');
+    });
+
+
+
+
+    
     //Route::get('/', 'IndexController@index')->middleware('auth');
     Route::namespace('Dashboard')->group(function(){
 

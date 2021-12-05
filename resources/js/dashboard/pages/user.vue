@@ -1,116 +1,119 @@
 <template>
     <div>
         <div class="area">
-            <a href="/">
-            <div class="d-flex justify-content-center align-items-center">
-                <img src="/all-assets/common/logo/cpb/cpbit.png" alt="header-logo" class="img-fluid header__logo">
-                <div class="h3 font-weight-bold text-dark">CPB-IT User Dashboard</div>
-            </div>
-            </a>
+            <b-navbar class="shadow py-0" variant="dark">
+                <b-navbar-brand href="#" class="m-auto d-flex align-items-center py-0">
+                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="header-logo" class="img-fluid header__logo">
+                    <div class="h3 font-weight-bold text-white nav_text">CPB-IT User Dashboard</div>
+                </b-navbar-brand>
+             
+                <b-navbar-nav>
+                    <b-nav-item>
+                        <b-button @click="redirectToHome()" variant="primary">Home</b-button>
+                    </b-nav-item>
+                </b-navbar-nav>
+        
+            </b-navbar>
             <div>
-                <div class="bg_image_logo">
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="background">
-                </div>
-
-                <div class="d-flex flex-wrap mt-5">
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="carpool"><img src="/all-assets/common/icon/car.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Carpool</li> 
-                            </ul>
+                <div class="d-flex flex-wrap justify-content-around mt-5">
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="carpool img__logo"><img src="/all-assets/common/icon/car.png" alt="Carpool" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Carpool</div> 
                         </a>
                     </div>
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="helpDesk"><img src="/all-assets/common/icon/application.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">iHelp Desk</li>
-                            </ul> 
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="helpDesk img__logo"><img src="/all-assets/common/icon/application.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iHelp Desk</div> 
                         </a>
                     </div>
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="application"><img src="/all-assets/common/icon/car.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Application</li> 
-                            </ul>
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="application img__logo"><img src="/all-assets/common/icon/application.png" alt="Application" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Application</div> 
                         </a>
                         
                     </div>
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="hardware"><img src="/all-assets/common/icon/hardware.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Hardware</li> 
-                            </ul>
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="hardware img__logo"><img src="/all-assets/common/icon/hardware.png" alt="Hardware" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Hardware</div> 
                         </a>
                     </div>
                 </div>
 
-                <div class="d-flex flex-wrap mt-5">
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="inventory"><img src="/all-assets/common/icon/Inventory.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Inventory</li> 
-                            </ul>
+                <div class="d-flex flex-wrap justify-content-around mt-5">
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="inventory img__logo"><img src="/all-assets/common/icon/inventory.png" alt="Inventory" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Inventory</div> 
                         </a>
                         
                     </div>
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="powerBi"><img src="/all-assets/common/icon/powerbi.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Power BI</li>
-                            </ul> 
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
                         </a>
                     </div>
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="network"><img src="/all-assets/common/icon/network.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Network</li> 
-                            </ul>
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="network img__logo"><img src="/all-assets/common/icon/network.png" alt="Network" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Network</div> 
                         </a>
                         
                     </div>
-                    <div class="col-lg-3 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="room"><img src="/all-assets/common/icon/room.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Room</li> 
-                            </ul>
+                    <div class="col-lg-3 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="room img__logo"><img src="/all-assets/common/icon/room.png" alt="Room" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Room</div> 
                         </a>
                     </div>
                 </div>
 
-                <div class="d-flex flex-wrap mt-5">
-                    <div class="col-lg-6 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="audit"><img src="/all-assets/common/icon/audit.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Audit</li> 
-                            </ul>
+                <div class="d-flex flex-wrap mt-5 justify-content-around">
+                    <div class="col-lg-6 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="Audit" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Audit</div> 
                         </a>
                     </div>
-                    <div class="col-lg-6 col-6 d-flex justify-content-center align-items-center">
-                        <a to="/userdashboard" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="sms"><img src="/all-assets/common/icon/sms.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">SMS</li> 
-                            </ul>
+                    <div class="col-lg-6 col-6">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="sms img__logo"><img src="/all-assets/common/icon/sms.png" alt="SMS" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">SMS</div> 
                         </a>
                     </div>
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-around mt-5 pb-5">
-                    <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center">
-                        <a href="/logout" class="text-decoration-none text-dark">
-                            <ul>
-                                <li><p class="logout"><img src="/all-assets/common/icon/logout.png" alt="background" class="img-fluid rotate_icon"></p></li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Logout</li> 
-                            </ul>
+                    <div class="col-lg-6 col-12">
+                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="logout img__logo"><img src="/all-assets/common/icon/logout.png" alt="Logout" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Logout</div> 
                         </a>
                     </div>
                 </div>
@@ -121,3 +124,14 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    
+    methods:{
+        redirectToHome(){
+            window.location.href = '/';
+        }
+    }
+}
+</script>

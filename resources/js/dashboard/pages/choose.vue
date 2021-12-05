@@ -1,52 +1,45 @@
 <template>
     <div>
         <div class="area">
-            <div class="d-flex justify-content-center align-items-center  blink">
-                <img src="/all-assets/common/logo/cpb/cpbit.png" alt="header-logo" class="img-fluid header__logo">
-                <div class="h3 font-weight-bold text-dark">CPB-IT Dashboard</div>
-            </div>
+            <b-navbar class="shadow py-0" variant="dark">
+                <b-navbar-brand href="#" class="m-auto d-flex align-items-center py-0">
+                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="header-logo" class="img-fluid header__logo">
+                    <div class="h3 font-weight-bold text-white nav_text">CPB-IT Dashboard</div>
+                </b-navbar-brand>
+                <b-navbar-nav>
+                    <b-nav-item>
+                            <b-button variant="primary"><i class="fas fa-tachometer-alt"></i> Home</b-button>
+                    </b-nav-item>
+                </b-navbar-nav>
+            </b-navbar>
             <div>
-                <div class="bg_image_logo">
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="background">
-                </div>
                 <div class="d-flex flex-wrap justify-content-around mt-5">
-                    <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center">
-                        <a @click="$emit('showTemp', 'user')" class="text-decoration-none text-dark">
-                            <ul>
-                                <li>
-                                    <p class="user_section"><img src="/all-assets/common/icon/user-section.png"
-                                            alt="background" class="img-fluid rotate_icon"></p>
-                                </li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">User Section
-                                </li>
-                            </ul>
+                    <div class="col-lg-3 col-12">
+                        <a @click="$emit('showTemp', 'user')" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column m-auto">
+                            <div class="logo_div">
+                                <div class="user_section img__logo"><img src="/all-assets/common/icon/user-section.png" alt="background" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">User Section</div> 
                         </a>
                     </div>
 
-                    <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center responsive_gap">
-                        <a @click="$emit('showTemp', 'admin')" class="text-decoration-none text-dark">
-                            <ul>
-                                <li>
-                                    <p class="admin_section"><img src="/all-assets/common/icon/admin-section.png"
-                                            alt="background" class="img-fluid rotate_icon"></p>
-                                </li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Admin Section
-                                </li>
-                            </ul>
+                    <div class="col-lg-3 col-12 responsive_gap">
+                        <a @click="$emit('showTemp', 'admin')" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="admin_section img__logo"><img src="/all-assets/common/icon/admin-section.png" alt="background" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Admin Section</div> 
                         </a>
                     </div>
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-around mt-4">
-                    <div class="col-lg-6 col-6 d-flex justify-content-center align-items-center">
-                        <a href="/logout" class="text-decoration-none text-dark">
-                            <ul>
-                                <li>
-                                    <p class="logout"><img src="/all-assets/common/icon/logout.png" alt="background"
-                                            class="img-fluid rotate_icon"></p>
-                                </li>
-                                <li class="h3 mt-3 pt-3 logo_text_response text-center font-weight-bold">Logout</li>
-                            </ul>
+                    <div class="col-lg-3 col-12">
+                        <a href="/logout" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                            <div class="logo_div">
+                                <div class="logout img__logo"><img src="/all-assets/common/icon/logout.png" alt="background" class="img-fluid rotate_icon"></div>
+                            </div>
+                            <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Logout</div> 
                         </a>
                     </div>
                 </div>
@@ -57,4 +50,3 @@
         </div>
     </div>
 </template>
-
