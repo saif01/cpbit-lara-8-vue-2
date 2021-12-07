@@ -38,3 +38,14 @@ mix.styles([
         'resources/css/common/preloader.css',
         'resources/css/dashboard/style.css',
     ], 'public/css/dashboard/app.css');
+
+
+//super_admin JS 
+mix.js('resources/js/super_admin/js/app.js', 'public/js/super_admin/app.js')
+    .vue();
+    
+//super_admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/super_admin/style.css',
+    ], 'public/css/super_admin/app.css');

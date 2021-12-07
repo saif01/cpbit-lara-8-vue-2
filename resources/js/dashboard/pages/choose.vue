@@ -2,13 +2,13 @@
     <div>
         <div class="area">
             <b-navbar class="shadow py-0" variant="dark">
-                <b-navbar-brand href="#" class="m-auto d-flex align-items-center py-0">
+                <b-navbar-brand @click="redirectToHome()" class="m-auto d-flex align-items-center py-0">
                     <img src="/all-assets/common/logo/cpb/cpbit.png" alt="header-logo" class="img-fluid header__logo">
                     <div class="h3 font-weight-bold text-white nav_text">CPB-IT Dashboard</div>
                 </b-navbar-brand>
                 <b-navbar-nav>
                     <b-nav-item>
-                            <b-button variant="primary"><i class="fas fa-tachometer-alt"></i> Home</b-button>
+                            <b-button @click="redirectToHome()" variant="primary"><i class="fas fa-tachometer-alt"></i> Home</b-button>
                     </b-nav-item>
                 </b-navbar-nav>
             </b-navbar>
@@ -50,3 +50,14 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    
+    methods:{
+        redirectToHome(){
+            window.location.href = '/';
+        }
+    }
+}
+</script>

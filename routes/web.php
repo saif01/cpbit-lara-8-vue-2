@@ -2,16 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // Login
 Route::namespace('App\Http\Controllers\Login')->group(function(){
@@ -24,11 +14,20 @@ Route::namespace('App\Http\Controllers\Login')->group(function(){
 
 });
 
-
+// Auth Route Start
 Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
-    Route::namespace('SuperAdmin')->prefix('super-admin')->group(function(){
+    Route::namespace('SuperAdmin')->prefix('super_admin')->group(function(){
+
+        // User Management
+        Route::namespace('User')->prefix('user')->group(function(){
+            Route::get('/index', 'IndexController@index');
+            Route::post('/store', 'IndexController@store');
+            Route::put('/update/{id}', 'IndexController@update');
+            Route::delete('/destroy/{id}', 'IndexController@destroy');
+            Route::post('/status/{id}', 'IndexController@status');
+        });
 
         Route::get('{any?}', 'IndexController@index')->name('super.admin.dashboard');
     });

@@ -2,7 +2,9 @@
     "/js/app.js": "/js/app.js",
     "/js/login/app.js": "/js/login/app.js",
     "/js/dashboard/app.js": "/js/dashboard/app.js",
+    "/js/super_admin/app.js": "/js/super_admin/app.js",
     "/css/app.css": "/css/app.css",
     "/css/login/app.css": "/css/login/app.css",
-    "/css/dashboard/app.css": "/css/dashboard/app.css"
+    "/css/dashboard/app.css": "/css/dashboard/app.css",
+    "/css/super_admin/app.css": "/css/super_admin/app.css"
 }

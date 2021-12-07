@@ -29,7 +29,7 @@ class IndexController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('login.login_form');
+        return view('login.index');
     }
 
     // login_action
