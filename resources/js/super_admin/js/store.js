@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
@@ -5,19 +6,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 
     state : {
-        user  : null,
-        roles : null,
+        authUser  : null,
+        userRoles : null,
         loading : false,
     },
 
     getters : {
 
         getUser(state){
-            return state.user;
+            return state.authUser;
         },
     
         getRole(state){
-            return state.roles;
+            return state.userRoles;
         },
     
     },
@@ -31,7 +32,7 @@ export default new Vuex.Store({
     
         // Auth User
         setRole(state, data){
-            state.roles = data;
+            state.userRoles = data;
         },
     
     

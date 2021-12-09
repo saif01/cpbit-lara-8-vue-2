@@ -29,6 +29,15 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::post('/status/{id}', 'IndexController@status');
         });
 
+        // Role Management
+        Route::namespace('Role')->prefix('role')->group(function(){
+            Route::get('/index', 'IndexController@index');
+            Route::post('/store', 'IndexController@store');
+            Route::put('/update/{id}', 'IndexController@update');
+            Route::delete('/destroy/{id}', 'IndexController@destroy');
+            Route::post('/status/{id}', 'IndexController@status');
+        });
+
         Route::get('{any?}', 'IndexController@index')->name('super.admin.dashboard');
     });
 

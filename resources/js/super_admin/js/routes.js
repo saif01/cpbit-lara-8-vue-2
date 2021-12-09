@@ -5,7 +5,8 @@ Vue.use(VueRouter);
 import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
-import AllUser from '../pages/users/all_user.vue'
+import Users from '../pages/users/index.vue'
+import Roles from '../pages/roles/index.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -20,11 +21,19 @@ const router = new VueRouter({
             },   
         },
         { 
-            path: '/super_admin/all_user', 
-            component: AllUser,
-            name: 'AllUser',
+            path: '/super_admin/users', 
+            component: Users,
+            name: 'Users',
             meta:{
-                title: 'Super Admin All User',
+                title: 'Super Admin Users',
+            },   
+        },
+        { 
+            path: '/super_admin/roles', 
+            component: Roles,
+            name: 'Roles',
+            meta:{
+                title: 'Super Admin Roles',
             },   
         },
 

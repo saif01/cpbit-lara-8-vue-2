@@ -60,6 +60,9 @@ export default {
 
     created(){
 
+        this.$store.commit('setUser', JSON.parse(this.authuser) )
+        // this.$store.commit('setRole', JSON.parse(this.permission) )
+
         this.$Progress.start();
 
         //checkUserRole

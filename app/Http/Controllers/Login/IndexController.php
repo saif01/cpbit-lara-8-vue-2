@@ -158,7 +158,7 @@ class IndexController extends Controller
                 // dd($adData, $localData);
 
                 $localData->name             = $adData->UserName;
-                $localData->designation      = $adData->Designation;
+                $localData->department       = $adData->Department;
                 $localData->office_id        = $adData->OfficeID;
                 $localData->office_contact   = $adData->OfficeMobile;
                 $localData->personal_contact = $adData->PersonalMobile;

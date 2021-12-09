@@ -89,7 +89,7 @@ class ADLogin extends Controller
               'OfficeID'=>(is_null(@$info[0]["wwwhomepage"][0])) ? "" : $info[0]["wwwhomepage"][0],
               'NationalID'=>(is_null(@$info[0]["ipphone"][0])) ? "" : $info[0]["ipphone"][0],
               'Position'=>(is_null(@$info[0]["title"][0])) ? "" : $info[0]["title"][0],
-              'Designation'=>(is_null(@$info[0]["department"][0])) ? "" : $info[0]["department"][0],
+              'Department'=>(is_null(@$info[0]["department"][0])) ? "" : $info[0]["department"][0],
           //   'Office'=>(is_null(@$info[0]["distinguishedname"][0])) ? "" : substr(substr($info[0]["distinguishedname"][0], strpos($info[0]["distinguishedname"][0], ',OU=') + 4, 100), 0, strpos(substr($info[0]["distinguishedname"][0], strpos($info[0]["distinguishedname"][0], ',OU=') + 4, 100), ',OU=')),
               'Office'=>(is_null(@$info[0]["physicaldeliveryofficename"][0])) ? "" : $info[0]["physicaldeliveryofficename"][0],
               //   'BusinessUnit'=>(is_null(@$info[0]["distinguishedname"][0])) ? "" : substr(substr($info[0]["distinguishedname"][0], 0, strrpos($info[0]["distinguishedname"][0], ',OU=')), strrpos(substr($info[0]["distinguishedname"][0], 0, strrpos($info[0]["distinguishedname"][0], ',OU=')), ',OU=') + 4, 100),

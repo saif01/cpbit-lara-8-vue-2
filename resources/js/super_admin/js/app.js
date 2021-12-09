@@ -4,6 +4,13 @@ window.Vue = require('vue').default;
 // Router
 import router from './routes';
 
+// mixin global added
+import common from './common/mixin';
+Vue.mixin(common);
+
+// Vuex File
+import store  from './store';
+
 import  BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue)
 
@@ -42,7 +49,6 @@ Vue.use(require('vue-moment'));
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 
-
 Vue.component('index-component', require('../index.vue').default);
 
 
@@ -60,6 +66,7 @@ Vue.component('index-component', require('../index.vue').default);
 
 const app = new Vue({
   router,
+  store,
 
   data(){
     return{

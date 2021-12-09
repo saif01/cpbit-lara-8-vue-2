@@ -61,8 +61,11 @@
                     <b-collapse id="collapse-2" class="drop-element">
                         <ul class="list-unstyled">
                             <b-nav-item>
-                                <router-link :to="{ name: 'AllUser' }">
+                                <router-link :to="{ name: 'Users' }">
                                     <li><i class="fas fa-users mr-1"></i>All User</li>
+                                </router-link>
+                                <router-link :to="{ name: 'Roles' }">
+                                    <li><i class="fas fa-users mr-1"></i>All Roles</li>
                                 </router-link>
                             </b-nav-item>
                         </ul>
