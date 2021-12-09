@@ -34,6 +34,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::get('/index', 'IndexController@index');
             Route::post('/store', 'IndexController@store');
             Route::put('/update/{id}', 'IndexController@update');
+            Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
             Route::delete('/destroy/{id}', 'IndexController@destroy');
             Route::post('/status/{id}', 'IndexController@status');
         });

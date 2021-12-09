@@ -19,7 +19,8 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = Role::orderBy($sort_field, $sort_direction)
+        $allData = Role::where('delete_temp', '!=', '1')
+            ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
 
@@ -83,13 +84,23 @@ class IndexController extends Controller
 
     }
 
+    // destroy_temp
+    public function destroy_temp($id)
+    {
+        $data       =  Role::find($id);
+        $data->delete_temp  = 1;
+        $data->delete_by    =  Auth::user()->id;
+        $data->save();
+
+        return response()->json('success', 200);
+      
+    }
+
     // destroy
     public function destroy($id)
     {
         $data       =  Role::find($id);
-
         $success    =  $data->delete();
-
         return response()->json('success', 200);
       
     }

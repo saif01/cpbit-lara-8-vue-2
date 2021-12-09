@@ -68,7 +68,11 @@
                                     </div>
                                     <button @click="editDataModel(singleData)" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit blue"></i> Edit
-                                    </button>  
+                                    </button>
+
+                                    <button @click="deleteDataTemp(singleData.id)" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>    
                                 </td>
                             </tr>
                         </tbody>

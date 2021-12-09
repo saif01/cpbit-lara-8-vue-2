@@ -64,8 +64,10 @@
                                 <router-link :to="{ name: 'Users' }">
                                     <li><i class="fas fa-users mr-1"></i>All User</li>
                                 </router-link>
+                             </b-nav-item>
+                             <b-nav-item>
                                 <router-link :to="{ name: 'Roles' }">
-                                    <li><i class="fas fa-users mr-1"></i>All Roles</li>
+                                    <li><i class="fab fa-r-project mr-1"></i>All Roles</li>
                                 </router-link>
                             </b-nav-item>
                         </ul>
