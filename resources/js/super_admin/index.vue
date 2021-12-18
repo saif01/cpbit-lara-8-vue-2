@@ -11,6 +11,7 @@
                     </div>
                     <div class="col-lg-12 p-3 px-0">
                         <router-view></router-view>
+                        <vue-progress-bar></vue-progress-bar>
                     </div>
                 </div>
                 <page-footer></page-footer>

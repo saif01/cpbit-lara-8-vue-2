@@ -21,7 +21,12 @@ export default{
                 title: response.data.msg
             });
         } else {
-            Swal.fire("Failed!", data.message, "warning");
+            Swal.fire({
+                icon: 'error',
+                title: 'Somthing Going Wrong<br>'+data.message,
+                customClass: 'text-danger'
+            });
+            // Swal.fire("Failed!", data.message, "warning");
             console.log(response);
         }
 
@@ -48,7 +53,12 @@ export default{
                 title: response.data.msg
             });
         } else {
-            Swal.fire("Failed!", data.message, "warning");
+            Swal.fire({
+                icon: 'error',
+                title: 'Somthing Going Wrong<br>'+data.message,
+                customClass: 'text-danger'
+            });
+            // Swal.fire("Failed!", data.message, "warning");
             console.log(response);
         }
 
@@ -81,7 +91,12 @@ export default{
                     this.$Progress.finish();
 
                 }).catch((data) => {
-                    Swal.fire("Failed!", data.message, "warning");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    //Swal.fire("Failed!", data.message, "warning");
                 });
             }
         })
@@ -114,7 +129,12 @@ export default{
                     this.$Progress.finish();
 
                 }).catch((data) => {
-                    Swal.fire("Failed!", data.message, "warning");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
                 });
             }
         })
@@ -148,7 +168,12 @@ export default{
                     this.$Progress.finish();
 
                 }).catch((data) => {
-                    Swal.fire("Failed!", data.message, "warning");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
                 });
             }
         })
@@ -191,7 +216,12 @@ export default{
                     this.$Progress.finish();
 
                 }).catch((data) => {
-                    Swal.fire("Failed!", data.message, "warning");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
                 });
             }
         })

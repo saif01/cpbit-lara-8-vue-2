@@ -44,23 +44,48 @@
                                 </th>
                                 <th>Details</th>
                                 <th>Role</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td>{{ singleData.login  }}</td>
+                                <td>{{ singleData.login  }}
+                                    <img v-if="singleData.image"
+                                    :src="imagePathSm + singleData.image" alt="image" class="img-fluid" height="50" width="80">
+                                </td>
                                 <td>
                                     <b>Name: </b> {{ singleData.name }} <br>
                                     <b>Department: </b> {{ singleData.department }} <br>
                                     <b>Office ID: </b> {{ singleData.office_id }} <br>
                                     <b>Business Unit: </b> {{ singleData.business_unit }} <br>
+                                    <b>manager_id: </b> {{ singleData.manager_id }} <br>
+
+                                    <span v-if="manegerName(singleData.manager_id)">
+                                        <span v-for="item in manegerName(singleData.manager_id)" :key="item.id">
+                                            <b-badge @click="showSingleUserDetails(item)" variant="primary" class="mx-1">{{ item.name }}</b-badge> 
+                                        </span>
+                                    </span>
+                                    
+
+                                    <b>manager_emails: </b> {{ singleData.manager_emails }} <br>
+                                 
                                 </td>
                                
                                 <td>
-
+                                    <span v-if="singleData.roles.length">
+                                        <span v-for="(role, index) in singleData.roles" :key="index">
+                                            <span>{{ role.name }}, </span>
+                                        </span>
+                                    </span>
+                                    <span v-else>
+                                        <span class="text-danger">You have no roles</span>
+                                    </span>
                                 </td>
-                                <td><span v-if="singleData.blocked == 1" class="text-danger">Blocked</span> <span v-else class="text-success">Active</span></td>
+
+                                <td>
+                                    <span v-if="singleData.blocked == 1" class="text-danger">Blocked</span> <span v-else class="text-success">Active</span>
+                                </td>
                               
                                 <td class="text-center">
                                     <div>
@@ -71,7 +96,10 @@
                                             <i class="far fa-times-circle"></i> Inactive
                                         </button>
                                     </div>
-                                    <button @click="editDataModel(singleData)" class="btn btn-warning btn-sm">
+                                    <button @click="editRoleModel(singleData)" class="btn btn-info btn-sm m-1">
+                                        <i class="fab fa-r-project"></i> Role
+                                    </button>
+                                    <button @click="editDataModelDirect(singleData)" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit blue"></i> Edit
                                     </button>  
                                 </td>
@@ -100,7 +128,7 @@
 
         <!-- Data Model -->
         <b-modal ref="data-modal" scrollable :title="dataModelTitle" size="xl" hide-footer>
-            <form @submit.prevent="editmode ? updateData() : createData()">
+            <form @submit.prevent="editmode ? updateDataDirect() : createDataDirect()">
 
                 <div class="row">
                     <div class="col-md-4">
@@ -176,7 +204,7 @@
                    
                 </div>
 
-                
+                <!-- Start Manager Selection -->
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
@@ -201,7 +229,6 @@
                     </div>
                 </div>
 
-
                 <div class="row">
                    
                     <div class="col-md-12 text-center" :class="{ hide: !managerByIdShow }">
@@ -216,8 +243,22 @@
 
                 </div>
                 <hr>
-               
+               <!-- End Manager Selection -->
 
+               
+                <!-- User Image -->
+                <b-form-group>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b-form-file v-on:input="uploadImageByName($event, 'image')"
+                            placeholder="Choose or drop Image here..." size="sm" accept=".jpg, .png, .jpeg">
+                        </b-form-file>
+                    </div>
+                    <div class="col-md-6 mt-1">
+                        <img :src="showImageByName('image')" class="rounded mx-auto d-block image-thum-size" />
+                    </div>
+                </div>
+                </b-form-group>
                
 
               
@@ -236,9 +277,9 @@
 
 
         <!-- Second Model for manager list-->
-        <b-modal id="modal-multi-2" v-model="modal2ndShowHide" title="All User List" hide-footer >
+        <b-modal id="modal-multi-2" v-model="userModal2ndShowHide" title="All User List" hide-footer >
 
-            <!-- {{ selectedManager }} -->
+            {{ selectedManager }}
 
             <div class="card-body p-0 table-responsive">
                 <div v-if="allData.data">
@@ -292,7 +333,7 @@
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td>
-                                    <b-form-checkbox  v-model="selectedManager" :value="singleData" unchecked-value=""></b-form-checkbox>
+                                    <b-form-checkbox  v-model="selectedManager" :value="singleData.id" unchecked-value=""></b-form-checkbox>
                                 </td>
                                 <td>{{ singleData.login }}</td>
                                 <td>{{ singleData.name }}</td>
@@ -320,9 +361,51 @@
             </div>
 
 
-            <b-button @click="setManager" size="sm" >Selected</b-button>
+            <b-button @click="setManager" size="sm" variant="success" class="btn-block"><i class="far fa-check-circle"></i> Selected</b-button>
            
         </b-modal>
+
+
+
+
+
+
+
+        <!-- data-modal-role -->
+        <b-modal v-model="roleModelShow" title="Add roles" size="lg" hide-footer>
+
+            <div class="pb-4">
+                <!-- {{ currentRoles }} -->
+                <div class="row">
+                    <div class="col-3" v-for="(role, index) in allRoles" :key="index">
+                        <b-form-checkbox v-model="currentRoles" :value="role.id" unchecked-value="">
+                            {{ role.name }}
+                        </b-form-checkbox>
+                    </div>
+
+                </div>
+            </div>
+
+            <b-form-group v-if="roleUpdating">
+                <b-progress value="100" variant="success" striped animated>
+                </b-progress>
+            </b-form-group>
+
+
+            <b-form-group v-if="!roleUpdating">
+                <b-button @click="updateUserRole()" class="btn-block" variant="primary">Update</b-button>
+            </b-form-group>
+
+
+        </b-modal>
+
+
+
+        <!-- Single User Details  -->
+        <b-modal v-model="singleUserModalShow" title="Details" size="lg" hide-footer>
+            {{ singleUserModalData }}
+        </b-modal>
+       
 
 
     </div>
@@ -333,9 +416,12 @@
 <script>
     // vform
     import Form from 'vform';
-   
+
+    import allJsMethods from './indexMethods'
+
 
     export default {
+
       
         data() {
 
@@ -355,14 +441,23 @@
                 managerByIdShow:true,
                 managerByEmailShow:false,
 
-                modal2ndShowHide:false,
+                userModal2ndShowHide:false,
 
+
+                allRoles: {},
+                currentRoles: [],
+                currentRoleId: null,
+                roleUpdating: false,
+                roleModelShow: false,
+
+               
               
                 // Form
                 form: new Form({
                     id: '',
                     login   : '',
                     name    : '',
+                    image   : '',
                     department: '',
                     office_id: '',
                     office_contact: '',
@@ -378,6 +473,15 @@
                     status:'0'
                 }),
 
+
+                imageMaxSize: '5111775',
+                imagePath: '/images/users/',
+                imagePathSm: '/images/users/small/',
+
+
+                singleUserModalShow:false,
+                singleUserModalData:{}
+
             }
 
 
@@ -385,52 +489,13 @@
 
         methods: {
 
-            // managerSelectBy
-            managerSelectBy(){
-                //select manager By Id
-                if(this.radioBtnSeelected  == 'managerById'){
-                    this.managerByIdShow = true
-                    this.managerByEmailShow = false
-                    this.form.manager_emails = ''
-                }
-                //select manager By manual input Email
-                if(this.radioBtnSeelected  == 'managerByEmail'){
-                    this.managerByIdShow = false
-                    this.managerByEmailShow = true
-                    this.form.manager_id = []
-                }
-            },
-
-            //Set Manager
-            setManager(){
-   
-                this.selectedManager.forEach((value, index) => {
-                    // arr.push(value);
-                    console.log(value.id, value.name);
-
-                    this.selectedManagerName.push( value.name );
-                    this.form.manager_id.push()
-                        
-                });
-                
-                console.log('selectedManagerName', this.selectedManagerName)
-                // Hide second modal
-                this.modal2ndHide()
+            // All JS Methods
+            ...allJsMethods
            
-            },
-
-
-             // second Modal Show
-            modal2ndShow(){
-                this.modal2ndShowHide = true
-            },
-            modal2ndHide(){
-                this.modal2ndShowHide = false
-            }
-
-
 
         },
+
+     
 
        
 
@@ -439,6 +504,8 @@
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
+            // Get Roles 
+            this.getRoles();
             this.$Progress.finish();
         },
 
@@ -454,4 +521,9 @@
     /* visibility: hidden !important; */
     display: none !important;
 }
+ .image-thum-size{
+        height: 50px;
+        width: 100px;
+    }
 </style>
+

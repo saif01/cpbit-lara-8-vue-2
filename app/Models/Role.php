@@ -5,9 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\User;
+
 class Role extends Model
 {
     use HasFactory;
+
+    public function byuser(){
+
+        // return $this->belongsTo(User::class, 'foreign_key', 'owner_key');
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
 
     public function scopeSearch($query, $val='')
     {

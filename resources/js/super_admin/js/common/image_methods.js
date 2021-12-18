@@ -38,5 +38,35 @@ export default{
         //console.log(file)
         //console.log(this.form.document)
     },
+
+    // image Upload by name
+    uploadImageByName: function (event, currentFieldName) {
+
+        let file = event;
+        let reader = new FileReader();
+        console.log('Image upload: ',file, file['size'] )
+        if (file['size'] < this.imageMaxSize) {
+            reader.onloadend = (file) => {
+                console.log('RESULT', reader.result)
+                this.form[currentFieldName] = reader.result;
+            }
+            reader.readAsDataURL(file);
+        } else {
+            alert('File size can not be bigger than 2 MB')
+        }
+
+
+    },
+
+    // Selected Image Show
+    showImageByName(currentFieldName) {
+
+        if (this.form[currentFieldName]) {
+            let photo = (this.form[currentFieldName].length > 100) ? this.form[currentFieldName] : this
+                .imagePathSm + this.form[currentFieldName];
+            return photo;
+        }
+        return null;
+    },
     
 }

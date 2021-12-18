@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="card">
             <div class="card-header">
                 <div class="row">
@@ -35,7 +34,7 @@
                     </div>
 
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('id')">ID</a>
@@ -48,7 +47,7 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'name'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'name'">&darr;</span>
                                 </th>
-                               
+                                <th>Created By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,6 +55,7 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td>{{ singleData.id }}</td>
                                 <td>{{ singleData.name }}</td>
+                                <td><span v-if="singleData.byuser">{{ singleData.byuser.name }}</span></td>
                         
                                 <td class="text-center">
                                     <div>

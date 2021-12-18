@@ -53,5 +53,33 @@ class User extends Authenticatable
         ->Orwhere('business_unit', 'LIKE', '%'.$val.'%'); 
     }
 
+
+    //Relation user to role
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
+    // Check Array of roles
+    public function hasAnyRoles($roles)
+    {
+        if($this->roles()->whereIn('name',$roles)->first()){
+            return true;
+        }
+        return false;
+    }
+
+    // Check single roles
+    public function hasRole($role)
+    {
+        if($this->roles()->where('name',$role)->first()){
+            return true;
+        }
+        return false;
+    }
+
+
+    
+
     
 }

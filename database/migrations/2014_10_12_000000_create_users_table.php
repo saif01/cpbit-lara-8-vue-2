@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('office')->nullable();
             $table->string('business_unit')->nullable();
             $table->string('nid')->nullable();
-            $table->integer('manager_id')->nullable();
+            $table->string('manager_id')->nullable();
             $table->string('manager_emails')->nullable();
             $table->string('verify')->default(0);
             $table->integer('verify_by')->nullable();

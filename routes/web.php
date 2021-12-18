@@ -27,6 +27,9 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::put('/update/{id}', 'IndexController@update');
             Route::delete('/destroy/{id}', 'IndexController@destroy');
             Route::post('/status/{id}', 'IndexController@status');
+
+            Route::get('/roles_data', 'IndexController@roles_data');
+            Route::post('/roles_update', 'IndexController@roles_update');    
         });
 
         // Role Management

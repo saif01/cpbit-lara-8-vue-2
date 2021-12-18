@@ -17,6 +17,7 @@ return array(
     'App\\Http\\Controllers\\Login\\IndexController' => $baseDir . '/app/Http/Controllers/Login/IndexController.php',
     'App\\Http\\Controllers\\Login\\Log' => $baseDir . '/app/Http/Controllers/Login/Log.php',
     'App\\Http\\Controllers\\SuperAdmin\\IndexController' => $baseDir . '/app/Http/Controllers/SuperAdmin/IndexController.php',
+    'App\\Http\\Controllers\\SuperAdmin\\Role\\IndexController' => $baseDir . '/app/Http/Controllers/SuperAdmin/Role/IndexController.php',
     'App\\Http\\Controllers\\SuperAdmin\\User\\IndexController' => $baseDir . '/app/Http/Controllers/SuperAdmin/User/IndexController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

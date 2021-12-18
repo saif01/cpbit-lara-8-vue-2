@@ -617,6 +617,7 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
         'App\\Http\\Controllers\\Login\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Login/IndexController.php',
         'App\\Http\\Controllers\\Login\\Log' => __DIR__ . '/../..' . '/app/Http/Controllers/Login/Log.php',
         'App\\Http\\Controllers\\SuperAdmin\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/IndexController.php',
+        'App\\Http\\Controllers\\SuperAdmin\\Role\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/Role/IndexController.php',
         'App\\Http\\Controllers\\SuperAdmin\\User\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/User/IndexController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
