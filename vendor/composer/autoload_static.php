@@ -608,6 +608,7 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Common\\ImageUpload' => __DIR__ . '/../..' . '/app/Http/Controllers/Common/ImageUpload.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Dashboard\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/IndexController.php',
         'App\\Http\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/IndexController.php',
@@ -631,6 +632,7 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserLoginLog' => __DIR__ . '/../..' . '/app/Models/UserLoginLog.php',
+        'App\\Models\\UserReginster' => __DIR__ . '/../..' . '/app/Models/UserReginster.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

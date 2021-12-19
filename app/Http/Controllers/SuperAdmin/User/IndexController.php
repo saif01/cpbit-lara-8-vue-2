@@ -21,12 +21,28 @@ class IndexController extends Controller
         $search         = Request('search', '');
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
+        $search_field   = Request('search_field', '');
 
-        $allData = User::with('roles')
+        if(!empty($search_field)){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allData = User::with('roles')
+            ->where('delete_temp', '!=', '1')
+            ->where($search_field, 'LIKE', '%'.$val.'%')
+            ->orderBy($sort_field, $sort_direction)
+            ->paginate($paginate);
+        }else{
+
+            $allData = User::with('roles')
             ->where('delete_temp', '!=', '1')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
+
+        }
+
+        
 
         return response()->json($allData, 200);
 
@@ -96,6 +112,8 @@ class IndexController extends Controller
         $data = new User();
 
         $data->login            = $login;
+        $data->user             = $request->user;
+        $data->admin            = $request->admin;
         $data->name             = $name;
         $data->department       = $request->department;
         $data->office_id        = $request->office_id;
@@ -112,15 +130,18 @@ class IndexController extends Controller
 
         if(!empty($request->manager_id)){
             $data->manager_id       = implode(",", $request->manager_id);
+            $data->manager_emails   = null;
         }
 
         if(!empty($request->manager_emails)){
-            $data->manager_emails   = implode(",", $request->manager_emails);
+            $data->manager_emails   = $request->manager_emails;
+            $data->manager_id       = null;
         }
         
     
-        $data->verify           = $request->verify;
         $data->status           = $request->status;
+        $data->status_by        = Auth::user()->id;
+        $data->verify           = 1;
         $data->verify_by        = Auth::user()->id;
         $success          = $data->save();
 
@@ -139,7 +160,7 @@ class IndexController extends Controller
     public function update(Request $request, $id){
 
         
-       //dd($request->all());
+      // dd($request->all());
 
         //Validate
         $this->validate($request,[
@@ -166,6 +187,8 @@ class IndexController extends Controller
         $data = User::find($id);
       
         $data->login            = $login;
+        $data->user             = $request->user;
+        $data->admin            = $request->admin;
         $data->name             = $name;
         $data->department       = $request->department;
         $data->office_id        = $request->office_id;
@@ -182,10 +205,12 @@ class IndexController extends Controller
 
         if( $data->manager_id != $request->manager_id  && !empty($request->manager_id) ){
             $data->manager_id       = implode(",", $request->manager_id);
+            $data->manager_emails   = null;
         }
 
-        if( $data->manager_id != $request->manager_emails && !empty($request->manager_emails) ){
-            $data->manager_emails   = implode(",", $request->manager_emails);
+        if( $data->manager_emails != $request->manager_emails && !empty($request->manager_emails) ){
+            $data->manager_emails   = $request->manager_emails;
+            $data->manager_id       = null;
         }
 
 
@@ -199,8 +224,10 @@ class IndexController extends Controller
         }
         
     
-        $data->verify           = $request->verify;
+        
         $data->status           = $request->status;
+        $data->status_by        = Auth::user()->id;
+        $data->verify           = 1;
         $data->verify_by        = Auth::user()->id;
         $success                = $data->save();
 
@@ -235,7 +262,7 @@ class IndexController extends Controller
            $status = $data->status;
            
             if($status == 1){
-                $data->status = null;
+                $data->status = 0;
                 $data->status_by = Auth::user()->id;
 
             }else{
@@ -249,6 +276,46 @@ class IndexController extends Controller
 
     }
 
+
+    // status_admin
+    public function status_admin($id){
+
+        $data       =  User::find($id);
+        if($data){
+
+           $admin = $data->admin;
+           
+            if($admin == 1){
+                $data->admin = 0;
+            }else{
+                $data->admin = 1;
+            }
+            $success    =  $data->save();
+            return response()->json('success', 200);
+
+        }
+
+    }
+
+    // status_user
+    public function status_user($id){
+
+        $data       =  User::find($id);
+        if($data){
+
+           $user = $data->user;
+           
+            if($user == 1){
+                $data->user = 0;
+            }else{
+                $data->user = 1;
+            }
+            $success    =  $data->save();
+            return response()->json('success', 200);
+
+        }
+
+    }
 
 
 }

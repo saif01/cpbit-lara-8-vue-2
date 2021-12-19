@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\Common\\ImageUpload' => $baseDir . '/app/Http/Controllers/Common/ImageUpload.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Dashboard\\IndexController' => $baseDir . '/app/Http/Controllers/Dashboard/IndexController.php',
     'App\\Http\\Controllers\\IndexController' => $baseDir . '/app/Http/Controllers/IndexController.php',
@@ -31,6 +32,7 @@ return array(
     'App\\Models\\Role' => $baseDir . '/app/Models/Role.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\UserLoginLog' => $baseDir . '/app/Models/UserLoginLog.php',
+    'App\\Models\\UserReginster' => $baseDir . '/app/Models/UserReginster.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

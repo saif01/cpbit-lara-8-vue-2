@@ -19,6 +19,7 @@ export default {
         // DataTbl Common Featurs 
         paginate: 10,
         search: '',
+        search_field: '',
         sort_direction: 'desc',
         sort_field: 'id',
         currentPageNumber: null,
@@ -116,6 +117,13 @@ export default {
 
         //Excuted When make change value 
         search: function (value) {
+            this.$Progress.start();
+            this.getResults();
+            this.$Progress.finish();
+        },
+
+        //Excuted When make change value 
+        search_field: function (value) {
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();

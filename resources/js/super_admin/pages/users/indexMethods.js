@@ -1,6 +1,8 @@
 export default{
 
-    manegerName(newValue) {
+    
+    // Manager Data array show by manager ID array
+    manegerData(newValue) {
 
         let fianlArray = [];
 
@@ -40,6 +42,26 @@ export default{
         return fianlArray;
         
        
+    },
+
+    // Show user name by user ID
+    userNameByID(id){
+
+        let userName = '';
+
+        if(id){
+            var allDataArr = this.allData.data;
+            // Manager ID check in all Data
+            for (var key in allDataArr) {
+                var value = allDataArr[key];
+                // Single value check
+                if(id == value.id){     
+                    userName = value.name  
+                }
+            }
+        }
+
+        return userName
     },
 
 
@@ -172,6 +194,22 @@ export default{
             }
         }
 
+        // manager_id
+        if(singleData.manager_id){
+            this.radioBtnSeelected = 'managerById'
+            this.managerByIdShow = true
+            this.managerByEmailShow = false
+        }
+
+        // manager_emails
+        if(singleData.manager_emails){
+            this.radioBtnSeelected = 'managerByEmail'
+            this.managerByIdShow = false
+            this.managerByEmailShow = true
+        }
+
+        
+
         this.editmode = true;
         this.dataModelTitle = 'Update Data'
         this.form.reset();
@@ -288,15 +326,112 @@ export default{
 
 
 
+    // Change admin Status
+    statusChangeAdmin(data){
+        // console.log('status', data.status)
+        if(data.admin == 1){
+            var text = "Are you want to remove Admin access ?"
+            var btnText = "No Admin"
+           
+        }else{
+            var text = "Are you want to assign Admin access ?"
+            var btnText = "Admin"
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: text,
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: btnText,
+        }).then((result) => {
+
+            // Send request to the server
+            if (result.value) {
+                //console.log(id);
+                this.$Progress.start();
+                this.form.post(this.currentUrl + '/status_admin/' + data.id ).then((response) => {
+                    //console.log(response);
+                    Swal.fire(
+                        'Changed!',
+                        'Status has been Changed.',
+                        'success'
+                    );
+                    // Refresh Tbl Data with current page
+                    this.getResults(this.currentPageNumber);
+                    this.$Progress.finish();
+
+                }).catch((data) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
+                });
+            }
+        })
+    },
+
+    // Change user Status
+    statusChangeUser(data){
+        // console.log('status', data.status)
+        if(data.admin == 1){
+            var text = "Are you want to remove User access ?"
+            var btnText = "No User"
+           
+        }else{
+            var text = "Are you want to assign User access ?"
+            var btnText = "User"
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: text,
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: btnText,
+        }).then((result) => {
+
+            // Send request to the server
+            if (result.value) {
+                //console.log(id);
+                this.$Progress.start();
+                this.form.post(this.currentUrl + '/status_user/' + data.id ).then((response) => {
+                    //console.log(response);
+                    Swal.fire(
+                        'Changed!',
+                        'Status has been Changed.',
+                        'success'
+                    );
+                    // Refresh Tbl Data with current page
+                    this.getResults(this.currentPageNumber);
+                    this.$Progress.finish();
+
+                }).catch((data) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
+                });
+            }
+        })
+    },
+
 
     // showSingleUserDetails
     showSingleUserDetails(singleData){
 
+        this.$Progress.start();
         this.singleUserModalShow = true
-
         this.singleUserModalData = singleData
+        this.$Progress.finish();
 
-        console.log(singleData)
+        //console.log(singleData)
 
     },
 

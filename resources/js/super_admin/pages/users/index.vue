@@ -5,7 +5,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="card-title">Vendor Table</h3>
+                        <h3 class="card-title">All User Table</h3>
                     </div>
                     <div class="col-6">
                         <b-button variant="outline-primary" size="sm" pill class="float-right" @click="addDataModel"><i
@@ -25,6 +25,26 @@
                                 <option value="30">30</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
+                            </select>
+                        </div>
+
+                        <div class="col form-inline small">
+                            <select v-model="search_field" class="form-control form-control-sm">
+                                <option value="">All Filed Search</option>
+                                <option value="login">Login ID</option>
+                                <option value="name">User Name</option>
+                                <option value="department">Department</option>
+                                <option value="office_id">Office ID</option>
+                                <option value="office_contact">Office Contact</option>
+                                <option value="personal_contact">Personal Contact</option>
+                                <option value="office_email">Office Email</option>
+                                <option value="personal_email">Personal Email</option>
+                                <option value="office">Office</option>
+                                <option value="business_unit">Business Unit</option>
+                                <option value="nid">NID</option>
+                                <option value="status">Status Active</option>
+                                <option value="admin">Admin Access</option>
+                                <option value="user">User Access</option>
                             </select>
                         </div>
 
@@ -59,17 +79,24 @@
                                     <b>Department: </b> {{ singleData.department }} <br>
                                     <b>Office ID: </b> {{ singleData.office_id }} <br>
                                     <b>Business Unit: </b> {{ singleData.business_unit }} <br>
-                                    <b>manager_id: </b> {{ singleData.manager_id }} <br>
-
-                                    <span v-if="manegerName(singleData.manager_id)">
-                                        <span v-for="item in manegerName(singleData.manager_id)" :key="item.id">
-                                            <b-badge @click="showSingleUserDetails(item)" variant="primary" class="mx-1">{{ item.name }}</b-badge> 
+                                    <!-- Manager ID Selected -->
+                                    <span v-if="singleData.manager_id">
+                                        <b>Manager: </b> 
+                                        <!-- {{ singleData.manager_id }}  -->
+                                        <span>
+                                            <span v-for="item in manegerData(singleData.manager_id)" :key="item.id">
+                                                <b-badge @click="showSingleUserDetails(item)" variant="primary" class="mx-1">{{ item.name }}</b-badge> 
+                                            </span>
                                         </span>
                                     </span>
-                                    
-
-                                    <b>manager_emails: </b> {{ singleData.manager_emails }} <br>
-                                 
+                                    <!-- Manager Email have -->
+                                    <span v-else-if="singleData.manager_emails">
+                                        <b>Manager Emails: </b> {{ singleData.manager_emails }}
+                                    </span>
+                                    <!-- Manager Not selected -->
+                                    <span v-else>
+                                        <b>Manager:</b> <span class="text-danger">Not Selected</span>
+                                    </span>
                                 </td>
                                
                                 <td>
@@ -84,7 +111,29 @@
                                 </td>
 
                                 <td>
-                                    <span v-if="singleData.blocked == 1" class="text-danger">Blocked</span> <span v-else class="text-success">Active</span>
+                                    <!-- Admin Access -->
+                                    <div class="m-1">
+                                        <b-button v-if="singleData.admin == 1" @click="statusChangeAdmin(singleData)"  variant="success" size="sm"><i class="far fa-check-circle"></i> Admin</b-button>
+                                        <b-button v-else @click="statusChangeAdmin(singleData)" variant="danger" size="sm"><i class="far fa-times-circle"></i> Admin</b-button>
+                                    </div>
+                                    <!-- User Access -->
+                                    <div class="m-1">
+                                        <b-button v-if="singleData.user == 1" @click="statusChangeUser(singleData)"  variant="success" size="sm"><i class="far fa-check-circle"></i> User</b-button>
+                                        <b-button v-else @click="statusChangeUser(singleData)" variant="danger" size="sm"><i class="far fa-times-circle"></i> User</b-button>
+                                    </div>
+                                    
+
+                                    <hr>
+                                    <div>
+                                        <span v-if="singleData.status == 1" class="text-success">Active</span> <span v-else class="text-danger">Blocked</span>
+                                        <span class="text-muted small float-right" v-if="singleData.status_by">--{{ userNameByID(singleData.status_by) }}</span>
+                                    </div>
+
+                                    <div>
+                                        <span v-if="singleData.verify == 1" class="text-success">Verified</span> <span v-else class="text-danger">Not Verified</span>
+                                        <span class="text-muted small float-right" v-if="singleData.verify_by">--{{ userNameByID(singleData.verify_by) }}</span>
+                                    </div>
+                                    
                                 </td>
                               
                                 <td class="text-center">
@@ -197,7 +246,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <b-form-group label="User Business Unit:">
-                            <b-form-input type="email" v-model="form.business_unit" placeholder="Enter user business unit" size="sm" :class="{ 'is-invalid': form.errors.has('business_unit') }" ></b-form-input>
+                            <b-form-input v-model="form.business_unit" placeholder="Enter user business unit" size="sm" :class="{ 'is-invalid': form.errors.has('business_unit') }" ></b-form-input>
                             <div class="small text-danger" v-if="form.errors.has('business_unit')" v-html="form.errors.get('business_unit')" />
                         </b-form-group>
                     </div>
@@ -210,11 +259,9 @@
                     <div class="col-md-12">
                     <b-form-group label="" v-slot="{ ariaDescribedby }">
                         <b-form-radio-group
-                            id="radio-group-1"
                             v-model="radioBtnSeelected"
                             :options="options"
                             :aria-describedby="ariaDescribedby"
-                            name="radio-options"
                             @change="managerSelectBy()"
                         ></b-form-radio-group>
                     </b-form-group>
@@ -236,7 +283,7 @@
                     </div>
                     <div class="col-md-12" id="managerByEmailShow" :class="{ hide: !managerByEmailShow }" >
                         <b-form-group label="User Business Unit:">
-                            <b-form-input type="email" v-model="form.manager_emails" placeholder="Enter user business unit" size="sm" :class="{ 'is-invalid': form.errors.has('manager_emails') }" ></b-form-input>
+                            <b-form-input v-model="form.manager_emails" placeholder="Enter user business unit" size="sm" :class="{ 'is-invalid': form.errors.has('manager_emails') }" ></b-form-input>
                             <div class="small text-danger" v-if="form.errors.has('manager_emails')" v-html="form.errors.get('manager_emails')" />
                         </b-form-group>
                     </div>
@@ -244,6 +291,28 @@
                 </div>
                 <hr>
                <!-- End Manager Selection -->
+
+                <!-- User tye and status -->
+               <div class="row">
+                    <div class="col-md-6">
+                        <b-form-group label="Account Status" v-slot="{ ariaDescribedby2 }">
+                            <b-form-radio-group  
+                                v-model="form.status"
+                                :options="activeOptions"
+                                :aria-describedby="ariaDescribedby2"
+                                @change="managerSelectBy()"
+                            ></b-form-radio-group>
+                        </b-form-group>
+                    </div>
+                    <div class="col-md-6">   
+                        <label> User Type</label>
+                        <div class="row"> 
+                            <b-form-checkbox v-model="form.user" name="checkbuttonuser" class="mr-2" value="1" >
+                            User </b-form-checkbox>
+                            <b-form-checkbox v-model="form.admin" name="checkbuttonadmin" value="1" > Admin </b-form-checkbox>
+                        </div>
+                    </div>
+               </div>
 
                
                 <!-- User Image -->
@@ -279,7 +348,7 @@
         <!-- Second Model for manager list-->
         <b-modal id="modal-multi-2" v-model="userModal2ndShowHide" title="All User List" hide-footer >
 
-            {{ selectedManager }}
+            <!-- {{ selectedManager }} -->
 
             <div class="card-body p-0 table-responsive">
                 <div v-if="allData.data">
@@ -443,6 +512,13 @@
 
                 userModal2ndShowHide:false,
 
+        
+                activeOptions: [
+                    { text: 'Active', value: '1' },
+                    { text: 'Blocked', value: '0' },
+                ],
+              
+
 
                 allRoles: {},
                 currentRoles: [],
@@ -456,6 +532,8 @@
                 form: new Form({
                     id: '',
                     login   : '',
+                    user    : '1',
+                    admin   : '',
                     name    : '',
                     image   : '',
                     department: '',
@@ -469,8 +547,7 @@
                     nid:'',
                     manager_id:[],
                     manager_emails:'',
-                    verify:'0',
-                    status:'0'
+                    status:'1'
                 }),
 
 
@@ -480,7 +557,9 @@
 
 
                 singleUserModalShow:false,
-                singleUserModalData:{}
+                singleUserModalData:{},
+
+                
 
             }
 

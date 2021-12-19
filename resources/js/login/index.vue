@@ -97,7 +97,7 @@
                         </b-overlay>
                     </form>
 
-                    <div class="mb-2 mt-5 d-flex align-items-center justify-content-center register">Register <i class="fas fa-user-plus ml-1"></i></div>
+                    <div @click="register()" class="mb-2 mt-5 d-flex align-items-center justify-content-center register">Register <i class="fas fa-user-plus ml-1"></i></div>
                 </b-card-text>
             </b-card>
         </div>
@@ -177,6 +177,13 @@
                     console.log(error)
                 })
             },
+
+
+            //register
+            register(){
+                //redirect 
+                window.location.href = "/register"
+            }
         }
     }
 </script>

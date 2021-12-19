@@ -29,6 +29,17 @@ mix.styles([
     ], 'public/css/login/app.css');
 
 
+//Register JS 
+mix.js('resources/js/register/js/app.js', 'public/js/register/app.js')
+    .vue();
+    
+//Register CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/register/style.css',
+    ], 'public/css/register/app.css');
+
+
 //dashboard JS 
 mix.js('resources/js/dashboard/js/app.js', 'public/js/dashboard/app.js')
     .vue();

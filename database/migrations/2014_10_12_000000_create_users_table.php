@@ -34,7 +34,8 @@ class CreateUsersTable extends Migration
             $table->string('manager_emails')->nullable();
             $table->string('verify')->default(0);
             $table->integer('verify_by')->nullable();
-            $table->integer('status')->default(1);
+            $table->integer('status')->nullable();
+            $table->integer('status_by')->nullable();
             $table->integer('delete_temp')->default(0);
             $table->integer('delete_by')->nullable();
             $table->timestamps();

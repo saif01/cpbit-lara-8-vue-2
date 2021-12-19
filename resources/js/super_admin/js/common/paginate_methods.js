@@ -7,7 +7,8 @@ export default {
                 '&paginate=' + this.paginate +
                 '&search=' + this.search +
                 '&sort_direction=' + this.sort_direction +
-                '&sort_field=' + this.sort_field
+                '&sort_field=' + this.sort_field +
+                '&search_field=' + this.search_field
             )
             .then(response => {
                 //console.log(response.data.data);
