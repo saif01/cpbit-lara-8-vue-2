@@ -290,7 +290,7 @@
 
                 </div>
                 <hr>
-               <!-- End Manager Selection -->
+                <!-- End Manager Selection -->
 
                 <!-- User tye and status -->
                <div class="row">

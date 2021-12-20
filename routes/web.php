@@ -18,8 +18,8 @@ Route::namespace('App\Http\Controllers\Login')->group(function(){
 Route::namespace('App\Http\Controllers\Register')->prefix('register')->group(function(){
 
     Route::get('/', 'IndexController@index')->name('register');
-   
-    Route::get('/test', 'ADLogin@Data'); 
+    Route::post('/check', 'IndexController@check');
+    Route::post('/store', 'IndexController@store');
 
 });
 

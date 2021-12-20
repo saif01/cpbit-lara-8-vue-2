@@ -124,7 +124,6 @@ class IndexController extends Controller
         $data->office           = $request->office;
         $data->business_unit    = $request->business_unit;
         $data->nid              = $request->nid;
-        $data->status           = $request->status;
         $data->admin            = $request->admin;
         $data->user             = $request->user;
 
@@ -137,6 +136,15 @@ class IndexController extends Controller
             $data->manager_emails   = $request->manager_emails;
             $data->manager_id       = null;
         }
+
+        $imagePath      = 'images/users/';
+        $current_image  = $request->image; 
+        // Save Image a
+        if(!empty($current_image)){
+            $imgName= $this->imageUplaodByName($current_image, null, $imagePath); 
+            $data->image = $imgName;
+        }
+        
         
     
         $data->status           = $request->status;
@@ -199,7 +207,6 @@ class IndexController extends Controller
         $data->office           = $request->office;
         $data->business_unit    = $request->business_unit;
         $data->nid              = $request->nid;
-        $data->status           = $request->status;
         $data->admin            = $request->admin;
         $data->user             = $request->user;
 

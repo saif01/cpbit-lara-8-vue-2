@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register/app.css') }}">
 </head>
-<body>
+<body class="grad-bg">
     <div id="app">
         <div v-if="preloader" class="loader">
             <div class="loader-icon">Loading...</div>

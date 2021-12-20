@@ -9,7 +9,7 @@ trait ImageUpload {
 
     
     // Image Uplpoad By name 
-    public function imageUplaodByName($currentImage, $oldImage, $imagePath, $imagePathSm=null){
+    public function imageUplaodByName($currentImage, $oldImage=null, $imagePath, $imagePathSm=null){
 
         // Image Path
         if( $imagePathSm == null ){
