@@ -128,6 +128,10 @@ class IndexController extends Controller
             'office'            => 'nullable',
             'business_unit'     => 'nullable',
             'nid'               => 'nullable|regex:/[0-9]/',
+            'manager_name'      => 'required',
+            'bu_name'           => 'required',
+            'manager_email'     => 'required|email',
+            'bu_email'          => 'required|email',
         ]);
 
     
@@ -149,6 +153,12 @@ class IndexController extends Controller
         $data->office           = $request->office;
         $data->business_unit    = $request->business_unit;
         $data->nid              = $request->nid;
+
+        $data->manager_name     = $request->manager_name;
+        $data->manager_email    = $request->manager_email;
+        $data->bu_name          = $request->bu_name;
+        $data->bu_email         = $request->bu_email;
+        $data->remarks          = $request->remarks;
         
         $imagePath      = 'images/users/';
         $current_image  = $request->image; 

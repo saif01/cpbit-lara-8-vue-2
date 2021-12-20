@@ -27,6 +27,10 @@ class CreateUserReginstersTable extends Migration
             $table->string('office')->nullable();
             $table->string('business_unit')->nullable();
             $table->string('nid')->nullable();
+            $table->string('manager_name')->nullable();
+            $table->string('manager_email')->nullable();
+            $table->string('bu_name')->nullable();
+            $table->string('bu_email')->nullable();
             $table->string('remarks')->nullable();
             $table->string('verify')->default(0);
             $table->integer('verify_by')->nullable();

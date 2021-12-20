@@ -71,7 +71,35 @@
                         </b-form-group>
                     </div>
 
-                    <div class="col-lg-8 col-12">
+                    <div class="col-lg-4 col-6">
+                        <b-form-group label="User Manager Name:">
+                            <b-form-input v-model="form.manager_name" placeholder="Enter user manager name" size="sm" :class="{ 'is-invalid': form.errors.has('manager_name') }" required></b-form-input>
+                            <div class="small text-danger" v-if="form.errors.has('manager_name')" v-html="form.errors.get('manager_name')" />
+                        </b-form-group>
+                    </div>
+
+                    <div class="col-lg-4 col-6">
+                        <b-form-group label="User Manager Email:">
+                            <b-form-input type="email" v-model="form.manager_email" placeholder="Enter user manager email" size="sm" :class="{ 'is-invalid': form.errors.has('manager_email') }" required></b-form-input>
+                            <div class="small text-danger" v-if="form.errors.has('manager_email')" v-html="form.errors.get('manager_email')" />
+                        </b-form-group>
+                    </div>
+
+                    <div class="col-lg-4 col-6">
+                        <b-form-group label="User Business Unit Head Name:">
+                            <b-form-input v-model="form.bu_name" placeholder="Enter user manager name" size="sm" :class="{ 'is-invalid': form.errors.has('bu_name') }" required></b-form-input>
+                            <div class="small text-danger" v-if="form.errors.has('bu_name')" v-html="form.errors.get('bu_name')" />
+                        </b-form-group>
+                    </div>
+
+                    <div class="col-lg-4 col-6">
+                        <b-form-group label="User Business Unit Head Email:">
+                            <b-form-input type="email" v-model="form.bu_email" placeholder="Enter business unit head email" size="sm" :class="{ 'is-invalid': form.errors.has('bu_email') }" required></b-form-input>
+                            <div class="small text-danger" v-if="form.errors.has('bu_email')" v-html="form.errors.get('bu_email')" />
+                        </b-form-group>
+                    </div>
+
+                    <div class="col-lg-4 col-12">
                         <b-form-group label="Purpose or Access or Other reasons:">
                             <b-form-input v-model="form.remarks" placeholder="Enter purpose or which access need or other reasons for apply" size="sm" :class="{ 'is-invalid': form.errors.has('business_unit') }" required></b-form-input>
                             <div class="small text-danger" v-if="form.errors.has('remarks')" v-html="form.errors.get('business_unit')" />
@@ -144,6 +172,11 @@
                     office:'',
                     business_unit: '',
                     nid:'',
+                    manager_name: '',
+                    manager_email: '',
+                    bu_name: '',
+                    bu_email: '',
+                    remarks: '',
                 }),
             }
         },
@@ -244,6 +277,8 @@
             this.form.business_unit = this.dataObj.data.BusinessUnit
             this.form.nid = this.dataObj.data.NationalID
 
+            this.form.bu_name = this.dataObj.data.Manager
+           
 
         },
 
