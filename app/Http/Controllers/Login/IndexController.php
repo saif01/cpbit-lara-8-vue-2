@@ -109,7 +109,7 @@ class IndexController extends Controller
 
                 $response = (object) [
                     'status'    => 'error',
-                    'msg'       => 'Your ID was blocked !',
+                    'msg'       => 'Your ID was blocked by CPB-IT!',
                     'data'      => '',
                 ];
                 return $response;
@@ -124,7 +124,7 @@ class IndexController extends Controller
 
             $response = (object) [
                 'status'    => 'error',
-                'msg'       => 'Data not found in CPB-IT',
+                'msg'       => 'You are not authorized for CPB-IT',
                 'data'      => $allData,
             ];
             return $response;
@@ -189,7 +189,7 @@ class IndexController extends Controller
 
             $response = (object) [
                 'status'    => 'error',
-                'msg'       => 'Data not found in AD',
+                'msg'       => 'You are not authorized for AD',
                 'data'      => '',
             ];
             return $response;

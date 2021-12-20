@@ -185,7 +185,7 @@
                     // swal alert
                     Swal.fire({
                         icon: response.data.icon,
-                        title: 'Sorry!! Data Not Found<br><small>' + response.data.msg + '</small>',
+                        title: response.data.msg,
                         customClass: 'text-danger'
                     });
                     // Swal.fire("Failed!", data.message, "warning");

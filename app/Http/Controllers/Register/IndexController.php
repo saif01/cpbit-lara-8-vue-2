@@ -45,7 +45,7 @@ class IndexController extends Controller
                 'code'      => '202',
                 'status'    => 'success',
                 'icon'      => 'info',
-                'msg'       => 'You are already registered',
+                'msg'       => $login.' are already registered',
                 'data'      => '',
             ];
         }
@@ -57,7 +57,7 @@ class IndexController extends Controller
                     'code'      => '208',
                     'status'    => 'success',
                     'icon'      => 'success',
-                    'msg'       => 'You Can Login Now, Approved already',
+                    'msg'       => $login.' Can Login Now, Approved already',
                     'data'      => '',
                 ];
             }else{
@@ -66,7 +66,7 @@ class IndexController extends Controller
                     'code'      => '203',
                     'status'    => 'success',
                     'icon'      => 'info',
-                    'msg'       => 'Waiting for Approval, You are already registered',
+                    'msg'       => 'Waiting for Approval<br>'.$login.' are already registered',
                     'data'      => '',
                 ];
             }
@@ -92,7 +92,7 @@ class IndexController extends Controller
                     'code'      => '204',
                     'status'    => 'error',
                     'icon'      => 'error',
-                    'msg'       => 'Data not found in AD',
+                    'msg'       => $login.' not found in server, Pleaee contact with IT',
                     'data'      => '',
                 ];
             }
