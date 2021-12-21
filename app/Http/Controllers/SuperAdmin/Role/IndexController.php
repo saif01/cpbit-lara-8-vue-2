@@ -72,7 +72,7 @@ class IndexController extends Controller
 
       
         $data->name       = $request->name;
-        $data->created_by =  Auth::user()->id;
+        $data->created_by = Auth::user()->id;
         $success          = $data->save();
 
         if($success){

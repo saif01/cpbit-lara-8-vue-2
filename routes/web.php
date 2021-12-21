@@ -42,6 +42,26 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             Route::get('/roles_data', 'IndexController@roles_data');
             Route::post('/roles_update', 'IndexController@roles_update');    
+            
+        });
+
+        // Register Management
+        Route::namespace('Register')->prefix('register')->group(function(){
+            Route::get('/index', 'IndexController@index');
+            Route::post('/store', 'IndexController@store');
+
+            Route::get('/users_data', 'IndexController@users_data');
+
+            Route::put('/update/{id}', 'IndexController@update');
+            Route::delete('/destroy/{id}', 'IndexController@destroy');
+            Route::post('/status/{id}', 'IndexController@status');
+
+            Route::post('/status_admin/{id}', 'IndexController@status_admin');
+            Route::post('/status_user/{id}', 'IndexController@status_user');
+
+            Route::get('/roles_data', 'IndexController@roles_data');
+            Route::post('/roles_update', 'IndexController@roles_update');    
+            
         });
 
         // Role Management

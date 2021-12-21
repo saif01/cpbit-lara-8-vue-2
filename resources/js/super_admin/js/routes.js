@@ -6,6 +6,7 @@ import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
 import Users from '../pages/users/index.vue'
+import Registered from '../pages/register/index.vue'
 import Roles from '../pages/roles/index.vue'
 
 const router = new VueRouter({
@@ -26,6 +27,14 @@ const router = new VueRouter({
             name: 'Users',
             meta:{
                 title: 'Super Admin Users',
+            },   
+        },
+        { 
+            path: '/super_admin/registered', 
+            component: Registered,
+            name: 'Registered',
+            meta:{
+                title: 'Super Admin Registered',
             },   
         },
         { 

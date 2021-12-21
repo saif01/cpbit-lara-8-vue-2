@@ -2,11 +2,13 @@
     <div>
         <div id="sidebar-container" class="sidebar-container">
             <b-nav vertical>
-                <div class="d-flex align-items-center text-white my-2">
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="logo"
-                        class="img-fluid admin_logo_sidenav ml-2 mr-3" />
-                    <div class="h4 pt-3">S. Admin</div>
-                </div>
+                <a href="/">
+                    <div class="d-flex align-items-center text-white my-2">
+                        <img src="/all-assets/common/logo/cpb/cpbit.png" alt="logo"
+                            class="img-fluid admin_logo_sidenav ml-2 mr-3" />
+                        <div class="h4 pt-3">S. Admin</div>
+                    </div>
+                </a>
                 <ul class="list-unstyled">
                     <b-nav-item>
                         <router-link :to="{ name: 'Dashboard' }">
@@ -64,14 +66,31 @@
                                 <router-link :to="{ name: 'Users' }">
                                     <li><i class="fas fa-users mr-1"></i>All User</li>
                                 </router-link>
-                             </b-nav-item>
-                             <b-nav-item>
+                            </b-nav-item>
+                            <b-nav-item>
+                                <router-link :to="{ name: 'Registered' }">
+                                    <li><i class="fas fa-users mr-1"></i>All Registered</li>
+                                </router-link>
+                            </b-nav-item>
+                            <b-nav-item>
                                 <router-link :to="{ name: 'Roles' }">
                                     <li><i class="fab fa-r-project mr-1"></i>All Roles</li>
                                 </router-link>
                             </b-nav-item>
                         </ul>
                     </b-collapse>
+
+                    <b-nav-item @click="logout()">
+                        <router-link to="/logout">
+                            <li><i class="fas fa-sign-out-alt mr-1 text-danger"></i>
+                                Logout
+                            </li>
+                        </router-link>
+                    </b-nav-item>
+
+
+
+
 
 
 
@@ -80,6 +99,17 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        methods: {
+            logout() {
+                window.location.href = "/logout"
+            }
+        }
+    }
+
+</script>
 
 <style scoped>
     .admin_logo_sidenav {
@@ -136,6 +166,18 @@
         content: "\f068";
         font-family: "Font Awesome\ 5 Free";
         font-weight: 900;
+    }
+
+    .router-link-exact-active {
+        color: #2bed0f !important;
+        /* text-decoration: none;
+        border-bottom: 2px solid; */
+    }
+
+    .router-link-exact-active li  {
+        border-radius: 10px;
+        border-bottom: 4px solid #f02471;
+        color: white;
     }
 
 </style>
