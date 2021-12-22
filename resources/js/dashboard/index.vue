@@ -9,7 +9,6 @@
 
 <script>
 
-
     import chooseDashboard from './pages/choose.vue'
     import userDashboard from './pages/user.vue'
     import adminDashboard from './pages/admin.vue'
@@ -29,12 +28,10 @@
         data() {
             return {
                 //auth: JSON.parse(this.authuser),
-
                 dashboard: false,
                 userDashboard: false,
                 adminDashboard: false,
                 noAccess: false
-
             }
         },
 

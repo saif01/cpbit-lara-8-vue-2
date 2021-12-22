@@ -26,7 +26,7 @@ Route::namespace('App\Http\Controllers\Register')->prefix('register')->group(fun
 // Auth Route Start
 Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
-
+    // SuperAdmin Start
     Route::namespace('SuperAdmin')->prefix('super_admin')->group(function(){
 
         // User Management
@@ -76,8 +76,40 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
         Route::get('{any?}', 'IndexController@index')->name('super.admin.dashboard');
     });
+    // SuperAdmin End
 
 
+    // Room Start
+    Route::namespace('Room')->prefix('room')->group(function(){
+
+        Route::namespace('Admin')->prefix('admin')->group(function(){
+
+            //Room 
+            Route::namespace('Room')->prefix('room')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+                Route::post('/status/{id}', 'IndexController@status');
+            });
+
+
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+        Route::namespace('User')->prefix('user')->group(function(){
+
+
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+
+
+        
+        
+    });
+    // Room End
 
 
     

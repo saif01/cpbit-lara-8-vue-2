@@ -60,3 +60,26 @@ mix.styles([
         'resources/css/common/preloader.css',
         'resources/css/super_admin/style.css',
     ], 'public/css/super_admin/app.css');
+
+
+
+//room admin JS 
+mix.js('resources/js/room/admin/js/app.js', 'public/js/room/admin/app.js')
+    .vue();
+    
+//room admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/room/admin/style.css',
+    ], 'public/css/room/admin/app.css');
+
+
+// //room user JS 
+// mix.js('resources/js/room/user/js/app.js', 'public/js/room/user/app.js')
+//     .vue();
+    
+// //room user CSS 
+// mix.styles([
+//         'resources/css/common/preloader.css',
+//         'resources/css/room/user/style.css',
+//     ], 'public/css/room/user/app.css');

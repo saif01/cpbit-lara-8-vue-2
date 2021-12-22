@@ -45,7 +45,7 @@ export default {
     },
 
     methods:{
-
+        // For Navbar 
         getResponse(res) {
             this.response = res;
         },
