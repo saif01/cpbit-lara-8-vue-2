@@ -29,7 +29,7 @@ import pageFooter from './pages/common/footer.vue'
 
 export default {
 
-    props:['authuser'],
+    props: ['authuser', 'permission'],
 
     components:{
        'nav-bar'        : navBar,
@@ -40,9 +40,7 @@ export default {
     data(){
         return{
             response: false,
-            auth: JSON.parse(this.authuser),
-
-          
+            
         }
     },
 
@@ -61,14 +59,17 @@ export default {
 
     created(){
 
-        this.$store.commit('setUser', JSON.parse(this.authuser) )
-        // this.$store.commit('setRole', JSON.parse(this.permission) )
+        // Set Auth and Role data in Store
+        this.$store.commit('setAuth', JSON.parse(this.authuser) )
+        this.$store.commit('setRoles', JSON.parse(this.permission) )
 
         this.$Progress.start();
 
         //checkUserRole
       
-        console.log('Super Admin Index, auth user', this.auth);
+        console.log('Super Admin Index, auth user', JSON.parse(this.authuser));
+
+        console.log('Role: ', this.isAdministrator(), this.isAnyRole(['Administrator', 'Ivca']), this.isRole('Administrator') )
 
         this.$Progress.finish();  
     }

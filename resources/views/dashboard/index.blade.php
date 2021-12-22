@@ -12,8 +12,8 @@
     <div id="app">
         <div v-if="preloader" class="loader">
             <div class="loader-icon">Loading...</div>
-        </div>
-        <index-component authuser="{{ Auth::user() }}"></index-component>
+        </div> 
+        <index-component authuser="{{ Auth::user() }}"  permission={{ $roles }}></index-component>
     </div>
     <script src="{{ asset('js/dashboard/app.js') }}"></script>
 </body>

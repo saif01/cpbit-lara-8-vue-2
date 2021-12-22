@@ -6,9 +6,14 @@
                     <i class="fas fa-bars"></i>
                 </div>
 
+                <div>
+                    <span v-if="isAdministrator()" class="text-danger">Administrator</span>
+                </div>
+
                 <div class="d-flex flex-items align-items-center">
                     <div class="d-flex align-items-center" :class="{ 'icon-hide-reponsive': active }">
-                        <div class="mx-2"><i class="fas fa-search"></i>
+                        <div class="mx-2">
+                            <i class="fas fa-search"></i>
                         </div>
                         <b-dropdown variant="none" no-caret>
                             <template #button-content><i class="far fa-comment-dots"></i></template>
@@ -27,7 +32,7 @@
                     </div>
                     <a class="nav-link py-1" id="check" data-toggle="dropdown" href="#">
                         <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar" alt="User Image" />
-                        <span style="color: black">Admin</span>
+                        <span style="color: black">{{ auth.name }}</span>
                     </a>
                     <div class="dropdown-menu mt-3" x-placement="bottom-start" style="position: absolute;transform: translate3d(950px, 52px, 0px);top: 0px;left: 0px;will-change: transform;">
                         <a href="" class="dropdown-item"><i class="fas fa-user-edit mr-2"></i>

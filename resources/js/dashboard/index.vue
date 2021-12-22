@@ -8,6 +8,8 @@
 </template>
 
 <script>
+
+
     import chooseDashboard from './pages/choose.vue'
     import userDashboard from './pages/user.vue'
     import adminDashboard from './pages/admin.vue'
@@ -15,7 +17,7 @@
 
     export default {
 
-        props: ['authuser'],
+        props: ['authuser', 'permission'],
 
         components: {
             'choose-dashboard': chooseDashboard,
@@ -26,7 +28,7 @@
 
         data() {
             return {
-                auth: JSON.parse(this.authuser),
+                //auth: JSON.parse(this.authuser),
 
                 dashboard: false,
                 userDashboard: false,
@@ -95,13 +97,22 @@
             }
         },
 
+
+        
+
         created() {
+
+            // Set Auth and Role data in Store
+            this.$store.commit('setAuth', JSON.parse(this.authuser) )
+            this.$store.commit('setRoles', JSON.parse(this.permission) )
 
             this.$Progress.start();
 
             //checkUserRole
             this.checkUserRoleForDashboard();
-            console.log('auth user', this.auth);
+            // console.log('auth user', this.auth, this.auth.roles );
+
+           console.log('Role: ', JSON.parse(this.authuser), this.isAdministrator(), this.isAnyRole(['Administrator', 'Ivca']), this.isRole('Administrator') )
 
             this.$Progress.finish();
         }

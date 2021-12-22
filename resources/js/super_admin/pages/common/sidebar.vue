@@ -62,17 +62,17 @@
                     </b-nav-item>
                     <b-collapse id="collapse-2" class="drop-element">
                         <ul class="list-unstyled">
-                            <b-nav-item>
+                            <b-nav-item v-if="isUserManagement()">
                                 <router-link :to="{ name: 'Users' }">
                                     <li><i class="fas fa-users mr-1"></i>All User</li>
                                 </router-link>
                             </b-nav-item>
-                            <b-nav-item>
+                            <b-nav-item v-if="isUserManagement()">
                                 <router-link :to="{ name: 'Registered' }">
                                     <li><i class="fas fa-users mr-1"></i>All Registered</li>
                                 </router-link>
                             </b-nav-item>
-                            <b-nav-item>
+                            <b-nav-item v-if="isRoleManage()">
                                 <router-link :to="{ name: 'Roles' }">
                                     <li><i class="fab fa-r-project mr-1"></i>All Roles</li>
                                 </router-link>

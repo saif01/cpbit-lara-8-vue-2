@@ -1,6 +1,8 @@
 <template>
     <div>
         <h1>Super Admin</h1>
+
+        Current ID: {{ auth.login }}
     </div>
 </template>
 

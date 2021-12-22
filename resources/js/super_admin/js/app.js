@@ -4,12 +4,14 @@ window.Vue = require('vue').default;
 // Router
 import router from './routes';
 
+// Vuex File
+import store from './store';
+
+
 // mixin global added
 import common from './common/mixin';
 Vue.mixin(common);
 
-// Vuex File
-import store  from './store';
 
 import  BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue)

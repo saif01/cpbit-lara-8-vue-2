@@ -13,7 +13,7 @@
         <div v-if="preloader" class="loader">
             <div class="loader-icon">Loading...</div>
         </div>
-        <index-component authuser="{{ Auth::user() }}"></index-component>
+        <index-component authuser="{{ Auth::user() }}" permission={{ $roles }}></index-component>
     </div>
     <script src="{{ asset('js/super_admin/app.js') }}"></script>
 </body>
