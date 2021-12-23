@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
+import Booked from '../pages/booked.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -16,6 +17,14 @@ const router = new VueRouter({
             name: 'Dashboard',
             meta:{
                 title: 'Room Dashboard',
+            },   
+        },
+        { 
+            path: '/room/booked', 
+            component: Booked,
+            name: 'Booked',
+            meta:{
+                title: 'Room Booked',
             },   
         },
         

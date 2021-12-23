@@ -256,15 +256,13 @@
                     displayEventTime : false,
                     // For Mouse Hover
                     eventDidMount: this.onEventRender,
-                    height:400,
+                    height: 550,
 
                 },
 
 
                 
                 clickCurrentEvetData: '',
-
-                eventDataStoreModal: false,
                 datePickerHeader: true,
                
                 // Form
@@ -275,7 +273,10 @@
                     end_date: '',
                     end_time: '23:59:00',
                     remarks: '',
-                    room_id: ''
+                    room_id: '',
+                    start:'',
+                    end:'',
+                    room_name:''
                 }),
 
                 //current page url
@@ -285,6 +286,7 @@
                 imagePathSm: '/images/room/small/',
 
                 roomStatusShow:false,
+                eventDataStoreModal: false,
                 eventDetailsModal: false,
                 // Overlay
                 overlayCalanderShow: false,
@@ -454,39 +456,87 @@
                 // show Modal
                 this.eventDataStoreModal = true
                 this.form.room_id = room.id
+                this.form.room_name = room.name
                 this.currentSelectedRoom = room
             },
           
             
-            // store Current Event Data DB
+            // store Current Event Data DB async
             async storeCurrentEventData() {
 
                 let startDateTime = this.form.start_date+ " " + this.form.start_time
+                let endDateTime   = this.form.end_date+ " " + this.form.end_time
 
-                let dateIsBefore = this.$moment().isBefore(moment('2014-03-24T01:14:00.000Z'));
+                // Check Start DateTime After End DateTime
+                let dateTimeIsAfter= this.$moment(startDateTime).isAfter(endDateTime)
 
-                // Overlay
-                this.overlaydataStoreShow = true
-                try {
-                    const response = await this.form.post(this.currentUrl +'/store');
+                // Check Start DateTime End DateTime Same 
+                let dateTimeIsSame = this.$moment(startDateTime).isSame(endDateTime)
+                //console.log(dateTimeIsAfter, dateTimeIsSame, startDateTime, endDateTime )
 
-                    // Refresh Calendar
-                    this.getDataAsync();
-                    // Hide Modal
-                    this.eventDataStoreModal = false
-                    // Overlay
-                    this.overlaydataStoreShow = false
-
-                }catch (error) {
-                    // Overlay
-                    this.overlaydataStoreShow = false
+                if(dateTimeIsAfter){
+                    // Start Date Grater
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Sorry!! Somthing Going Wrong',
-                        customClass: 'text-danger'
+                        icon: "error",
+                        title: "Sorry! Start time can't be greater than the end time",
                     });
-                    console.error(error);
                 }
+                else if(dateTimeIsSame){
+                    // Same Date Time
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sorry! Start time can't be the same as the end time",
+                    });
+                }else{
+                    // Everything Ok
+                    //final DateTime 
+                    this.form.start = startDateTime
+                    this.form.end = endDateTime
+                    // Overlay
+                    this.overlaydataStoreShow = true
+                    try {
+
+                        const response = await this.form.post(this.currentUrl +'/store');
+                        console.log(response.data)
+                        // Overlay
+                        this.overlaydataStoreShow = false
+                        if(response.data.status == 'success'){
+
+                             // Refresh Calendar
+                            this.getDataAsync();
+                            // Hide Booking Modal
+                            this.eventDataStoreModal = false
+                            // Hide Room Status Modal
+                            this.roomStatusShow = false
+                           
+                            Swal.fire({
+                                icon: response.data.icon,
+                                title: response.data.msg,  
+                            })
+                        }else{
+                            // Hide Booking Modal
+                            this.eventDataStoreModal = false
+                            Swal.fire({
+                                    icon: response.data.icon,
+                                    title: response.data.msg,  
+                                })
+                        }
+                       
+
+                    }catch (error) {
+                        // Overlay
+                        this.overlaydataStoreShow = false
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Sorry!! Somthing Going Wrong',
+                            customClass: 'text-danger'
+                        });
+                        console.error(error);
+                    }
+
+                }
+
+                
 
 
                

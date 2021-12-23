@@ -19,7 +19,7 @@ class CreateRoomBookingsTable extends Migration
             $table->integer('room_id');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->string('hours')->nullable();
+            $table->string('duration')->nullable();
             $table->string('purpose')->nullable();
             $table->integer('status')->default('1');
             $table->timestamps();

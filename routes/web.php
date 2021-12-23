@@ -105,7 +105,10 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::post('/room', 'BookingController@room');
                 Route::post('/store', 'BookingController@store');
             });
-            
+
+            Route::prefix('booked')->group(function(){
+                Route::get('/data', 'BookedController@data');
+            });
 
 
             Route::get('{any?}', 'IndexController@index');

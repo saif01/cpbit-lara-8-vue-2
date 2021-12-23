@@ -12,8 +12,12 @@
                 <b-navbar-nav class="ml-auto">
                     <!-- <a href="/dashboard" class="nav-link mr-5">Home</a>  -->
 
-                   <b-nav-item>
+                    <b-nav-item>
                        <router-link :to="{ name: 'Dashboard'}"><span>Dashboard</span></router-link>
+                    </b-nav-item>
+
+                    <b-nav-item>
+                       <router-link :to="{ name: 'Booked'}"><span>My Booked</span></router-link>
                     </b-nav-item>
 
 
@@ -77,4 +81,10 @@ ul {
 /* a {
     color: #c2c7d0 !important;
 } */
+
+.router-link-exact-active {
+    color: #2bed0f !important;
+    text-decoration: none;
+    border-bottom: 2px solid;
+}
 </style>
