@@ -1,0 +1,554 @@
+<template>
+
+
+    <div class='container py-5'>
+        <div>
+            <b-overlay :show="overlayCalanderShow" spinner-variant="success" rounded="sm">
+                <FullCalendar :options='calendarOptions' ></FullCalendar>
+            </b-overlay>
+        </div>
+        
+
+        <!-- Single Event data Show Modal -->
+        <b-modal v-model="eventDetailsModal" title="Event Details" hide-footer>
+            <table class="table small">
+                <tr>
+                    <th>Title : </th>
+                    <td v-if="clickCurrentEvetData.title">{{ clickCurrentEvetData.title }}</td>
+                </tr>
+                <tr>
+                    <th>Start : </th>
+                    <td v-if="clickCurrentEvetData.start" >{{ clickCurrentEvetData.start | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
+                </tr>
+                <tr>
+                    <th>End : </th>
+                    <td v-if="clickCurrentEvetData.end">{{ clickCurrentEvetData.end | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
+                </tr>
+                <tr>
+                    <th>Remarks : </th>
+                    <td v-if="clickCurrentEvetData.extendedProps">{{ clickCurrentEvetData.extendedProps.remarks }}</td>
+                </tr>
+                <tr>
+                    <th>Created At : </th>
+                    <td v-if="clickCurrentEvetData.extendedProps">{{ clickCurrentEvetData.extendedProps.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
+                </tr>
+            </table>
+        </b-modal>
+
+
+        <!-- Booking Data Store Modal -->
+        <b-modal v-model="eventDataStoreModal" title="Conform Booking" size="md" scrollable hide-footer ok-only>
+            <b-overlay :show="overlaydataStoreShow" spinner-variant="success" rounded="sm">
+
+                <div v-if="currentSelectedRoom" class="bg-info text-center rounded mb-2">
+                    Selected Room: <b>{{ currentSelectedRoom.name }}</b>, Capacity: <b>{{ currentSelectedRoom.capacity }}</b>
+                </div>
+
+                <form @submit.prevent="storeCurrentEventData()">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="start_date">Start Date</label>
+                                <b-form-datepicker v-model="form.start_date" today-button reset-button close-button
+                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" size="sm"
+                                    :hide-header="datePickerHeader"
+                                    :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }" :class="{ 'is-invalid': form.errors.has('start_date') }" required>
+                                </b-form-datepicker>
+                                <div class="small text-danger" v-if="form.errors.has('start_date')"
+                                        v-html="form.errors.get('start_date')" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="end_date">End Date</label>
+                                <b-form-datepicker v-model="form.end_date" today-button reset-button close-button locale="en"
+                                    placeholder="YYYY-MM-DD" autocomplete="off" size="sm" :hide-header="datePickerHeader"
+                                    :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }" :class="{ 'is-invalid': form.errors.has('end_date') }" required>
+                                </b-form-datepicker>
+                                <div class="small text-danger" v-if="form.errors.has('end_date')"
+                                        v-html="form.errors.get('end_date')" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Start_Time">Start Time</label>
+                                <b-form-timepicker id="Start_Time" v-model="form.start_time" now-button reset-button locale="en" size="sm" :class="{ 'is-invalid': form.errors.has('start_time') }" required>
+                                </b-form-timepicker>
+                                <div class="small text-danger" v-if="form.errors.has('start_time')"
+                                        v-html="form.errors.get('start_time')" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="End_Time">End Time</label>
+                                <b-form-timepicker id="End_Time" v-model="form.end_time" now-button reset-button locale="en" size="sm" :class="{ 'is-invalid': form.errors.has('end_time') }" required>
+                                </b-form-timepicker>
+                                <div class="small text-danger" v-if="form.errors.has('end_time')"
+                                        v-html="form.errors.get('end_time')" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="purpose">Booking Purpose</label>
+                            <b-form-textarea id="purpose" v-model="form.purpose" size="sm" placeholder="Enter booking purpose in details" :class="{ 'is-invalid': form.errors.has('purpose') }" required></b-form-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('purpose')"
+                                        v-html="form.errors.get('purpose')" />
+                        </div>
+                    </div>
+                    </div>
+
+
+                    <!-- <b-form-group v-if="form.progress">
+                            <b-progress :value="form.progress.percentage" variant="success" striped animated>
+                            </b-progress>
+                        </b-form-group> -->
+
+                        <b-form-group v-if="!form.progress">
+                            <b-button type="submit" class="btn-block" variant="success"><i class="fas fa-plus-circle"></i> Create</b-button>
+                        </b-form-group>
+
+                </form>
+
+            </b-overlay>
+        </b-modal>
+        
+
+        <!-- Room Details for Booking -->
+        <b-modal v-model="roomStatusShow" title="Select Room for Booking" size="xl" scrollable hide-footer ok-only>
+
+            <b-overlay :show="overlayRoomStatusShow" spinner-variant="success" rounded="sm">
+
+                <!-- All Free Rooms -->
+                <table v-if="freeRooms.length > 0" class="table table-striped table-bordered table-hover table-sm text-center">
+                    <thead class="bg-success">
+                        <tr>
+                            <th colspan="3" class="text-center booking_table_border p-0"><span style="border-bottom:2px solid white">All Free Rooms</span></th>
+                        </tr>
+                        <tr>
+                            <th class="booking_table_border">Room</th>
+                            <th class="booking_table_border">Details</th>
+                            <th class="booking_table_border">Book</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="singleData in  freeRooms" :key="singleData.id">
+                            <td>
+                                <img v-if="singleData.image"
+                                        :src="imagePathSm + singleData.image" alt="image" class="img-fluid" height="50" width="80">
+                            
+                            </td>
+                            <td>
+                                <b>Name:</b> {{ singleData.name }} <br>
+                                <b>Capacity:</b> {{ singleData.capacity }} 
+                            </td>
+                            <td>
+                                <b-button @click="bookingModal(singleData)" size="sm" class="btn-success"><i class="fas fa-plus-circle"></i> Book</b-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- All Persial Free Rooms -->
+                <table v-if="bookings.length > 0" class="table table-striped table-bordered table-hover table-sm text-center">
+                    <thead class="bg-warning">
+                        <tr>
+                            <th colspan="3" class="text-center booking_table_border p-0"><span style="border-bottom:2px solid black">All Partial Booked Rooms</span></th>
+                        </tr>
+                        <tr>
+                            <th class="booking_table_border">Room</th>
+                            <th class="booking_table_border">Details</th>
+                            <th class="booking_table_border">Book</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="singleData in bookings" :key="singleData.id">
+                            <td>
+                                <span v-if="singleData.room">
+                                    <img v-if="singleData.room.image"
+                                        :src="imagePathSm + singleData.room.image" alt="image" class="img-fluid" height="50" width="80">
+                                </span>
+                            </td>
+                            <td class="text-left">
+                                <span v-if="singleData.room">
+                                    <b>Name:</b> {{ singleData.room.name }} <br>
+                                </span>
+                                <span v-if="singleData.room">
+                                    <b>Capacity:</b> {{ singleData.room.capacity }} <br>
+                                </span>
+                                <b>Booked:</b> {{ singleBookedTimeShow(singleData.start, singleData.end) }} <br>
+                                <span v-if="singleData.bookby">
+                                    <b>Booked By:</b> {{ singleData.bookby.name }} <br>
+                                </span>
+                            </td>
+                            <td>
+                                <b-button @click="bookingModal(singleData.room)" size="sm" class="btn-warning"><i class="fas fa-plus-circle"></i> Book</b-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            </b-overlay>
+            
+        </b-modal>
+
+
+    </div>
+
+</template>
+
+
+<script>
+    import FullCalendar from '@fullcalendar/vue'
+    import dayGridPlugin from '@fullcalendar/daygrid'
+    import timeGridPlugin from '@fullcalendar/timegrid'
+    import interactionPlugin from '@fullcalendar/interaction'
+
+    // vform
+    import Form from 'vform';
+    import axios from 'axios'
+
+    import { BPopover } from 'bootstrap-vue'
+    
+ 
+    export default {
+        components: {
+            FullCalendar // make the <FullCalendar> tag available
+        },
+        data: function () {
+            return {
+
+                calendarOptions: {
+                    plugins: [
+                        dayGridPlugin,
+                        timeGridPlugin,
+                        interactionPlugin // needed for dateClick
+                    ],
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    initialView: 'dayGridMonth',
+                    editable: true,
+                    selectable: true,
+                    selectMirror: true,
+                    dayMaxEvents: true,
+                    weekends: true,
+                    select: this.handleDateSelect,
+                    eventClick: this.handleEventClick,
+                    // eventsSet: this.handleEvents,
+                    themeSystem: 'bootstrap',
+                    weekNumbers: true,
+                    eventLongPressDelay:0,
+                    selectLongPressDelay:0,
+                    longPressDelay:0,
+                    events: "",
+                    eventBackgroundColor: "rgb(24, 130, 42)",
+                    eventBorderColor: "red",
+                    displayEventTime : false,
+                    // For Mouse Hover
+                    eventDidMount: this.onEventRender,
+                    height:400,
+
+                },
+
+
+                
+                clickCurrentEvetData: '',
+
+                eventDataStoreModal: false,
+                datePickerHeader: true,
+               
+                // Form
+                form: new Form({
+                    purpose: '',
+                    start_date: '',
+                    start_time: '00:01:00',
+                    end_date: '',
+                    end_time: '23:59:00',
+                    remarks: '',
+                    room_id: ''
+                }),
+
+                //current page url
+                currentUrl: '/room/booking',
+
+                imagePath: '/images/room/',
+                imagePathSm: '/images/room/small/',
+
+                roomStatusShow:false,
+                eventDetailsModal: false,
+                // Overlay
+                overlayCalanderShow: false,
+                overlayRoomStatusShow: false,
+                overlaydataStoreShow: false,
+
+                freeRooms: {},
+                bookings: {},
+
+                currentSelectedRoom: '',
+
+
+               
+              
+            }
+        },
+        methods: {
+
+            // Fetch Data from DB
+            async getDataAsync() {
+              try {
+                const response = await axios.get( this.currentUrl + '/data');
+                // Data assign to calendar
+                this.calendarOptions.events = response.data
+                console.log(response.data);
+              } catch (error) {
+                console.error(error);
+              }
+            },
+
+            // Mouse hover data
+            onEventRender: function (args) {
+               // console.log(args.event, args.event, args.event.start )
+
+                let titleStr = args.event.title
+                let contentStr = this.$moment(args.event.start).format("MMM Do, h:mm:ss a") + " - " + this.$moment(args.event.start).format("MMM Do, h:mm:ss a");
+
+                new BPopover({propsData: {
+                    title: titleStr,
+                    content: contentStr,
+                    placement: 'auto',
+                    boundary: 'scrollParent',
+                    boundaryPadding: 3,
+                    delay: 50,
+                    offset: 0,
+                    triggers: 'hover',
+                    html: true,
+                    target: args.el,
+                    variant:"info",
+                    customClass:"custom-tooltrip"
+                }}).$mount()
+            },
+
+            // Single Event Data Show
+            handleEventClick(clickInfo) {
+              // Modal Show
+              this.eventDetailsModal = true;
+              // Asign Current event data
+              this.clickCurrentEvetData = clickInfo.event;
+
+              console.log('clickInfo', clickInfo.event.title)
+
+            },
+
+
+
+         
+
+
+            // singleBookedTimeShow
+            singleBookedTimeShow(start, end){
+
+                // this.$moment(start).format("MMM Do , h:mm a")
+               let finalOutput
+               let startDate = this.$moment(start).format("DD-MM-YYYY")
+               let startEnd = this.$moment(end).format("DD-MM-YYYY")
+
+                if( startDate == startEnd ){
+                    let startTime = this.$moment(start).format("h:mm a")
+                    let endTime = this.$moment(end).format("h:mm a")
+                    finalOutput = startDate + ", " + startTime + "- To " + endTime
+                   //console.log(startDate)
+                }else{
+                    let startDateTime = this.$moment(start).format("MMM Do , h:mm a")
+                    let endDateTime = this.$moment(end).format("MMM Do , h:mm a")
+                    finalOutput = startDateTime + " - To - " + endDateTime 
+                }
+
+               return finalOutput
+
+
+            },
+
+
+
+            // Data Select From Calendar
+            async handleDateSelect(selectInfo) {
+                // Overlay
+                this.overlayCalanderShow = true
+
+                //select Previous Date
+                if (this.$moment().diff(selectInfo.startStr, 'days') > 0) {
+                    //alert("Can Not Select Previous Date");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Can Not Select Previous Date',
+                        customClass: 'text-danger'
+                    });
+                    // Overlay
+                    this.overlayCalanderShow = false
+                    return false;
+                }
+
+              // Generate a new date for manipulating in the next step
+              let endDate = new Date(selectInfo.endStr.valueOf());
+              endDate.setDate(endDate.getDate() -1); // One days passed
+              let newEndDate = new Date(endDate);
+              //let actualEndDate =  this.$moment(newEndDate).format("Y-MM-DD")
+              
+              let strDate = JSON.stringify(newEndDate)
+              let actualEndDate = strDate.slice(1,11)
+
+              // // Assign Data
+              this.form.start_date = selectInfo.startStr;
+              this.form.end_date = actualEndDate;
+              
+            try {
+                let selectData = {
+                    start_date: selectInfo.startStr,
+                    start_time: '00:01:00',
+                    end_date: actualEndDate,
+                    end_time: '23:59:00',
+                    }
+
+                const response = await axios.post( this.currentUrl + '/room', {  selectData });
+                
+                console.log(response.data);
+
+                this.freeRooms = response.data.rooms
+                this.bookings = response.data.bookings
+
+                // Modal Show
+                this.roomStatusShow = true;
+
+                // Overlay
+                this.overlayCalanderShow = false
+
+                //console.log('selectInfo', selectInfo, selectInfo.startStr, selectInfo.endStr, newEndDate, actualEndDate)
+
+            } catch (error) {
+                // Overlay
+                this.overlayCalanderShow = false
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sorry!! Somthing Going Wrong',
+                    customClass: 'text-danger'
+                });
+                console.error(error);
+            }
+
+
+            },
+
+
+            // Show Booking Modal
+            bookingModal(room){
+                // show Modal
+                this.eventDataStoreModal = true
+                this.form.room_id = room.id
+                this.currentSelectedRoom = room
+            },
+          
+            
+            // store Current Event Data DB
+            async storeCurrentEventData() {
+
+                let startDateTime = this.form.start_date+ " " + this.form.start_time
+
+                let dateIsBefore = this.$moment().isBefore(moment('2014-03-24T01:14:00.000Z'));
+
+                // Overlay
+                this.overlaydataStoreShow = true
+                try {
+                    const response = await this.form.post(this.currentUrl +'/store');
+
+                    // Refresh Calendar
+                    this.getDataAsync();
+                    // Hide Modal
+                    this.eventDataStoreModal = false
+                    // Overlay
+                    this.overlaydataStoreShow = false
+
+                }catch (error) {
+                    // Overlay
+                    this.overlaydataStoreShow = false
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sorry!! Somthing Going Wrong',
+                        customClass: 'text-danger'
+                    });
+                    console.error(error);
+                }
+
+
+               
+            },
+
+
+
+        },
+
+
+
+     
+        created(){
+        
+          // Data fetch from DB
+          this.getDataAsync();
+          //this.getDirectData()
+        
+        }
+
+
+    }
+
+</script>
+
+
+
+
+<style lang='css'>
+
+    .fc .fc-toolbar.fc-header-toolbar{
+        font-size: .8em !important;
+    }
+    @media (max-width: 767.98px) {
+        .fc .fc-toolbar.fc-header-toolbar {
+            display: block;
+            text-align: center;
+        }
+
+        .fc-header-toolbar .fc-toolbar-chunk {
+            display: block;
+        }
+    }
+    td .fc-day-fri {
+        background-color: #f0c2be !important;
+    }
+
+    .fc .fc-daygrid-day.fc-day-today {
+        background-color: var(--fc-today-bg-color, rgba(251, 242, 107, 0.99));
+    }
+
+    .custom-tooltrip{
+        font-weight: bold;
+        color: black !important;
+        /* font-size: 18px; */
+    }
+
+    .booking_table_border{
+        border-bottom: 1px solid transparent !important;
+        border-right: 1px solid transparent !important;
+    }
+
+  
+
+</style>

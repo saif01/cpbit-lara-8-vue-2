@@ -74,6 +74,15 @@ export default{
     },
 
 
+    // Room
+    isRoomAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Room-admin']);
+    },
+    isRoom(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Room']);
+    }
+
+
 
 
 

@@ -5,6 +5,8 @@ namespace App\Models\Room;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Room\RoomBooking;
+
 class Room extends Model
 {
     use HasFactory;
@@ -21,4 +23,6 @@ class Room extends Model
         return $query
         ->where('name', 'LIKE', '%'.$val.'%'); 
     }
+
+    
 }

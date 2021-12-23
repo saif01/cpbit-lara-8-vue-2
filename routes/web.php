@@ -98,7 +98,14 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::get('{any?}', 'IndexController@index');
         });
 
-        Route::namespace('User')->prefix('user')->group(function(){
+        Route::namespace('User')->group(function(){
+
+            Route::prefix('booking')->group(function(){
+                Route::get('/data', 'BookingController@data');
+                Route::post('/room', 'BookingController@room');
+                Route::post('/store', 'BookingController@store');
+            });
+            
 
 
             Route::get('{any?}', 'IndexController@index');
