@@ -108,6 +108,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             Route::prefix('booked')->group(function(){
                 Route::get('/data', 'BookedController@data');
+                Route::post('/byroom', 'BookedController@byroom');
+                Route::post('/store', 'BookedController@store');
             });
 
 

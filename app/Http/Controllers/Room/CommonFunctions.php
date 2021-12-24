@@ -45,12 +45,19 @@ trait CommonFunctions {
     //Check Meeting Room Booking Have or Not Except ID
     public function CheckModifyBookingHaveOrNot($id, $room_id, $start, $end){
 
-        $bookingData = DB::table('room_bookings')
-            ->where('id', '!=', $id)
+        // $bookingData = DB::table('room_bookings')
+        //     ->where('id', '!=', $id)
+        //     ->where('room_id', '=', $room_id)
+        //     ->where('status', '=', '1')
+        //     ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
+        //     ->count();
+
+        $bookingData = RoomBooking::where('id', '!=', $id)
             ->where('room_id', '=', $room_id)
             ->where('status', '=', '1')
             ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
             ->count();
+
         //return $bookingData;
         if($bookingData > 0){
             return true;
