@@ -108,8 +108,10 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             Route::prefix('booked')->group(function(){
                 Route::get('/data', 'BookedController@data');
+                Route::get('/canceled', 'BookedController@canceled');
                 Route::post('/byroom', 'BookedController@byroom');
                 Route::post('/store', 'BookedController@store');
+                Route::post('/status/{id}', 'BookedController@status');
             });
 
 

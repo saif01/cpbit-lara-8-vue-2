@@ -31,6 +31,23 @@ class BookedController extends Controller
         return response()->json($allData, 200);
     }
 
+
+    //canceled
+    public function canceled(){
+
+        $allData = RoomBooking::with('room')
+            ->where( 'user_id', Auth::user()->id )
+            ->where('status', 0)
+            ->orderBy('id', 'desc')
+            ->take(30)
+            ->get();
+
+       // dd($allData);
+
+        return response()->json($allData, 200);
+    }
+
+   
     // byroom booked data
     public function byroom(Request $request){
 
@@ -56,6 +73,7 @@ class BookedController extends Controller
             ->where('room_id', '=', $room_id)
             ->where('status', '=', '1')
             ->whereRaw("( `start` BETWEEN '$back15Start' AND '$next15End' OR `end` BETWEEN '$back15Start' AND '$next15End' OR '$back15Start' BETWEEN `start` AND `end` OR '$next15End' BETWEEN `start` AND `end` )")
+            ->orderBy('start')
             ->get();
 
         //dd($back15Start, $next15End, $bookingData);
@@ -132,6 +150,24 @@ class BookedController extends Controller
             ]);
         }
 
+    }
+
+
+    // Change Booking Status
+    public function status($id){
+        // dd($id);
+
+        $data = RoomBooking::find($id);
+
+        if($data->status == 1){
+            $data->status = null;
+        }else{
+            $data->status = 1;
+        }
+
+       $data->save();
+
+        return response()->json('success', 200);
     }
 
 }

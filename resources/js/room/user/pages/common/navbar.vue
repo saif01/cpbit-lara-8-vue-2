@@ -20,6 +20,10 @@
                        <router-link :to="{ name: 'Booked'}"><span>My Booked</span></router-link>
                     </b-nav-item>
 
+                    <b-nav-item>
+                       <router-link :to="{ name: 'Canceled'}"><span>My Canceled</span></router-link>
+                    </b-nav-item>
+
 
                     <!-- <b-nav-item-dropdown text="Lang" right>
                         <b-dropdown-item href="#">EN</b-dropdown-item>

@@ -33,8 +33,12 @@
                                                         {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
                                                 </tr>
                                                 <tr>
+                                                    <td>
+                                                        <b-button v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)" size="sm" variant="danger"
+                                                        class="text-center m-1"><i class="far fa-trash-alt"></i> Cancel</b-button>
                                                     <b-button @click="modifyBooking(item)" size="sm" variant="warning"
-                                                        class="text-center">Modify</b-button>
+                                                        class="text-center"><i class="far fa-edit"></i> Modify</b-button>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </b-card-text>
@@ -64,13 +68,36 @@
 
 
         <!-- Booking Data Modify Modal -->
-        <b-modal v-model="eventDataStoreModal" title="Conform Booking" size="md" scrollable hide-footer ok-only>
+        <b-modal v-model="eventDataStoreModal" title="Modify Booking" size="md" scrollable hide-footer ok-only>
             <b-overlay :show="overlaydataStoreShow" spinner-variant="success" rounded="sm">
 
                 <div v-if="selectedForModify.room" class="bg-info text-center rounded mb-2">
                     Room: <b>{{ selectedForModify.room.name }}</b>, Booked:
                     <b>{{ selectedForModify.start | moment("MMM Do YYYY, h:mm a") }} - To -
                         {{ selectedForModify.end | moment("MMM Do YYYY, h:mm a") }}</b>
+                </div>
+
+                <div>
+                <b-button v-b-toggle.collapse-1 variant="primary" class="btn-block btn-sm"><span v-if="selectedForModify.room">{{ selectedForModify.room.name }}</span> Related Bookings <i class="far fa-eye"></i></b-button>
+                <b-collapse id="collapse-1" class="mt-2">
+                    <b-card>
+                        <div v-if="relatedBookings.length > 0">
+                            <b-card-text v-for="item in relatedBookings" :key="item.id" class="bg-info">
+                                <table class="table table-sm text-center">
+                                    <tr>
+                                        <th>Purpose:</th>
+                                        <td>{{ item.purpose }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Booked:</th>
+                                        <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
+                                            {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
+                                    </tr>
+                                </table>
+                            </b-card-text>
+                        </div>     
+                    </b-card>
+                </b-collapse>
                 </div>
 
                 <form @submit.prevent="storeCurrentEventData()">
@@ -183,6 +210,8 @@
                 allData: '',
                 dataLoading: false,
 
+                relatedBookings:'',
+
                 // Form
                 form: new Form({
                     id:'',
@@ -206,16 +235,19 @@
 
             // Booked Data
             getBookedData() {
+                // Loading
+                this. dataLoading = true
                 axios.get(this.currentUrl + '/data').then(response => {
                     console.log(response.data)
                     this.allData = response.data
-
+                    // Loading
+                    this. dataLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             },
 
-    
+            
             // Modify Btn Clicked
             modifyBooking(item) {
                 // Overlay
@@ -226,6 +258,8 @@
                 axios.post(this.currentUrl + '/byroom', {
                     item
                 }).then(response => {
+
+                    this.relatedBookings = response.data
 
                     //console.log(item)
                     // Start
@@ -353,6 +387,64 @@
 
 
                
+            },
+
+
+            // cancelBtnShow
+            cancelBtnShow(start){
+                // Check Start DateTime After Now DateTime
+                let nowDateTimeIsAfterStart= this.$moment().isAfter(start)
+                //console.log(startDateTime, nowDateTimeIsAfterStart)
+                if(nowDateTimeIsAfterStart){
+                     return false 
+                }else{
+                   return true
+                }
+
+            },
+
+
+            // Change Status
+            cancelBooking(id){
+                // console.log('status', data.status)
+               
+                var text = "Are you want to Cancel ?"
+                var btnText = "Cancel"
+                
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: text,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: btnText,
+                }).then((result) => {
+
+                    // Send request to the server
+                    if (result.value) {
+                        //console.log(id);
+                        this.$Progress.start();
+                        this.form.post(this.currentUrl + '/status/' + id).then((response) => {
+                            //console.log(response);
+                            Swal.fire(
+                                'Changed!',
+                                'Status has been Changed.',
+                                'success'
+                            );
+                            // Refresh Tbl Data with current page
+                            this.getBookedData();
+                            this.$Progress.finish();
+
+                        }).catch((data) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Somthing Going Wrong<br>'+data.message,
+                                customClass: 'text-danger'
+                            });
+                            // Swal.fire("Failed!", data.message, "warning");
+                        });
+                    }
+                })
             },
 
         },
