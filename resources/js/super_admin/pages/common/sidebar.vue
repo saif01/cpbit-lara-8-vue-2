@@ -80,6 +80,27 @@
                         </ul>
                     </b-collapse>
 
+                     <b-nav-item>
+                        <li v-b-toggle.collapse-3>
+                            <i class="fas fa-users-cog mr-1"></i> Zone Manage
+                        </li>
+                    </b-nav-item>
+                    <b-collapse id="collapse-3" class="drop-element">
+                        <ul class="list-unstyled">
+                            <b-nav-item>
+                                <router-link :to="{ name: 'Zones' }">
+                                    <li><i class="fas fa-users mr-1"></i>All Zones</li>
+                                </router-link>
+                            </b-nav-item>
+                            <b-nav-item>
+                                <router-link :to="{ name: 'ZoneOffices' }">
+                                    <li><i class="fas fa-users mr-1"></i>Zone Offices</li>
+                                </router-link>
+                            </b-nav-item>
+                           
+                        </ul>
+                    </b-collapse>
+
                     <b-nav-item @click="logout()">
                         <router-link to="/logout">
                             <li><i class="fas fa-sign-out-alt mr-1 text-danger"></i>

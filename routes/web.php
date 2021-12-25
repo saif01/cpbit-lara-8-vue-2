@@ -74,6 +74,31 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::post('/status/{id}', 'IndexController@status');
         });
 
+        // Zone Management
+        Route::namespace('Zone')->prefix('zone')->group(function(){
+            Route::get('/index', 'IndexController@index');
+            Route::post('/store', 'IndexController@store');
+            Route::put('/update/{id}', 'IndexController@update');
+            Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
+            Route::delete('/destroy/{id}', 'IndexController@destroy');
+            Route::post('/status/{id}', 'IndexController@status');
+
+            // Zone offices
+            Route::prefix('offices')->group(function(){
+                Route::get('/index', 'OfficesController@index');
+                Route::post('/store', 'OfficesController@store');
+                Route::put('/update/{id}', 'OfficesController@update');
+                Route::delete('/destroy_temp/{id}', 'OfficesController@destroy_temp');
+                Route::delete('/destroy/{id}', 'OfficesController@destroy');
+                Route::post('/status/{id}', 'OfficesController@status');
+
+                Route::get('/allzones', 'OfficesController@allzones');
+                Route::get('/alloffices', 'OfficesController@alloffices');
+            });
+        });
+
+        
+
         Route::get('{any?}', 'IndexController@index')->name('super.admin.dashboard');
     });
     // SuperAdmin End

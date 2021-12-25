@@ -8,6 +8,9 @@ import er404 from '../pages/common/404.vue'
 import Users from '../pages/users/index.vue'
 import Registered from '../pages/register/index.vue'
 import Roles from '../pages/roles/index.vue'
+import Zones from '../pages/zone/index.vue'
+import ZoneOffices from '../pages/zone/offices.vue'
+
 
 const router = new VueRouter({
     mode: 'history',
@@ -43,6 +46,22 @@ const router = new VueRouter({
             name: 'Roles',
             meta:{
                 title: 'Super Admin Roles',
+            },   
+        },
+        { 
+            path: '/super_admin/zones', 
+            component: Zones,
+            name: 'Zones',
+            meta:{
+                title: 'Super Admin Zones',
+            },   
+        },
+        { 
+            path: '/super_admin/zone_offices', 
+            component: ZoneOffices,
+            name: 'ZoneOffices',
+            meta:{
+                title: 'Super Admin Zone Offices',
             },   
         },
 

@@ -19,7 +19,7 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = Role::with('byuser')
+        $allData = Role::with('makby')
             ->where('delete_temp', '!=', '1')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )

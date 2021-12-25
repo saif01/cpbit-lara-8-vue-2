@@ -55,7 +55,7 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td>{{ singleData.id }}</td>
                                 <td>{{ singleData.name }}</td>
-                                <td><span v-if="singleData.byuser">{{ singleData.byuser.name }}</span></td>
+                                <td><span v-if="singleData.makby">{{ singleData.makby.name }}</span></td>
                         
                                 <td class="text-center">
                                     <div>
@@ -107,8 +107,9 @@
               
            
                 <b-form-group v-if="!form.progress">
-                    <b-button v-show="editmode" type="submit" class="btn-block" variant="primary">Update</b-button>
-                    <b-button v-show="!editmode" type="submit" class="btn-block" variant="primary">Create</b-button>
+                    <b-button v-show="editmode" type="submit" class="btn-block" variant="primary"><i class="fa fa-edit"></i> Update</b-button>
+                    <b-button v-show="!editmode" type="submit" class="btn-block" variant="primary"><i
+                                class="far fa-plus-square"></i> Create</b-button>
                 </b-form-group>
 
 
@@ -135,7 +136,7 @@
             return {
 
                 //current page url
-                currentUrl: '/super_admin/role',
+                currentUrl: '/super_admin/role/offices',
 
               
                 // Form
@@ -156,7 +157,7 @@
         },
 
 
-        mounted() {
+        created() {
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
