@@ -4,7 +4,7 @@
           
         <div class="container p-0">
             <main class="content-wrapper">
-                <div class="container-fluid p-0">
+                <div class="pb-5">
                 
                     <router-view></router-view>
                     <vue-progress-bar></vue-progress-bar>

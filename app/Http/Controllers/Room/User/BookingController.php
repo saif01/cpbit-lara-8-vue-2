@@ -17,7 +17,7 @@ class BookingController extends Controller
 
     //data
     public function data(){
-        $allData = RoomBooking::get()->toArray();
+        $allData = RoomBooking::with('room', 'bookby')->get();
 
        // dd($allData);
 

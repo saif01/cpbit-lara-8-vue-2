@@ -1,52 +1,66 @@
 <template>
     <div>
 
-        <div v-if="allData">
+         <div v-if="allData">
 
             <div v-if="allData.length > 0">
+                <!-- card -->
+                <div class="booking_card_details my-3">
+                    <b-card v-for="item in allData" :key="item.id">
+                        <b-row>
+                            <div class="col-md-6">
+                                <div style="height:230px;">
+                                    <b-card-img v-if="item.room.image" :src="imagePath+item.room.image" alt="Image"
+                                        class="img-fluid h-100 w-100"></b-card-img>
+                                    <b-card-img v-else src="/all-assets/common/img/no-image.png"
+                                        class="img-fluid h-100 w-100" alt="Image"></b-card-img>
+                                </div>
+                            </div>
 
-                <div v-for="item in allData" :key="item.id">
-                    <b-card no-body class="overflow-hidden my-2">
-                        <b-row no-gutters>
-                            <b-col md="6">
-                                <b-card-img v-if="item.room.image" :src="imagePath+item.room.image" height="150"
-                                    width="200" alt="Image" class="rounded-0"></b-card-img>
-                                <b-card-img v-else src="/all-assets/common/img/no-image.png" height="150"
-                                    width="200" alt="Image" class="rounded-0"></b-card-img>
-                            </b-col>
-                            <b-col md="6">
-                                <b-card-body title="">
-                                    <b-card-text>
-                                        <table class="table table-sm text-center">
-                                            <tr>
-                                                <th>Name:</th>
-                                                <td><span v-if="item.room">{{ item.room.name }}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Purpose:</th>
-                                                <td>{{ item.purpose }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Booked:</th>
-                                                <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
-                                                    {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Canceled:</th>
-                                                <td>{{ item.updated_at | moment("MMM Do YYYY, h:mm a") }}</td>
-                                            </tr>
-                                        </table>
-                                    </b-card-text>
-                                </b-card-body>
-                            </b-col>
+                            <div class="col-md-6">
+                                <b-card-text class="mt-3">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="h3">
+                                            Booking Details
+                                        </div>
+                                        <div style="color: #001F61">
+                                            Booking Duration: {{ item.duration }}
+                                        </div>
+                                    </div>
+                                    <table>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td class="pl-4"><span v-if="item.room">{{ item.room.name }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Purpose</th>
+                                            <td class="pl-4 py-2">{{ item.purpose }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Booked</th>
+                                            <td class="pl-4">{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
+                                                {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
+                                        </tr>
+                        
+                                    </table>
+
+                                     <div class="float-right mt-5 text-danger">
+                                        <th>Canceled At</th>
+                                            <td class="pl-4">{{ item.updated_at | moment("MMM Do YYYY, h:mm a") }}
+                                            </td>
+                                    </div>
+
+
+                                </b-card-text>
+                            </div>
                         </b-row>
                     </b-card>
-                </div>
 
+                </div>
             </div>
             <div v-else>
                 <div class="p-5 my-5">
-                    <p class="text-center text-info h1">Sorry !! You have no canceled booking. </p>
+                    <p class="text-center text-info h1">Sorry !! You have no current booking. </p>
                 </div>
             </div>
 
@@ -120,3 +134,14 @@
     }
 
 </script>
+
+
+<style scoped>
+
+    .booking_card_details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+</style>

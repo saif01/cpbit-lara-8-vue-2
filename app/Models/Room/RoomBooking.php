@@ -16,7 +16,7 @@ class RoomBooking extends Model
     public function getTitleAttribute()
     {
         // return "{$this->first_name} {$this->last_name}"; 
-        return $this->purpose;
+        return "{$this->room->name} {$this->purpose}" ." ( ". $this->bookby->name ." )";
     }
 
     public function room(){

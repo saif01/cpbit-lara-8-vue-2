@@ -2,8 +2,7 @@
     <div>
         <b-navbar toggleable="lg" type="dark" class="nav-color shadow-lg">
             <b-navbar-brand href="/">
-                <img src="/all-assets/common/logo/cpb/cpbgroup.png"
-                    alt="iVCA" class="img-fluid logo" />
+                <img src="/all-assets/common/logo/cpb/cpbgroup.png" alt="iVCA" class="img-fluid logo" />
             </b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -13,15 +12,15 @@
                     <!-- <a href="/dashboard" class="nav-link mr-5">Home</a>  -->
 
                     <b-nav-item>
-                       <router-link :to="{ name: 'Dashboard'}"><span>Dashboard</span></router-link>
+                        <router-link :to="{ name: 'Dashboard'}"><span>Dashboard</span></router-link>
                     </b-nav-item>
 
                     <b-nav-item>
-                       <router-link :to="{ name: 'Booked'}"><span>My Booked</span></router-link>
+                        <router-link :to="{ name: 'Booked'}"><span>My Booked</span></router-link>
                     </b-nav-item>
 
                     <b-nav-item>
-                       <router-link :to="{ name: 'Canceled'}"><span>My Canceled</span></router-link>
+                        <router-link :to="{ name: 'Canceled'}"><span>My Canceled</span></router-link>
                     </b-nav-item>
 
 
@@ -54,41 +53,45 @@
 </template>
 
 <style>
-.logo{
-    height: 40px;
-    width: 40px;
-    background: white;
-    border-radius: 25%;
-}
-.drodown-image {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-}
+    .logo {
+        height: 40px;
+        width: 40px;
+        background: white;
+        border-radius: 25%;
+    }
+
+    .drodown-image {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
 
 
-.nav-color {
-    background: #aa4b6b;
-    background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
-    background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
-}
-/* ul li:hover {
+    .nav-color {
+        background: #aa4b6b;
+        background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+        background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+    }
+
+    /* ul li:hover {
     border-bottom: 1px solid #5d97e2;
     color: white;
     margin: 0 !important;
     background-color: transparent !important;
     border-radius: 0px !important;
 } */
-ul {
-    align-items: center;
-}
-/* a {
-    color: #c2c7d0 !important;
-} */
+    ul {
+        align-items: center;
+    }
 
-.router-link-exact-active {
-    color: #2bed0f !important;
-    text-decoration: none;
-    border-bottom: 2px solid;
-}
+    a {
+        color: #f2f4f8 !important;
+    }
+
+    .router-link-exact-active {
+        color: #2bed0f !important;
+        text-decoration: none;
+        border-bottom: 2px solid;
+    }
+
 </style>

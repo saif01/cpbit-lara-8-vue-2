@@ -4,51 +4,60 @@
         <div v-if="allData">
 
             <div v-if="allData.length > 0">
+                <!-- card -->
+                <div class="booking_card_details my-3">
+                    <b-card v-for="item in allData" :key="item.id">
+                        <b-row>
+                            <div class="col-md-6">
+                                <div style="height:230px;">
+                                    <b-card-img v-if="item.room.image" :src="imagePath+item.room.image" alt="Image"
+                                        class="img-fluid h-100 w-100"></b-card-img>
+                                    <b-card-img v-else src="/all-assets/common/img/no-image.png"
+                                        class="img-fluid h-100 w-100" alt="Image"></b-card-img>
+                                </div>
+                            </div>
 
-                <div v-for="item in allData" :key="item.id">
-                    <b-overlay :show="overlayModifyShow" spinner-variant="success" rounded="sm">
-                        <b-card no-body class="overflow-hidden my-2">
-                            <b-row no-gutters>
-                                <b-col md="6">
-                                    <b-card-img v-if="item.room.image" :src="imagePath+item.room.image" height="150"
-                                        width="200" alt="Image" class="rounded-0"></b-card-img>
-                                    <b-card-img v-else src="/all-assets/common/img/no-image.png" height="150"
-                                        width="200" alt="Image" class="rounded-0"></b-card-img>
-                                </b-col>
-                                <b-col md="6">
-                                    <b-card-body title="">
-                                        <b-card-text>
-                                            <table class="table table-sm text-center">
-                                                <tr>
-                                                    <th>Name:</th>
-                                                    <td><span v-if="item.room">{{ item.room.name }}</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Purpose:</th>
-                                                    <td>{{ item.purpose }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Booked:</th>
-                                                    <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
-                                                        {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <b-button v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)" size="sm" variant="danger"
-                                                        class="text-center m-1"><i class="far fa-trash-alt"></i> Cancel</b-button>
-                                                    <b-button @click="modifyBooking(item)" size="sm" variant="warning"
-                                                        class="text-center"><i class="far fa-edit"></i> Modify</b-button>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </b-card-text>
-                                    </b-card-body>
-                                </b-col>
-                            </b-row>
-                        </b-card>
-                    </b-overlay>
+                            <div class="col-md-6">
+                                <b-card-text class="mt-3">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="h3">
+                                            Booking Details
+                                        </div>
+                                        <div style="color: #001F61">
+                                            Booking Duration: {{ item.duration }}
+                                        </div>
+                                    </div>
+                                    <table>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td class="pl-4"><span v-if="item.room">{{ item.room.name }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Purpose</th>
+                                            <td class="pl-4 py-2">{{ item.purpose }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Booked</th>
+                                            <td class="pl-4">{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
+                                                {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
+                                        </tr>
+                                    </table>
+
+
+                                    <div class="float-right mt-5">
+                                        <b-button v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)"
+                                            size="sm" variant="danger" class="rounded-pill px-4"><i
+                                                class="far fa-trash-alt"></i> Cancel</b-button>
+                                        <b-button @click="modifyBooking(item)" size="sm" variant="warning"
+                                            class="rounded-pill px-4"><i class="far fa-edit"></i> Modify</b-button>
+                                    </div>
+
+                                </b-card-text>
+                            </div>
+                        </b-row>
+                    </b-card>
+
                 </div>
-
             </div>
             <div v-else>
                 <div class="p-5 my-5">
@@ -71,33 +80,35 @@
         <b-modal v-model="eventDataStoreModal" title="Modify Booking" size="md" scrollable hide-footer ok-only>
             <b-overlay :show="overlaydataStoreShow" spinner-variant="success" rounded="sm">
 
-                <div v-if="selectedForModify.room" class="bg-info text-center rounded mb-2">
+                <div v-if="selectedForModify.room" class="text-center rounded mb-2">
                     Room: <b>{{ selectedForModify.room.name }}</b>, Booked:
                     <b>{{ selectedForModify.start | moment("MMM Do YYYY, h:mm a") }} - To -
                         {{ selectedForModify.end | moment("MMM Do YYYY, h:mm a") }}</b>
                 </div>
 
-                <div>
-                <b-button v-b-toggle.collapse-1 variant="primary" class="btn-block btn-sm"><span v-if="selectedForModify.room">{{ selectedForModify.room.name }}</span> Related Bookings <i class="far fa-eye"></i></b-button>
-                <b-collapse id="collapse-1" class="mt-2">
-                    <b-card>
-                        <div v-if="relatedBookings.length > 0">
-                            <b-card-text v-for="item in relatedBookings" :key="item.id" class="bg-info">
-                                <table class="table table-sm text-center">
-                                    <tr>
-                                        <th>Purpose:</th>
-                                        <td>{{ item.purpose }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Booked:</th>
-                                        <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
-                                            {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
-                                    </tr>
-                                </table>
-                            </b-card-text>
-                        </div>     
-                    </b-card>
-                </b-collapse>
+                <div class="mb-2">
+                    <b-button v-b-toggle.collapse-1 variant="primary" class="btn-block btn-sm"><span
+                            v-if="selectedForModify.room">{{ selectedForModify.room.name }}</span> Related Bookings <i
+                            class="far fa-eye"></i></b-button>
+                    <b-collapse id="collapse-1" class="mt-2">
+                        <b-card>
+                            <div v-if="relatedBookings.length > 0">
+                                <b-card-text v-for="item in relatedBookings" :key="item.id" class="bg-info">
+                                    <table class="table table-sm text-center">
+                                        <tr>
+                                            <th>Purpose:</th>
+                                            <td>{{ item.purpose }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Booked:</th>
+                                            <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
+                                                {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
+                                        </tr>
+                                    </table>
+                                </b-card-text>
+                            </div>
+                        </b-card>
+                    </b-collapse>
                 </div>
 
                 <form @submit.prevent="storeCurrentEventData()">
@@ -210,11 +221,11 @@
                 allData: '',
                 dataLoading: false,
 
-                relatedBookings:'',
+                relatedBookings: '',
 
                 // Form
                 form: new Form({
-                    id:'',
+                    id: '',
                     purpose: '',
                     start_date: '',
                     start_time: '00:01:00',
@@ -236,18 +247,18 @@
             // Booked Data
             getBookedData() {
                 // Loading
-                this. dataLoading = true
+                this.dataLoading = true
                 axios.get(this.currentUrl + '/data').then(response => {
-                    console.log(response.data)
+                   // console.log(response.data)
                     this.allData = response.data
                     // Loading
-                    this. dataLoading = false
+                    this.dataLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             },
 
-            
+
             // Modify Btn Clicked
             modifyBooking(item) {
                 // Overlay
@@ -276,12 +287,12 @@
                     // Form Data Update
                     this.form.start_date = start_date
                     this.form.start_time = start_time
-                    this.form.end_date   = end_date
-                    this.form.end_time   = end_time
-                    this.form.purpose    = item.purpose
-                    this.form.room_id    = item.room_id
-                    this.form.room_name  = item.room.name
-                    this.form.id         = item.id
+                    this.form.end_date = end_date
+                    this.form.end_time = end_time
+                    this.form.purpose = item.purpose
+                    this.form.room_id = item.room_id
+                    this.form.room_name = item.room.name
+                    this.form.id = item.id
 
                     // Overlay
                     this.overlayModifyShow = false
@@ -300,11 +311,11 @@
             // store Current Event Data DB async
             async storeCurrentEventData() {
 
-                let startDateTime = this.form.start_date+ " " + this.form.start_time
-                let endDateTime   = this.form.end_date+ " " + this.form.end_time
+                let startDateTime = this.form.start_date + " " + this.form.start_time
+                let endDateTime = this.form.end_date + " " + this.form.end_time
 
                 // Check Start DateTime After End DateTime
-                let dateTimeIsAfter= this.$moment(startDateTime).isAfter(endDateTime)
+                let dateTimeIsAfter = this.$moment(startDateTime).isAfter(endDateTime)
 
                 // Check Start DateTime End DateTime Same 
                 let dateTimeIsSame = this.$moment(startDateTime).isSame(endDateTime)
@@ -314,27 +325,25 @@
                 let startDateTimeIsNotModified = this.$moment(this.selectedForModify.start).isSame(startDateTime)
                 let endDateTimeIsNotModified = this.$moment(this.selectedForModify.end).isSame(endDateTime)
 
-                if(startDateTimeIsNotModified && endDateTimeIsNotModified){
+                if (startDateTimeIsNotModified && endDateTimeIsNotModified) {
                     // Same Date Time
                     Swal.fire({
                         icon: "error",
                         title: "Sorry! Datetime not changed",
-                    }); 
-                }
-                else if(dateTimeIsAfter){
+                    });
+                } else if (dateTimeIsAfter) {
                     // Start Date Grater
                     Swal.fire({
                         icon: "error",
                         title: "Sorry! Start time can't be greater than the end time",
                     });
-                }
-                else if(dateTimeIsSame){
+                } else if (dateTimeIsSame) {
                     // Same Date Time
                     Swal.fire({
                         icon: "error",
                         title: "Sorry! Start time can't be the same as the end time",
-                    }); 
-                }else{
+                    });
+                } else {
                     // Everything Ok
                     //final DateTime 
                     this.form.start = startDateTime
@@ -343,34 +352,34 @@
                     this.overlaydataStoreShow = true
                     try {
 
-                        const response = await this.form.post(this.currentUrl +'/store');
+                        const response = await this.form.post(this.currentUrl + '/store');
                         console.log(response.data)
                         // Overlay
                         this.overlaydataStoreShow = false
-                        if(response.data.status == 'success'){
+                        if (response.data.status == 'success') {
 
-                             // Refresh Calendar
+                            // Refresh Calendar
                             this.getBookedData();
                             // Hide Booking Modal
                             this.eventDataStoreModal = false
                             // Hide Room Status Modal
                             this.roomStatusShow = false
-                           
+
                             Swal.fire({
                                 icon: response.data.icon,
-                                title: response.data.msg,  
+                                title: response.data.msg,
                             })
-                        }else{
+                        } else {
                             // Hide Booking Modal
                             this.eventDataStoreModal = false
                             Swal.fire({
-                                    icon: response.data.icon,
-                                    title: response.data.msg,  
-                                })
+                                icon: response.data.icon,
+                                title: response.data.msg,
+                            })
                         }
-                       
 
-                    }catch (error) {
+
+                    } catch (error) {
                         // Overlay
                         this.overlaydataStoreShow = false
                         Swal.fire({
@@ -383,34 +392,34 @@
 
                 }
 
-                
 
 
-               
+
+
             },
 
 
             // cancelBtnShow
-            cancelBtnShow(start){
+            cancelBtnShow(start) {
                 // Check Start DateTime After Now DateTime
-                let nowDateTimeIsAfterStart= this.$moment().isAfter(start)
+                let nowDateTimeIsAfterStart = this.$moment().isAfter(start)
                 //console.log(startDateTime, nowDateTimeIsAfterStart)
-                if(nowDateTimeIsAfterStart){
-                     return false 
-                }else{
-                   return true
+                if (nowDateTimeIsAfterStart) {
+                    return false
+                } else {
+                    return true
                 }
 
             },
 
 
             // Change Status
-            cancelBooking(id){
+            cancelBooking(id) {
                 // console.log('status', data.status)
-               
+
                 var text = "Are you want to Cancel ?"
                 var btnText = "Cancel"
-                
+
                 Swal.fire({
                     title: 'Are you sure?',
                     text: text,
@@ -438,7 +447,7 @@
                         }).catch((data) => {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Somthing Going Wrong<br>'+data.message,
+                                title: 'Somthing Going Wrong<br>' + data.message,
                                 customClass: 'text-danger'
                             });
                             // Swal.fire("Failed!", data.message, "warning");
@@ -459,3 +468,19 @@
     }
 
 </script>
+
+
+<style scoped>
+    .custom_color_btn {
+        background-color: #001F61;
+        border: 1px solid #001F61;
+        color: white;
+    }
+
+    .booking_card_details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+</style>
