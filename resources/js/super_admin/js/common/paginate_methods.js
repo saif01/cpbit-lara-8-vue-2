@@ -1,7 +1,7 @@
 export default {
 
-   // Get table data
-   getResults(page = 1) {
+    // Get table data
+    getResults(page = 1) {
         this.dataLoading = true;
         axios.get(this.currentUrl+'/index?page=' + page +
                 '&paginate=' + this.paginate +

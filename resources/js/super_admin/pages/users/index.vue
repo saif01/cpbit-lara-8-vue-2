@@ -19,38 +19,70 @@
             <div class="card-body table-responsive">
                 <div v-if="allData.data">
                     <div class="row mb-2">
-                        <div class="col form-inline small">
-                            <select v-model="paginate" class="form-control form-control-sm">
-                                <option value="10">10</option>
-                                <option value="30">30</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
+
+                        <div class="col">
+                            <!-- Show -->
+                            <b-form-group label="Show:">
+                                <b-form-select v-model="paginate" size="sm">
+                                    <option value="10">10</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </b-form-select>
+                            </b-form-group>
                         </div>
 
-                        <div class="col form-inline small">
-                            <select v-model="search_field" class="form-control form-control-sm">
-                                <option value="">All Filed Search</option>
-                                <option value="login">Login ID</option>
-                                <option value="name">User Name</option>
-                                <option value="department">Department</option>
-                                <option value="office_id">Office ID</option>
-                                <option value="office_contact">Office Contact</option>
-                                <option value="personal_contact">Personal Contact</option>
-                                <option value="office_email">Office Email</option>
-                                <option value="personal_email">Personal Email</option>
-                                <option value="office">Office</option>
-                                <option value="business_unit">Business Unit</option>
-                                <option value="nid">NID</option>
-                                <option value="status">Status Active</option>
-                                <option value="admin">Admin Access</option>
-                                <option value="user">User Access</option>
-                            </select>
+
+                        <div class="col">
+                            <!-- zone_office -->
+                            <b-form-group label="Zones:">
+                                <b-form-select v-model="zone_office" size="sm">
+                                    <option value="">All Zones</option>
+                                    <option v-for="item in allZoneOffices" :key="item.id" :value="item.offices" >{{ item.name }}</option>
+                                </b-form-select>
+                            </b-form-group>
+                        </div>
+
+
+                        <div class="col">
+                            <!-- Departments -->
+                            <b-form-group label="Departments:">
+                                <b-form-select v-model="department" size="sm">
+                                    <option value="">All Department</option>
+                                    <option v-for="item in allDepartments" :key="item.id" :value="item.department">{{ item.department }}</option>
+                                </b-form-select>
+                            </b-form-group>
+                        </div>
+
+
+                        <div class="col">
+                            <!-- search_field -->
+                            <b-form-group label="Search By:"> 
+                                <b-form-select v-model="search_field" size="sm">
+                                    <option value="">All Filed Search</option>
+                                    <option value="login">Login ID</option>
+                                    <option value="name">User Name</option>
+                                    <option value="department">Department</option>
+                                    <option value="office_id">Office ID</option>
+                                    <option value="office_contact">Office Contact</option>
+                                    <option value="personal_contact">Personal Contact</option>
+                                    <option value="office_email">Office Email</option>
+                                    <option value="personal_email">Personal Email</option>
+                                    <option value="office">Office</option>
+                                    <option value="business_unit">Business Unit</option>
+                                    <option value="nid">NID</option>
+                                    <option value="status">Status Active</option>
+                                    <option value="admin">Admin Access</option>
+                                    <option value="user">User Access</option>
+                                </b-form-select>
+                            </b-form-group>
                         </div>
 
                         <div class="col">
-                            <input v-model="search" class="form-control form-control-sm" type="text"
-                                placeholder="Search by any data at the table...">
+                            <!-- search -->
+                            <b-form-group label="Search:">
+                                <b-input v-model="search" size="sm" placeholder="Search Input..."></b-input>
+                            </b-form-group>
                         </div>
                     </div>
 
@@ -78,6 +110,7 @@
                                     <b>Name: </b> {{ singleData.name }} <br>
                                     <b>Department: </b> {{ singleData.department }} <br>
                                     <b>Office ID: </b> {{ singleData.office_id }} <br>
+                                    <b>Office: </b> {{ singleData.office }} <br>
                                     <b>Business Unit: </b> {{ singleData.business_unit }} <br>
                                     <!-- Manager ID Selected -->
                                     <span v-if="singleData.manager_id">
@@ -559,7 +592,10 @@
                 singleUserModalShow:false,
                 singleUserModalData:{},
 
-                
+                allZoneOffices:'',
+                zone_office:'',
+                allDepartments:'',
+                department:'',
 
             }
 
@@ -576,7 +612,23 @@
 
      
 
+        watch: {
+
+        //Excuted When make change value 
+        zone_office: function (value) {
+            this.$Progress.start();
+            this.getResults();
+            this.$Progress.finish();
+        },
+
+        //Excuted When make change value 
+        department: function (value) {
+            this.$Progress.start();
+            this.getResults();
+            this.$Progress.finish();
+        }
        
+    },
 
 
         mounted() {
@@ -585,6 +637,11 @@
             this.getResults();
             // Get Roles 
             this.getRoles();
+            // All ZoneOffices
+            this.getZoneOffices();
+            //getDepartments
+            this.getDepartments();
+
             this.$Progress.finish();
         },
 

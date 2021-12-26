@@ -12,7 +12,7 @@
                 <ul class="list-unstyled">
                     <b-nav-item>
                         <router-link :to="{ name: 'Dashboard' }">
-                            <li><i class="fas fa-tachometer-alt mr-1"></i>
+                            <li><i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </li>
                         </router-link>
@@ -57,24 +57,24 @@
 
                     <b-nav-item>
                         <li v-b-toggle.collapse-2>
-                            <i class="fas fa-users-cog mr-1"></i> User Manage
+                            <i class="fas fa-users-cog"></i> User Manage
                         </li>
                     </b-nav-item>
                     <b-collapse id="collapse-2" class="drop-element">
                         <ul class="list-unstyled">
                             <b-nav-item v-if="isUserManagement()">
                                 <router-link :to="{ name: 'Users' }">
-                                    <li><i class="fas fa-users mr-1"></i>All User</li>
+                                    <li><i class="fas fa-users "></i>All User</li>
                                 </router-link>
                             </b-nav-item>
                             <b-nav-item v-if="isUserManagement()">
                                 <router-link :to="{ name: 'Registered' }">
-                                    <li><i class="fas fa-users mr-1"></i>All Registered</li>
+                                    <li><i class="fas fa-users "></i>All Registered</li>
                                 </router-link>
                             </b-nav-item>
                             <b-nav-item v-if="isRoleManage()">
                                 <router-link :to="{ name: 'Roles' }">
-                                    <li><i class="fab fa-r-project mr-1"></i>All Roles</li>
+                                    <li><i class="fab fa-r-project "></i>All Roles</li>
                                 </router-link>
                             </b-nav-item>
                         </ul>
@@ -82,19 +82,19 @@
 
                      <b-nav-item>
                         <li v-b-toggle.collapse-3>
-                            <i class="fas fa-users-cog mr-1"></i> Zone Manage
+                           <i class="fas fa-building"></i> Zone Manage
                         </li>
                     </b-nav-item>
                     <b-collapse id="collapse-3" class="drop-element">
                         <ul class="list-unstyled">
                             <b-nav-item>
                                 <router-link :to="{ name: 'Zones' }">
-                                    <li><i class="fas fa-users mr-1"></i>All Zones</li>
+                                    <li><i class="fas fa-grip-horizontal"></i>All Zones</li>
                                 </router-link>
                             </b-nav-item>
                             <b-nav-item>
                                 <router-link :to="{ name: 'ZoneOffices' }">
-                                    <li><i class="fas fa-users mr-1"></i>Zone Offices</li>
+                                    <li><i class="fas fa-grip-horizontal"></i>Zone Offices</li>
                                 </router-link>
                             </b-nav-item>
                            
@@ -103,16 +103,11 @@
 
                     <b-nav-item @click="logout()">
                         <router-link to="/logout">
-                            <li><i class="fas fa-sign-out-alt mr-1 text-danger"></i>
+                            <li><i class="fas fa-sign-out-alt  text-danger"></i>
                                 Logout
                             </li>
                         </router-link>
                     </b-nav-item>
-
-
-
-
-
 
 
                 </ul>
@@ -165,6 +160,7 @@
 
     i {
         font-size: large;
+        margin-right: 0.25rem;
     }
 
     .drop-element-2 {

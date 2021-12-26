@@ -45,8 +45,8 @@ class OfficesController extends Controller
     public function alloffices(){
 
         $allData = User::where('status', 1)
-            ->select('office')
-            ->orderBy('office')
+            ->select('zone_office')
+            ->orderBy('zone_office')
             ->distinct()
             ->get();
 

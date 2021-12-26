@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('office_email')->nullable();
             $table->string('personal_email')->nullable();
             $table->string('office')->nullable();
+            $table->string('zone_office')->nullable();
             $table->string('business_unit')->nullable();
             $table->string('nid')->nullable();
             $table->string('manager_id')->nullable();

@@ -362,8 +362,7 @@
             onEventRender: function (args) {
                 //console.log(args.event.extendedProps.bookby.name, args.event.start )
                 let titleStr = args.event.title
-                let contentStr = this.$moment(args.event.start).format("MMM Do, h:mm:ss a") + " - " + this.$moment(
-                    args.event.start).format("MMM Do, h:mm:ss a");
+                let contentStr = this.$moment(args.event.start).format("MMM Do, h:mm:ss a") + " - " + this.$moment(args.event.start).format("MMM Do, h:mm:ss a");
 
                 new BPopover({
                     propsData: {
@@ -605,7 +604,7 @@
 
 
 
-<style lang='css'>
+<style>
     .fc .fc-toolbar.fc-header-toolbar {
         font-size: .8em !important;
     }
@@ -639,5 +638,9 @@
         border-bottom: 1px solid transparent !important;
         border-right: 1px solid transparent !important;
     }
+
+    /* .a {
+        color: #290cf0 !important;
+    } */
 
 </style>

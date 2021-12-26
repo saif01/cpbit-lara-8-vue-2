@@ -41,8 +41,11 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::post('/status_user/{id}', 'IndexController@status_user');
 
             Route::get('/roles_data', 'IndexController@roles_data');
-            Route::post('/roles_update', 'IndexController@roles_update');    
+            Route::post('/roles_update', 'IndexController@roles_update');  
             
+            Route::get('/zoneoffices', 'IndexController@zoneoffices');
+            Route::get('/departments', 'IndexController@departments');
+
         });
 
         // Register Management

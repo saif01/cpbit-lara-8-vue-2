@@ -52,7 +52,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     .logo {
         height: 40px;
         width: 40px;

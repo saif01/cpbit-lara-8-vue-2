@@ -24,29 +24,59 @@ class IndexController extends Controller
         $sort_field     = Request('sort_field', 'id');
         $search_field   = Request('search_field', '');
 
-        if(!empty($search_field)){
+        $zone_office    = Request('zone_office', '');
+        $department     = Request('department', '');
+        
 
-            $val = trim(preg_replace('/\s+/' ,' ', $search));
-
-            $allData = User::with('roles')
-            ->where('delete_temp', '!=', '1')
-            ->where($search_field, 'LIKE', '%'.$val.'%')
-            ->orderBy($sort_field, $sort_direction)
-            ->paginate($paginate);
-        }else{
-
-            $allData = User::with('roles')
-            ->where('delete_temp', '!=', '1')
-            ->orderBy($sort_field, $sort_direction)
-            ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
-            ->paginate($paginate);
-
+        // Query
+        $allDataQuery = User::with('roles')
+            ->where('delete_temp', '!=', '1');
+        
+        // Zone Selected
+        if(!empty($zone_office)){
+            $allDataQuery->whereIn('zone_office', explode(",",$zone_office));
         }
 
-        
+        // Department Selected
+        if(!empty($department)){
+            $allDataQuery->whereIn('department', explode(",",$department));
+        }
+
+        // Search
+        if(!empty($search_field)){
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+            $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
+        }else{
+            $allDataQuery->search( trim(preg_replace('/\s+/' ,' ', $search)) );
+        }
+            
+        // Final Data
+        $allData =  $allDataQuery->paginate($paginate);
 
         return response()->json($allData, 200);
 
+    }
+
+    // zoneoffices
+    public function zoneoffices(){
+
+        $allData = ZoneOffice::where('status', 1)
+            ->select('name', 'offices')
+            ->orderBy('name')
+            ->get();
+        return response()->json($allData, 200);
+    }
+
+    // departments
+    public function departments(){
+
+        $allData = User::where('status', 1)
+            ->select('department')
+            ->orderBy('department')
+            ->distinct()
+            ->get();
+
+        return response()->json($allData, 200);
     }
 
     // roles_data

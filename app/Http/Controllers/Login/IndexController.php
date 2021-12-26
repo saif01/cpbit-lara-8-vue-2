@@ -165,6 +165,7 @@ class IndexController extends Controller
                 $localData->office_email     = $adData->OfficeEmail;
                 $localData->personal_email   = $adData->PersonalEmail;
                 $localData->office           = $adData->Office;
+                $localData->zone_office      = str_replace('&', 'and', $adData->Office);
                 $localData->business_unit    = $adData->BusinessUnit;
                 $localData->nid              = $adData->NationalID;
                 $localData->save();

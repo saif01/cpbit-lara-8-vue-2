@@ -4,6 +4,12 @@ INSERT INTO `cpbit_8`.`users`(`id`, `login`, `user`, `admin`, `name`, `image`, `
 
 UPDATE `users` SET `image`= REPLACE(`image`, 'images/users/original/', '')
 
+UPDATE `users` SET `zone_office` = `office`
+UPDATE `users` SET `zone_office`= "Account and Finance"  WHERE `zone_office`= "Account & Finance" 
+UPDATE `users` SET `zone_office`= "TAX and VAT" WHERE `zone_office`= "TAX & VAT"
+UPDATE `users` SET `zone_office`= "Valuka 14 and 15 Farm" WHERE `zone_office`= "Valuka 14 & 15 Farm"; 
+
+
 
 -- roles
 

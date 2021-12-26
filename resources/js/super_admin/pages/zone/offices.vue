@@ -70,7 +70,7 @@
                                             <i class="far fa-times-circle"></i> Inactive
                                         </button>
                                     </div>
-                                    <button @click="editDataModelDirect(singleData)" class="btn btn-warning btn-sm">
+                                    <button @click="editDataModel(singleData)" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit blue"></i> Edit
                                     </button>
 
@@ -114,7 +114,7 @@
                 <b-form-group label="All Offices"> <small>Select Multiple Offices by Pressing Shift or Ctrl Key</small>
                     <b-form-select v-model="form.offices" multiple :select-size="15" required>
                         <!-- <option value="">Select Multiple Offices by Pressing Shift Key</option> -->
-                        <option v-for="item in allOffices" :key="item.id" :value="item.office" >{{ item.office }}</option>
+                        <option v-for="item in allOffices" :key="item.id" :value="item.zone_office" >{{ item.zone_office }}</option>
                     </b-form-select>
                     <div class="small text-danger" v-if="form.errors.has('offices')" v-html="form.errors.get('offices')" />
                 </b-form-group>
@@ -198,7 +198,7 @@
 
 
             // Edit Data Modal
-            editDataModelDirect(singleData){
+            editDataModel(singleData){
                 this.editmode = true;
                 this.dataModelTitle = 'Update Data'
 
