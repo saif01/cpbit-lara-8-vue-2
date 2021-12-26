@@ -25,6 +25,204 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+          //Check One Role
+          Gate::define('oneRole', function($user, $data){
+            return $user->hasRole($data);
+        });
+
+
+        //Define Gates
+        Gate::define('manageUser', function($user){
+            return $user->hasAnyRoles(['Administrator', 'User-management']);
+        });
+
+
+        //Administrator
+        Gate::define('administration', function($user){
+            return $user->hasRole(['Administrator']);
+        });
+
+        //Role manage
+        Gate::define('roleManage', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Role-manage']);
+        });
+
+        //Add Access
+        Gate::define('insert', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Add']);
+        });
+
+        //Edit Access
+        Gate::define('edit', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Edit']);
+        });
+
+        //Delete
+        Gate::define('delete', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Delete']);
+        });
+
+
+
+        //Super Admin Project
+        Gate::define('superadmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Super-admin']);
+        });
+
+
+        //Inventory Project
+        Gate::define('inventory', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Inventory-admin']);
+        });
+
+        //Network Moniror Project
+        Gate::define('network', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Network-monitor']);
+        });
+
+
+
+
+        //iHelpDesk Project's Gate
+
+        //Hardware-admin
+        Gate::define('hardAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Hardware-admin']);
+        });
+
+        //Hardware-admin
+        Gate::define('appAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Application-admin']);
+        });
+
+        //Ihelpdex-user
+        Gate::define('ihelpdesk', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Ihelpdesk']);
+        });
+
+
+        //Room Booking Project's Gate
+
+        //Room User
+        Gate::define('room', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Room']);
+        });
+        //Room Admin
+        Gate::define('roomAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Room-admin']);
+        });
+
+
+        //Carpool Booking Project's Gate
+
+        //Carpool User
+        Gate::define('car', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Carpool']);
+        });
+        //Carpool Admin
+        Gate::define('carAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Carpool-admin']);
+        });
+
+
+
+        //iTemp Project's Gate
+
+        //Itemp User
+        Gate::define('itemp', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Itemp']);
+        });
+        //Itemp Admin
+        Gate::define('itempAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Itemp-admin']);
+        });
+
+
+
+        //Iservice Project's Gate
+
+        //iservice User
+        Gate::define('iservice', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Iservice']);
+        });
+        //iservice User SMS Operation access
+        Gate::define('iserviceSms', function($user){
+            return $user->sms_operation_anyrole_check();
+        });
+        //iservice User Powerbi access
+        Gate::define('iservicePowerbi', function($user){
+            return $user->powerbi_anyrole_check();
+        });
+        //iservice Admin
+        Gate::define('iserviceAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Iservice-admin']);
+        });
+
+
+        //Power BI Project's Gate
+
+        //Powerbi User
+        Gate::define('powerbi', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Powerbi']);
+        });
+        //Powerbi Admin
+        Gate::define('powerbiAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Powerbi-admin']);
+        });
+
+
+
+
+        //SMS Project's Gate
+
+        //SMS User
+        Gate::define('SMS', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Sms']);
+        });
+        //SMS Admin
+        Gate::define('SMSAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Sms-admin']);
+        });
+
+
+
+
+        //Iqscm Project's Gate
+
+        //Iqscm User
+        Gate::define('iqscmUserSection', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Iqscm']);
+        });
+        //Iqscm Admin
+        Gate::define('iqscmAdminSection', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Iqscm-admin']);
+        });
+
+
+        //Iqscm manager
+        Gate::define('iqscmAdmin', function($user){
+            return $user->iqscm_hasRole(['Admin']);
+        });
+
+        //Iqscm manager
+        Gate::define('iqscmManager', function($user){
+            return $user->iqscm_hasAnyRoles(['Admin', 'Manager']);
+        });
+
+        //Iqscm Officer
+        Gate::define('iqscmOfficer', function($user){
+            return $user->iqscm_hasAnyRoles(['Admin', 'Officer']);
+        });
+
+
+        //Ivca User
+        Gate::define('ivcaUserSection', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Ivca']);
+        });
+        //Ivca Admin
+        Gate::define('ivcaAdminSection', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Ivca-admin']);
+        });
+
     }
 }

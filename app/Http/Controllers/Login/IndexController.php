@@ -56,7 +56,8 @@ class IndexController extends Controller
             return response()->json($allData);
         }
 
-        if( env('APP_DEBUG') == false ){
+        //dd( config('values.app_debug'), env('APP_DEBUG') );
+        if(! config('values.app_debug') ){
             // Production mode App debug false
             $response = $this->adLogin($login, $password);
 

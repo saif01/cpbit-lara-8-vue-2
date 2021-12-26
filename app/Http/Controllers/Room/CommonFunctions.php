@@ -147,9 +147,8 @@ trait CommonFunctions {
           // $headers = array('Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.config('values.line_test_key'),);  // ��ѧ����� Bearer ��� line authen code �
 
           //Room Booking Group
-          //   $headers = array('Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.config('values.line_room_key'),);  // ��ѧ����� Bearer ��� line authen code � env('APP_DEBUG')
-          $headers = array('Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '. env('LINE_ROOM_KEY'),);  // ��ѧ����� Bearer ��� line authen code �
-
+          $headers = array('Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.config('values.line_room_key'),);  // ��ѧ����� Bearer ��� line authen code � env('APP_DEBUG')
+            
           curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers);
           //RETURN
           curl_setopt($chOne, CURLOPT_RETURNTRANSFER, 1);

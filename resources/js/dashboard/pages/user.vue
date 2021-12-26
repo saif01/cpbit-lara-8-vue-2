@@ -16,7 +16,7 @@
             </b-navbar>
             <div>
                 <div class="d-flex flex-wrap justify-content-around mt-5">
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-6" v-if="isRoom()">
                         <a href="/room" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                             <div class="logo_div">
                                 <div class="room img__logo"><img src="/all-assets/common/icon/room.png" alt="Room" class="img-fluid rotate_icon"></div>

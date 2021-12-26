@@ -14,6 +14,7 @@
             <div class="loader-icon">Loading...</div>
         </div>
         <login-component></login-component>
+        @if(config('values.app_debug')) <p>You Are Running In Local</p> @endif
     </div>
     <script src="{{ asset('js/login/app.js') }}"></script>
 </body>

@@ -27,7 +27,7 @@ Route::namespace('App\Http\Controllers\Register')->prefix('register')->group(fun
 Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
     // SuperAdmin Start
-    Route::namespace('SuperAdmin')->prefix('super_admin')->group(function(){
+    Route::middleware(['can:superadmin'])->namespace('SuperAdmin')->prefix('super_admin')->group(function(){
 
         // User Management
         Route::namespace('User')->prefix('user')->group(function(){
@@ -110,7 +110,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     // Room Start
     Route::namespace('Room')->prefix('room')->group(function(){
 
-        Route::namespace('Admin')->prefix('admin')->group(function(){
+        Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
 
             //Room 
             Route::namespace('Room')->prefix('room')->group(function(){
@@ -126,7 +126,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::get('{any?}', 'IndexController@index');
         });
 
-        Route::namespace('User')->group(function(){
+        Route::middleware(['can:room'])->namespace('User')->group(function(){
 
             Route::prefix('booking')->group(function(){
                 Route::get('/data', 'BookingController@data');
