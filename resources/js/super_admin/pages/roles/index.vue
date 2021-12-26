@@ -136,7 +136,7 @@
             return {
 
                 //current page url
-                currentUrl: '/super_admin/role/offices',
+                currentUrl: '/super_admin/role',
 
               
                 // Form
