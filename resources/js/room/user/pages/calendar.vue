@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <label for="start_date">Start Date</label>
                                 <b-form-datepicker v-model="form.start_date" today-button reset-button close-button
-                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" size="sm"
+                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" 
                                     :hide-header="datePickerHeader"
                                     :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }"
                                     :class="{ 'is-invalid': form.errors.has('start_date') }" required>
@@ -88,7 +88,7 @@
                             <div class="form-group">
                                 <label for="end_date">End Date</label>
                                 <b-form-datepicker v-model="form.end_date" today-button reset-button close-button
-                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" size="sm"
+                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" 
                                     :hide-header="datePickerHeader"
                                     :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }"
                                     :class="{ 'is-invalid': form.errors.has('end_date') }" required>
@@ -104,7 +104,7 @@
                             <div class="form-group">
                                 <label for="Start_Time">Start Time</label>
                                 <b-form-timepicker id="Start_Time" v-model="form.start_time" now-button reset-button
-                                    locale="en" size="sm" :class="{ 'is-invalid': form.errors.has('start_time') }"
+                                    locale="en"  :class="{ 'is-invalid': form.errors.has('start_time') }"
                                     required>
                                 </b-form-timepicker>
                                 <div class="small text-danger" v-if="form.errors.has('start_time')"
@@ -115,7 +115,7 @@
                             <div class="form-group">
                                 <label for="End_Time">End Time</label>
                                 <b-form-timepicker id="End_Time" v-model="form.end_time" now-button reset-button
-                                    locale="en" size="sm" :class="{ 'is-invalid': form.errors.has('end_time') }"
+                                    locale="en"  :class="{ 'is-invalid': form.errors.has('end_time') }"
                                     required>
                                 </b-form-timepicker>
                                 <div class="small text-danger" v-if="form.errors.has('end_time')"
@@ -128,7 +128,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="purpose">Booking Purpose</label>
-                                <b-form-textarea id="purpose" v-model="form.purpose" size="sm"
+                                <b-form-textarea id="purpose" v-model="form.purpose" 
                                     placeholder="Enter booking purpose in details"
                                     :class="{ 'is-invalid': form.errors.has('purpose') }" required></b-form-textarea>
                                 <div class="small text-danger" v-if="form.errors.has('purpose')"
@@ -185,7 +185,7 @@
                                 <b>Capacity:</b> {{ singleData.capacity }}
                             </td>
                             <td>
-                                <b-button @click="bookingModal(singleData)" size="sm" class="btn-success"><i
+                                <b-button @click="bookingModal(singleData)"  class="btn-success"><i
                                         class="fas fa-plus-circle"></i> Book</b-button>
                             </td>
                         </tr>
@@ -227,7 +227,7 @@
                                 </span>
                             </td>
                             <td>
-                                <b-button @click="bookingModal(singleData.room)" size="sm" class="btn-warning"><i
+                                <b-button @click="bookingModal(singleData.room)"  class="btn-warning"><i
                                         class="fas fa-plus-circle"></i> Book</b-button>
                             </td>
                         </tr>

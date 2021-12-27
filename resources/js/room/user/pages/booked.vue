@@ -46,9 +46,9 @@
 
                                     <div class="float-right mt-5">
                                         <b-button v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)"
-                                            size="sm" variant="danger" class="rounded-pill px-4"><i
+                                             variant="danger" class="rounded-pill px-4"><i
                                                 class="far fa-trash-alt"></i> Cancel</b-button>
-                                        <b-button @click="modifyBooking(item)" size="sm" variant="warning"
+                                        <b-button @click="modifyBooking(item)"  variant="warning"
                                             class="rounded-pill px-4"><i class="far fa-edit"></i> Modify</b-button>
                                     </div>
 
@@ -118,7 +118,7 @@
                             <div class="form-group">
                                 <label for="start_date">Start Date</label>
                                 <b-form-datepicker v-model="form.start_date" today-button reset-button close-button
-                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" size="sm"
+                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" 
                                     :hide-header="datePickerHeader"
                                     :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }"
                                     :class="{ 'is-invalid': form.errors.has('start_date') }" required>
@@ -132,7 +132,7 @@
                             <div class="form-group">
                                 <label for="end_date">End Date</label>
                                 <b-form-datepicker v-model="form.end_date" today-button reset-button close-button
-                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" size="sm"
+                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" 
                                     :hide-header="datePickerHeader"
                                     :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }"
                                     :class="{ 'is-invalid': form.errors.has('end_date') }" required>
@@ -148,7 +148,7 @@
                             <div class="form-group">
                                 <label for="Start_Time">Start Time</label>
                                 <b-form-timepicker id="Start_Time" v-model="form.start_time" now-button reset-button
-                                    locale="en" size="sm" :class="{ 'is-invalid': form.errors.has('start_time') }"
+                                    locale="en"  :class="{ 'is-invalid': form.errors.has('start_time') }"
                                     required>
                                 </b-form-timepicker>
                                 <div class="small text-danger" v-if="form.errors.has('start_time')"
@@ -159,7 +159,7 @@
                             <div class="form-group">
                                 <label for="End_Time">End Time</label>
                                 <b-form-timepicker id="End_Time" v-model="form.end_time" now-button reset-button
-                                    locale="en" size="sm" :class="{ 'is-invalid': form.errors.has('end_time') }"
+                                    locale="en"  :class="{ 'is-invalid': form.errors.has('end_time') }"
                                     required>
                                 </b-form-timepicker>
                                 <div class="small text-danger" v-if="form.errors.has('end_time')"
@@ -172,7 +172,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="purpose">Booking Purpose</label>
-                                <b-form-textarea id="purpose" v-model="form.purpose" size="sm"
+                                <b-form-textarea id="purpose" v-model="form.purpose" 
                                     placeholder="Enter booking purpose in details"
                                     :class="{ 'is-invalid': form.errors.has('purpose') }" required></b-form-textarea>
                                 <div class="small text-danger" v-if="form.errors.has('purpose')"
@@ -418,7 +418,7 @@
                 // console.log('status', data.status)
 
                 var text = "Are you want to Cancel ?"
-                var btnText = "Cancel"
+                var btnText = "Yes! Cancel it"
 
                 Swal.fire({
                     title: 'Are you sure?',

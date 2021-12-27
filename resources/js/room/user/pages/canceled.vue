@@ -107,7 +107,7 @@
                 // Loading
                 this. dataLoading = true
                 axios.get(this.currentUrl + '/canceled').then(response => {
-                    console.log(response.data)
+                    //console.log(response.data)
                     this.allData = response.data
                     // Loading
                     this. dataLoading = false
