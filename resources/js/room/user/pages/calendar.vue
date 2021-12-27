@@ -103,7 +103,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="Start_Time">Start Time</label>
-                                <b-form-timepicker id="Start_Time" v-model="form.start_time" now-button reset-button
+                                <b-form-timepicker minutes-step="15" id="Start_Time" v-model="form.start_time" now-button reset-button
                                     locale="en"  :class="{ 'is-invalid': form.errors.has('start_time') }"
                                     required>
                                 </b-form-timepicker>
@@ -114,7 +114,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="End_Time">End Time</label>
-                                <b-form-timepicker id="End_Time" v-model="form.end_time" now-button reset-button
+                                <b-form-timepicker  minutes-step="15" id="End_Time" v-model="form.end_time" now-button reset-button
                                     locale="en"  :class="{ 'is-invalid': form.errors.has('end_time') }"
                                     required>
                                 </b-form-timepicker>
