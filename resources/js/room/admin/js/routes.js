@@ -6,6 +6,7 @@ import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
 import RoomIndex from './../pages/room/index.vue'
+import ReportIndex from './../pages/report/index.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -25,6 +26,14 @@ const router = new VueRouter({
             name: 'RoomIndex',
             meta:{
                 title: 'Admin Room Index',
+            },   
+        },
+        { 
+            path: '/room/admin/report_index', 
+            component: ReportIndex,
+            name: 'ReportIndex',
+            meta:{
+                title: 'Admin Report Index',
             },   
         },
 

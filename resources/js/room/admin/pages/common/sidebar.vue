@@ -12,7 +12,7 @@
                 <ul class="list-unstyled">
                     <b-nav-item>
                         <router-link :to="{ name: 'Dashboard' }">
-                            <li><i class="fas fa-tachometer-alt mr-1"></i>
+                            <li><i class="fas fa-tachometer-alt "></i>
                                 Dashboard
                             </li>
                         </router-link>
@@ -20,8 +20,16 @@
 
                     <b-nav-item>
                         <router-link :to="{ name: 'RoomIndex' }">
-                            <li><i class="fas fa-home mr-1"></i>
+                            <li><i class="fas fa-home"></i>
                                 Rooms
+                            </li>
+                        </router-link>
+                    </b-nav-item>
+
+                    <b-nav-item>
+                        <router-link :to="{ name: 'ReportIndex' }">
+                            <li><i class="fas fa-book"></i>
+                                Reports
                             </li>
                         </router-link>
                     </b-nav-item>
@@ -31,7 +39,7 @@
 
                     <b-nav-item @click="logout()">
                         <router-link to="/logout">
-                            <li><i class="fas fa-sign-out-alt mr-1 text-danger"></i>
+                            <li><i class="fas fa-sign-out-alt text-danger"></i>
                                 Logout
                             </li>
                         </router-link>
@@ -93,6 +101,7 @@
 
     i {
         font-size: large;
+        margin-right: .25rem;
     }
 
     .drop-element-2 {

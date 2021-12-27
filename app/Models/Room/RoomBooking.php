@@ -28,4 +28,22 @@ class RoomBooking extends Model
         // return $this->belongsTo(User::class, 'foreign_key', 'owner_key');
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+
+    public function scopeSearch($query, $val='')
+    {
+        return $query
+        ->where('start', 'LIKE', '%'.$val.'%')
+        ->OrWhere('end', 'LIKE', '%'.$val.'%')
+        ->OrWhere('purpose', 'LIKE', '%'.$val.'%')
+        ->orWhereHas('room', function($query) use ($val){
+            $query->WhereRaw('name LIKE ?', '%'.$val.'%');
+        })
+        ->orWhereHas('bookby', function($query) use ($val){
+            $query->WhereRaw('name LIKE ?', '%'.$val.'%');
+        })
+        ->orWhereHas('bookby', function($query) use ($val){
+            $query->WhereRaw('department LIKE ?', '%'.$val.'%');
+        }); 
+    }
+
 }
