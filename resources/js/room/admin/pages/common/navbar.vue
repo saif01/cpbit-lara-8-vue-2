@@ -35,7 +35,6 @@
                             <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar" alt="User Image" />
                             <span style="color: black">Admin</span>
                         </template>
-                        <b-dropdown-item href="#">Change Avatar</b-dropdown-item>
                         <b-dropdown-item href="/logout">Sign Out</b-dropdown-item>
                     </b-dropdown>
                     

@@ -30,17 +30,14 @@
                             <i :class="{'fas fa-compress': fullMode,'fas fa-compress-arrows-alt': !fullMode,}" @click="(fullMode = !fullMode), toggle()"></i>
                         </div>
                     </div>
-                    <a class="nav-link py-1" id="check" data-toggle="dropdown" href="#">
-                        <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar" alt="User Image" />
-                        <span style="color: black">{{ auth.name }}</span>
-                    </a>
-                    <div class="dropdown-menu mt-3" x-placement="bottom-start" style="position: absolute;transform: translate3d(950px, 52px, 0px);top: 0px;left: 0px;will-change: transform;">
-                        <a href="" class="dropdown-item"><i class="fas fa-user-edit mr-2"></i>
-                            Change Avatar</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>
-                            Sign Out</a>
-                    </div>
+                     <b-dropdown variant="none" no-caret>
+                        <template #button-content>
+                            <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar" alt="User Image" />
+                            <span style="color: black">{{ auth.name }}</span>
+                        </template>
+                        <b-dropdown-item href="/logout">Sign Out</b-dropdown-item>
+                    </b-dropdown>
+                   
                 </div>
             </div>
         </div>
