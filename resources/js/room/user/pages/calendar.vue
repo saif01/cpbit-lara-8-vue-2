@@ -145,7 +145,7 @@
 
                     <b-form-group v-if="!form.progress">
                         <b-button type="submit" class="btn-block" variant="success"><i class="fas fa-plus-circle"></i>
-                            Create</b-button>
+                            Submit</b-button>
                     </b-form-group>
 
                 </form>

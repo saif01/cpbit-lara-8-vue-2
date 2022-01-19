@@ -187,9 +187,9 @@
             // image Upload by name
             uploadImageByName: function (event, currentFieldName) {
 
-                let file = event;
+                let file = event.target.files[0];
                 let reader = new FileReader();
-                //console.log('Image upload: ',file, file['size'] )
+                //console.log('Image upload: ', file['size'], 'imageMaxSize :', this.imageMaxSize, file )
                 if (file['size'] < this.imageMaxSize) {
                     reader.onloadend = (file) => {
                         console.log('RESULT', reader.result)
