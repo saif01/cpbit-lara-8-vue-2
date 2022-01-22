@@ -33,10 +33,6 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    // onOpen: (toast) => {
-    //   toast.addEventListener('mouseenter', Swal.stopTimer)
-    //   toast.addEventListener('mouseleave', Swal.resumeTimer)
-    // }
   })
 window.Swal = Swal;
 window.Toast = Toast;
@@ -54,17 +50,6 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('index-component', require('../index.vue').default);
 
 
-// const app = new Vue({
-//     el: '#app',
-//     router,
-
-//     data(){
-//         return{
-//           // For Preloader
-//           preloader:false
-//         }
-//       }
-// });
 
 const app = new Vue({
   router,

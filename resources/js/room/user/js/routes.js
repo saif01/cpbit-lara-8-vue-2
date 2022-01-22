@@ -13,7 +13,7 @@ const router = new VueRouter({
     routes : [
 
         { 
-            path: '/room', 
+            path: '/room/', 
             component: Dashboard,
             name: 'Dashboard',
             meta:{

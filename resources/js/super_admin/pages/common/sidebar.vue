@@ -1,123 +1,196 @@
 <template>
     <div>
-        <div id="sidebar-container" class="sidebar-container">
-            <b-nav vertical>
-                <a href="/">
-                    <div class="d-flex align-items-center text-white my-2">
-                        <img src="/all-assets/common/logo/cpb/cpbit.png" alt="logo"
-                            class="img-fluid admin_logo_sidenav ml-2 mr-3" />
-                        <div class="h4 pt-3">S. Admin</div>
-                    </div>
-                </a>
-                <ul class="list-unstyled">
-                    <b-nav-item>
-                        <router-link :to="{ name: 'Dashboard' }">
-                            <li><i class="fas fa-tachometer-alt"></i>
-                                Dashboard
-                            </li>
-                        </router-link>
-                    </b-nav-item>
+        <v-app-bar app flat dense class="gradient_color">
 
-                    <!-- <b-nav-item>
-                        <router-link to="" v-b-toggle.collapse-1>
-                            <li>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div> <i class="fab fa-buromobelexperte mr-3"></i> Dashboard
-                                    </div><i class="fas fa-angle-right"></i>
-                                </div>
-                            </li>
-                        </router-link>
-                    </b-nav-item>
-                    <b-collapse id="collapse-1" class="drop-element">
-                        <ul class="list-unstyled">
-                            <b-nav-item>
-                                <router-link :to="{ name: 'home' }">
-                                    <li><i class="fab fa-buromobelexperte mr-3"></i>dash</li>
-                                </router-link>
-                            </b-nav-item>
-                            <b-nav-item v-b-toggle.collapse-2>
-                                <li><div class="d-flex align-items-center justify-content-between">
-                                        <div><i class="fab fa-buromobelexperte mr-3"></i> Dash2</div>
-                                        <i class="fas fa-angle-right"></i>
-                                    </div>
-                                </li>
-                            </b-nav-item>
-                        </ul>
-                        <b-collapse id="collapse-2" class="drop-element-2">
-                            <ul class="list-unstyled">
-                                <b-nav-item>
-                                    <router-link :to="{ name: 'home' }">
-                                        <li><i class="fab fa-buromobelexperte mr-3"></i>dash </li>
-                                    </router-link>
-                                </b-nav-item>
-                            </ul>
-                        </b-collapse>
-                    </b-collapse> -->
+            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+            <v-spacer></v-spacer>
+
+            <span v-if="isAdministrator()">Administrator</span>
 
 
-                    <b-nav-item>
-                        <li v-b-toggle.collapse-2>
-                            <i class="fas fa-users-cog"></i> User Manage
-                        </li>
-                    </b-nav-item>
-                    <b-collapse id="collapse-2" class="drop-element">
-                        <ul class="list-unstyled">
-                            <b-nav-item v-if="isUserManagement()">
-                                <router-link :to="{ name: 'Users' }">
-                                    <li><i class="fas fa-users "></i>All User</li>
-                                </router-link>
-                            </b-nav-item>
-                            <b-nav-item v-if="isUserManagement()">
-                                <router-link :to="{ name: 'Registered' }">
-                                    <li><i class="fas fa-users "></i>All Registered</li>
-                                </router-link>
-                            </b-nav-item>
-                            <b-nav-item v-if="isRoleManage()">
-                                <router-link :to="{ name: 'Roles' }">
-                                    <li><i class="fab fa-r-project "></i>All Roles</li>
-                                </router-link>
-                            </b-nav-item>
-                        </ul>
-                    </b-collapse>
-
-                     <b-nav-item>
-                        <li v-b-toggle.collapse-3>
-                           <i class="fas fa-building"></i> Zone Manage
-                        </li>
-                    </b-nav-item>
-                    <b-collapse id="collapse-3" class="drop-element">
-                        <ul class="list-unstyled">
-                            <b-nav-item>
-                                <router-link :to="{ name: 'Zones' }">
-                                    <li><i class="fas fa-grip-horizontal"></i>All Zones</li>
-                                </router-link>
-                            </b-nav-item>
-                            <b-nav-item>
-                                <router-link :to="{ name: 'ZoneOffices' }">
-                                    <li><i class="fas fa-grip-horizontal"></i>Zone Offices</li>
-                                </router-link>
-                            </b-nav-item>
-                           
-                        </ul>
-                    </b-collapse>
-
-                    <b-nav-item @click="logout()">
-                        <router-link to="/logout">
-                            <li><i class="fas fa-sign-out-alt  text-danger"></i>
-                                Logout
-                            </li>
-                        </router-link>
-                    </b-nav-item>
+            <v-spacer></v-spacer>
 
 
-                </ul>
-            </b-nav>
-        </div>
+
+            <v-menu bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                    {{ auth.name }}
+                    <v-avatar v-bind="attrs" v-on="on">
+                        <img src="/all-assets/common/logo/cpb/cpbit.png" alt="CPB-IT">
+                    </v-avatar>
+                </template>
+
+                <v-list>
+                    <v-list-item link>
+                        <v-list-item-title>Logout</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+
+
+        </v-app-bar>
+
+
+        <!-- sidebar -->
+        <v-navigation-drawer app dark class="gradient_color" v-model="drawer">
+            <v-list-item href="/" class="px-2">
+                <v-list-item-avatar>
+                    <v-img src="https://cpbangladesh.com/all-assets/common/logo/cpb/cpbit-96x96.png"></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-title>Super Admin</v-list-item-title>
+            </v-list-item>
+            <!-- Divider -->
+            <v-divider></v-divider>
+
+            <v-list dense>
+                <!-- Sidebar Item -->
+                <v-list-item link router :to="{name: 'Dashboard'}">
+                    <v-list-item-icon>
+                        <v-icon>mdi-monitor-dashboard</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title> Dashboard</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+
+                 <v-list-item v-if="isUserManagement()" link router :to="{ name: 'Users' }">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-details</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All User</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item v-if="isUserManagement()" link router :to="{ name: 'Registered' }">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-question-outline </v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Registered</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item v-if="isRoleManage()" link router :to="{ name: 'Roles' }">
+                        <v-list-item-icon>
+                            <v-icon>mdi-clipboard-text</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Roles</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+
+              
+
+                 <v-list-item link router :to="{ name: 'Zones' }">
+                        <v-list-item-icon>
+                            <v-icon>mdi-map-clock</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Zones</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item link router :to="{ name: 'ZoneOffices' }">
+                        <v-list-item-icon>
+                            <v-icon>mdi-office-building-marker</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Zone Offices</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+
+                <!-- <v-list-group prepend-icon="mdi-account-group" active-class="dark--text">
+                    <template v-slot:activator>
+                        <v-list-item-title>Zone Manage</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router :to="{ name: 'Zones' }">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-details</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Zones</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item link router :to="{ name: 'ZoneOffices' }">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-details</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Zone Offices</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                  
+                </v-list-group> -->
+
+
+
+
+                <!-- Sidebar Multi level Item -->
+                <v-list-group prepend-icon="mdi-account-group" active-class="dark--text">
+                    <template v-slot:activator>
+                        <v-list-item-title>Dropdown</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router to="#">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-details</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Lavel-1</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-group sub-group>
+                        <template v-slot:activator>
+                            <v-list-item-title>Level-2</v-list-item-title>
+                        </template>
+
+                        <v-list-item link router to="##">
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-multiple-outline</v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                                <v-list-item-title>Level-2 Item-1</v-list-item-title>
+                            </v-list-item-content>
+
+                        </v-list-item>
+                    </v-list-group>
+                </v-list-group>
+
+
+
+                <!-- Sidebar Item -->
+                <v-list-item link href="/logout">
+                    <v-list-item-icon>
+                        <v-icon color="red">mdi-logout</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Logout</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+
+
+            </v-list>
+        </v-navigation-drawer>
     </div>
 </template>
 
+
 <script>
     export default {
+        data() {
+            return {
+                drawer: true,
+
+            }
+        },
         methods: {
             logout() {
                 window.location.href = "/logout"
@@ -127,74 +200,11 @@
 
 </script>
 
+
+
 <style scoped>
-    .admin_logo_sidenav {
-        height: 30px;
-        width: 30px;
-    }
-
-    .sidebar-container {
-        height: 100vh;
-        left: 0;
-        background: #44a08d;
-        background: -webkit-linear-gradient(to bottom, #093637, #44a08d);
-        background: linear-gradient(to bottom, #093637, #44a08d);
-    }
-
-    ul li {
-        transition: 0.1s;
-        color: #ffffff;
-    }
-
-    ul li:hover {
-        background-color: #44a08d;
-        /* background-color: #093637; */
-        color: white;
-        border-radius: 8px;
-        margin: 0 0.1rem;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    i {
-        font-size: large;
-        margin-right: 0.25rem;
-    }
-
-    .drop-element-2 {
-        margin-left: 1.5rem;
-    }
-
-    .drop-element {
-        margin-left: 1rem;
-    }
-
-    .collapsed:after {
-        float: right;
-        content: "\f067";
-        font-family: "Font Awesome\ 5 Free";
-        font-weight: 900;
-    }
-
-    .not-collapsed:after {
-        float: right;
-        content: "\f068";
-        font-family: "Font Awesome\ 5 Free";
-        font-weight: 900;
-    }
-
-    .router-link-exact-active {
-        color: #2bed0f !important;
-        /* text-decoration: none;
-        border-bottom: 2px solid; */
-    }
-
-    .router-link-exact-active li  {
-        border-radius: 10px;
-        border-bottom: 4px solid #f02471;
-        color: white;
+    .gradient_color {
+        background: linear-gradient(180deg, #093637, #44a08d);
     }
 
 </style>

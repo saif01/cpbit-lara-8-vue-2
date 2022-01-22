@@ -1,97 +1,49 @@
 <template>
     <div>
-        <b-navbar toggleable="lg" type="dark" class="nav-color shadow-lg">
-            <b-navbar-brand href="/">
-                <img src="/all-assets/common/logo/cpb/cpbgroup.png" alt="iVCA" class="img-fluid logo" />
-            </b-navbar-brand>
+        <v-app-bar app flat dense dark class="nav-color">
 
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+            <v-app-bar-nav-icon href="/">
+                <v-img  src="/all-assets/common/logo/cpb/cpbgroup.png" alt="room" max-height="40" max-width="40" contain class="nav-logo-bg"></v-img>
+            </v-app-bar-nav-icon>
 
-            <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav class="ml-auto">
-                    <!-- <a href="/dashboard" class="nav-link mr-5">Home</a>  -->
+            <v-spacer></v-spacer>
 
-                    <b-nav-item>
-                        <router-link :to="{ name: 'Dashboard'}"><span>Dashboard</span></router-link>
-                    </b-nav-item>
+            <v-btn text link route :to="{ name: 'Dashboard'}" small>
+                Dashboard
+            </v-btn>
 
-                    <b-nav-item>
-                        <router-link :to="{ name: 'Booked'}"><span>My Booked</span></router-link>
-                    </b-nav-item>
+            <v-btn text link route :to="{ name: 'Booked'}" small>
+                My Booked
+            </v-btn>
 
-                    <b-nav-item>
-                        <router-link :to="{ name: 'Canceled'}"><span>My Canceled</span></router-link>
-                    </b-nav-item>
+            <v-btn text link route :to="{ name: 'Canceled'}" small>
+                My Cancelled
+            </v-btn>
 
+            <v-btn text link route href="/logout" small>
+                Logout
+            </v-btn>
 
-                    <!-- <b-nav-item-dropdown text="Lang" right>
-                        <b-dropdown-item href="#">EN</b-dropdown-item>
-                        <b-dropdown-item href="#">ES</b-dropdown-item>
-                        <b-dropdown-item href="#">RU</b-dropdown-item>
-                        <b-dropdown-item href="#">FA</b-dropdown-item>
-                    </b-nav-item-dropdown> -->
-
-                    <!-- <b-nav-item-dropdown right>
-                        <template #button-content>
-                            <img
-                                src="/all-assets/image/Admin.png"
-                                alt="logo"
-                                class="img-fluid drodown-image"
-                            />
-                        </template>
-                        <b-dropdown-item href="#">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-                    </b-nav-item-dropdown> -->
-
-                    <a href="/user-logout" class="nav-link">Logout</a>
-
-
-                </b-navbar-nav>
-            </b-collapse>
-        </b-navbar>
+        </v-app-bar>
     </div>
 </template>
 
 <style scoped>
-    .logo {
-        height: 40px;
-        width: 40px;
-        background: white;
-        border-radius: 25%;
+    .v-btn--active{
+        color: #fff;
+        background: linear-gradient(90deg,#aa4b6b,#6b6b83,#3b8d99);
     }
-
-    .drodown-image {
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-    }
-
-
+    
     .nav-color {
         background: #aa4b6b;
         background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
         background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
     }
 
-    /* ul li:hover {
-    border-bottom: 1px solid #5d97e2;
-    color: white;
-    margin: 0 !important;
-    background-color: transparent !important;
-    border-radius: 0px !important;
-} */
-    ul {
-        align-items: center;
+    .nav-logo-bg{
+        background-color: white !important;
+        border-radius: 8px;
     }
 
-    a {
-        color: #f2f4f8 !important;
-    }
-
-    .router-link-exact-active {
-        color: #2bed0f !important;
-        text-decoration: none;
-        border-bottom: 2px solid;
-    }
 
 </style>

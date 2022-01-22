@@ -9,8 +9,9 @@ import common from './mixin';
 Vue.mixin(common);
 
 
-import  BootstrapVue from 'bootstrap-vue';
-Vue.use(BootstrapVue)
+// Vuetify
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
 
 
 // VueProgressBar
@@ -30,7 +31,7 @@ Vue.component('index-component', require('./../index.vue').default);
 const app = new Vue({
     el: '#app',
     store,
-    
+    vuetify: new Vuetify(),
     data(){
         return{
           // For Preloader

@@ -2,18 +2,21 @@ export default{
 
     // Create Data
     async createData() {
-        console.log('Form submited');
-        this.$Progress.start()
+        //console.log('Form submited');
+        this.modalBtnLoading = true;
         // request send and get response
         const response = await this.form.post(this.currentUrl +'/store'+ '');
         // Input field make empty
         this.form.reset();
         this.form.errors.clear();
+        // Btn Loading
+        this.modalBtnLoading = false
         // Hide model
-        this.$refs['data-modal'].hide();
+        this.dataModalDilog=false
+        // this.$refs['data-modal'].hide();
         // Refresh Tbl Data with current page
         this.getResults(this.currentPageNumber);
-        this.$Progress.finish();
+       
 
         if (response.status == 200) {
             Toast.fire({
@@ -36,17 +39,19 @@ export default{
     async updateData() {
 
         //console.log('Edit Form submited', this.form.id);
-        this.$Progress.start();
+        this.modalBtnLoading = true;
         // request send and get response
         const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
         // Input field make empty
         this.form.reset();
+        //  Btn Loading
+        this.modalBtnLoading = false
         // Hide model
-        this.$refs['data-modal'].hide();
+        this.dataModalDilog=false
+        // this.$refs['data-modal'].hide();
         // Refresh Tbl Data with current page
         this.getResults(this.currentPageNumber);
-        this.$Progress.finish();
-
+       
         if (response.status == 200) {
             Toast.fire({
                 icon: response.data.icon,
@@ -231,7 +236,8 @@ export default{
     addDataModel(){
         this.editmode = false;
         this.form.reset();
-        this.$refs['data-modal'].show();
+        //this.$refs['data-modal'].show();
+        this.dataModalDilog=true
     },
 
     // Edit Data Modal
@@ -240,7 +246,8 @@ export default{
         this.dataModelTitle = 'Update Data'
         this.form.reset();
         this.form.fill(singleData);
-        this.$refs['data-modal'].show();
+        //this.$refs['data-modal'].show();
+        this.dataModalDilog=true
     },
 
     

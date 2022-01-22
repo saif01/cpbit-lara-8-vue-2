@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <v-app>
         <nav-bar></nav-bar>
           
-        <div class="container p-0">
+        <!-- <div class="container p-0">
             <main class="content-wrapper">
                 <div class="pb-5">
                 
@@ -11,10 +11,17 @@
                 
                 </div>
             </main>
-        </div>
+        </div> -->
+
+        <v-main>
+            <v-container fluid>
+                <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
+            </v-container>
+        </v-main>
         <page-footer></page-footer>
       
-    </div>
+    </v-app>
 </template>
 
 <script>

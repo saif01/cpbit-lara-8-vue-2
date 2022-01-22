@@ -1,5 +1,10 @@
 <template>
-    <div class="bg-dark fixed-bottom"> 
-        <p class="m-0 py-2 text-center text-light">Copyright © Powered By CPB-IT</p>
-    </div>
+<v-footer padless dark>
+    <v-col
+        class="text-center"
+        cols="12"
+    >
+        Copyright © Powered By CPB-IT
+    </v-col>
+</v-footer>
 </template>

@@ -7,9 +7,9 @@
                         <h3 class="card-title">Roles Table</h3>
                     </div>
                     <div class="col-6">
-                        <b-button variant="outline-primary" size="sm" pill class="float-right" @click="addDataModel"><i
-                                class="far fa-plus-square"></i>
-                            Add</b-button>
+                        <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary" outlined>
+                            <v-icon small>mdi-card-plus</v-icon> Add
+                        </v-btn>
                     </div>
 
                 </div>
@@ -56,23 +56,24 @@
                                 <td>{{ singleData.id }}</td>
                                 <td>{{ singleData.name }}</td>
                                 <td><span v-if="singleData.makby">{{ singleData.makby.name }}</span></td>
-                        
-                                <td class="text-center">
-                                    <div>
-                                        <button v-if="singleData.status" @click="statusChange(singleData)" class="btn btn-success btn-sm m-1">
-                                            <i class="far fa-check-circle"></i> Active
-                                        </button>
-                                        <button v-else @click="statusChange(singleData)" class="btn btn-warning btn-sm m-1">
-                                            <i class="far fa-times-circle"></i> Inactive
-                                        </button>
-                                    </div>
-                                    <button @click="editDataModel(singleData)" class="btn btn-warning btn-sm">
-                                        <i class="fa fa-edit blue"></i> Edit
-                                    </button>
 
-                                    <button @click="deleteDataTemp(singleData.id)" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>    
+                                <td class="text-center">
+                                    <v-btn v-if="singleData.status" @click="statusChange(singleData)" small
+                                        color="primary" elevation="10" class="mb-1">
+                                        <v-icon left>mdi-check-decagram</v-icon> Active
+                                    </v-btn>
+                                    <v-btn v-else @click="statusChange(singleData)" small color="warning"
+                                        elevation="10" class="mb-1">
+                                        <v-icon left>mdi-close-octagon</v-icon> Inactive
+                                    </v-btn>
+
+                                    <v-btn @click="editDataModel(singleData)" small color="info" elevation="10" class="mb-1">
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
+                                    </v-btn>
+
+                                    <v-btn @click="deleteData(singleData.id)" small color="error" elevation="10" class="mb-1">
+                                        <v-icon left>mdi-close-octagon</v-icon> Delete
+                                    </v-btn>
                                 </td>
                             </tr>
                         </tbody>
@@ -80,7 +81,8 @@
                     <div>
                         <span>Total Records: {{ totalValue }}</span>
                     </div>
-                    <pagination :data="allData" :limit="3" @pagination-change-page="getResults" class="justify-content-end">
+                    <pagination :data="allData" :limit="3" @pagination-change-page="getResults"
+                        class="justify-content-end">
                         <span slot="prev-nav">&lt; Previous</span>
                         <span slot="next-nav">Next &gt;</span>
                     </pagination>
@@ -95,28 +97,53 @@
             </div>
         </div>
 
+        <!-- Dilog  -->
+        <v-dialog v-model="dataModalDilog" persistent max-width="600px">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            {{ dataModelTitle }}
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="dataModalDilog = false" color="red lighten-1" small text class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
 
-        <b-modal ref="data-modal" :title="dataModelTitle" size="lg" hide-footer>
-            <form @submit.prevent="editmode ? updateData() : createData()">
+                <v-card-text>
+                    <v-form v-model="valid">
+                        <form @submit.prevent="editmode ? updateData() : createData()">
 
-                <b-form-group label="Role Name:">
-                    <b-form-input v-model="form.name" placeholder="Enter Role Name" :class="{ 'is-invalid': form.errors.has('name') }"></b-form-input>
-                    <div class="small text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
-                </b-form-group>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field type="text" label="Role Name:"
+                                        :rules="[v => !!v || 'Role Name is required!']" v-model="form.name" required>
+                                    </v-text-field>
+                                    <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                                </v-col>
 
-              
-           
-                <b-form-group v-if="!form.progress">
-                    <b-button v-show="editmode" type="submit" class="btn-block" variant="primary"><i class="fa fa-edit"></i> Update</b-button>
-                    <b-button v-show="!editmode" type="submit" class="btn-block" variant="primary"><i
-                                class="far fa-plus-square"></i> Create</b-button>
-                </b-form-group>
+                                <v-btn block blockdepressed :loading="modalBtnLoading" color="primary mt-3"
+                                    type="submit">
+                                    <span v-if="editmode">
+                                        <v-icon left dark>mdi-circle-edit-outline</v-icon> Update
+                                    </span>
+                                    <span v-else>
+                                        <v-icon left dark>mdi-shape-polygon-plus </v-icon> Create
+                                    </span>
+                                </v-btn>
+
+                            </v-row>
+                        </form>
+                    </v-form>
+
+                </v-card-text>
+            </v-card>
 
 
-            </form>
-
-
-        </b-modal>
+        </v-dialog>
 
 
     </div>
@@ -127,10 +154,10 @@
 <script>
     // vform
     import Form from 'vform';
-   
+
 
     export default {
-      
+
         data() {
 
             return {
@@ -138,7 +165,7 @@
                 //current page url
                 currentUrl: '/super_admin/role',
 
-              
+
                 // Form
                 form: new Form({
                     id: '',

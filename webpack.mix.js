@@ -1,5 +1,14 @@
 const mix = require('laravel-mix');
 
+// const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
+// var webpackConfig = {
+//     plugins: [
+//         new VuetifyLoaderPlugin()
+//     ],
+// }
+
+// mix.webpackConfig(webpackConfig);
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -16,28 +25,38 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
 
-
-
-//Login JS 
-mix.js('resources/js/login/js/app.js', 'public/js/login/app.js')
+//auth JS 
+mix.js('resources/js/auth/js/app.js', 'public/js/auth/app.js')
     .vue();
     
-//Login CSS 
+//auth CSS 
 mix.styles([
         'resources/css/common/preloader.css',
-        'resources/css/login/style.css',
-    ], 'public/css/login/app.css');
+        'resources/css/auth/style.css',
+    ], 'public/css/auth/app.css');
 
 
-//Register JS 
-mix.js('resources/js/register/js/app.js', 'public/js/register/app.js')
-    .vue();
+
+// //Login JS 
+// mix.js('resources/js/login/js/app.js', 'public/js/login/app.js')
+//     .vue();
     
-//Register CSS 
-mix.styles([
-        'resources/css/common/preloader.css',
-        'resources/css/register/style.css',
-    ], 'public/css/register/app.css');
+// //Login CSS 
+// mix.styles([
+//         'resources/css/common/preloader.css',
+//         'resources/css/login/style.css',
+//     ], 'public/css/login/app.css');
+
+
+// //Register JS 
+// mix.js('resources/js/register/js/app.js', 'public/js/register/app.js')
+//     .vue();
+    
+// //Register CSS 
+// mix.styles([
+//         'resources/css/common/preloader.css',
+//         'resources/css/register/style.css',
+//     ], 'public/css/register/app.css');
 
 
 //dashboard JS 

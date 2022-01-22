@@ -12,13 +12,12 @@ import store from './store';
 import common from './common/mixin';
 Vue.mixin(common);
 
-
-import  BootstrapVue from 'bootstrap-vue';
-Vue.use(BootstrapVue)
+// Vuetify
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
 
 // VueProgressBar
 import VueProgressBar from 'vue-progressbar';
-
 Vue.use(VueProgressBar, {
     color: '#66FE5E',
     failedColor: 'red',
@@ -33,10 +32,6 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    // onOpen: (toast) => {
-    //   toast.addEventListener('mouseenter', Swal.stopTimer)
-    //   toast.addEventListener('mouseleave', Swal.resumeTimer)
-    // }
   })
 window.Swal = Swal;
 window.Toast = Toast;
@@ -54,21 +49,11 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('index-component', require('../index.vue').default);
 
 
-// const app = new Vue({
-//     el: '#app',
-//     router,
-
-//     data(){
-//         return{
-//           // For Preloader
-//           preloader:false
-//         }
-//       }
-// });
 
 const app = new Vue({
   router,
   store,
+  vuetify: new Vuetify(),
 
   data(){
     return{

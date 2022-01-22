@@ -2,26 +2,44 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Auth
+Route::namespace('App\Http\Controllers\Auth')->group(function(){
 
-// Login
-Route::namespace('App\Http\Controllers\Login')->group(function(){
+    // Route::get('/login', 'IndexController@login')->name('login');
+    Route::post('/login_action', 'LoginController@login_action');
+    Route::get('/logout', 'LoginController@logout');
 
-    Route::get('/login', 'IndexController@login')->name('login');
-    Route::post('/login_action', 'IndexController@login_action');
-    Route::get('/logout', 'IndexController@logout');
+    Route::post('/register_check', 'RegisterController@check');
+    Route::post('/register_store', 'RegisterController@store');
 
     Route::get('/test', 'ADLogin@Data'); 
+    Route::get('login/{any?}', 'IndexController@index')->name('login');
+    Route::get('register/{any?}', 'IndexController@index')->name('register');
 
 });
+
+
+// // Login
+// Route::namespace('App\Http\Controllers\Login')->group(function(){
+
+//     Route::get('/login', 'IndexController@login')->name('login');
+//     Route::post('/login_action', 'IndexController@login_action');
+//     Route::get('/logout', 'IndexController@logout');
+
+//     Route::get('/test', 'ADLogin@Data'); 
+//     Route::get('login/{any?}', 'IndexController@login')->name('login');
+//     Route::get('register/{any?}', 'IndexController@login')->name('login');
+
+// });
 
 // Register
-Route::namespace('App\Http\Controllers\Register')->prefix('register')->group(function(){
+// Route::namespace('App\Http\Controllers\Register')->prefix('register')->group(function(){
 
-    Route::get('/', 'IndexController@index')->name('register');
-    Route::post('/check', 'IndexController@check');
-    Route::post('/store', 'IndexController@store');
+//     Route::get('/', 'IndexController@index')->name('register');
+//     Route::post('/check', 'IndexController@check');
+//     Route::post('/store', 'IndexController@store');
 
-});
+// });
 
 // Auth Route Start
 Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){

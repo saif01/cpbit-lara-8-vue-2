@@ -61,7 +61,7 @@ class OfficesController extends Controller
 
         //Validate
         $this->validate($request,[
-            'name'     => 'required',
+            'name'     => 'required|unique:zone_offices',
             'offices'  => 'required'
         ]);
 

@@ -29,6 +29,11 @@ export default {
         totalValue: '',
         dataShowFrom: '',
         dataShowTo: '',
+
+        dataModalDilog: false,
+        valid: false,
+        modalBtnLoading: false,
+
         editmode: false,
         dataModelTitle: 'Store Data',
         // Loading Animation
@@ -36,6 +41,9 @@ export default {
 
         imageMaxSize: '2111775',
         fileMaxSize: '5111775',
+
+        // Tbl number of data show
+        tblItemNumberShow:[5,10,15,25,50,100],
       }
     },
 

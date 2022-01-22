@@ -7,9 +7,9 @@
                         <h3 class="card-title">Zones Table</h3>
                     </div>
                     <div class="col-6">
-                        <b-button variant="outline-primary" size="sm" pill class="float-right" @click="addDataModel"><i
-                                class="far fa-plus-square"></i>
-                            Add</b-button>
+                        <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary" outlined>
+                            <v-icon small>mdi-card-plus</v-icon> Add
+                        </v-btn>
                     </div>
 
                 </div>
@@ -17,21 +17,32 @@
 
             <div class="card-body">
                 <div v-if="allData.data">
-                    <div class="row mb-2">
-                        <div class="col form-inline small">
-                            <select v-model="paginate" class="form-control form-control-sm">
-                                <option value="10">10</option>
-                                <option value="30">30</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
+                    <v-row>
+                        
+                        <v-col cols="3">
+                            <!-- Show -->
+                            <v-select v-model="paginate" 
+                            label="Show:"   
+                            :items="tblItemNumberShow"
+                            small>
+                            </v-select>
+                        </v-col>
 
-                        <div class="col">
-                            <input v-model="search" class="form-control form-control-sm" type="text"
-                                placeholder="Search by any data at the table...">
-                        </div>
-                    </div>
+
+                      
+
+                        <v-col cols="9">
+                        <v-text-field
+                            prepend-icon="mdi-clipboard-text-search"
+                            label="Search:"
+                            v-model="search"
+                            placeholder="Search by any data at the table..."
+                        ></v-text-field>
+                        </v-col>
+
+                      
+                    </v-row>
+                   
 
                     <table class="table table-bordered">
                         <thead class="text-center">
@@ -58,21 +69,20 @@
                                 <td><span v-if="singleData.makby">{{ singleData.makby.name }}</span></td>
                         
                                 <td class="text-center">
-                                    <div>
-                                        <button v-if="singleData.status" @click="statusChange(singleData)" class="btn btn-success btn-sm m-1">
-                                            <i class="far fa-check-circle"></i> Active
-                                        </button>
-                                        <button v-else @click="statusChange(singleData)" class="btn btn-warning btn-sm m-1">
-                                            <i class="far fa-times-circle"></i> Inactive
-                                        </button>
-                                    </div>
-                                    <button @click="editDataModel(singleData)" class="btn btn-warning btn-sm">
-                                        <i class="fa fa-edit blue"></i> Edit
-                                    </button>
+                                    <v-btn v-if="singleData.status" @click="statusChange(singleData)" small color="primary" elevation="10" class="mb-1">
+                                        <v-icon left>mdi-check-decagram</v-icon> Active
+                                    </v-btn>
+                                    <v-btn v-else @click="statusChange(singleData)" small color="warning" elevation="10" class="mb-1">
+                                        <v-icon left>mdi-close-octagon</v-icon> Inactive
+                                    </v-btn>
+                                    
+                                    <v-btn @click="editDataModel(singleData)" small color="info"  elevation="10" class="mb-1">
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
+                                    </v-btn>
 
-                                    <button @click="deleteData(singleData.id)" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>    
+                                    <v-btn @click="deleteData(singleData.id)" small color="error" elevation="10" class="mb-1">
+                                       <v-icon left>mdi-close-octagon</v-icon> Delete
+                                    </v-btn>    
                                 </td>
                             </tr>
                         </tbody>
@@ -96,27 +106,55 @@
         </div>
 
 
-        <b-modal ref="data-modal" :title="dataModelTitle" size="lg" hide-footer>
-            <form @submit.prevent="editmode ? updateData() : createData()">
-
-                <b-form-group label="Zone Name:">
-                    <b-form-input v-model="form.name" placeholder="Enter Zone Name" :class="{ 'is-invalid': form.errors.has('name') }"></b-form-input>
-                    <div class="small text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
-                </b-form-group>
-
-              
-           
-                <b-form-group v-if="!form.progress">
-                    <b-button v-show="editmode" type="submit" class="btn-block" variant="primary"><i class="fa fa-edit"></i> Update</b-button>
-                    <b-button v-show="!editmode" type="submit" class="btn-block" variant="primary"><i
-                                class="far fa-plus-square"></i> Create</b-button>
-                </b-form-group>
 
 
-            </form>
+        <!-- Dilog  -->
+        <v-dialog v-model="dataModalDilog" persistent max-width="600px">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            {{ dataModelTitle }}
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="dataModalDilog = false" color="red lighten-1" small text class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+            
+                <v-card-text>
+                    <v-form v-model="valid">
+                        <form @submit.prevent="editmode ? updateData() : createData()">
+
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field type="text" label="Zone Name:"
+                                        :rules="[v => !!v || 'Zone Name is required!']" v-model="form.name" required>
+                                    </v-text-field>
+                                    <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                                </v-col>
+
+                                <v-btn block blockdepressed :loading="modalBtnLoading" color="primary mt-3"
+                                    type="submit">
+                                    <span v-if="editmode">
+                                        <v-icon left dark>mdi-circle-edit-outline</v-icon> Update
+                                    </span>
+                                    <span v-else>
+                                        <v-icon left dark>mdi-shape-polygon-plus </v-icon> Create
+                                    </span>
+                                </v-btn>
+
+                            </v-row>
+                        </form>
+                    </v-form>
+
+                </v-card-text>
+            </v-card>
 
 
-        </b-modal>
+        </v-dialog>
 
 
     </div>

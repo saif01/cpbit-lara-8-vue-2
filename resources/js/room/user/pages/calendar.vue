@@ -1,246 +1,303 @@
 <template>
-
-
     <div class='container py-5'>
+
         <div>
-            <b-overlay :show="overlayCalanderShow" spinner-variant="success" rounded="sm">
-                <FullCalendar :options='calendarOptions'></FullCalendar>
-            </b-overlay>
+            <FullCalendar :options='calendarOptions'></FullCalendar>
         </div>
 
 
+
         <!-- Single Event data Show Modal -->
-        <b-modal v-model="eventDetailsModal" title="Booked Details" hide-footer>
-            <table class="table small">
-                <tr>
-                    <th>Purpose : </th>
-                    <td v-if="clickCurrentEvetData.extendedProps">{{ clickCurrentEvetData.extendedProps.purpose }}</td>
-                </tr>
-                <tr>
-                    <th>Start : </th>
-                    <td v-if="clickCurrentEvetData.start">
-                        {{ clickCurrentEvetData.start | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
-                </tr>
-                <tr>
-                    <th>End : </th>
-                    <td v-if="clickCurrentEvetData.end">
-                        {{ clickCurrentEvetData.end | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
-                </tr>
-                <tr>
-                    <th>Created At : </th>
-                    <td v-if="clickCurrentEvetData.extendedProps">
-                        {{ clickCurrentEvetData.extendedProps.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Booked By : </th>
-                    <td>
-                        <div class="row">
-                            <div class="col-3">
-                                <span v-if="clickCurrentEvetData.extendedProps"><img
-                                        :src="'/images/users/small/' +clickCurrentEvetData.extendedProps.bookby.image"
-                                        alt="image" class="img-fluid img-thumbnail" height="80" width="60">
-                                </span>
-                            </div>
-                            <div class="col-9">
-                                <span v-if="clickCurrentEvetData.extendedProps">
-                                    <b>Name: </b>{{ clickCurrentEvetData.extendedProps.bookby.name }} <br>
-                                    <b>Department: </b>{{ clickCurrentEvetData.extendedProps.bookby.department }}
-                                </span>
-                            </div>
-                        </div>
-                    </td>
-
-
-                </tr>
-
-            </table>
-        </b-modal>
+        <v-dialog v-model="eventDetailsModal" max-width="600px">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            Booked Details
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="eventDetailsModal = false" color="red lighten-1" small text
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+                    <table class="table">
+                        <tr>
+                            <th>Purpose : </th>
+                            <td v-if="clickCurrentEvetData.extendedProps">
+                                {{ clickCurrentEvetData.extendedProps.purpose }}</td>
+                        </tr>
+                        <tr>
+                            <th>Start : </th>
+                            <td v-if="clickCurrentEvetData.start">
+                                {{ clickCurrentEvetData.start | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
+                        </tr>
+                        <tr>
+                            <th>End : </th>
+                            <td v-if="clickCurrentEvetData.end">
+                                {{ clickCurrentEvetData.end | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
+                        </tr>
+                        <tr>
+                            <th>Created At : </th>
+                            <td v-if="clickCurrentEvetData.extendedProps">
+                                {{ clickCurrentEvetData.extendedProps.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Booked By : </th>
+                            <td>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <span v-if="clickCurrentEvetData.extendedProps"><img
+                                                :src="'/images/users/small/' +clickCurrentEvetData.extendedProps.bookby.image"
+                                                alt="image" class="img-fluid img-thumbnail" height="80" width="60">
+                                        </span>
+                                    </div>
+                                    <div class="col-9">
+                                        <span v-if="clickCurrentEvetData.extendedProps">
+                                            <b>Name: </b>{{ clickCurrentEvetData.extendedProps.bookby.name }} <br>
+                                            <b>Department:
+                                            </b>{{ clickCurrentEvetData.extendedProps.bookby.department }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
 
 
         <!-- Booking Data Store Modal -->
-        <b-modal v-model="eventDataStoreModal" title="Conform Booking" size="md" scrollable hide-footer ok-only>
-            <b-overlay :show="overlaydataStoreShow" spinner-variant="success" rounded="sm">
+        <v-dialog v-model="eventDataStoreModal" max-width="700px">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            Conform Booking
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="eventDataStoreModal = false" color="red lighten-1" small text
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
 
-                <div v-if="currentSelectedRoom" class="bg-info text-center rounded mb-2">
-                    Selected Room: <b>{{ currentSelectedRoom.name }}</b>, Capacity:
-                    <b>{{ currentSelectedRoom.capacity }}</b>
-                </div>
-
-                <form @submit.prevent="storeCurrentEventData()">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="start_date">Start Date</label>
-                                <b-form-datepicker v-model="form.start_date" today-button reset-button close-button
-                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" 
-                                    :hide-header="datePickerHeader"
-                                    :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }"
-                                    :class="{ 'is-invalid': form.errors.has('start_date') }" required>
-                                </b-form-datepicker>
-                                <div class="small text-danger" v-if="form.errors.has('start_date')"
-                                    v-html="form.errors.get('start_date')" />
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="end_date">End Date</label>
-                                <b-form-datepicker v-model="form.end_date" today-button reset-button close-button
-                                    locale="en" placeholder="YYYY-MM-DD" autocomplete="off" 
-                                    :hide-header="datePickerHeader"
-                                    :date-format-options="{ year: 'numeric', month: 'long', day: 'numeric' }"
-                                    :class="{ 'is-invalid': form.errors.has('end_date') }" required>
-                                </b-form-datepicker>
-                                <div class="small text-danger" v-if="form.errors.has('end_date')"
-                                    v-html="form.errors.get('end_date')" />
-                            </div>
-                        </div>
+                    <div v-if="currentSelectedRoom" class="bg-info text-center rounded mb-2">
+                        Selected Room: <b>{{ currentSelectedRoom.name }}</b>, Capacity:
+                        <b>{{ currentSelectedRoom.capacity }}</b>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="Start_Time">Start Time</label>
-                                <b-form-timepicker minutes-step="15" id="Start_Time" v-model="form.start_time" now-button reset-button
-                                    locale="en"  :class="{ 'is-invalid': form.errors.has('start_time') }"
-                                    required>
-                                </b-form-timepicker>
-                                <div class="small text-danger" v-if="form.errors.has('start_time')"
-                                    v-html="form.errors.get('start_time')" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="End_Time">End Time</label>
-                                <b-form-timepicker  minutes-step="15" id="End_Time" v-model="form.end_time" now-button reset-button
-                                    locale="en"  :class="{ 'is-invalid': form.errors.has('end_time') }"
-                                    required>
-                                </b-form-timepicker>
-                                <div class="small text-danger" v-if="form.errors.has('end_time')"
-                                    v-html="form.errors.get('end_time')" />
-                            </div>
-                        </div>
-                    </div>
+                    <form @submit.prevent="storeCurrentEventData()">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="purpose">Booking Purpose</label>
-                                <b-form-textarea id="purpose" v-model="form.purpose" 
+                        <v-row>
+                            <v-col cols="12" md="6">
+                                <!-- start_date -->
+                                <v-menu v-model="menu" min-width="auto">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field v-model="form.start_date" label="Start Date"
+                                            prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" required>
+                                        </v-text-field>
+                                        <div class="small text-danger" v-if="form.errors.has('start_date')"
+                                            v-html="form.errors.get('start_date')" />
+                                    </template>
+
+                                    <v-date-picker v-model="form.start_date" no-title scrollable>
+                                        <v-spacer></v-spacer>
+                                        <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                                        <v-btn text color="success"> Set Today</v-btn>
+                                    </v-date-picker>
+                                </v-menu>
+                            </v-col>
+
+                            <v-col cols="12" md="6">
+                                <!-- end_date -->
+                                <v-menu v-model="menu2" min-width="auto">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field v-model="form.end_date" label="End Date"
+                                            prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" required>
+                                        </v-text-field>
+                                        <div class="small text-danger" v-if="form.errors.has('end_date')"
+                                            v-html="form.errors.get('end_date')" />
+                                    </template>
+                                    <v-date-picker v-model="form.end_date" no-title scrollable>
+                                        <v-spacer></v-spacer>
+                                        <v-btn text color="primary" @click="menu2 = false"> Cancel</v-btn>
+                                        <v-btn text color="success">Set Today</v-btn>
+                                    </v-date-picker>
+                                </v-menu>
+                            </v-col>
+
+
+                            <v-col cols="12" md="6">
+                                <!-- start_time -->
+                                <v-menu ref="menu3" v-model="menu3" :close-on-content-click="false"
+                                    :return-value.sync="time" max-width="290px" min-width="290px">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field v-model="form.start_time" label="Start Time"
+                                            prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"
+                                            id="Start_Time" required></v-text-field>
+                                        <div class="small text-danger" v-if="form.errors.has('start_time')"
+                                            v-html="form.errors.get('start_time')" />
+                                    </template>
+                                    <v-time-picker v-if="menu3" v-model="form.start_time" full-width
+                                        @click:minute="$refs.menu3.save(time)" ampm-in-title scrollable></v-time-picker>
+                                </v-menu>
+                            </v-col>
+
+
+                            <v-col cols="12" md="6">
+                                <!-- end_time -->
+                                <v-menu ref="menu4" v-model="menu4" :close-on-content-click="false"
+                                    :return-value.sync="time" max-width="290px" min-width="290px">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field v-model="form.end_time" label="End Time"
+                                            prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"
+                                            required></v-text-field>
+                                        <div class="small text-danger" v-if="form.errors.has('end_time')"
+                                            v-html="form.errors.get('end_time')" />
+                                    </template>
+                                    <v-time-picker v-if="menu4" v-model="form.end_time" full-width
+                                        @click:minute="$refs.menu4.save(time)" scrollable></v-time-picker>
+                                </v-menu>
+                            </v-col>
+
+
+                            <v-col cols="12">
+                                <v-textarea label="Booking Purpose" rows="2" outlined v-model="form.purpose"
                                     placeholder="Enter booking purpose in details"
-                                    :class="{ 'is-invalid': form.errors.has('purpose') }" required></b-form-textarea>
-                                <div class="small text-danger" v-if="form.errors.has('purpose')"
-                                    v-html="form.errors.get('purpose')" />
-                            </div>
-                        </div>
-                    </div>
+                                    :class="{ 'is-invalid': form.errors.has('purpose') }" required></v-textarea>
+                            </v-col>
 
 
-                    <!-- <b-form-group v-if="form.progress">
-                            <b-progress :value="form.progress.percentage" variant="success" striped animated>
-                            </b-progress>
-                        </b-form-group> -->
+                            <v-btn type="submit" block blockdepressed :loading="loadingdataStoreShow"
+                                color="primary mt-3">
+                                <v-icon left dark>mdi-plus-circle-outline</v-icon> Submit
+                            </v-btn>
 
-                    <b-form-group v-if="!form.progress">
-                        <b-button type="submit" class="btn-block" variant="success"><i class="fas fa-plus-circle"></i>
-                            Submit</b-button>
-                    </b-form-group>
+                        </v-row>
 
-                </form>
+                    </form>
 
-            </b-overlay>
-        </b-modal>
+
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
 
 
         <!-- Room Details for Booking -->
-        <b-modal v-model="roomStatusShow" title="Select Room for Booking" size="xl" scrollable hide-footer ok-only>
+        <v-dialog v-model="roomStatusShow" scrollable>
+            <v-card>
+                <!-- Dilog Title -->
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            Select Room for Booking
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="roomStatusShow = false" color="red lighten-1" small text class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
 
-            <b-overlay :show="overlayRoomStatusShow" spinner-variant="success" rounded="sm">
+                <v-card-text>
+                    <!-- All Free Rooms -->
+                    <table v-if="freeRooms.length > 0"
+                        class="table table-striped table-bordered table-hover table-sm text-center">
+                        <thead class="bg-success">
+                            <tr>
+                                <th colspan="3" class="text-center booking_table_border p-0"><span
+                                        style="border-bottom:2px solid white">All Free Rooms</span></th>
+                            </tr>
+                            <tr>
+                                <th class="booking_table_border">Room</th>
+                                <th class="booking_table_border">Details</th>
+                                <th class="booking_table_border">Book</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="singleData in  freeRooms" :key="singleData.id">
+                                <td>
+                                    <img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image"
+                                        class="img-fluid" height="50" width="80">
 
-                <!-- All Free Rooms -->
-                <table v-if="freeRooms.length > 0"
-                    class="table table-striped table-bordered table-hover table-sm text-center">
-                    <thead class="bg-success">
-                        <tr>
-                            <th colspan="3" class="text-center booking_table_border p-0"><span
-                                    style="border-bottom:2px solid white">All Free Rooms</span></th>
-                        </tr>
-                        <tr>
-                            <th class="booking_table_border">Room</th>
-                            <th class="booking_table_border">Details</th>
-                            <th class="booking_table_border">Book</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="singleData in  freeRooms" :key="singleData.id">
-                            <td>
-                                <img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image"
-                                    class="img-fluid" height="50" width="80">
+                                </td>
+                                <td>
+                                    <b>Name:</b> {{ singleData.name }} <br>
+                                    <b>Capacity:</b> {{ singleData.capacity }}
+                                </td>
+                                <td>
+                                    <v-btn @click="bookingModal(singleData)" color="teal">
+                                        <v-icon>mdi-plus-circle-outline</v-icon>
+                                        Book
+                                    </v-btn>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                            </td>
-                            <td>
-                                <b>Name:</b> {{ singleData.name }} <br>
-                                <b>Capacity:</b> {{ singleData.capacity }}
-                            </td>
-                            <td>
-                                <b-button @click="bookingModal(singleData)"  class="btn-success"><i
-                                        class="fas fa-plus-circle"></i> Book</b-button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <!-- All Persial Free Rooms -->
+                    <table v-if="bookings.length > 0"
+                        class="table table-striped table-bordered table-hover table-sm text-center">
+                        <thead class="bg-warning">
+                            <tr>
+                                <th colspan="3" class="text-center booking_table_border p-0"><span
+                                        style="border-bottom:2px solid black">All Partial Booked Rooms</span></th>
+                            </tr>
+                            <tr>
+                                <th class="booking_table_border">Room</th>
+                                <th class="booking_table_border">Details</th>
+                                <th class="booking_table_border">Book</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="singleData in bookings" :key="singleData.id">
+                                <td>
+                                    <span v-if="singleData.room">
+                                        <img v-if="singleData.room.image" :src="imagePathSm + singleData.room.image"
+                                            alt="image" class="img-fluid" height="50" width="80">
+                                    </span>
+                                </td>
+                                <td class="text-left">
+                                    <span v-if="singleData.room">
+                                        <b>Name:</b> {{ singleData.room.name }} <br>
+                                    </span>
+                                    <span v-if="singleData.room">
+                                        <b>Capacity:</b> {{ singleData.room.capacity }} <br>
+                                    </span>
+                                    <b>Booked:</b> {{ singleBookedTimeShow(singleData.start, singleData.end) }} <br>
+                                    <span v-if="singleData.bookby">
+                                        <b>Booked By:</b> {{ singleData.bookby.name }} <br>
+                                    </span>
+                                </td>
+                                <td>
+                                    <v-btn @click="bookingModal(singleData.room)" color="orange">
+                                        <v-icon>mdi-plus-circle-outline</v-icon> Book
+                                    </v-btn>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <!-- All Persial Free Rooms -->
-                <table v-if="bookings.length > 0"
-                    class="table table-striped table-bordered table-hover table-sm text-center">
-                    <thead class="bg-warning">
-                        <tr>
-                            <th colspan="3" class="text-center booking_table_border p-0"><span
-                                    style="border-bottom:2px solid black">All Partial Booked Rooms</span></th>
-                        </tr>
-                        <tr>
-                            <th class="booking_table_border">Room</th>
-                            <th class="booking_table_border">Details</th>
-                            <th class="booking_table_border">Book</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="singleData in bookings" :key="singleData.id">
-                            <td>
-                                <span v-if="singleData.room">
-                                    <img v-if="singleData.room.image" :src="imagePathSm + singleData.room.image"
-                                        alt="image" class="img-fluid" height="50" width="80">
-                                </span>
-                            </td>
-                            <td class="text-left">
-                                <span v-if="singleData.room">
-                                    <b>Name:</b> {{ singleData.room.name }} <br>
-                                </span>
-                                <span v-if="singleData.room">
-                                    <b>Capacity:</b> {{ singleData.room.capacity }} <br>
-                                </span>
-                                <b>Booked:</b> {{ singleBookedTimeShow(singleData.start, singleData.end) }} <br>
-                                <span v-if="singleData.bookby">
-                                    <b>Booked By:</b> {{ singleData.bookby.name }} <br>
-                                </span>
-                            </td>
-                            <td>
-                                <b-button @click="bookingModal(singleData.room)"  class="btn-warning"><i
-                                        class="fas fa-plus-circle"></i> Book</b-button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                 
 
-            </b-overlay>
+                </v-card-text>
+            </v-card>
 
-        </b-modal>
+        </v-dialog>
 
 
     </div>
-
 </template>
 
 
@@ -265,6 +322,13 @@
         },
         data: function () {
             return {
+                // time and date picker
+                menu: false,
+                menu2: false,
+                menu3: false,
+                menu4: false,
+                time: '',
+
 
                 calendarOptions: {
                     plugins: [
@@ -330,9 +394,9 @@
                 eventDataStoreModal: false,
                 eventDetailsModal: false,
                 // Overlay
-                overlayCalanderShow: false,
+                overlayCalanderShow: true,
                 overlayRoomStatusShow: false,
-                overlaydataStoreShow: false,
+                loadingdataStoreShow: false,
 
                 freeRooms: {},
                 bookings: {},
@@ -362,7 +426,8 @@
             onEventRender: function (args) {
                 //console.log(args.event.extendedProps.bookby.name, args.event.start )
                 let titleStr = args.event.title
-                let contentStr = this.$moment(args.event.start).format("MMM Do, h:mm:ss a") + " - " + this.$moment(args.event.start).format("MMM Do, h:mm:ss a");
+                let contentStr = this.$moment(args.event.start).format("MMM Do, h:mm:ss a") + " - " + this.$moment(
+                    args.event.start).format("MMM Do, h:mm:ss a");
 
                 new BPopover({
                     propsData: {
@@ -423,8 +488,8 @@
 
             // Data Select From Calendar
             async handleDateSelect(selectInfo) {
-                // Overlay
-                this.overlayCalanderShow = true
+                // loading    
+                this.$Progress.start();
 
                 //select Previous Date
                 if (this.$moment().diff(selectInfo.startStr, 'days') > 0) {
@@ -472,14 +537,14 @@
                     // Modal Show
                     this.roomStatusShow = true;
 
-                    // Overlay
-                    this.overlayCalanderShow = false
+                    // Loading
+                    this.$Progress.finish();
 
                     //console.log('selectInfo', selectInfo, selectInfo.startStr, selectInfo.endStr, newEndDate, actualEndDate)
 
                 } catch (error) {
-                    // Overlay
-                    this.overlayCalanderShow = false
+                    // loading
+                    this.$Progress.finish();
                     Swal.fire({
                         icon: 'error',
                         title: 'Sorry!! Somthing Going Wrong',
@@ -533,13 +598,13 @@
                     this.form.start = startDateTime
                     this.form.end = endDateTime
                     // Overlay
-                    this.overlaydataStoreShow = true
+                    this.loadingdataStoreShow = true
                     try {
 
                         const response = await this.form.post(this.currentUrl + '/store');
                         console.log(response.data)
                         // Overlay
-                        this.overlaydataStoreShow = false
+                        this.loadingdataStoreShow = false
                         if (response.data.status == 'success') {
 
                             // Refresh Calendar
@@ -565,7 +630,7 @@
 
                     } catch (error) {
                         // Overlay
-                        this.overlaydataStoreShow = false
+                        this.loadingdataStoreShow = false
                         Swal.fire({
                             icon: 'error',
                             title: 'Sorry!! Somthing Going Wrong',

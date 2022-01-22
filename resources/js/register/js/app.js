@@ -6,6 +6,7 @@ import  BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue)
 
 
+
 // sweetalert2
 import Swal from 'sweetalert2';
 const Toast = Swal.mixin({
