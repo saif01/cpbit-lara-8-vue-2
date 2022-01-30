@@ -290,7 +290,7 @@
         },
 
 
-        mounted() {
+        created() {
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
