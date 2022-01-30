@@ -79,6 +79,22 @@ class User extends Authenticatable
     }
 
 
+
+    //Relation user to sms role
+    public function sms_roles()
+    {
+        return $this->belongsToMany('App\Models\Sms\SmsOperation');
+    }
+
+    // Check single roles sms
+    public function sms_hasRole($role)
+    {
+        if($this->sms_roles()->where('name',$role)->first()){
+            return true;
+        }
+        return false;
+    }
+
     
 
     

@@ -20,7 +20,7 @@ export default{
                 this.totalValue = response.data.total;
                 this.dataShowFrom = response.data.from;
                 this.dataShowTo = response.data.to;
-            
+                this.currentPageNumber  = response.data.current_page
                 // Loading Animation
                 this.dataLoading = false;
 

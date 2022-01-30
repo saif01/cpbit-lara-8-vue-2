@@ -5,10 +5,14 @@
     "/js/super_admin/app.js": "/js/super_admin/app.js",
     "/js/room/admin/app.js": "/js/room/admin/app.js",
     "/js/room/user/app.js": "/js/room/user/app.js",
+    "/js/sms/admin/app.js": "/js/sms/admin/app.js",
+    "/js/sms/user/app.js": "/js/sms/user/app.js",
     "/css/app.css": "/css/app.css",
     "/css/auth/app.css": "/css/auth/app.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
     "/css/super_admin/app.css": "/css/super_admin/app.css",
     "/css/room/admin/app.css": "/css/room/admin/app.css",
-    "/css/room/user/app.css": "/css/room/user/app.css"
+    "/css/room/user/app.css": "/css/room/user/app.css",
+    "/css/sms/admin/app.css": "/css/sms/admin/app.css",
+    "/css/sms/user/app.css": "/css/sms/user/app.css"
 }

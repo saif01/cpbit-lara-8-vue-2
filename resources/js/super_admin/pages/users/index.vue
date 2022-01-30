@@ -38,7 +38,6 @@
                             item-value="offices"
                             small>
                             </v-select>
-                            
                         </v-col>
 
 
@@ -93,7 +92,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td>{{ singleData.login  }}
+                                <td>{{ singleData.login  }}<br>
                                     <img v-if="singleData.image"
                                     :src="imagePathSm + singleData.image" alt="image" class="img-fluid" height="50" width="80">
                                 </td>
@@ -126,7 +125,7 @@
                                 <td>
                                     <span v-if="singleData.roles.length">
                                         <span v-for="(role, index) in singleData.roles" :key="index">
-                                            <span>{{ role.name }}, </span>
+                                            <span class="pa-1 m-1 rounded-pill small">{{ role.name }}, </span>
                                         </span>
                                     </span>
                                     <span v-else>
@@ -417,18 +416,20 @@
 
 
         mounted() {
-            this.$Progress.start();
-            // Fetch initial results
-            this.getResults();
             // Get Roles 
             this.getRoles();
             // All ZoneOffices
             this.getZoneOffices();
             //getDepartments
             this.getDepartments();
-
-            this.$Progress.finish();
         },
+
+        created(){
+            this.$Progress.start();
+            // Fetch initial results
+            this.getResults();
+            this.$Progress.finish();
+        }
 
 
 
