@@ -12,12 +12,12 @@ export default {
             )
             .then(response => {
                 //console.log(response.data.data);
-                //console.log(response.data.from, response.data.to);
+                //console.log(response.data.from, response.data.to, response.data.current_page);
                 this.allData = response.data;
                 this.totalValue = response.data.total;
                 this.dataShowFrom = response.data.from;
                 this.dataShowTo = response.data.to;
-            
+                this.currentPageNumber  = response.data.current_page
                 // Loading Animation
                 this.dataLoading = false;
 

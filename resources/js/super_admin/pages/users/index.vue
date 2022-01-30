@@ -192,7 +192,7 @@
                 </div>
                 <div v-else>
                     <div v-if="dataLoading" class="p-5 my-5">
-                        <p class="text-center"><i class="fas fa-spinner fa-pulse text-success fa-10x"></i></p>
+                        <p class="text-center h1" >Loading.. <v-icon color="success" size="100">mdi mdi-loading mdi-spin</v-icon></p>
                     </div>
                 </div>
                 <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Sorry !! Data Not Available</h1>

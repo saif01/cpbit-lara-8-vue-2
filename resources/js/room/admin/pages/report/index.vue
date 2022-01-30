@@ -5,21 +5,18 @@
 
             <v-card-text>
                 <div v-if="allData.data">
-                    <div class="row mb-2">
-                        <div class="col form-inline small">
-                            <select v-model="paginate" class="form-control form-control-sm">
-                                <option value="10">10</option>
-                                <option value="30">30</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
+                    <v-row>
+                        <v-col cols="2">
+                            <!-- Show -->
+                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" small>
+                            </v-select>
+                        </v-col>
 
-                        <div class="col">
-                            <input v-model="search" class="form-control form-control-sm" type="text"
-                                placeholder="Search by any data at the table...">
-                        </div>
-                    </div>
+                        <v-col cols="10">
+                            <v-text-field prepend-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
+                                placeholder="Search Input..."></v-text-field>
+                        </v-col>
+                    </v-row>
 
                     <table class="table table-bordered">
                         <thead class="text-center">
@@ -48,7 +45,7 @@
                                     <span v-if="sort_direction == 'asc' && sort_field == 'status'">&darr;</span>
                                 </th>
                                 <th>
-                                    Bookied By
+                                    Booked By
                                 </th>
                                 <th>
                                     Department
@@ -81,7 +78,7 @@
                 </div>
                 <div v-else>
                     <div v-if="dataLoading" class="p-5 my-5">
-                        <p class="text-center"><i class="fas fa-spinner fa-pulse text-success fa-10x"></i></p>
+                        <p class="text-center h1">Loading.. <v-icon color="success" size="100">mdi mdi-loading mdi-spin</v-icon></p>
                     </div>
                 </div>
                 <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Sorry !! Data Not Available</h1>

@@ -1,9 +1,5 @@
 <template>
     <div>
-        <h1>Room Admin</h1>
-
-        Current ID: {{ auth.login }}
-
         <div>
             <FullCalendar :options='calendarOptions'></FullCalendar>
         </div>

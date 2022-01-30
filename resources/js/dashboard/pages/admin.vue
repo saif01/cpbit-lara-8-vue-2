@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="area">
-            <nav-bar></nav-bar>
+            <nav-bar headerText="Admin"></nav-bar>
             <div>
                 <div class="d-flex flex-wrap justify-content-around" >
 
