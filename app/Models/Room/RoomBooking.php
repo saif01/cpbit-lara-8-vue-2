@@ -15,17 +15,20 @@ class RoomBooking extends Model
     // Modify New appends field
     public function getTitleAttribute()
     {
-        // return "{$this->first_name} {$this->last_name}"; 
-        return "{$this->room->name} {$this->purpose}" ." ( ". $this->bookby->name ." )";
+        if ($this->room && $this->bookby) {
+            return "{$this->room->name} {$this->purpose}" ." ( ". $this->bookby->name ." )";
+        } else {
+            return "{$this->purpose}" ;
+        }
+
+        //return "{$this->room->name} {$this->purpose}" ." ( ". $this->bookby->name ." )";
     }
 
     public function room(){
-        // return $this->belongsTo(User::class, 'foreign_key', 'owner_key');
         return $this->belongsTo('App\Models\Room\Room', 'room_id', 'id');
     }
 
     public function bookby(){
-        // return $this->belongsTo(User::class, 'foreign_key', 'owner_key');
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 

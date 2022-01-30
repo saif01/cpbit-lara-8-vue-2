@@ -8,7 +8,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn text link route :to="{ name: 'Dashboard'}" small>
+            <v-btn text link route :to="{ name: 'Dashboard'}" small exact>
                 Dashboard
             </v-btn>
 
@@ -43,6 +43,10 @@
     .nav-logo-bg{
         background-color: white !important;
         border-radius: 8px;
+    }
+
+    a:hover{
+        text-decoration: none;
     }
 
 

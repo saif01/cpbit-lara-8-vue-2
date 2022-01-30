@@ -1,21 +1,22 @@
 <template>
     <div>
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-6">
-                        <h3 class="card-title">Rooms Table</h3>
-                    </div>
-                    <div class="col-6">
-                        <b-button variant="outline-primary" size="sm" pill class="float-right" @click="addDataModel"><i
-                                class="far fa-plus-square"></i>
-                            Add</b-button>
-                    </div>
+        <v-card>
+            <v-card-title class="justify-center">
+                <v-row>
+                    <v-col cols="10">
+                        Rooms Table
+                    </v-col>
+                    <v-col cols="2">
+                        <v-btn @click="addDataModel()" color="primary" small outlined
+                            class="float-right">
+                            <v-icon left dark>mdi-plus-circle-outline </v-icon> Add
+                        </v-btn>
+                        
+                    </v-col>
+                </v-row>
+            </v-card-title>
 
-                </div>
-            </div>
-
-            <div class="card-body">
+            <v-card-text>
                 <div v-if="allData.data">
                     <div class="row mb-2">
                         <div class="col form-inline small">
@@ -75,20 +76,20 @@
                         
                                 <td class="text-center">
                                     
-                                    <button v-if="singleData.status" @click="statusChange(singleData)" class="btn btn-success btn-sm m-1">
-                                        <i class="far fa-check-circle"></i> Active
-                                    </button>
-                                    <button v-else @click="statusChange(singleData)" class="btn btn-warning btn-sm m-1">
-                                        <i class="far fa-times-circle"></i> Inactive
-                                    </button>
+                                    <v-btn v-if="singleData.status" @click="statusChange(singleData)" color="success" depressed small>
+                                        <v-icon small>mdi-check-circle-outline</v-icon> Active
+                                    </v-btn>
+                                    <v-btn v-else @click="statusChange(singleData)" color="warning" depressed small>
+                                        <v-icon small>mdi-alert-circle-outline </v-icon> Inactive
+                                    </v-btn>
                                     
-                                    <button @click="editDataModel(singleData)" class="btn btn-warning btn-sm m-1">
-                                        <i class="fa fa-edit blue"></i> Edit
-                                    </button>
+                                    <v-btn @click="editDataModel(singleData)" color="info" depressed small>
+                                        <v-icon small>mdi-pencil-box-multiple-outline</v-icon> Edit
+                                    </v-btn>
 
-                                    <button @click="deleteDataTemp(singleData.id)" class="btn btn-danger btn-sm m-1">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>  
+                                    <v-btn @click="deleteDataTemp(singleData.id)" color="error" depressed small>
+                                        <v-icon small>mdi-delete-empty</v-icon> Delete
+                                    </v-btn>  
                                     <br>
                                     <span v-if="singleData.makby" class="small text-muted">Create By-- {{ singleData.makby.name }}</span>
                                 </td>
@@ -110,107 +111,95 @@
                 </div>
                 <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Sorry !! Data Not Available</h1>
 
-            </div>
-        </div>
+            </v-card-text>
+        </v-card>
 
 
         <!-- Modal -->
-        <b-modal ref="data-modal" :title="dataModelTitle" size="lg" hide-footer>
-            <b-overlay :show="overlayshow" spinner-variant="success" rounded="sm">
-                <form @submit.prevent="editmode ? updateData() : createData()">
+        <v-dialog v-model="dataModalDialog" max-width="700px">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            {{dataModelTitle}}
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="dataModalDialog = false" color="red lighten-1 white--text" small
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+                    <v-form v-model="valid" ref="form">
+                        <form @submit.prevent="editmode ? updateData() : createData()">
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <b-form-group label="Room Name:">
-                                <b-form-input v-model="form.name" placeholder="Enter Room Name" :class="{ 'is-invalid': form.errors.has('name') }" required></b-form-input>
-                                <div class="small text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
-                            </b-form-group>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <b-form-group label="Room capacity:">
-                                <b-form-input type="number" v-model="form.capacity" placeholder="Enter Room capacity" :class="{ 'is-invalid': form.errors.has('capacity') }" required></b-form-input>
-                                <div class="small text-danger" v-if="form.errors.has('capacity')" v-html="form.errors.get('capacity')" />
-                            </b-form-group>
-                        </div>
+                            <v-row align-content="center">
+                                
+                                <v-col md="4">
+                                    <v-text-field v-model="form.name" label="Enter Room Name" :rules="roomRules" required></v-text-field>
+                                </v-col>
 
-                        <div class="col-md-4">
-                            <b-form-group label="Room projector:" v-slot="{ ariaDescribedby2 }">
-                                <b-form-radio-group  
-                                    v-model="form.projector"
-                                    :options="activeOptions"
-                                    :aria-describedby="ariaDescribedby2"
-                                    required
-                                ></b-form-radio-group>
-                                <div class="small text-danger" v-if="form.errors.has('projector')" v-html="form.errors.get('projector')" />
-                            </b-form-group>
-                        </div>
-                    </div>
+                                <v-col md="4">
+                                    <v-text-field type="number" v-model="form.capacity" label="Enter Room capacity" :rules="roomRules" required></v-text-field>
+                                </v-col>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <b-form-group label="Room Remarks:">
-                                <b-form-textarea v-model="form.remarks" placeholder="Enter Room Details .." :class="{ 'is-invalid': form.errors.has('remarks') }"></b-form-textarea>
-                                <div class="small text-danger" v-if="form.errors.has('remarks')" v-html="form.errors.get('remarks')" />
-                            </b-form-group>
-                        </div>
-                    </div>
+                                <v-col md="4">
+                                    <v-radio-group v-model="form.projector" :rules="roomRulesFeature" required label="Projector Faciilty" row>
+                                        <v-radio v-for="n in activeOptions" :key="n.value" :label="n.text" :value="n.value"></v-radio>
+                                    </v-radio-group>
+                                </v-col>
 
-                    <div class="row">
+                                <v-col cols="12">
+                                    <v-textarea outlined rows="2" v-model="form.remarks" label="Enter Room Details" ></v-textarea>
+                                </v-col>
+                            </v-row>
 
-                        <!-- Image 1 -->
-                        <div class="col-md-4">
-                            <b-form-group label="1st Image:">
-                                <b-form-file v-on:input="uploadImageByName($event, 'image')"
-                                    placeholder="Choose 1st Image" size="sm" accept=".jpg, .png, .jpeg">
-                                </b-form-file>
-                            </b-form-group>
-                        </div>
-                        <!-- Image 2 -->
-                        <div class="col-md-4">
-                            <b-form-group label="2nd Image:">
-                                <b-form-file v-on:input="uploadImageByName($event, 'image2')"
-                                    placeholder="Choose 2nd Image" size="sm" accept=".jpg, .png, .jpeg">
-                                </b-form-file>
-                            </b-form-group>
-                        </div>
-                        <!-- Image 1 -->
-                        <div class="col-md-4">
-                            <b-form-group label="3rd Image:">
-                                <b-form-file v-on:input="uploadImageByName($event, 'image3')"
-                                    placeholder="Choose 3rd Image" size="sm" accept=".jpg, .png, .jpeg">
-                                </b-form-file>
-                            </b-form-group>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img :src="showImageByName('image')" class="rounded mx-auto d-block image-thum-size" />
-                        </div>
-                        <div class="col-md-4">
-                            <img :src="showImageByName('image2')" class="rounded mx-auto d-block image-thum-size" />
-                        </div>
-                        <div class="col-md-4">
-                            <img :src="showImageByName('image3')" class="rounded mx-auto d-block image-thum-size" />
-                        </div>
-                    </div>
-                    
+                            <v-row>
+                                <!-- Image 1 -->
+                                <v-col md="4">
+                                        <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'image')"
+                                            label="Choose 1st Image" size="sm" accept=".jpg, .png, .jpeg">
+                                        </v-file-input>
+                                </v-col>
+                                <!-- Image 2 -->
+                                <v-col md="4">
+                                        <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'image2')"
+                                            label="Choose 2nd Image" size="sm" accept=".jpg, .png, .jpeg">
+                                        </v-file-input>
+                                </v-col>
+                                <!-- Image 2 -->
+                                <v-col md="4">
+                                    <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'image3')"
+                                        label="Choose 3rd Image" size="sm" accept=".jpg, .png, .jpeg">
+                                    </v-file-input>
+                                </v-col>
+                            </v-row>
 
-                
-                    <div class="row mt-2">
-                        <div class="col-md-12">
-                            <b-form-group v-if="!form.progress">
-                                <b-button v-show="editmode" type="submit" class="btn-block" variant="primary"><i class="fa fa-edit blue"></i> Update</b-button>
-                                <b-button v-show="!editmode" type="submit" class="btn-block" variant="primary"><i class="far fa-check-circle"></i> Create </b-button>
-                            </b-form-group>
-                        </div>
-                    </div>
-                    
+                            <v-row class="mb-2">
+                                <v-col md="4">
+                                    <img :src="showImageByName('image')" class="rounded mx-auto d-block image-thum-size" />
+                                </v-col>
+                                <v-col md="4">
+                                    <img :src="showImageByName('image2')" class="rounded mx-auto d-block image-thum-size" />
+                                </v-col>
+                                <v-col md="4">
+                                    <img :src="showImageByName('image3')" class="rounded mx-auto d-block image-thum-size" />
+                                </v-col>
+                            </v-row>
 
-                </form>
-            </b-overlay>
-        </b-modal>
+                            <v-btn v-show="editmode" type="submit" block depressed :loading="addRoomsLoader" color="primary"><v-icon>mdi-edit</v-icon> Update</v-btn>
+                            <v-btn v-show="!editmode" type="submit" block depressed :loading="addRoomsLoader" color="primary"><v-icon>mdi-save</v-icon> Create</v-btn>
+                            
+
+                        </form>
+                    </v-form>
+
+                </v-card-text>
+            </v-card>
+        </v-dialog>
 
 
     </div>
@@ -229,12 +218,26 @@
 
             return {
 
+                // v-form
+                valid:false,
+                // dialog
+                dataModalDialog:false,
+
+                // loader
+                addRoomsLoader:false,
+
+                roomRules:[v => !!v || 'This field is required!'],
+
+                roomRulesFeature:[
+                    v => v==0 || v==1 || 'This field is required!'
+                ],
+
                 //current page url
                 currentUrl: '/room/admin/room',
 
                 activeOptions: [
-                    { text: 'Yes', value: '1' },
-                    { text: 'No', value: '0' },
+                    { text: 'Yes', value: 1 },
+                    { text: 'No', value: 0 },
                 ],
 
               
@@ -243,7 +246,7 @@
                     id: '',
                     name: '',
                     capacity: '',
-                    projector: '1',
+                    projector: '',
                     remarks: '',
                     image: '',
                     image2: '',

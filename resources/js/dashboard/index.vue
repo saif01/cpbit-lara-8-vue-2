@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <v-app>
         <choose-dashboard v-if="dashboard" @showTemp="conponentShow"></choose-dashboard>
         <user-dashboard v-if="userDashboard"></user-dashboard>
         <admin-dashboard v-if="adminDashboard"></admin-dashboard>
         <no-access v-if="noAccess"></no-access>
-    </div>
+    </v-app>
 </template>
 
 <script>

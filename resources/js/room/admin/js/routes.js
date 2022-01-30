@@ -8,6 +8,10 @@ import er404 from '../pages/common/404.vue'
 import RoomIndex from './../pages/room/index.vue'
 import ReportIndex from './../pages/report/index.vue'
 
+
+
+
+
 const router = new VueRouter({
     mode: 'history',
     routes : [
@@ -29,7 +33,7 @@ const router = new VueRouter({
             },   
         },
         { 
-            path: '/room/admin/report_index', 
+            path: '/room/admin/report', 
             component: ReportIndex,
             name: 'ReportIndex',
             meta:{
@@ -38,9 +42,7 @@ const router = new VueRouter({
         },
 
 
-
-
-
+        
 
 
         { 

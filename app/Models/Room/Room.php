@@ -12,8 +12,6 @@ class Room extends Model
     use HasFactory;
 
     public function makby(){
-
-        // return $this->belongsTo(User::class, 'foreign_key', 'owner_key');
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
 

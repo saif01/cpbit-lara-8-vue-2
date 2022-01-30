@@ -19,27 +19,7 @@ Route::namespace('App\Http\Controllers\Auth')->group(function(){
 });
 
 
-// // Login
-// Route::namespace('App\Http\Controllers\Login')->group(function(){
 
-//     Route::get('/login', 'IndexController@login')->name('login');
-//     Route::post('/login_action', 'IndexController@login_action');
-//     Route::get('/logout', 'IndexController@logout');
-
-//     Route::get('/test', 'ADLogin@Data'); 
-//     Route::get('login/{any?}', 'IndexController@login')->name('login');
-//     Route::get('register/{any?}', 'IndexController@login')->name('login');
-
-// });
-
-// Register
-// Route::namespace('App\Http\Controllers\Register')->prefix('register')->group(function(){
-
-//     Route::get('/', 'IndexController@index')->name('register');
-//     Route::post('/check', 'IndexController@check');
-//     Route::post('/store', 'IndexController@store');
-
-// });
 
 // Auth Route Start
 Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
@@ -144,11 +124,6 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             //Report 
             Route::namespace('Report')->prefix('report')->group(function(){
                 Route::get('/index', 'IndexController@index');
-                Route::post('/store', 'IndexController@store');
-                Route::put('/update/{id}', 'IndexController@update');
-                Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
-                Route::delete('/destroy/{id}', 'IndexController@destroy');
-                Route::post('/status/{id}', 'IndexController@status');
             });
 
 
@@ -176,12 +151,109 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::get('{any?}', 'IndexController@index');
         });
 
-
-
-        
+ 
         
     });
     // Room End
+
+
+    //CarPool
+    Route::namespace('Carpool')->prefix('carpool')->group(function(){
+
+        // Admin
+        Route::middleware(['can:carAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
+
+            //Car
+            Route::namespace('Car')->prefix('car')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+
+                // delete
+                Route::get('/delete/{id}', 'IndexController@delete');
+                Route::delete('/destroy_temp/{id}', 'IndexController@destroyTemp');
+                
+                // status
+                Route::post('/status/{id}', 'IndexController@status');
+                // temporary
+                Route::post('/temporary/{id}', 'IndexController@temporary');
+                // deadline
+                Route::post('/deadline-store', 'IndexController@deadlineStore');
+                Route::get('/deadline-clear/{id}', 'IndexController@deadlineClear');
+                
+            });
+
+            //Driver
+            Route::namespace('Driver')->prefix('driver')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy_temp/{id}', 'IndexController@destroyTemp');
+                // status
+                Route::post('/status/{id}', 'IndexController@status');
+
+                 // car data
+                Route::get('/car-data', 'IndexController@CarData');
+
+            });
+
+            //Destination
+            Route::namespace('Destination')->prefix('destination')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+            });
+
+            //Reports
+            Route::namespace('Report')->prefix('report')->group(function(){
+                Route::get('/index', 'IndexController@index');
+
+                Route::get('/driver-leave', 'IndexController@DriverLeave');
+                Route::get('/car-maintenance', 'IndexController@CarMaintenance');
+                Route::get('/car-requisition', 'IndexController@CarRequisition');
+                Route::get('/car-driver/{id}', 'IndexController@CarDriver');
+                Route::get('/bookby-user/{id}', 'IndexController@bookbyUser');
+
+
+                // car data
+                Route::get('/car-data', 'IndexController@CarData');
+                
+                
+
+            });
+
+
+            Route::get('{any?}', 'IndexController@index');
+
+        });
+
+
+        // User
+        Route::middleware(['can:room'])->namespace('User')->group(function(){
+
+            Route::prefix('booking')->group(function(){
+                Route::get('/data', 'BookingController@data');
+                Route::post('/car', 'BookingController@car');
+                Route::post('/store', 'BookingController@store');
+            });
+
+            Route::prefix('booked')->group(function(){
+                Route::get('/data', 'BookedController@data');
+                Route::get('/canceled', 'BookedController@canceled');
+                Route::post('/byroom', 'BookedController@byroom');
+                Route::post('/store', 'BookedController@store');
+                Route::post('/status/{id}', 'BookedController@status');
+            });
+
+
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+
+
+    });
+    //End CarPool
 
 
     

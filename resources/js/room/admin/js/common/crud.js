@@ -10,7 +10,8 @@ export default{
         this.form.reset();
         this.form.errors.clear();
         // Hide model
-        this.$refs['data-modal'].hide();
+        //this.$refs['data-modal'].hide();
+        this.dataModalDialog = false;
         // Refresh Tbl Data with current page
         this.getResults(this.currentPageNumber);
         this.$Progress.finish();
@@ -34,16 +35,17 @@ export default{
 
     // Update data
     async updateData() {
-        this.overlayshow = true
+        this.addRoomsLoader = true
         //console.log('Edit Form submited', this.form.id);
         this.$Progress.start();
         // request send and get response
         const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
         // Input field make empty
         this.form.reset();
-        this.overlayshow = false
+        this.addRoomsLoader = false
         // Hide model
-        this.$refs['data-modal'].hide();
+        //this.$refs['data-modal'].hide();
+        this.dataModalDialog = false;
         // Refresh Tbl Data with current page
         this.getResults(this.currentPageNumber);
         this.$Progress.finish();
@@ -229,10 +231,11 @@ export default{
     },
 
     // Add Data Model
-    addDataModel(){
+    addDataModel() {
         this.editmode = false;
         this.form.reset();
-        this.$refs['data-modal'].show();
+        //this.$refs['data-modal'].show();
+        this.dataModalDialog = true;
     },
 
     // Edit Data Modal
@@ -241,7 +244,8 @@ export default{
         this.dataModelTitle = 'Update Data'
         this.form.reset();
         this.form.fill(singleData);
-        this.$refs['data-modal'].show();
+        //this.$refs['data-modal'].show();
+        this.dataModalDialog = true;
     },
 
     

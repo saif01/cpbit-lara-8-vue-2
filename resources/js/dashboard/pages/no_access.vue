@@ -1,9 +1,6 @@
 <template>
     <div class="area">
-        <div class="d-flex justify-content-center align-items-center  blink">
-            <img src="/all-assets/common/logo/cpb/cpbit.png" alt="header-logo" class="img-fluid header__logo">
-            <div class="h3 font-weight-bold text-dark">CPB-IT Dashboard</div>
-        </div>
+        <nav-bar></nav-bar>
         <div>
             <div class="bg_image_logo">
                 <img src="/all-assets/common/logo/cpb/cpbit.png" alt="background">
@@ -27,9 +24,18 @@
                     </a>
                 </div>
             </div>
-            <div class="footer fixed-bottom text-center dashboard_footer_bg">
-                Copyright © Powered By CPB-IT
-            </div>
+            <footer-bar></footer-bar>
         </div>
     </div>
 </template>
+
+<script>
+import navbar from "./navbar.vue"
+import footer from "./footer.vue"
+export default {
+    components:{
+        "nav-bar":navbar,
+        "footer-bar":footer
+    },
+}
+</script>

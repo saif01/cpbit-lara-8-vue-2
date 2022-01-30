@@ -1,15 +1,9 @@
 <template>
     <div>
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-6">
-                        <h3 class="card-title">Room Bookings Report Table</h3>
-                    </div>
-                </div>
-            </div>
+        <v-card>
+            <v-card-title>Room Bookings Report Table</v-card-title>
 
-            <div class="card-body">
+            <v-card-text>
                 <div v-if="allData.data">
                     <div class="row mb-2">
                         <div class="col form-inline small">
@@ -92,8 +86,8 @@
                 </div>
                 <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Sorry !! Data Not Available</h1>
 
-            </div>
-        </div>
+            </v-card-text>
+        </v-card>
 
 
 

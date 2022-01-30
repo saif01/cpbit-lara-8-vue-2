@@ -13,8 +13,12 @@ import common from './common/mixin';
 Vue.mixin(common);
 
 
-import  BootstrapVue from 'bootstrap-vue';
-Vue.use(BootstrapVue)
+// import  BootstrapVue from 'bootstrap-vue';
+// Vue.use(BootstrapVue)
+
+// Vuetify
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
 
 // VueProgressBar
 import VueProgressBar from 'vue-progressbar';
@@ -33,7 +37,7 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-  })
+})
 window.Swal = Swal;
 window.Toast = Toast;
 
@@ -54,6 +58,7 @@ Vue.component('index-component', require('../index.vue').default);
 const app = new Vue({
   router,
   store,
+  vuetify: new Vuetify(),
 
   data(){
     return{

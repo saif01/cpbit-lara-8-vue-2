@@ -35,16 +35,14 @@ export default{
         }else{
              alert('File size can not be bigger than 5 MB')
         }
-        //console.log(file)
-        //console.log(this.form.document)
     },
 
     // image Upload by name
     uploadImageByName: function (event, currentFieldName) {
 
-        let file = event.target.files[0];
+        let file = event;
         let reader = new FileReader();
-       // console.log('Image upload: ', file['size'], 'imageMaxSize :', this.imageMaxSize, file )
+        console.log('Image upload: ',file, file['size'] )
         if (file['size'] < this.imageMaxSize) {
             reader.onloadend = (file) => {
                 console.log('RESULT', reader.result)

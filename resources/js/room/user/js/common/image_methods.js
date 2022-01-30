@@ -35,8 +35,6 @@ export default{
         }else{
              alert('File size can not be bigger than 5 MB')
         }
-        //console.log(file)
-        //console.log(this.form.document)
     },
 
     // image Upload by name

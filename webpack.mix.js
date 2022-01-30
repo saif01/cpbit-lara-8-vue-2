@@ -1,24 +1,5 @@
 const mix = require('laravel-mix');
 
-// const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-// var webpackConfig = {
-//     plugins: [
-//         new VuetifyLoaderPlugin()
-//     ],
-// }
-
-// mix.webpackConfig(webpackConfig);
-
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
 
 
 mix.js('resources/js/app.js', 'public/js')
@@ -35,28 +16,6 @@ mix.styles([
         'resources/css/auth/style.css',
     ], 'public/css/auth/app.css');
 
-
-
-// //Login JS 
-// mix.js('resources/js/login/js/app.js', 'public/js/login/app.js')
-//     .vue();
-    
-// //Login CSS 
-// mix.styles([
-//         'resources/css/common/preloader.css',
-//         'resources/css/login/style.css',
-//     ], 'public/css/login/app.css');
-
-
-// //Register JS 
-// mix.js('resources/js/register/js/app.js', 'public/js/register/app.js')
-//     .vue();
-    
-// //Register CSS 
-// mix.styles([
-//         'resources/css/common/preloader.css',
-//         'resources/css/register/style.css',
-//     ], 'public/css/register/app.css');
 
 
 //dashboard JS 

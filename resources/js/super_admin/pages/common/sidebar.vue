@@ -46,7 +46,7 @@
 
             <v-list dense>
                 <!-- Sidebar Item -->
-                <v-list-item link router :to="{name: 'Dashboard'}">
+                <v-list-item link router exact :to="{name: 'Dashboard'}">
                     <v-list-item-icon>
                         <v-icon>mdi-monitor-dashboard</v-icon>
                     </v-list-item-icon>
@@ -131,7 +131,7 @@
 
 
                 <!-- Sidebar Multi level Item -->
-                <v-list-group prepend-icon="mdi-account-group" active-class="dark--text">
+                <v-list-group prepend-icon="mdi-account-group" active-class="dark--text" no-action>
                     <template v-slot:activator>
                         <v-list-item-title>Dropdown</v-list-item-title>
                     </template>

@@ -1,19 +1,9 @@
 <template>
     <div>
         <div class="area">
-            <b-navbar class="shadow py-0" variant="dark">
-                <b-navbar-brand @click="redirectToHome()" class="m-auto d-flex align-items-center py-0">
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="header-logo" class="img-fluid header__logo">
-                    <div class="h3 font-weight-bold text-white nav_text">CPB-IT Dashboard</div>
-                </b-navbar-brand>
-                <b-navbar-nav>
-                    <b-nav-item>
-                            <b-button @click="redirectToHome()" variant="primary"><i class="fas fa-tachometer-alt"></i> Home</b-button>
-                    </b-nav-item>
-                </b-navbar-nav>
-            </b-navbar>
+            <nav-bar></nav-bar>
             <div>
-                <div class="d-flex flex-wrap justify-content-around mt-5">
+                <div class="d-flex flex-wrap justify-content-around">
                     <div class="col-lg-3 col-12">
                         <a @click="$emit('showTemp', 'user')" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column m-auto">
                             <div class="logo_div">
@@ -43,17 +33,20 @@
                         </a>
                     </div>
                 </div>
-                <div class="footer fixed-bottom text-center dashboard_footer_bg">
-                    Copyright © Powered By CPB-IT
-                </div>
+                <footer-bar></footer-bar>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import navbar from "./navbar.vue"
+import footer from "./footer.vue"
 export default {
-    
+    components:{
+        "nav-bar":navbar,
+        "footer-bar":footer
+    },
     methods:{
         redirectToHome(){
             window.location.href = '/';
