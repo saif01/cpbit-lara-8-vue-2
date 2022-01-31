@@ -4,7 +4,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="card-title">Roles Table</h3>
+                        <h3 class="card-title">Global Roles List</h3>
                     </div>
                     <div class="col-6">
                         <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary" outlined>
@@ -17,21 +17,18 @@
 
             <div class="card-body">
                 <div v-if="allData.data">
-                    <div class="row mb-2">
-                        <div class="col form-inline small">
-                            <select v-model="paginate" class="form-control form-control-sm">
-                                <option value="10">10</option>
-                                <option value="30">30</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
+                    <v-row>
+                        <v-col cols="2">
+                            <!-- Show -->
+                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" small>
+                            </v-select>
+                        </v-col>
 
-                        <div class="col">
-                            <input v-model="search" class="form-control form-control-sm" type="text"
-                                placeholder="Search by any data at the table...">
-                        </div>
-                    </div>
+                        <v-col cols="10">
+                            <v-text-field prepend-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
+                                placeholder="Search Input..."></v-text-field>
+                        </v-col>
+                    </v-row>
 
                     <table class="table table-bordered">
                         <thead class="text-center">
@@ -47,7 +44,6 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'name'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'name'">&darr;</span>
                                 </th>
-                                <th>Created By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -55,7 +51,6 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td>{{ singleData.id }}</td>
                                 <td>{{ singleData.name }}</td>
-                                <td><span v-if="singleData.makby">{{ singleData.makby.name }}</span></td>
 
                                 <td class="text-center">
                                     <v-btn v-if="singleData.status" @click="statusChange(singleData)" small
@@ -74,6 +69,10 @@
                                     <v-btn @click="deleteData(singleData.id)" small color="error" elevation="10" class="mb-1">
                                         <v-icon left>mdi-close-octagon</v-icon> Delete
                                     </v-btn>
+
+                                    <br>
+                                    <span v-if="singleData.makby" class="small text-muted">Create By--
+                                        {{ singleData.makby.name }}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -98,7 +97,7 @@
         </div>
 
         <!-- Dilog  -->
-        <v-dialog v-model="dataModalDilog" persistent max-width="600px">
+        <v-dialog v-model="dataModalDialog" persistent max-width="600px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -106,7 +105,7 @@
                             {{ dataModelTitle }}
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="dataModalDilog = false" color="red lighten-1" small text class="float-right">
+                            <v-btn @click="dataModalDialog = false" color="red lighten-1" small text class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
                         </v-col>
@@ -120,12 +119,12 @@
                             <v-row>
                                 <v-col cols="12">
                                     <v-text-field type="text" label="Role Name:"
-                                        :rules="[v => !!v || 'Role Name is required!']" v-model="form.name" required>
+                                        :rules="nameRule" counter="50" v-model="form.name" required>
                                     </v-text-field>
-                                    <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                                    <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                                 </v-col>
 
-                                <v-btn block blockdepressed :loading="modalBtnLoading" color="primary mt-3"
+                                <v-btn block blockdepressed :loading="dataModalLoading" color="primary mt-3"
                                     type="submit">
                                     <span v-if="editmode">
                                         <v-icon left dark>mdi-circle-edit-outline</v-icon> Update
@@ -164,6 +163,9 @@
 
                 //current page url
                 currentUrl: '/super_admin/role',
+
+                nameRule: [v => !!v || 'Role Name is required!',
+                 v => (v && v.length <= 50) || 'Name must be less than 50 characters'],
 
 
                 // Form

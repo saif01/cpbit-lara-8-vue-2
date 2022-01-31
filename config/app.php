@@ -179,7 +179,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class, 
 
     ],
 

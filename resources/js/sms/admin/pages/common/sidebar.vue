@@ -6,10 +6,10 @@
             <v-spacer></v-spacer>
             <v-app-bar-title v-if="isAdministrator()" class="red--text" small>Administrator</v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-btn icon @click="toggle()">
+            <!-- <v-btn icon @click="toggle()">
                 <v-icon v-if="fullscreen">mdi-fullscreen</v-icon>
                 <v-icon v-else>mdi-fullscreen-exit</v-icon>
-            </v-btn>
+            </v-btn> -->
 
 
             <v-menu bottom left>

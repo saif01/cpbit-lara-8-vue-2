@@ -4,8 +4,6 @@ export default{
     createData() {
         // Loading Animation
         this.dataModalLoading = true
-        //console.log('Form submited');
-        this.$Progress.start()
         // request send and get response
         this.form.post(this.currentUrl +'/store'+ '').then(response=>{
             // Loading Animation

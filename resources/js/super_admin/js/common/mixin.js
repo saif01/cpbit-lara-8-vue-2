@@ -11,12 +11,9 @@ import globalRolePermissions from './../../../role_permissions'
 
 
 
-
-
 export default {
     data() {
       return {
-      
         // DataTbl Common Featurs 
         paginate: 10,
         search: '',
@@ -30,9 +27,10 @@ export default {
         dataShowFrom: '',
         dataShowTo: '',
 
-        dataModalDilog: false,
-        valid: false,
-        modalBtnLoading: false,
+        // For Modal Dilog
+        dataModalDialog :false,
+        // Loading Animation
+        dataModalLoading: false,
 
         editmode: false,
         dataModelTitle: 'Store Data',
@@ -44,12 +42,13 @@ export default {
 
         // Tbl number of data show
         tblItemNumberShow:[5,10,15,25,50,100],
+        // v-form
+        valid: false,
       }
     },
 
     methods: {
 
-        
         // Permission Role check
         ...globalRolePermissions,
       
@@ -62,14 +61,6 @@ export default {
         // create Update Methods
         ...createUpdate,
 
-
-
-
-    
-        handleResize() {
-            this.window.width = window.innerWidth;
-            this.window.height = window.innerHeight;
-        },
 
        
         // Add model show
@@ -87,30 +78,6 @@ export default {
             this.form.fill(singleData);
         },
 
-
-
-        testMethod(){
-            return ' Come form common';
-        },
-
-
-       
-        
-        async callApi(method, url, dataObj) {
-
-            try {
-
-                return await axios({
-                    method: method,
-                    url: url,
-                    data: dataObj
-                })
-
-            } catch (e) {
-                return e.response
-            }
-
-        }
 
         // End Methods
     },
@@ -136,27 +103,30 @@ export default {
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();
-        }
+        },
+
+         //Excuted When make change value 
+         zone_office: function (value) {
+            this.$Progress.start();
+            this.getResults();
+            this.$Progress.finish();
+        },
+
+        //Excuted When make change value 
+        department: function (value) {
+            this.$Progress.start();
+            this.getResults();
+            this.$Progress.finish();
+        },
+
+
        
     },
 
-    created() {
-        // window.addEventListener('resize', this.handleResize);
-        // this.handleResize();
-
-    },
+  
 
 
-    mounted() {
- 
-    },
-
-
-    destroyed() {
-        // window.removeEventListener('resize', this.handleResize);
-    },
-
-
+   
     computed : {
 
         // map this.count to store.state.count getLoading 

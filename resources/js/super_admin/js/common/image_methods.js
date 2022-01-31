@@ -42,12 +42,12 @@ export default{
     // image Upload by name
     uploadImageByName: function (event, currentFieldName) {
 
-        let file = event.target.files[0];
+        let file = event;
         let reader = new FileReader();
-        // console.log('Image upload: ', file['size'], 'imageMaxSize :', this.imageMaxSize, file )
+        //console.log('Image upload: ',file, file['size'] )
         if (file['size'] < this.imageMaxSize) {
             reader.onloadend = (file) => {
-                console.log('RESULT', reader.result)
+                //console.log('RESULT', reader.result)
                 this.form[currentFieldName] = reader.result;
             }
             reader.readAsDataURL(file);
@@ -66,7 +66,7 @@ export default{
                 .imagePathSm + this.form[currentFieldName];
             return photo;
         }
-        return null;
+        return "/all-assets/common/img/no-image.png";
     },
     
 }

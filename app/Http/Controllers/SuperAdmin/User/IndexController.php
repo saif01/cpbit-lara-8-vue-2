@@ -81,7 +81,10 @@ class IndexController extends Controller
 
     // roles_data
     public function roles_data(){
-        $allData = Role::orderBy('name')->get();
+        $allData = Role::where('delete_temp', 0)
+            ->where('status', 1)
+            ->orderBy('name')
+            ->get();
         return response()->json($allData, 200);
     }
 

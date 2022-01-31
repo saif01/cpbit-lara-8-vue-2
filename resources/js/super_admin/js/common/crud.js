@@ -1,72 +1,67 @@
 export default{
 
     // Create Data
-    async createData() {
-        //console.log('Form submited');
-        this.modalBtnLoading = true;
+    createData() {
+        // Loading Animation
+        this.dataModalLoading = true
         // request send and get response
-        const response = await this.form.post(this.currentUrl +'/store'+ '');
-        // Input field make empty
-        this.form.reset();
-        this.form.errors.clear();
-        // Btn Loading
-        this.modalBtnLoading = false
-        // Hide model
-        this.dataModalDilog=false
-        // this.$refs['data-modal'].hide();
-        // Refresh Tbl Data with current page
-        this.getResults(this.currentPageNumber);
-       
-
-        if (response.status == 200) {
+        this.form.post(this.currentUrl +'/store'+ '').then(response=>{
+            // Loading Animation
+            this.dataModalLoading = false
+            // Input field make empty
+            this.form.reset();
+            // Hide model
+            this.dataModalDialog = false;
+            // Refresh Tbl Data with current page
+            this.getResults(this.currentPageNumber);
             Toast.fire({
                 icon: response.data.icon,
                 title: response.data.msg
             });
-        } else {
+        }).catch((data) => {
+            // Loading Animation
+            this.dataModalLoading = false
             Swal.fire({
                 icon: 'error',
                 title: 'Somthing Going Wrong<br>'+data.message,
                 customClass: 'text-danger'
             });
-            // Swal.fire("Failed!", data.message, "warning");
-            console.log(response);
-        }
-
+            //Swal.fire("Failed!", data.message, "warning");
+        });
+      
     },
 
     // Update data
-    async updateData() {
-
-        //console.log('Edit Form submited', this.form.id);
-        this.modalBtnLoading = true;
+    updateData() {
+        // Loading Animation
+        this.dataModalLoading = true
         // request send and get response
-        const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
-        // Input field make empty
-        this.form.reset();
-        //  Btn Loading
-        this.modalBtnLoading = false
-        // Hide model
-        this.dataModalDilog=false
-        // this.$refs['data-modal'].hide();
-        // Refresh Tbl Data with current page
-        this.getResults(this.currentPageNumber);
-       
-        if (response.status == 200) {
+        this.form.put(this.currentUrl + '/update/' + this.form.id).then(response=>{
+            // Loading Animation
+            this.dataModalLoading = false
+            // Input field make empty
+            this.form.reset();
+            // Hide model dataModalDialog
+            this.dataModalDialog = false;
+            // Refresh Tbl Data with current page
+            this.getResults(this.currentPageNumber);
             Toast.fire({
                 icon: response.data.icon,
                 title: response.data.msg
             });
-        } else {
+
+        }).catch((data) => {
+            // Loading Animation
+            this.dataModalLoading = false
             Swal.fire({
                 icon: 'error',
                 title: 'Somthing Going Wrong<br>'+data.message,
                 customClass: 'text-danger'
             });
-            // Swal.fire("Failed!", data.message, "warning");
-            console.log(response);
-        }
-
+            //Swal.fire("Failed!", data.message, "warning");
+        });
+       
+        
     },
 
     // Delete Data
@@ -236,8 +231,7 @@ export default{
     addDataModel(){
         this.editmode = false;
         this.form.reset();
-        //this.$refs['data-modal'].show();
-        this.dataModalDilog=true
+        this.dataModalDialog=true
     },
 
     // Edit Data Modal
@@ -246,8 +240,7 @@ export default{
         this.dataModelTitle = 'Update Data'
         this.form.reset();
         this.form.fill(singleData);
-        //this.$refs['data-modal'].show();
-        this.dataModalDilog=true
+        this.dataModalDialog=true
     },
 
     

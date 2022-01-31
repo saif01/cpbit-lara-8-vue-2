@@ -23,75 +23,53 @@ class IndexController extends Controller
         $search         = Request('search', '');
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
+        $search_field   = Request('search_field', '');
+
+        $zone_office    = Request('zone_office', '');
+        $department     = Request('department', '');
         
 
-        $allData = UserReginster::with('verified')->orderBy($sort_field, $sort_direction)
-            ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
-            ->paginate($paginate);
+        // $allData = UserReginster::with('verified')->orderBy($sort_field, $sort_direction)
+        //     ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
+        //     ->paginate($paginate);
 
-       
-        return response()->json($allData, 200);
-
-    }
-
-    // users_data for manager selection
-    public function users_data(){
-       
-        $paginate       = Request('paginate', 10);
-        $search         = Request('search', '');
-        $sort_direction = Request('sort_direction', 'desc');
-        $sort_field     = Request('sort_field', 'id');
+        // Query
+        $allDataQuery = UserReginster::with('verified');
         
-
-        $allData = User::orderBy($sort_field, $sort_direction)
-            ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
-            ->paginate($paginate);
-
-       
-        return response()->json($allData, 200);
-    }
-
-
-    // roles_data
-    public function roles_data(){
-        $allData = Role::orderBy('name')->get();
-        return response()->json($allData, 200);
-    }
-
-
-    // roles_update
-    public function roles_update(Request $request ){
-
-        $id = $request->currentRoleId;
-
-        if($id){
-            $user = User::find($id);
-            //Update Role in Roles table
-            $success = $user->roles()->sync($request->roles);
-
-            if($success){
-                return response()->json(['msg'=>'Update Successfully &#128513;', 'icon'=>'success'], 200);
-            }else{
-                return response()->json([
-                    'msg' => 'Data not save in DB !!'
-                ], 422);
-            }
-
-        }else{
-            return response()->json([
-                'msg' => 'User id not found!!'
-            ], 422);
+        // Zone Selected
+        if(!empty($zone_office)){
+            $allDataQuery->whereIn('office', explode(",",$zone_office));
         }
 
-        
+        // Department Selected
+        if(!empty($department)){
+            $allDataQuery->whereIn('department', explode(",",$department));
+        }
+
+        // Search
+        if(!empty($search_field)){
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+            $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
+        }else{
+            $allDataQuery->search( trim(preg_replace('/\s+/' ,' ', $search)) );
+        }
+            
+        // Final Data
+        $allData =  $allDataQuery->paginate($paginate);
+
+       
+        return response()->json($allData, 200);
+
     }
+
+   
 
 
     // store
     public function store(Request $request){
 
        
-        //dd($request->all());
+        //dd($request->roles,  $request->all());
 
         //Validate
         $this->validate($request,[
@@ -104,7 +82,7 @@ class IndexController extends Controller
             'office_email'      => 'nullable|email',
             'office'            => 'nullable',
             'business_unit'     => 'nullable',
-            'nid'               => 'nullable|regex:/[0-9]/',
+            //'nid'               => 'nullable|regex:/[0-9]/',
         ]);
 
     
@@ -151,15 +129,29 @@ class IndexController extends Controller
         //     $data->image = $imgName;
         // }
 
-        $data->image            =   $registerData->image; 
+        $imagePath      = 'images/users/';
+        $current_image  = $request->image; 
+        $old_image      = $registerData->image ?? null;
+        // Save Image a
+        if($current_image != $old_image){
+            $imgName= $this->imageUplaodByName($current_image, $old_image, $imagePath); 
+            $data->image = $imgName;
+        }else{
+            $data->image = $old_image; 
+        }
+
         
-        
-    
         $data->status           = $request->status;
         $data->status_by        = Auth::user()->id;
         $data->verify           = 1;
         $data->verify_by        = Auth::user()->id;
         $success                = $data->save();
+
+        // Assign Roles
+        $currentRoles =   $request->roles;
+        if(!empty($currentRoles)){
+            $data->roles()->sync($currentRoles);
+        }
 
         // Update RegisterUser Table
         $registerData->status           = $request->status;
@@ -167,6 +159,14 @@ class IndexController extends Controller
         $registerData->verify           = 1;
         $registerData->verify_by        = Auth::user()->id;
         $success2                       = $registerData->save();
+
+
+       
+
+        
+
+
+        //dd($data, $registerData);
 
         if($success && $success2){
             return response()->json(['msg'=>'Stored Successfully &#128513;', 'icon'=>'success'], 200);
@@ -181,81 +181,8 @@ class IndexController extends Controller
 
   
 
-    // destroy
-    public function destroy($id)
-    {
-        $data       =  User::find($id);
-
-        $success    =  $data->delete();
-
-        return response()->json('success', 200);
-      
-    }
 
 
-    // status
-    public function status($id){
-
-        $data       =  User::find($id);
-        if($data){
-
-           $status = $data->status;
-           
-            if($status == 1){
-                $data->status = 0;
-                $data->status_by = Auth::user()->id;
-
-            }else{
-                $data->status = 1;
-                $data->status_by = Auth::user()->id;
-            }
-            $success    =  $data->save();
-            return response()->json('success', 200);
-
-        }
-
-    }
-
-
-    // status_admin
-    public function status_admin($id){
-
-        $data       =  User::find($id);
-        if($data){
-
-           $admin = $data->admin;
-           
-            if($admin == 1){
-                $data->admin = 0;
-            }else{
-                $data->admin = 1;
-            }
-            $success    =  $data->save();
-            return response()->json('success', 200);
-
-        }
-
-    }
-
-    // status_user
-    public function status_user($id){
-
-        $data       =  User::find($id);
-        if($data){
-
-           $user = $data->user;
-           
-            if($user == 1){
-                $data->user = 0;
-            }else{
-                $data->user = 1;
-            }
-            $success    =  $data->save();
-            return response()->json('success', 200);
-
-        }
-
-    }
 
 
 }

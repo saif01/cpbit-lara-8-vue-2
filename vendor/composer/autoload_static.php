@@ -643,6 +643,7 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
         'App\\Http\\Controllers\\Room\\User\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Room/User/IndexController.php',
         'App\\Http\\Controllers\\Sms\\Admin\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sms/Admin/IndexController.php',
         'App\\Http\\Controllers\\Sms\\Admin\\Operation\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sms/Admin/Operation/IndexController.php',
+        'App\\Http\\Controllers\\Sms\\Admin\\User\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sms/Admin/User/IndexController.php',
         'App\\Http\\Controllers\\Sms\\User\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sms/User/IndexController.php',
         'App\\Http\\Controllers\\SuperAdmin\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/IndexController.php',
         'App\\Http\\Controllers\\SuperAdmin\\Register\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/Register/IndexController.php',

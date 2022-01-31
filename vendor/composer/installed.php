@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'eec64ba7f488b248b297be73bc02db2320c88f91',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'barryvdh/laravel-snappy' => array(
-            'pretty_version' => 'v0.4.8',
-            'version' => '0.4.8.0',
+            'pretty_version' => 'v1.0.0',
+            'version' => '1.0.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../barryvdh/laravel-snappy',
             'aliases' => array(),
-            'reference' => '1903ab84171072b6bff8d98eb58d38b2c9aaf645',
+            'reference' => '2c18a3602981bc6f25b32908cf8aaa05952ab2f7',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -431,12 +431,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'eec64ba7f488b248b297be73bc02db2320c88f91',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

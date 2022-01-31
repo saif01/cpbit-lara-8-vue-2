@@ -43,6 +43,7 @@ return array(
     'App\\Http\\Controllers\\Room\\User\\IndexController' => $baseDir . '/app/Http/Controllers/Room/User/IndexController.php',
     'App\\Http\\Controllers\\Sms\\Admin\\IndexController' => $baseDir . '/app/Http/Controllers/Sms/Admin/IndexController.php',
     'App\\Http\\Controllers\\Sms\\Admin\\Operation\\IndexController' => $baseDir . '/app/Http/Controllers/Sms/Admin/Operation/IndexController.php',
+    'App\\Http\\Controllers\\Sms\\Admin\\User\\IndexController' => $baseDir . '/app/Http/Controllers/Sms/Admin/User/IndexController.php',
     'App\\Http\\Controllers\\Sms\\User\\IndexController' => $baseDir . '/app/Http/Controllers/Sms/User/IndexController.php',
     'App\\Http\\Controllers\\SuperAdmin\\IndexController' => $baseDir . '/app/Http/Controllers/SuperAdmin/IndexController.php',
     'App\\Http\\Controllers\\SuperAdmin\\Register\\IndexController' => $baseDir . '/app/Http/Controllers/SuperAdmin/Register/IndexController.php',

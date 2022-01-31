@@ -151,7 +151,6 @@ export default{
     },
   
 
-
     // Create Data
     async createDataDirect() {
         console.log('Form submited');
