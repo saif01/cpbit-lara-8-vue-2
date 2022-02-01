@@ -5,7 +5,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="card-title">All Registered Users Table</h3>
+                        <h3 class="card-title">All Registered Users List</h3>
                     </div>
 
                 </div>
@@ -146,7 +146,9 @@
                 </div>
                 <div v-else>
                     <div v-if="dataLoading" class="p-5 my-5">
-                        <p class="text-center"><i class="fas fa-spinner fa-pulse text-success fa-10x"></i></p>
+                        <p class="text-center h1">Loading.. <v-icon color="success" size="100">mdi mdi-loading mdi-spin
+                            </v-icon>
+                        </p>
                     </div>
                 </div>
                 <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Sorry !! Data Not Available</h1>
@@ -348,11 +350,7 @@
                                 <v-checkbox v-model="currentRoles" :label="role.name" color="indigo" :value="role.id" hide-details></v-checkbox>
                             </v-col>
                         </v-row>
-                       
-
                         <hr>
-
-
 
                         <!-- Submit Btn -->
                         <v-btn block blockdepressed :loading="dataModalLoading" color="primary mt-3" type="submit">
@@ -388,7 +386,7 @@
 
     import allJsMethods from './indexMethods'
 
-    import ManagerSelectComponent from './manager_select.vue'
+    import ManagerSelectComponent from '../users/manager_select.vue'
     import userMethods from './../users/js/methods'
     import userTblData from './../users/js/data'
     import userFormFields from './../users/js/userFormField'
@@ -409,9 +407,7 @@
                 currentUrl: '/super_admin/register',
 
 
-
                 radioBtnSeelected: 'managerById',
-
                 managerByIdShow: true,
                 managerByEmailShow: false,
                 // Manager Select 
@@ -484,9 +480,6 @@
                 this.managerModalKey++
                 this.managerSelectComponentShow = true
             },
-
-
-            
 
             // letParentResponse()
             letParentResponse(request) {

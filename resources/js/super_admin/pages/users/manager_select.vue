@@ -145,12 +145,12 @@
 
 
 <script>
-    import userMethods from './../users/js/methods'
-    import userTblData from './../users/js/data'
+    import userMethods from './js/methods'
+    import userTblData from './js/data'
 
     export default {
         // For parent response
-        props: ['childrenRequest'],
+        props: ['childrenRequest', 'selected_id'],
 
 
         data() {
@@ -269,6 +269,9 @@
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
+            // Assign
+            this.selectedManager =  this.selected_id.split(',').map(Number);
+            //console.log('Selected Id', this.selected_id, this.selectedManager)
             this.$Progress.finish();
         }
 

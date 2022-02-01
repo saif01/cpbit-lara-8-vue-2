@@ -5,7 +5,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="card-title">All User Table</h3>
+                        <h3 class="card-title">All User List</h3>
                     </div>
                     <div class="col-6">
                         <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary"
@@ -168,7 +168,7 @@
                                         <v-icon left>mdi-close-octagon</v-icon> Inactive
                                     </v-btn>
 
-                                    <v-btn @click="editDataModelDirect(singleData)" small color="info" elevation="10"
+                                    <v-btn @click="editDataModel(singleData)" small color="info" elevation="10"
                                         class="mb-1">
                                         <v-icon left>mdi-circle-edit-outline</v-icon> Edit
                                     </v-btn>
@@ -293,144 +293,161 @@
                     </v-row>
                 </v-card-title>
                 <v-card-text>
-                    <form @submit.prevent="editmode ? updateDataDirect() : createDataDirect()">
+                    <form @submit.prevent="editmode ? updateData() : createData()">
 
-                        <v-row>
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User AD ID"
-                                        :rules="[v => !!v || 'AD ID is required!']" v-model="form.login" required>
-                                    </v-text-field>
-                                    <div v-if="form.errors.has('login')" v-html="form.errors.get('login')" />
-                                </v-col>
+                     <v-row>
+                            <v-col cols="12" md="4">
+                                 
+                                <v-text-field type="text" label="User AD ID" :rules="[v => !!v || 'AD ID is required!']" v-model="form.login" required>
+                                </v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('login')" v-html="form.errors.get('login')" />
+                               
+                            </v-col>
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Name"
-                                        :rules="[v => !!v || 'User Name is required!']" v-model="form.name" required>
-                                    </v-text-field>
-                                    <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
-                                </v-col>
-
-
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Department"
-                                        :rules="[v => !!v || 'Department is required!']" v-model="form.department"
-                                        required></v-text-field>
-                                    <div v-if="form.errors.has('department')" v-html="form.errors.get('department')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-text-field type="text" label="User Name"
+                                    :rules="[v => !!v || 'User Name is required!']" v-model="form.name" required>
+                                </v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                            </v-col>
 
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Office ID"
-                                        :rules="[v => !!v || 'Office ID is required!']" v-model="form.office_id"
-                                        required></v-text-field>
-                                    <div v-if="form.errors.has('office_id')" v-html="form.errors.get('office_id')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-text-field type="text" label="User Department"
+                                    :rules="[v => !!v || 'Department is required!']" v-model="form.department" >
+                                </v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('department')" v-html="form.errors.get('department')" />
+                            </v-col>
 
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Office Contact" v-model="form.office_contact">
-                                    </v-text-field>
-                                    <div v-if="form.errors.has('office_contact')"
-                                        v-html="form.errors.get('office_contact')" />
-                                </v-col>
-
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Personal Contact"
-                                        v-model="form.personal_contact"></v-text-field>
-                                    <div v-if="form.errors.has('personal_contact')"
-                                        v-html="form.errors.get('personal_contact')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-text-field type="text" label="User Office ID" v-model="form.office_id" >
+                                </v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('office_id')" v-html="form.errors.get('office_id')" />
+                            </v-col>
 
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="email" label="User Office Email"
-                                        :rules="[v => /.+@.+/.test(v) || 'E-mail must be valid',]"
-                                        v-model="form.office_email"></v-text-field>
-                                    <div v-if="form.errors.has('office_email')"
-                                        v-html="form.errors.get('office_email')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-text-field type="text" label="User Office Contact" v-model="form.office_contact">
+                                </v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('office_contact')"
+                                    v-html="form.errors.get('office_contact')" />
+                            </v-col>
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="email" label="User Personal Email"
-                                        :rules="[v => /.+@.+/.test(v) || 'E-mail must be valid',]"
-                                        v-model="form.personal_email"></v-text-field>
-                                    <div v-if="form.errors.has('personal_email')"
-                                        v-html="form.errors.get('personal_email')" />
-                                </v-col>
-
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Office Location"
-                                        :rules="[v => !!v || 'Office Location is required!']" v-model="form.office"
-                                        required></v-text-field>
-                                    <div v-if="form.errors.has('office')" v-html="form.errors.get('office')" />
-                                </v-col>
-
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Business Unit"
-                                        :rules="[v => !!v || 'Business Unit is required!']" v-model="form.business_unit"
-                                        required></v-text-field>
-                                    <div v-if="form.errors.has('business_unit')"
-                                        v-html="form.errors.get('business_unit')" />
-                                </v-col>
-
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User Manager Name"
-                                        :rules="[v => !!v || 'Manager Name is required!']" v-model="form.manager_name"
-                                        required></v-text-field>
-                                    <div v-if="form.errors.has('manager_name')"
-                                        v-html="form.errors.get('manager_name')" />
-                                </v-col>
-
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="email" label="User Manager Email" :rules="emailRules"
-                                        v-model="form.manager_email" required></v-text-field>
-                                    <div v-if="form.errors.has('manager_email')"
-                                        v-html="form.errors.get('manager_email')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-text-field type="text" label="User Personal Contact" v-model="form.personal_contact">
+                                </v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('personal_contact')"
+                                    v-html="form.errors.get('personal_contact')" />
+                            </v-col>
 
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="User BU Head Name"
-                                        :rules="[v => !!v || 'BU Head Name is required!']" v-model="form.bu_name"
-                                        required></v-text-field>
-                                    <div v-if="form.errors.has('bu_name')" v-html="form.errors.get('bu_name')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-text-field type="email" label="User Office Email"
+                                    :rules="[v => /.+@.+/.test(v) || 'E-mail must be valid',]"
+                                    v-model="form.office_email"></v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('office_email')" v-html="form.errors.get('office_email')" />
+                            </v-col>
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="email" label="User BU Head Email" :rules="emailRules"
-                                        v-model="form.bu_email" required></v-text-field>
-                                    <div v-if="form.errors.has('bu_email')" v-html="form.errors.get('bu_email')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-text-field type="email" label="User Personal Email"
+                                    :rules="[v => /.+@.+/.test(v) || 'E-mail must be valid',]"
+                                    v-model="form.personal_email" required></v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('personal_email')"
+                                    v-html="form.errors.get('personal_email')" />
+                            </v-col>
+
+                            <v-col cols="12" md="4">
+                                <v-text-field type="text" label="User Office Location"
+                                    :rules="[v => !!v || 'Office Location is required!']" v-model="form.office"
+                                    required></v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('office')" v-html="form.errors.get('office')" />
+                            </v-col>
+
+                            <v-col cols="12" md="4">
+                                <v-text-field type="text" label="User Business Unit"
+                                    :rules="[v => !!v || 'Business Unit is required!']" v-model="form.business_unit"
+                                    required></v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('business_unit')"
+                                    v-html="form.errors.get('business_unit')" />
+                            </v-col>
 
 
-                                <v-col cols="12" md="4">
-                                    <v-text-field type="text" label="Purpose of Access"
-                                        :rules="[v => !!v || 'Purpose of Access is required!']" v-model="form.remarks"
-                                        required></v-text-field>
-                                    <div v-if="form.errors.has('remarks')" v-html="form.errors.get('remarks')" />
-                                </v-col>
+                            <v-col cols="12" md="4">
+                                <v-file-input :rules="imageRules" accept="image/png, image/jpeg, image/bmp"
+                                    placeholder="Pick an image" prepend-icon="mdi-camera" label="Choose Image"
+                                    @change="uploadImageByName($event, 'image')"></v-file-input>
+                                <div color="red" v-if="form.errors.has('image')" v-html="form.errors.get('image')" />
+                            </v-col>
 
-                                <v-col cols="12" md="4">
-                                    <v-file-input :rules="imageRules" accept="image/png, image/jpeg, image/bmp"  placeholder="Pick an image" prepend-icon="mdi-camera" label="Choose Image"
-                                        @change="uploadImageByName($event, 'image')" required></v-file-input>
-                                    <div v-if="form.errors.has('image')" v-html="form.errors.get('image')" />
-                                </v-col>
+                            <v-col cols="12" md="2">
+                                <v-img :src="showImageByName('image')" class="rounded rounded-circle" height="100px"
+                                    width="100px" alt="Image" />
+                            </v-col>
 
-                                <v-col cols="12" md="4">
-                                    <v-img :src="showImageByName('image')" class="rounded rounded-circle" height="100px" width="100px"
-                                        alt="Image" />
+                            <v-col cols="12" md="3">
+                                <v-radio-group label="Account Status" v-model="form.status" row required>
+                                    <v-radio label="Active" color="success" :value="1"></v-radio>
+                                    <v-radio label="Blocked" color="red" :value="0"></v-radio>
+                                </v-radio-group>
+                            </v-col>
 
-                                </v-col>
+                            <v-col cols="12" md="3">
+                                <label>User Type</label>
+                                <div class="d-flex">
+                                    <v-checkbox v-model="form.user" color="success" label="User" :value="1"
+                                        class="mr-3">
+                                    </v-checkbox>
+                                    <v-checkbox v-model="form.admin" color="indigo" label="Admin" :value="1">
+                                    </v-checkbox>
+                                </div>
 
-                            </v-row>
+                            </v-col>
+
+                        </v-row>
 
                         <!-- Start Manager Selection -->
                         <hr>
-                       
-                        
+                        <v-row>
+                            <div class="m-auto">
+                                <v-radio-group row v-model="radioBtnSeelected" @change="managerSelectBy()">
+                                    <v-radio label="Manager Select By ID" color="success" value="managerById"></v-radio>
+                                    <v-radio label="Or Manul Input Email Address" color="indigo" value="managerByEmail">
+                                    </v-radio>
+                                </v-radio-group>
+                            </div>
+
+                            <div class="col-md-12 text-center mb-1" :class="{ hide: !managerByIdShow }">
+                                <span v-if="selectedManagerName.length >0">
+                                    <span v-for="item in selectedManagerName" :key="item">
+                                        <span class="px-1 mx-1 info rounded text-white">{{ item }}</span>
+                                    </span>
+                                </span>
+                                <span v-else class="text-danger">Not Selected</span>
+                            </div>
+
+                            <div class="col-md-12 text-center" :class="{ hide: !managerByIdShow }">
+                                <v-btn @click="managerSelectComponent()" color="info">
+                                    <v-icon left>mdi-select-search</v-icon> Select Manager
+                                </v-btn>
+                            </div>
+                            <div class="col-md-12" id="managerByEmailShow" :class="{ hide: !managerByEmailShow }">
+                                <v-text-field type="text" label="User Manager Emails" v-model="form.manager_emails">
+                                </v-text-field>
+                                <div class="text-danger" v-if="form.errors.has('manager_emails')"
+                                    v-html="form.errors.get('manager_emails')" />
+                            </div>
+
+
+                        </v-row>
                         <hr>
                         <!-- End Manager Selection -->
-
+                        <v-row>
+                            <v-col class="pa-0" cols="3" v-for="(role, index) in allRoles" :key="index">
+                                <v-checkbox v-model="currentRoles" :label="role.name" color="indigo" :value="role.id" hide-details></v-checkbox>
+                            </v-col>
+                        </v-row>
+                        <hr>
                      
 
 
@@ -460,7 +477,9 @@
 
 
 
-
+        <!-- manager-select-component -->
+        <manager-select-component v-if="managerSelectComponentShow" :key="managerModalKey"
+            :children-request="letParentResponse" :selected_id="form.manager_id"></manager-select-component>
 
 
 
@@ -475,13 +494,16 @@
 
     import allJsMethods from './indexMethods'
 
-    //import userCreateCompoment from './user_create.vue'
+    import ManagerSelectComponent from './manager_select.vue'
+    import userMethods from './js/methods'
+    import userTblData from './js/data'
+    import userFormFields from './js/userFormField'
 
 
     export default {
-        // components:{
-        //   'user-create-compoment' : userCreateCompoment
-        // },
+        components: {
+            'manager-select-component': ManagerSelectComponent,
+        },
 
         data() {
 
@@ -490,93 +512,19 @@
                 //current page url
                 currentUrl: '/super_admin/user',
 
-                selectedManager: [],
-                selectedManagerName: [],
+               
 
                 radioBtnSeelected: 'managerById',
-                options: [{
-                        text: 'Manager Select By ID',
-                        value: 'managerById'
-                    },
-                    {
-                        text: 'Or Manul Input Email Address',
-                        value: 'managerByEmail'
-                    },
-                ],
                 managerByIdShow: true,
                 managerByEmailShow: false,
+                // Manager Select 
+                managerSelectDilog: false,
 
-                userModal2ndShowHide: false,
-
-
-                activeOptions: [{
-                        text: 'Active',
-                        value: '1'
-                    },
-                    {
-                        text: 'Blocked',
-                        value: '0'
-                    },
-                ],
-
-
-                searchByFields: [{
-                        value: 'login',
-                        name: 'Login ID'
-                    },
-                    {
-                        value: 'name',
-                        name: 'User Name'
-                    },
-                    {
-                        value: 'department',
-                        name: 'Department'
-                    },
-                    {
-                        value: 'office_id',
-                        name: 'Office ID'
-                    },
-                    {
-                        value: 'office_contact',
-                        name: 'Office Contact'
-                    },
-                    {
-                        value: 'personal_contact',
-                        name: 'Personal Contact'
-                    },
-                    {
-                        value: 'office_email',
-                        name: 'Office Email'
-                    },
-                    {
-                        value: 'personal_email',
-                        name: 'Personal Email'
-                    },
-                    {
-                        value: 'office',
-                        name: 'Office'
-                    },
-                    {
-                        value: 'business_unit',
-                        name: 'Business Unit'
-                    },
-                    {
-                        value: 'nid',
-                        name: 'NID'
-                    },
-                    {
-                        value: 'status',
-                        name: 'Status Active'
-                    },
-                    {
-                        value: 'admin',
-                        name: 'Admin Access'
-                    },
-                    {
-                        value: 'user',
-                        name: 'User Access'
-                    },
-                ],
+                // Manager Component
+                managerSelectComponentShow: false,
+                managerModalKey: '',
+                selectedManager: [],
+                selectedManagerName: [],
 
 
 
@@ -588,42 +536,19 @@
 
 
 
-                // Form
-                form: new Form({
-                    id: '',
-                    login: '',
-                    user: '1',
-                    admin: '',
-                    name: '',
-                    image: '',
-                    department: '',
-                    office_id: '',
-                    office_contact: '',
-                    personal_contact: '',
-                    office_email: '',
-                    personal_email: '',
-                    office: '',
-                    business_unit: '',
-                    nid: '',
-                    manager_id: [],
-                    manager_emails: '',
-                    status: '1'
-                }),
+                // userData
+                ...userTblData,
+
+                // userFormFields
+                ...userFormFields,
 
 
-                imageMaxSize: '5111775',
-                imagePath: '/images/users/',
-                imagePathSm: '/images/users/small/',
-
+               
 
                 singleUserModalShow: false,
                 singleUserModalData: {},
 
-                allZoneOffices: [],
-                zone_office: '',
-                allDepartments: [],
-                department: '',
-
+               
                 
 
                 emailRules: [
@@ -647,9 +572,20 @@
             // All JS Methods
             ...allJsMethods,
 
-            //addDataModelUser
-            addDataModelUser() {
+            //managerSelectComponentShow
+            managerSelectComponent() {
+                this.managerModalKey++
+                this.managerSelectComponentShow = true
+            },
 
+            // letParentResponse()
+            letParentResponse(request) {
+
+                this.selectedManagerName = request.manager_name
+                // this.selectedManager = request.manager_id
+                this.form.manager_id = request.manager_id
+                // this.setManager()
+                console.log('parent Response', request.manager_name, request.manager_id, request, this.form.manager_id)
             },
 
             // // Add Data Model

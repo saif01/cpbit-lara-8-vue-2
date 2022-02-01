@@ -152,57 +152,94 @@ export default{
   
 
     // Create Data
-    async createDataDirect() {
-        console.log('Form submited');
-        this.$Progress.start()
+    createData() {
+        // Loading Animation
+        this.dataModalLoading = true
+        // Assign Roles
+        this.form.roles = this.currentRoles
+
         // request send and get response
-        const response = await this.form.post(this.currentUrl +'/store'+ '');
-        // Input field make empty
-        this.form.reset();
-        this.form.errors.clear();
-        // Hide model
-        this.$refs['data-modal'].hide();
-        // Refresh Tbl Data with current page
-        this.getResults(this.currentPageNumber);
-
-        // makeEmptyVariables
-        this.makeEmptyVariables();
-
-        this.$Progress.finish();
-
-        if (response.status == 200) {
+        this.form.post(this.currentUrl +'/store'+ '').then(response=>{
+            // Loading Animation
+            this.dataModalLoading = false
+            // Input field make empty
+            this.form.reset();
+            // Hide model
+            this.dataModalDialogUserReg = false;
+            // Refresh Tbl Data with current page
+            this.getResults(this.currentPageNumber);
             Toast.fire({
                 icon: response.data.icon,
                 title: response.data.msg
             });
-        } else {
+        }).catch(data => {
+            // Loading Animation
+            this.dataModalLoading = false
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Somthing Going Wrong<br>'+data.message,
+            //     customClass: 'text-danger'
+            // });
+            Toast.fire("error", "Somthing Going Wrong");
+        });
+    
+    },
+
+    // Update data
+    updateData() {
+        // Loading Animation
+        this.dataModalLoading = true
+        // Assign Roles
+        this.form.roles = this.currentRoles
+        // request send and get response
+        this.form.put(this.currentUrl + '/update/' + this.form.id).then(response=>{
+            // Loading Animation
+            this.dataModalLoading = false
+            // Input field make empty
+            this.form.reset();
+            // Hide model dataModalDialog
+            this.dataModalDialog = false;
+            // Refresh Tbl Data with current page
+            this.getResults(this.currentPageNumber);
+            Toast.fire({
+                icon: response.data.icon,
+                title: response.data.msg
+            });
+
+        }).catch((data) => {
+            // Loading Animation
+            this.dataModalLoading = false
             Swal.fire({
                 icon: 'error',
                 title: 'Somthing Going Wrong<br>'+data.message,
                 customClass: 'text-danger'
             });
-            // Swal.fire("Failed!", data.message, "warning");
-            console.log(response);
-        }
-
+            //Swal.fire("Failed!", data.message, "warning");
+        });
+       
+        
     },
 
 
+
     // Edit Data Modal
-    editDataModelDirect(singleData){
-        //console.log('singleData', singleData)
+    editDataModel(singleData){
+
+        this.selectedManagerName = []
+        this.selectedManager = []
+
+        //console.log('singleData', this.selectedManager, singleData.manager_id)
         if(singleData.manager_id){
             // Make Empty
+            this.selectedManager = []
             this.selectedManager = singleData.manager_id.split(',')
             this.selectedManagerName = []
         
             //this.selectedManager.push(singleData.manager_id);
-
             var allDataArr = this.allData.data;
             // Text split in array
             var managerId = this.selectedManager
             //console.log(managerId, myarr, singleData.manager_id);
-            
             // Manager ID check in all Data
             for (var key in allDataArr) {
                 var value = allDataArr[key];
@@ -218,6 +255,18 @@ export default{
                     // console.log('for2 -- ', key2, value2);
                 }
             }
+        }
+
+        // Role Assign
+        if(singleData.roles){
+
+            this.currentRoles = []
+            // role found then push in arry
+            singleData.roles.forEach(element => {
+                // console.log('loop', element.id)
+                this.currentRoles.push(element.id)
+            })
+
         }
 
         // manager_id
@@ -240,45 +289,12 @@ export default{
         this.dataModelTitle = 'Update Data'
         this.form.reset();
         this.form.fill(singleData);
-        this.$refs['data-modal'].show();
-    },
-
-
-    // Update data
-    async updateDataDirect() {
-
-        //console.log('Edit Form submited', this.form.id);
-        this.$Progress.start();
-        // request send and get response
-        const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
-        // Input field make empty
-        this.form.reset();
-        // Hide model
-        this.$refs['data-modal'].hide();
-        // Refresh Tbl Data with current page
-        this.getResults(this.currentPageNumber);
-
-        // makeEmptyVariables
-        this.makeEmptyVariables();
-        this.$Progress.finish();
-
-        if (response.status == 200) {
-            Toast.fire({
-                icon: response.data.icon,
-                title: response.data.msg
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Somthing Going Wrong<br>'+data.message,
-                customClass: 'text-danger'
-            });
-            // Swal.fire("Failed!", data.message, "warning");
-            console.log(response);
-        }
+        this.dataModalDialog=true
 
     },
 
+
+  
     // Variables make empty
     makeEmptyVariables(){
         this.selectedManager=[];

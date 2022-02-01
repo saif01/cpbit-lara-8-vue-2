@@ -51,7 +51,8 @@ class IndexController extends Controller
         }
             
         // Final Data
-        $allData =  $allDataQuery->paginate($paginate);
+        $allData =  $allDataQuery->orderBy($sort_field, $sort_direction)
+                    ->paginate($paginate);
 
         return response()->json($allData, 200);
 
@@ -135,6 +136,7 @@ class IndexController extends Controller
             'office'            => 'nullable',
             'business_unit'     => 'nullable',
             'nid'               => 'nullable|regex:/[0-9]/',
+            'image'             => 'required'
         ]);
 
     
@@ -186,6 +188,12 @@ class IndexController extends Controller
         $data->verify           = 1;
         $data->verify_by        = Auth::user()->id;
         $success          = $data->save();
+
+        // Assign Roles
+        $currentRoles =   $request->roles;
+        if(!empty($currentRoles)){
+            $data->roles()->sync($currentRoles);
+        }
 
         if($success){
             return response()->json(['msg'=>'Stored Successfully &#128513;', 'icon'=>'success'], 200);
@@ -271,6 +279,12 @@ class IndexController extends Controller
         $data->verify           = 1;
         $data->verify_by        = Auth::user()->id;
         $success                = $data->save();
+
+        // Assign Roles
+        $currentRoles =   $request->roles;
+        if(!empty($currentRoles)){
+            $data->roles()->sync($currentRoles);
+        }
 
         if($success){
             return response()->json(['msg'=>'Updated Successfully &#128515;', 'icon'=>'success'], 200);

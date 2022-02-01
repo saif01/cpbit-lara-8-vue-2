@@ -6,7 +6,7 @@ export default{
     form: new Form({
         id: '',
         login: '',
-        user: '1',
+        user: 1,
         admin: '',
         name: '',
         image: '',
@@ -21,7 +21,7 @@ export default{
         nid: '',
         manager_id: [],
         manager_emails: '',
-        status: '1',
+        status: 1,
 
         roles: [],
     }),
