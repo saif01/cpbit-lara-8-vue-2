@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use App\Models\Sms\SmsOperation;
+use App\Models\User;
 
 class IndexController extends Controller
 {
@@ -57,7 +58,7 @@ class IndexController extends Controller
         ]; 
 
 
-        return response($allData)->json();
+        return response()->json($allData);
 
         
     }

@@ -260,7 +260,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
         // User
-        Route::middleware(['can:room'])->namespace('User')->group(function(){
+        Route::middleware(['can:car'])->namespace('User')->group(function(){
 
             Route::prefix('booking')->group(function(){
                 Route::get('/data', 'BookingController@data');
@@ -290,7 +290,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     Route::namespace('SMS')->prefix('sms')->group(function(){
 
         // Admin
-        Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
+        Route::middleware(['can:SMSAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
 
             Route::get('/dashboard_data', 'IndexController@dashboard_data');
 
@@ -324,7 +324,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         });
 
         // User
-        Route::middleware(['can:room'])->namespace('User')->group(function(){
+        Route::middleware(['can:SMS'])->namespace('User')->group(function(){
 
             Route::get('/operations', 'IndexController@operations');
             Route::get('/report_download', 'IndexController@report_download');

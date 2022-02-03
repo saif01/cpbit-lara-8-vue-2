@@ -126,38 +126,6 @@ class AuthServiceProvider extends ServiceProvider
 
 
 
-        //iTemp Project's Gate
-
-        //Itemp User
-        Gate::define('itemp', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Itemp']);
-        });
-        //Itemp Admin
-        Gate::define('itempAdmin', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Itemp-admin']);
-        });
-
-
-
-        //Iservice Project's Gate
-
-        //iservice User
-        Gate::define('iservice', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Iservice']);
-        });
-        //iservice User SMS Operation access
-        Gate::define('iserviceSms', function($user){
-            return $user->sms_operation_anyrole_check();
-        });
-        //iservice User Powerbi access
-        Gate::define('iservicePowerbi', function($user){
-            return $user->powerbi_anyrole_check();
-        });
-        //iservice Admin
-        Gate::define('iserviceAdmin', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Iservice-admin']);
-        });
-
 
         //Power BI Project's Gate
 
