@@ -8,8 +8,7 @@
                         <h3 class="card-title">All User List</h3>
                     </div>
                     <div class="col-6">
-                        <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary"
-                            outlined>
+                        <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary" outlined>
                             <v-icon small>mdi-card-plus</v-icon> Add
                         </v-btn>
                     </div>
@@ -74,9 +73,12 @@
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td>{{ singleData.login  }}<br>
-                                    <img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image"
-                                        class="img-fluid" height="50" width="80">
+                                <td>
+                                    <span @click="currentUserView(singleData)">
+                                        {{ singleData.login  }}<br>
+                                        <img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image"
+                                            class="rounded-circle" height="100" width="100">
+                                    </span>
                                 </td>
                                 <td>
                                     <b>Name: </b> {{ singleData.name }} <br>
@@ -90,7 +92,7 @@
                                         <!-- {{ singleData.manager_id }}  -->
                                         <span>
                                             <span v-for="item in manegerData(singleData.manager_id)" :key="item.id">
-                                                <v-btn @click="showSingleUserDetails(item)" small outlined class="mx-1">
+                                                <v-btn @click="currentUserView(item)" small outlined class="mx-1">
                                                     {{ item.name }}</v-btn>
                                             </span>
                                         </span>
@@ -249,30 +251,6 @@
         </v-dialog>
 
 
-        <!-- Single User Details  -->
-        <v-dialog v-model="singleUserModalShow" fullscreen>
-            <v-card>
-                <v-card-title class="justify-center">
-                    <v-row>
-                        <v-col cols="10">
-                            Manager Details
-                        </v-col>
-                        <v-col cols="2">
-                            <v-btn @click="singleUserModalShow = false" color="red lighten-1" small text
-                                class="float-right">
-                                <v-icon left dark>mdi-close-octagon</v-icon> Close
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-card-title>
-                <v-card-text>
-                    {{ singleUserModalData }}
-                </v-card-text>
-            </v-card>
-
-        </v-dialog>
-
-
 
 
         <!-- user-create-compoment -->
@@ -295,35 +273,40 @@
                 <v-card-text>
                     <form @submit.prevent="editmode ? updateData() : createData()">
 
-                     <v-row>
+                        <v-row>
                             <v-col cols="12" md="4">
-                                 
-                                <v-text-field type="text" label="User AD ID" :rules="[v => !!v || 'AD ID is required!']" v-model="form.login" required>
+
+                                <v-text-field type="text" label="User AD ID" :rules="[v => !!v || 'AD ID is required!']"
+                                    v-model="form.login" required>
                                 </v-text-field>
-                                <div class="text-danger" v-if="form.errors.has('login')" v-html="form.errors.get('login')" />
-                               
+                                <div class="text-danger" v-if="form.errors.has('login')"
+                                    v-html="form.errors.get('login')" />
+
                             </v-col>
 
                             <v-col cols="12" md="4">
                                 <v-text-field type="text" label="User Name"
                                     :rules="[v => !!v || 'User Name is required!']" v-model="form.name" required>
                                 </v-text-field>
-                                <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                                <div class="text-danger" v-if="form.errors.has('name')"
+                                    v-html="form.errors.get('name')" />
                             </v-col>
 
 
                             <v-col cols="12" md="4">
                                 <v-text-field type="text" label="User Department"
-                                    :rules="[v => !!v || 'Department is required!']" v-model="form.department" >
+                                    :rules="[v => !!v || 'Department is required!']" v-model="form.department">
                                 </v-text-field>
-                                <div class="text-danger" v-if="form.errors.has('department')" v-html="form.errors.get('department')" />
+                                <div class="text-danger" v-if="form.errors.has('department')"
+                                    v-html="form.errors.get('department')" />
                             </v-col>
 
 
                             <v-col cols="12" md="4">
-                                <v-text-field type="text" label="User Office ID" v-model="form.office_id" >
+                                <v-text-field type="text" label="User Office ID" v-model="form.office_id">
                                 </v-text-field>
-                                <div class="text-danger" v-if="form.errors.has('office_id')" v-html="form.errors.get('office_id')" />
+                                <div class="text-danger" v-if="form.errors.has('office_id')"
+                                    v-html="form.errors.get('office_id')" />
                             </v-col>
 
 
@@ -346,7 +329,8 @@
                                 <v-text-field type="email" label="User Office Email"
                                     :rules="[v => /.+@.+/.test(v) || 'E-mail must be valid',]"
                                     v-model="form.office_email"></v-text-field>
-                                <div class="text-danger" v-if="form.errors.has('office_email')" v-html="form.errors.get('office_email')" />
+                                <div class="text-danger" v-if="form.errors.has('office_email')"
+                                    v-html="form.errors.get('office_email')" />
                             </v-col>
 
                             <v-col cols="12" md="4">
@@ -361,7 +345,8 @@
                                 <v-text-field type="text" label="User Office Location"
                                     :rules="[v => !!v || 'Office Location is required!']" v-model="form.office"
                                     required></v-text-field>
-                                <div class="text-danger" v-if="form.errors.has('office')" v-html="form.errors.get('office')" />
+                                <div class="text-danger" v-if="form.errors.has('office')"
+                                    v-html="form.errors.get('office')" />
                             </v-col>
 
                             <v-col cols="12" md="4">
@@ -444,18 +429,18 @@
                         <!-- End Manager Selection -->
                         <v-row>
                             <v-col class="pa-0" cols="3" v-for="(role, index) in allRoles" :key="index">
-                                <v-checkbox v-model="currentRoles" :label="role.name" color="indigo" :value="role.id" hide-details></v-checkbox>
+                                <v-checkbox v-model="currentRoles" :label="role.name" color="indigo" :value="role.id"
+                                    hide-details></v-checkbox>
                             </v-col>
                         </v-row>
                         <hr>
-                     
 
 
 
 
 
-                        <v-btn block blockdepressed :loading="dataModalLoading" color="primary mt-3"
-                                    type="submit">
+
+                        <v-btn block blockdepressed :loading="dataModalLoading" color="primary mt-3" type="submit">
                             <span v-if="editmode">
                                 <v-icon left dark>mdi-circle-edit-outline</v-icon> Update
                             </span>
@@ -477,11 +462,12 @@
 
 
 
-        <!-- manager-select-component -->
-        <manager-select-component v-if="managerSelectComponentShow" :key="managerModalKey"
-            :children-request="letParentResponse" :selected_id="form.manager_id"></manager-select-component>
+        <!-- manager-select -->
+        <manager-select v-if="managerSelectComponentShow" :key="managerModalKey" :children-request="letParentResponse"
+            :selected_id="form.manager_id"></manager-select>
 
-
+        <!-- user-details -->
+        <user-details v-if="CurrentUserData" :userData="CurrentUserData" :key="userDetailsDialogKey"></user-details>
 
     </div>
 
@@ -494,15 +480,21 @@
 
     import allJsMethods from './indexMethods'
 
-    import ManagerSelectComponent from './manager_select.vue'
+    import ManagerSelec from './manager_select.vue'
     import userMethods from './js/methods'
     import userTblData from './js/data'
     import userFormFields from './js/userFormField'
 
+    // User Details Show By Dialog
+    import userDetails from './details/user_details.vue'
+    import userDetailsData from './details/js/data'
+    import userDetailsMethods from './details/js/methods'
+
 
     export default {
         components: {
-            'manager-select-component': ManagerSelectComponent,
+            'manager-select': ManagerSelec,
+            'user-details': userDetails,
         },
 
         data() {
@@ -512,7 +504,7 @@
                 //current page url
                 currentUrl: '/super_admin/user',
 
-               
+
 
                 radioBtnSeelected: 'managerById',
                 managerByIdShow: true,
@@ -543,13 +535,13 @@
                 ...userFormFields,
 
 
-               
+
 
                 singleUserModalShow: false,
                 singleUserModalData: {},
 
-               
-                
+
+
 
                 emailRules: [
                     v => !!v || 'E-mail is required',
@@ -560,7 +552,9 @@
                     v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
                 ],
 
-
+                // Current User Show By Dilog
+                ...userDetailsData,
+               
 
             }
 
@@ -585,55 +579,30 @@
                 // this.selectedManager = request.manager_id
                 this.form.manager_id = request.manager_id
                 // this.setManager()
-                console.log('parent Response', request.manager_name, request.manager_id, request, this.form.manager_id)
+                //console.log('parent Response', request.manager_name, request.manager_id, request, this.form.manager_id)
             },
 
-            // // Add Data Model
-            // addDataModel(){
-            //     this.editmode = false;
-            //     // this.dataModalDialog=true
-            // },
-
-            // // Edit Data Modal
-            // editDataModel(singleData){
-            //     this.editmode = true;
-            //     this.dataModelTitle = 'Update Data'
-            //     this.form.reset();
-            //     this.form.fill(singleData);
-            //     // this.dataModalDialog=true
-            // },
+            // CurrentUserData
+            ...userDetailsMethods,
+           
 
 
         },
 
 
 
-        watch: {
-
-            //Excuted When make change value 
-            zone_office: function (value) {
-                this.$Progress.start();
-                this.getResults();
-                this.$Progress.finish();
-            },
-
-            //Excuted When make change value 
-            department: function (value) {
-                this.$Progress.start();
-                this.getResults();
-                this.$Progress.finish();
-            }
-
-        },
+      
 
 
         mounted() {
-            // Get Roles 
-            this.getRoles();
-            // All ZoneOffices
-            this.getZoneOffices();
-            //getDepartments
-            this.getDepartments();
+            setTimeout(()=>{
+                // Get Roles 
+                this.getRoles();
+                // All ZoneOffices
+                this.getZoneOffices();
+                //getDepartments
+                this.getDepartments();
+            }, 1000)
         },
 
         created() {

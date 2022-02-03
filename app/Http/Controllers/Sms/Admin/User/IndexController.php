@@ -55,7 +55,8 @@ class IndexController extends Controller
         }
             
         // Final Data
-        $allData =  $allDataQuery->paginate($paginate);
+        $allData =  $allDataQuery->orderBy($sort_field, $sort_direction)
+                ->paginate($paginate);
 
         return response()->json($allData, 200);
 

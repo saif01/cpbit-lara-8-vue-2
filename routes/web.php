@@ -292,6 +292,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         // Admin
         Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
 
+            Route::get('/dashboard_data', 'IndexController@dashboard_data');
+
             // User Management
             Route::namespace('User')->prefix('user')->group(function(){
                 Route::get('/index', 'IndexController@index');
@@ -324,6 +326,10 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         // User
         Route::middleware(['can:room'])->namespace('User')->group(function(){
 
+            Route::get('/operations', 'IndexController@operations');
+            Route::get('/report_download', 'IndexController@report_download');
+
+            Route::get('/test', 'IndexController@test');
 
             Route::get('{any?}', 'IndexController@index');
         });

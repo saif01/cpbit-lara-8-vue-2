@@ -145,10 +145,6 @@ export default{
     },
 
 
-    // second Modal Show
-    modal2ndShow(){
-        this.userModal2ndShowHide = true
-    },
   
 
     // Create Data
@@ -462,19 +458,6 @@ export default{
                 });
             }
         })
-    },
-
-
-    // showSingleUserDetails
-    showSingleUserDetails(singleData){
-
-        this.$Progress.start();
-        this.singleUserModalShow = true
-        this.singleUserModalData = singleData
-        this.$Progress.finish();
-
-        //console.log(singleData)
-
     },
 
 

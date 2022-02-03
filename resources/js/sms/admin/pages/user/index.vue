@@ -73,9 +73,12 @@
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td>{{ singleData.login  }}<br>
-                                    <img v-if="singleData.image"
-                                    :src="imagePathSm + singleData.image" alt="image" class="img-fluid" height="50" width="80">
+                                <td>
+                                    <span @click="currentUserView(singleData)">
+                                        {{ singleData.login  }}<br>
+                                        <img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image"
+                                            class="rounded-circle" height="100" width="100">
+                                    </span>
                                 </td>
                                 <td>
                                     <b>Name: </b> {{ singleData.name }} <br>
@@ -174,34 +177,8 @@
         </v-dialog>
 
 
-
-
-
-
-        <!-- Single User Details  -->
-        <v-dialog v-model="singleUserModalShow" fullscreen>
-            <v-card>
-                <v-card-title class="justify-center">
-                    <v-row>
-                        <v-col cols="10">
-                            Manager Details
-                        </v-col>
-                        <v-col cols="2">
-                            <v-btn @click="singleUserModalShow = false" color="red lighten-1" small text
-                                class="float-right">
-                                <v-icon left dark>mdi-close-octagon</v-icon> Close
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-card-title>
-                <v-card-text>
-                    {{ singleUserModalData }}
-                </v-card-text>
-            </v-card>
-
-        </v-dialog>
-
-
+        <!-- user-details -->
+        <user-details v-if="CurrentUserData" :userData="CurrentUserData" :key="userDetailsDialogKey"></user-details>
 
     </div>
 
@@ -212,7 +189,20 @@
     // vform
     import Form from 'vform';
 
+    import userTblData from './../../../../super_admin/pages/users/js/data'
+    import userTblMethods from './../../../../super_admin/pages/users/js/methods'
+
+    // User Details Show By Dialog
+    import userDetails from './../../../../super_admin/pages/users/details/user_details.vue'
+    import userDetailsData from './../../../../super_admin/pages/users/details/js/data'
+    import userDetailsMethods from './../../../../super_admin/pages/users/details/js/methods'
+
+
     export default {
+
+        components: {
+            'user-details': userDetails,
+        },
 
 
         data() {
@@ -221,74 +211,12 @@
 
                 //current page url
                 currentUrl: '/sms/admin/user',
-               
-                selectedManager: [],
-                selectedManagerName: [],
-
+            
                
                 managerByIdShow: true,
                 managerByEmailShow: false,
 
                 userModal2ndShowHide: false,
-
-
-                searchByFields: [{
-                        value: 'login',
-                        name: 'Login ID'
-                    },
-                    {
-                        value: 'name',
-                        name: 'User Name'
-                    },
-                    {
-                        value: 'department',
-                        name: 'Department'
-                    },
-                    {
-                        value: 'office_id',
-                        name: 'Office ID'
-                    },
-                    {
-                        value: 'office_contact',
-                        name: 'Office Contact'
-                    },
-                    {
-                        value: 'personal_contact',
-                        name: 'Personal Contact'
-                    },
-                    {
-                        value: 'office_email',
-                        name: 'Office Email'
-                    },
-                    {
-                        value: 'personal_email',
-                        name: 'Personal Email'
-                    },
-                    {
-                        value: 'office',
-                        name: 'Office'
-                    },
-                    {
-                        value: 'business_unit',
-                        name: 'Business Unit'
-                    },
-                    {
-                        value: 'nid',
-                        name: 'NID'
-                    },
-                    {
-                        value: 'status',
-                        name: 'Status Active'
-                    },
-                    {
-                        value: 'admin',
-                        name: 'Admin Access'
-                    },
-                    {
-                        value: 'user',
-                        name: 'User Access'
-                    },
-                ],
 
 
 
@@ -299,19 +227,11 @@
                 roleModelShow: false,
 
 
+                // userTblData
+                ...userTblData,
 
-                imageMaxSize: '5111775',
-                imagePath: '/images/users/',
-                imagePathSm: '/images/users/small/',
-
-
-                singleUserModalShow: false,
-                singleUserModalData: {},
-
-                allZoneOffices: [],
-                zone_office: '',
-                allDepartments: [],
-                department: '',
+                // Current User Show By Dilog
+                ...userDetailsData,
 
             }
 
@@ -320,54 +240,9 @@
 
         methods: {
 
+            // userTblMethods
+            ...userTblMethods,
 
-
-            // Get table data
-            getResults(page = 1) {
-                this.dataLoading = true;
-                axios.get(this.currentUrl + '/index?page=' + page +
-                        '&paginate=' + this.paginate +
-                        '&search=' + this.search +
-                        '&sort_direction=' + this.sort_direction +
-                        '&sort_field=' + this.sort_field +
-                        '&search_field=' + this.search_field +
-                        '&zone_office='+ this.zone_office +
-                        '&department=' + this.department
-
-                    )
-                    .then(response => {
-                        //console.log(response.data.data);
-                        //console.log(response.data.from, response.data.to);
-                        this.allData = response.data;
-                        this.totalValue = response.data.total;
-                        this.dataShowFrom = response.data.from;
-                        this.dataShowTo = response.data.to;
-                        this.currentPageNumber  = response.data.current_page
-                        // Loading Animation
-                        this.dataLoading = false;
-
-                    });
-            },
-
-            // get Zone Offices
-            getZoneOffices(){
-                axios.get(this.currentUrl+ '/zoneoffices').then(response=>{
-                    // console.log(response.data)
-                    this.allZoneOffices = response.data
-                }).catch(error=>{
-                    console.log(error)
-                })
-            },
-            
-            // get Departments
-            getDepartments() {
-                axios.get(this.currentUrl + '/departments').then(response => {
-                    // console.log(response.data)
-                    this.allDepartments = response.data
-                }).catch(error => {
-                    console.log(error)
-                })
-            },
 
             // Get all Role
             getRoles() {
@@ -434,7 +309,8 @@
             },
 
 
-
+            // CurrentUserData
+            ...userDetailsMethods,
 
         },
 

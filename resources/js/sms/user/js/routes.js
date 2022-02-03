@@ -11,7 +11,7 @@ const router = new VueRouter({
     routes : [
 
         { 
-            path: '/demo/', 
+            path: '/sms', 
             component: Dashboard,
             name: 'Dashboard',
             meta:{
