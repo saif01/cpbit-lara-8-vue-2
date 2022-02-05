@@ -38,9 +38,9 @@ export default {
 
         //checkUserRole
       
-        console.log('Super Admin Index, auth user', JSON.parse(this.authuser));
+        // console.log('Super Admin Index, auth user', JSON.parse(this.authuser));
 
-        console.log('Role: ', this.isAdministrator(), this.isAnyRole(['Administrator', 'Ivca']), this.isRole('Administrator') )
+        // console.log('Role: ', this.isAdministrator(), this.isAnyRole(['Administrator', 'Ivca']), this.isRole('Administrator') )
 
         this.$Progress.finish();  
     }

@@ -95,6 +95,23 @@ class User extends Authenticatable
         return false;
     }
 
+
+    //Relation user to ivca role
+    public function ivca_roles()
+    {
+        return $this->belongsToMany('App\Models\iVca\ivcaRole');
+    }
+
+    // Check Array of ivca roles 
+    public function ivca_hasAnyRoles($roles)
+    {
+        if($this->ivca_roles()->whereIn('name',$roles)->first()){
+            return true;
+        }
+        return false;
+    }
+
+
     
 
     

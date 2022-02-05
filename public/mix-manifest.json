@@ -5,14 +5,22 @@
     "/js/super_admin/app.js": "/js/super_admin/app.js",
     "/js/room/admin/app.js": "/js/room/admin/app.js",
     "/js/room/user/app.js": "/js/room/user/app.js",
+    "/js/carpool/admin/app.js": "/js/carpool/admin/app.js",
+    "/js/carpool/user/app.js": "/js/carpool/user/app.js",
     "/js/sms/admin/app.js": "/js/sms/admin/app.js",
     "/js/sms/user/app.js": "/js/sms/user/app.js",
+    "/js/ivca/admin/app.js": "/js/ivca/admin/app.js",
+    "/js/ivca/user/app.js": "/js/ivca/user/app.js",
     "/css/app.css": "/css/app.css",
     "/css/auth/app.css": "/css/auth/app.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
     "/css/super_admin/app.css": "/css/super_admin/app.css",
     "/css/room/admin/app.css": "/css/room/admin/app.css",
     "/css/room/user/app.css": "/css/room/user/app.css",
+    "/css/carpool/admin/app.css": "/css/carpool/admin/app.css",
+    "/css/carpool/user/app.css": "/css/carpool/user/app.css",
     "/css/sms/admin/app.css": "/css/sms/admin/app.css",
-    "/css/sms/user/app.css": "/css/sms/user/app.css"
+    "/css/sms/user/app.css": "/css/sms/user/app.css",
+    "/css/ivca/admin/app.css": "/css/ivca/admin/app.css",
+    "/css/ivca/user/app.css": "/css/ivca/user/app.css"
 }

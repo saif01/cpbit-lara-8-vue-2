@@ -21,7 +21,7 @@ class BookingController extends Controller
         $allData = CarpoolBooking::where('status', '1')
         ->with('car', 'bookby')
         ->orderBy('id', 'desc')
-        ->take(500)
+        ->take(200)
         ->get()
         ->toArray();
 
@@ -83,8 +83,8 @@ class BookingController extends Controller
        
 
     
-        $car_id          = $request->car_id;
-        $car_name        = $request->car_name;
+        $car_id           = $request->car_id;
+        $car_name         = $request->car_name;
         $purpose          = $request->purpose;
         $start            = $request->start;
         $end              = $request->end;

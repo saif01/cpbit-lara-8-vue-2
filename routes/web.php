@@ -187,7 +187,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     // Room End
 
 
-    //CarPool
+    // CarPool
     Route::namespace('Carpool')->prefix('carpool')->group(function(){
 
         // Admin
@@ -222,8 +222,12 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 // status
                 Route::post('/status/{id}', 'IndexController@status');
 
-                 // car data
+                // car data
                 Route::get('/car-data', 'IndexController@CarData');
+
+                Route::post('/store_leave', 'IndexController@store_leave');
+
+
 
             });
 
@@ -260,7 +264,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
         // User
-        Route::middleware(['can:car'])->namespace('User')->group(function(){
+        Route::middleware(['can:room'])->namespace('User')->group(function(){
 
             Route::prefix('booking')->group(function(){
                 Route::get('/data', 'BookingController@data');
@@ -338,7 +342,290 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
 
+     //iVCA 
+     Route::namespace('iVCA')->prefix('ivca')->group(function(){
 
+        // Admin
+        Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
+
+            Route::get('/dashboard_data', 'IndexController@dashboard_data');
+            Route::get('/inactive_list', 'IndexController@inactive_list');
+
+
+            // User Managment
+            Route::namespace('User')->prefix('user')->group( function(){
+                // User
+                Route::prefix('list')->group( function(){
+                    Route::get('/index', 'ListController@index');
+
+                    Route::post('/roles_update', 'ListController@roles_update');
+                    Route::get('/roles_data', 'ListController@roles_data');
+                });
+                // Role
+                Route::prefix('role')->group( function(){
+                    Route::get('/index', 'RoleController@index');
+                    Route::post('/store', 'RoleController@store');
+                    Route::put('/update/{id}', 'RoleController@update');
+                    Route::delete('/destroy/{id}', 'RoleController@destroy');
+                    Route::post('/status/{id}', 'RoleController@status');
+                });
+
+            });
+            
+
+            // Vendor
+            Route::namespace('Vendor')->prefix('vendor')->group( function(){
+                // List
+                Route::prefix('list')->group( function(){
+                    Route::get('/index', 'ListController@index');
+                    Route::post('/store', 'ListController@store');
+                    Route::put('/update/{id}', 'ListController@update');
+                    Route::delete('/destroy/{id}', 'ListController@destroy');
+                    Route::post('/status/{id}', 'ListController@status');
+                });
+                // black_list
+                Route::prefix('black_list')->group( function(){
+                    Route::get('/index', 'BlackListController@index');
+                
+                    Route::get('/vendor_list', 'BlackListController@vendor_list');
+                    Route::post('/vendor_list_blacklist', 'BlackListController@vendor_list_blacklist');
+                    Route::post('/vendor_list_status', 'BlackListController@vendor_list_status');
+                });
+
+            });
+
+
+            // Tempalte
+            Route::namespace('Tempalte')->prefix('tempalte')->group( function(){
+                Route::get('/mro_manufacturer_data', 'MroManufacturerController@data');
+                Route::post('/mro_manufacturer_store', 'MroManufacturerController@store');
+
+                Route::get('/mro_importer_data', 'MroImporterController@data');
+                Route::post('/mro_importer_store', 'MroImporterController@store');
+
+                Route::get('/mro_retailer_data', 'MroRetailerController@data');
+                Route::post('/mro_retailer_store', 'MroRetailerController@store');
+
+                Route::get('/food_data', 'FoodController@data');
+                Route::post('/food_store', 'FoodController@store');
+
+            });
+
+
+            // Schedule
+            Route::namespace('Schedule')->prefix('schedule')->group( function(){
+
+                Route::prefix('mro')->group( function(){
+                    Route::get('/index', 'MroController@index');
+                    Route::post('/store', 'MroController@store');
+                    Route::put('/update/{id}', 'MroController@update');
+                    //Route::delete('/destroy/{id}', 'MroController@destroy');
+                    Route::post('/status/{id}', 'MroController@status');
+
+                    Route::get('vendor_list', 'MroController@vendor_list');
+                    Route::get('user_list', 'MroController@user_list');
+                });
+
+                Route::prefix('food')->group( function(){
+                    Route::get('/index', 'FoodController@index');
+                    Route::post('/store', 'FoodController@store');
+                    Route::put('/update/{id}', 'FoodController@update');
+                    //Route::delete('/destroy/{id}', 'FoodController@destroy');
+                    Route::post('/status/{id}', 'FoodController@status');
+
+                    Route::get('vendor_list', 'FoodController@vendor_list');
+                    Route::get('user_list', 'FoodController@user_list');
+                });
+
+            
+
+                
+            });
+
+        
+            // Reports
+            Route::namespace('Reports')->prefix('reports')->group(function(){
+                // manufacturer
+                Route::prefix('manufacturer')->group(function(){
+                    Route::get('/index', 'ManufacturerController@index');
+                    Route::get('/single_audit_data/{id}', 'ManufacturerController@single_audit_data');
+                    Route::post('/summary_audit_data', 'ManufacturerController@summary_audit_data');
+
+                    // manufacturer PDF
+                    Route::prefix('pdf')->group(function(){
+                        Route::get('/view_summary/{token}', 'ManufacturerController@view_summary');
+                        Route::get('/download_summary/{token}', 'ManufacturerController@download_summary');
+                        Route::get('/view/{id}', 'ManufacturerController@view');
+                        Route::get('/download/{id}', 'ManufacturerController@download');
+                    });
+                });
+
+                // importer
+                Route::prefix('importer')->group(function(){
+                    Route::get('/index', 'ImporterController@index');
+                    Route::get('/single_audit_data/{id}', 'ImporterController@single_audit_data');
+                    Route::post('/summary_audit_data', 'ImporterController@summary_audit_data');
+
+                    // importer PDF
+                    Route::prefix('pdf')->group(function(){
+                        Route::get('/view_summary/{token}', 'ImporterController@view_summary');
+                        Route::get('/download_summary/{token}', 'ImporterController@download_summary');
+                        Route::get('/view/{id}', 'ImporterController@view');
+                        Route::get('/download/{id}', 'ImporterController@download');
+                    });
+                });
+
+
+                // retailer
+                Route::prefix('retailer')->group(function(){
+                    Route::get('/index', 'RetailerController@index');
+                    Route::get('/single_audit_data/{id}', 'RetailerController@single_audit_data');
+                    Route::post('/summary_audit_data', 'RetailerController@summary_audit_data');
+
+                    // retailer PDF
+                    Route::prefix('pdf')->group(function(){
+                        Route::get('/view_summary/{token}', 'RetailerController@view_summary');
+                        Route::get('/download_summary/{token}', 'RetailerController@download_summary');
+                        Route::get('/view/{id}', 'RetailerController@view');
+                        Route::get('/download/{id}', 'RetailerController@download');
+                    });
+                });
+
+
+                // Food
+                Route::prefix('food')->group(function(){
+                    Route::get('/index', 'FoodController@index');
+                    Route::get('/food_summery/{id}', 'FoodController@food_summery');
+                
+                    // Food PDF
+                    Route::prefix('pdf')->group(function(){
+                        Route::get('/view/{token}', 'FoodController@view');
+                        Route::get('/download/{token}', 'FoodController@download');
+                    });
+                });
+                
+                
+            });
+
+            Route::get('{any?}', 'IndexController@index');
+
+        });
+
+        // User
+        Route::middleware(['can:roomAdmin'])->namespace('User')->group(function(){
+
+            // MRO 
+            Route::namespace('Mro')->prefix('mro')->group(function(){
+                Route::get('/index', 'ScheduleController@index');
+
+                // Token Related
+                Route::prefix('token')->group( function(){
+                    Route::post('/create', 'TokenController@create');
+                    Route::post('/check', 'TokenController@check');
+                    Route::post('/check_by_user', 'TokenController@check_by_user');
+                    Route::post('/data', 'TokenController@data');
+                    Route::post('/tempplate_update', 'TokenController@tempplate_update');
+                });
+
+                Route::prefix('audit')->group( function(){
+
+                    Route::post('/tempalte_data', 'AuditController@tempalte_data');
+
+                    Route::prefix('template')->group( function(){
+                        Route::post('/manufacturer', 'TemplateController@manufacturer');
+                        Route::post('/importer', 'TemplateController@importer');
+                        Route::post('/retailer', 'TemplateController@retailer');
+                    });
+
+
+                    Route::namespace('Store')->group(function(){
+
+                        // manufacturer template data store
+                        Route::prefix('manufacturer')->group(function(){
+                            Route::post('/storage_store/{token}/{type}', 'ManufacturerController@storage_store');
+                            Route::post('/production_qs_store/{token}/{type}', 'ManufacturerController@production_qs_store');
+                            Route::post('/safety_store/{token}/{type}', 'ManufacturerController@safety_store');
+                            Route::post('/env_sur_con_store/{token}/{type}', 'ManufacturerController@env_sur_con_store');
+                            Route::post('/equipment_store/{token}/{type}', 'ManufacturerController@equipment_store');
+                            Route::post('/cooperate_store/{token}/{type}', 'ManufacturerController@cooperate_store');
+                            Route::post('/final_store/{token}/{type}', 'ManufacturerController@final_store');
+
+                            Route::get('/audit_data/{token}', 'ManufacturerController@audit_data');
+                        });
+
+                        // importer template data store
+                        Route::prefix('importer')->group(function(){
+                            Route::post('/storage_store/{token}/{type}', 'ImporterController@storage_store');
+                            Route::post('/production_qs_store/{token}/{type}', 'ImporterController@production_qs_store');
+                            Route::post('/safety_store/{token}/{type}', 'ImporterController@safety_store');
+                            Route::post('/env_sur_con_store/{token}/{type}', 'ImporterController@env_sur_con_store');
+                            Route::post('/cooperate_store/{token}/{type}', 'ImporterController@cooperate_store');
+                            Route::post('/final_store/{token}/{type}', 'ImporterController@final_store');
+
+                            Route::get('/audit_data/{token}', 'ImporterController@audit_data');
+                        });
+
+                        // retailer template data store
+                        Route::prefix('retailer')->group(function(){
+                            Route::post('/storage_store/{token}/{type}', 'RetailerController@storage_store');
+                            Route::post('/production_qs_store/{token}/{type}', 'RetailerController@production_qs_store');
+                            Route::post('/safety_store/{token}/{type}', 'RetailerController@safety_store');
+                            Route::post('/env_sur_con_store/{token}/{type}', 'RetailerController@env_sur_con_store');
+                            Route::post('/cooperate_store/{token}/{type}', 'RetailerController@cooperate_store');
+                            Route::post('/final_store/{token}/{type}', 'RetailerController@final_store');
+
+                            Route::get('/audit_data/{token}', 'RetailerController@audit_data');
+                        });
+
+                    });
+
+                
+                });
+
+
+            });
+
+
+            // Food Audit Section
+            Route::namespace('Food')->prefix('food')->group(function(){
+                Route::get('/index', 'ScheduleController@index');
+
+                // Token Related
+                Route::prefix('token')->group( function(){
+                    Route::post('/create', 'TokenController@create');
+                    Route::post('/check', 'TokenController@check');
+                    Route::post('/check_by_user', 'TokenController@check_by_user');
+                    Route::post('/data', 'TokenController@data');
+                    Route::post('/tempplate_update', 'TokenController@tempplate_update');
+                });
+
+                // Food Audit
+                Route::prefix('audit')->group(function(){
+                    Route::post('tempalte', 'TemplateController@template');
+                    Route::get('data/{token}', 'AuditController@data');
+                    // Store Audit Data
+                    Route::prefix('store')->group(function(){
+                        Route::post('/building_facilities_store/{token}', 'AuditController@building_facilities_store');
+                        Route::post('/equipment_store/{token}', 'AuditController@equipment_store');
+                        Route::post('/personnel_store/{token}', 'AuditController@personnel_store');
+                        Route::post('/raw_materials_store/{token}', 'AuditController@raw_materials_store');
+                        Route::post('/production_store/{token}', 'AuditController@production_store');
+                        Route::post('/records_store/{token}', 'AuditController@records_store');
+                        Route::post('/labeling_store/{token}', 'AuditController@labeling_store');
+                        
+                        Route::post('/final_store/{token}', 'AuditController@final_store');
+                    });
+
+                });
+
+            });
+
+
+            Route::get('{any?}', 'IndexController@Index');
+        });
+
+    });
+    //End iVCA 
 
 
 

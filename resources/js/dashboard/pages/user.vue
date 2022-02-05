@@ -88,9 +88,9 @@
                     
                 </div>
 
-                <!-- <div class="d-flex flex-wrap mt-5 justify-content-around">
+                <div class="d-flex flex-wrap mt-5 justify-content-around">
                     <div class="col-lg-6 col-6">
-                        <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <a href="/ivca" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                             <div class="logo_div">
                                 <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="Audit" class="img-fluid rotate_icon"></div>
                             </div>
@@ -98,7 +98,7 @@
                         </a>
                     </div>
                    
-                </div> -->
+                </div>
 
                 <div class="d-flex flex-wrap justify-content-around mt-5 pb-5">
                     <div class="col-lg-6 col-12">

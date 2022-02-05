@@ -20,11 +20,6 @@ class IndexController extends Controller
 {
     use ImageUpload;
 
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
-
     public function index(){
 
         $paginate       = Request('paginate', 10);
@@ -235,7 +230,6 @@ class IndexController extends Controller
 
 
     // car data
-
     public function CarData(){
 
         $allData = CarpoolCar::
@@ -249,142 +243,13 @@ class IndexController extends Controller
     }
 
 
-    //All Delete Data
-    // public function DeleteAll(){
+  
+    // store_leave
+    public function store_leave(Request $request){
 
-    //     if(request()->ajax())
-    //     {
-    //         $data = CarpoolDriver::with('user')->where('delete_temp', 1)->get();
+        dd( $request->all() );
 
-    //         return DataTables::of($data)
-
-    //                 ->addColumn('imageSrc', function($data){
-
-    //                     $url1=asset("$data->image_small");
-    //                     $url2=asset("$data->image2_small");
-    //                     $url3=asset("$data->image3_small");
-    //                     $button = '<img src='.$url1.' width="100" height="100" class="img-thumbnail" />';
-    //                     $button .= '<img src='.$url2.' width="100" height="100" class="img-thumbnail" />';
-    //                     $button .= '<img src='.$url3.' width="100" height="100" class="img-thumbnail" />';
-    //                     return $button;
-    //                 })
-
-    //                 ->addColumn('details', function($data){
-    //                     $button = '';
-    //                     $button .='<b>Name: </b> &nbsp;'.$data->name. '<br>';
-    //                     $button .='<b>Capacity: </b> &nbsp;'.$data->capacity. '<br>';
-    //                     if($data->temporary == 1){
-    //                         $button .= '<p class=" mb-0 d-inline-block"> <b>Car Type: </b> Regular</p><br>';
-    //                       }else{
-    //                           $button .= '<p class="mb-0 d-inline-block"> <b>Car Type: </b> Temporary</p><br>';
-    //                       }
-    //                     $button .='<b>Remarks: </b> &nbsp;'.$data->remarks. '<br>';
-    //                     return $button;
-    //                 })
-
-    //                 ->addColumn('deleteInfo', function($data){
-    //                     $url=asset($data->user->image_small);
-    //                     $button = '<button type="button" id="'.$data->user->id.'" class="userInfoDetail btn"><img src='.$url.' width="100" height="100" class="img-thumbnail" /></button>';
-
-    //                     $button .='<button type="button" id="'.$data->user->id.'" class="userInfoDetail btn btn-secondary"> <i class="fa fa-eye" ></i> '.$data->user->name.'</button><br>';
-    //                     $button .='Deleted Time: '. date("F j, Y, g:i a", strtotime($data->updated_at)) .'<br>';
-
-    //                     return $button;
-    //                 })
-
-
-
-    //                 ->addColumn('action', function($data){
-
-    //                     $button = '';
-    //                     $button .= '<button id="'.$data->id.'" class="delete btn btn-danger btn-sm mr-1" ><i class="fa fa-trash" ></i> Delete </button>';
-    //                     $button .= '<button id="'.$data->id.'" class="restore btn btn-success btn-sm" ><i class="fas fa-trash-restore" ></i> Restore </button>';
-    //                     return $button;
-    //                 })
-
-
-    //                 ->rawColumns(['imageSrc','details','deleteInfo','action'])
-    //                 ->make(true);
-    //     }
-
-
-
-    //     return view('admin.carpool.cars.delete');
-    // }
-
-
-    //Restore
-    // public function Restore($id){
-
-    //     if(Gate::denies('administration')){
-    //         return response()->json(['success' => 'Sorry !! You have no access.', 'icon' => 'error']);
-    //     }
-
-    //     $data = CarpoolDriver::findOrFail($id);
-    //     $data->delete_temp  = 0;
-    //     $data->delete_by    = Auth::user()->id;
-    //     $data->updated_at   = Carbon::now();
-    //     $success            = $data->save();
-
-    //     if($success){
-    //         return response()->json(['success' => 'Successfully Restore', 'icon' => 'success']);
-    //     }else{
-    //         return response()->json(['success' => 'Something going wrong !!', 'icon' => 'error']);
-    //     }
-    // }
-
-
-    //Delete Permanent
-    // public function DeletePermanent($id){
-
-    //     if(Gate::denies('administration')){
-    //         return response()->json(['success' => 'Sorry !! You have no access.', 'icon' => 'error']);
-    //     }
-
-    //     $data = CarpoolDriver::findOrFail($id);
-
-    //     $imgName1 =$data->image;
-    //     $imgName1_small =$data->image_small;
-    //     $imgName2 =$data->image2;
-    //     $imgName2_small =$data->image2_small;
-    //     $imgName3 =$data->image3;
-    //     $imgName3_small =$data->image3_small;
-
-    //     //check this image have or  not in data base
-
-    //     if(file_exists($imgName1)){
-    //         unlink($imgName1);
-    //     }
-
-    //     if(file_exists($imgName1_small)){
-    //         unlink($imgName1_small);
-    //     }
-
-    //     if(file_exists($imgName2)){
-    //         unlink($imgName2);
-    //     }
-
-    //     if(file_exists($imgName2_small)){
-    //         unlink($imgName2_small);
-    //     }
-
-    //     if(file_exists($imgName3)){
-    //         unlink($imgName3);
-    //     }
-
-    //     if(file_exists($imgName3_small)){
-    //         unlink($imgName3_small);
-    //     }
-
-    //     $success = $data->delete();
-
-    //     if($success){
-    //         return response()->json(['success' => 'Successfully Deleted', 'icon' => 'success']);
-    //     }else{
-    //         return response()->json(['success' => 'Something going wrong !!', 'icon' => 'error']);
-    //     }
-    // }
-
+    }
 
 
 

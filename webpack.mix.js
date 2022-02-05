@@ -66,6 +66,31 @@ mix.styles([
 
 
 
+// *********Start carpool *********Start
+
+//carpool admin JS 
+mix.js('resources/js/carpool/admin/js/app.js', 'public/js/carpool/admin/app.js')
+    .vue();
+    
+//carpool admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/carpool/admin/style.css',
+], 'public/css/carpool/admin/app.css');
+
+
+//carpool user JS 
+mix.js('resources/js/carpool/user/js/app.js', 'public/js/carpool/user/app.js')
+    .vue();
+    
+//carpool user CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/carpool/user/style.css',
+    ], 'public/css/carpool/user/app.css');
+
+// *********End carpool *********End
+
 
 
 // *********Start SMS *********Start
@@ -90,5 +115,35 @@ mix.styles([
     ], 'public/css/sms/user/app.css');
 
 // *********End SMS *********End
+
+
+
+
+// *********Start ivca *********Start
+
+//ivca admin JS 
+mix.js('resources/js/ivca/admin/js/app.js', 'public/js/ivca/admin/app.js')
+    .vue();
+    
+//ivca admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/ivca/admin/style.css',
+    ], 'public/css/ivca/admin/app.css');
+    
+
+
+//ivca user JS 
+mix.js('resources/js/ivca/user/js/app.js', 'public/js/ivca/user/app.js')
+    .vue();
+    
+//ivca user CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+        'resources/css/ivca/user/style.css',
+    ], 'public/css/ivca/user/app.css');
+
+
+// *********End ivca *********End
 
     
