@@ -1,7 +1,6 @@
 import axios from "axios";
 import { mapGetters } from 'vuex'
-// Vuex File
-// import store from './../vuex/store';
+
 
 import paginateMethods from './paginate_methods'
 import imageMethods from './image_methods'
@@ -9,7 +8,7 @@ import createUpdate from './crud'
 import rolesPermission from './roles_permission'
 
 
-
+// import globalRolePermissions from './../../../../role_permissions'
 
 
 export default {
@@ -41,6 +40,9 @@ export default {
     },
 
     methods: {
+
+        // Permission Role check
+        // ...globalRolePermissions,
 
         
         // Permission Role check
@@ -147,8 +149,8 @@ export default {
 
         // map this.count to store.state.count getLoading 
         ...mapGetters({
-            'user'      : 'getUser',
-            'role'      : 'getRole',
+            'auth'      : 'getAuth',
+            'roles'     : 'getRoles',
         }),
        
         // All Roles Permission

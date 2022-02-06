@@ -3,11 +3,11 @@
 
         <mro-food-choose v-if="isFood() && isMro()"></mro-food-choose>
 
-        <mro-schedule v-if="isFood() && isMro()"></mro-schedule>
+        <mro-schedule v-if="!isFood() && isMro()"></mro-schedule>
         
-        <food-schedule v-if="isFood() && isMro()"></food-schedule>
+        <food-schedule v-if="isFood() && !isMro()"></food-schedule>
 
-        <no-access v-if="isFood() && isMro()"></no-access>
+        <no-access v-if="!isFood() && !isMro()"></no-access>
 
         <!-- <div v-if="isAdministrator()">
             <p>isUser: {{ isUser() }}, isAdmin: {{ isAdmin() }}, isAuditor: {{ isAuditor() }}, isFood: {{ isFood() }},
@@ -57,7 +57,9 @@
 
         created() {
             this.$Progress.start();
-            //console.log('Today', this.todayDate)
+
+            console.log('Today', this.todayDate, this.isFood(), this.isMro())
+
             this.$Progress.finish();
         }
 

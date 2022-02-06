@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <span class="card-title h3">MRO Audit Schedules</span> <span
                             class="text-muted">{{ new Date() | moment("dddd, MMMM Do YYYY") }}</span>
-                            <span v-if="user" class="float-right">{{ user.name }} <span v-if="isAdmin()"> ( Admin )</span> <span v-else-if="isAuditor()"> ( Auditor )</span> <span v-else-if="isUser()">( User )</span></span>
+                            <span v-if="auth" class="float-right">{{ auth.name }} <span v-if="isAdmin()"> ( Admin )</span> <span v-else-if="isAuditor()"> ( Auditor )</span> <span v-else-if="isUser()">( User )</span></span>
                     </div>
                 </div>
             </div>
@@ -132,11 +132,11 @@
 
                                     </td>
                                     <td>{{ singleData.date }}</td>
-                                    <td>{{ singleData.vendor.vendor_number }}</td>
-                                    <td>{{ singleData.vendor.suppier_name }}</td>
-                                    <td>{{ singleData.vendor.address }}</td>
-                                    <td>{{ singleData.vendor.telephone }}</td>
-                                    <td>{{ singleData.user.name }}</td>
+                                    <td><span v-if=" singleData.vendor">{{ singleData.vendor.vendor_number }}</span></td>
+                                    <td><span v-if=" singleData.vendor">{{ singleData.vendor.suppier_name }}</span></td>
+                                    <td><span v-if=" singleData.vendor">{{ singleData.vendor.address }}</span></td>
+                                    <td><span v-if=" singleData.vendor">{{ singleData.vendor.telephone }}</span></td>
+                                    <td><span v-if=" singleData.user">{{ singleData.user.name }}</span></td>
 
                                 </tr>
                             </tbody>
@@ -275,7 +275,7 @@
 
             // checkGenerateTokenAccess
             checkGenerateTokenAccess(singleData){
-                if(singleData.user_id == this.user.id && singleData.date == this.todayDate){
+                if(singleData.user_id == this.auth.id && singleData.date == this.todayDate){
                     return true;
                 }
                 return false;
@@ -404,7 +404,7 @@
 
             this.$Progress.finish();
 
-           // console.log('Today',  this.todayDate, this.user )
+            console.log('Today',  this.todayDate, this.auth )
         }
 
     }

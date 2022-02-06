@@ -72,14 +72,14 @@ export default ({
 
 
    created() {
-        //this.$store.commit('setUser', JSON.parse(this.authuser) )
+        this.$store.commit('setAuth', JSON.parse(this.authuser) )
 
-        //this.$store.commit('setRole', JSON.parse(this.permission) )
+        this.$store.commit('setRoles', JSON.parse(this.permission) )
 
         this.$Progress.start();
 
-        // console.log('main iVCA_app created', this.authuser)
-        this.$Progress.finish();
+        // console.log('main iVCA_app created', this.authuser, this.permission, this.auth, this.roles)
+        // this.$Progress.finish();
     },
 
 
