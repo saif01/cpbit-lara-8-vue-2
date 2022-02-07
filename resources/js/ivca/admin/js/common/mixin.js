@@ -1,13 +1,12 @@
 import axios from "axios";
 import { mapGetters } from 'vuex'
 // Vuex File
-import store from './../vuex/store';
+// import store from './../vuex/store';
 
 import paginateMethods from './paginate_methods'
 import imageMethods from './image_methods'
 import createUpdate from './crud'
 import rolesPermission from './roles_permission'
-
 
 
 
@@ -39,6 +38,10 @@ export default {
         dataModalDilog: false,
         valid: false,
         modalBtnLoading: false,
+
+        // Tbl number of data show
+        tblItemNumberShow:[5,10,15,25,50,100],
+        search_field:'',
 
       }
     },
@@ -150,8 +153,8 @@ export default {
 
         // map this.count to store.state.count getLoading 
         ...mapGetters({
-            'user'      : 'getUser',
-            'role'      : 'getRole',
+            'auth'      : 'getAuth',
+            'roles'     : 'getRoles',
         }),
        
         // All Roles Permission

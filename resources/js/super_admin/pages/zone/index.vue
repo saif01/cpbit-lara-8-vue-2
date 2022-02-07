@@ -4,7 +4,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="card-title">Zones Table</h3>
+                        <h3 class="card-title">Zones List</h3>
                     </div>
                     <div class="col-6">
                         <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary" outlined>
@@ -109,7 +109,7 @@
 
 
         <!-- Dilog  -->
-        <v-dialog v-model="dataModalDilog" persistent max-width="600px">
+        <v-dialog v-model="dataModalDialog" persistent max-width="600px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -117,7 +117,7 @@
                             {{ dataModelTitle }}
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="dataModalDilog = false" color="red lighten-1" small text class="float-right">
+                            <v-btn @click="dataModalDialog = false" color="red lighten-1" small text class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
                         </v-col>
@@ -130,13 +130,13 @@
 
                             <v-row>
                                 <v-col cols="12">
+                                    <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                                     <v-text-field type="text" label="Zone Name:"
                                         :rules="[v => !!v || 'Zone Name is required!']" v-model="form.name" required>
                                     </v-text-field>
-                                    <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                                 </v-col>
 
-                                <v-btn block blockdepressed :loading="modalBtnLoading" color="primary mt-3"
+                                <v-btn block blockdepressed :loading="dataModalLoading" color="primary mt-3"
                                     type="submit">
                                     <span v-if="editmode">
                                         <v-icon left dark>mdi-circle-edit-outline</v-icon> Update

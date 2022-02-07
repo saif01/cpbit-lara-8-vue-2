@@ -10,8 +10,7 @@
                 Home
             </v-btn>
 
-
-            <!-- <v-btn text small dense>{{ user.name }} <span class="red--text">&nbsp; Administrator</span></v-btn> -->
+            <v-btn v-if="auth" text small dense>{{ auth.name }} <span class="red--text">&nbsp; Administrator</span></v-btn>
 
 
         </v-app-bar>
@@ -37,7 +36,7 @@
                 </v-list-item>
 
                 <!-- User -->
-                <v-list-group prepend-icon="mdi-account-group-outline" no-action
+                <v-list-group prepend-icon="mdi-account-group-outline" no-action v-if="isAdmin()"
                     active-class="indigo lighten-3 indigo--text">
                     <template v-slot:activator>
                         <v-list-item-content>
@@ -55,7 +54,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_user_role' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_user_role' }" v-if="isAdministrator()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -67,7 +66,7 @@
                 </v-list-group>
 
                 <!-- Vendor -->
-                <v-list-group prepend-icon="mdi-badge-account-alert-outline " no-action
+                <v-list-group prepend-icon="mdi-badge-account-alert-outline " no-action v-if="isVendorList()"
                     active-class="indigo lighten-3 indigo--text">
                     <template v-slot:activator>
                         <v-list-item-content>
@@ -104,7 +103,7 @@
                 </v-list-group>
 
                 <!-- Audit Templates -->
-                <v-list-group prepend-icon="mdi-clipboard-file-outline" no-action
+                <v-list-group prepend-icon="mdi-clipboard-file-outline" no-action v-if="isTemplate()"
                     active-class="indigo lighten-3 indigo--text">
                     <template v-slot:activator>
                         <v-list-item-content>
@@ -112,7 +111,7 @@
                         </v-list-item-content>
                     </template>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_temp_mro_manufacturer' }" >
+                    <v-list-item link router :to="{ name:'admin_ivca_temp_mro_manufacturer' }" v-if="isMro()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -122,7 +121,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_temp_mro_importer' }" >
+                    <v-list-item link router :to="{ name:'admin_ivca_temp_mro_importer' }" v-if="isMro()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -132,7 +131,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_temp_mro_retailer' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_temp_mro_retailer' }" v-if="isMro()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -142,7 +141,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_temp_food' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_temp_food' }" v-if="isFood()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -154,7 +153,7 @@
                 </v-list-group>
 
                 <!-- Schedules -->
-                <v-list-group prepend-icon="mdi-av-timer" no-action
+                <v-list-group prepend-icon="mdi-av-timer" no-action v-if="isSchedule()"
                     active-class="indigo lighten-3 indigo--text">
                     <template v-slot:activator>
                         <v-list-item-content>
@@ -167,7 +166,7 @@
                         </v-list-item-content>
                     </template>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_schedule_mro' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_schedule_mro' }" v-if="isMro()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -178,7 +177,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_schedule_food' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_schedule_food' }" v-if="isFood()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -191,7 +190,7 @@
                 </v-list-group>
 
                 <!-- Reports -->
-                <v-list-group prepend-icon="mdi-file-document-edit-outline " no-action
+                <v-list-group prepend-icon="mdi-file-document-edit-outline " no-action v-if="isReport()"
                     active-class="indigo lighten-3 indigo--text">
                     <template v-slot:activator>
                         <v-list-item-content>
@@ -199,7 +198,7 @@
                         </v-list-item-content>
                     </template>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_reports_manufacturer' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_reports_manufacturer' }" v-if="isMro()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -209,7 +208,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_reports_importer' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_reports_importer' }" v-if="isMro()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -219,7 +218,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_reports_retailer' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_reports_retailer' }" v-if="isMro()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>
@@ -229,7 +228,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link router :to="{ name:'admin_ivca_reports_food' }">
+                    <v-list-item link router :to="{ name:'admin_ivca_reports_food' }" v-if="isFood()">
                         <v-list-item-icon>
                             <v-icon>mdi-arrow-right-bold-outline </v-icon>
                         </v-list-item-icon>

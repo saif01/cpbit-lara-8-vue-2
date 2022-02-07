@@ -73,7 +73,6 @@ export default ({
 
    created() {
         this.$store.commit('setAuth', JSON.parse(this.authuser) )
-
         this.$store.commit('setRoles', JSON.parse(this.permission) )
 
         this.$Progress.start();

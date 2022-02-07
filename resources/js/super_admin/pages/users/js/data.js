@@ -8,7 +8,12 @@ export default {
     imagePath: '/images/users/',
     imagePathSm: '/images/users/small/',
 
-    searchByFields: [{
+    searchByFields: [
+        {
+            value: 'All',
+            name: 'All'
+        },
+        {
             value: 'login',
             name: 'Login ID'
         },

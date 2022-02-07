@@ -4,7 +4,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="card-title">Zone Offices Table</h3>
+                        <h3 class="card-title">Zone Offices List</h3>
                     </div>
                     <div class="col-6">
                         <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary" outlined>
@@ -101,7 +101,7 @@
 
 
         <!-- Dilog  -->
-        <v-dialog v-model="dataModalDilog" persistent max-width="1000px">
+        <v-dialog v-model="dataModalDialog" persistent max-width="1000px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -109,7 +109,7 @@
                             {{ dataModelTitle }}
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="dataModalDilog = false" color="red lighten-1" small text class="float-right">
+                            <v-btn @click="dataModalDialog = false" color="red lighten-1" small text class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
                         </v-col>
@@ -122,6 +122,7 @@
 
                             <v-row>
                                 <v-col cols="12">
+                                    <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                                     <v-select
                                     label="Select Zone"
                                     outlined
@@ -150,7 +151,7 @@
 
                                
 
-                                <v-btn block blockdepressed :loading="modalBtnLoading" color="primary mt-3"
+                                <v-btn block blockdepressed :loading="dataModalLoading" color="primary mt-3"
                                     type="submit">
                                     <span v-if="editmode">
                                         <v-icon left dark>mdi-circle-edit-outline</v-icon> Update
@@ -214,7 +215,7 @@
             // getAllZons
             getAllZons(){
                 axios.get(this.currentUrl+ '/allzones').then(response=>{
-                    console.log('ZoneName: ', response.data, response.data)
+                   // console.log('ZoneName: ', response.data, response.data)
                     this.allZones = response.data
                 }).catch(error=>{
                     console.log(error)
@@ -224,7 +225,7 @@
             // getAllOffices
             getAllOffices(){
                 axios.get(this.currentUrl+ '/alloffices').then(response=>{
-                    console.log(response.data)
+                    //console.log(response.data)
                     this.allOffices = response.data
                 }).catch(error=>{
                     console.log(error)

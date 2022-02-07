@@ -91,7 +91,7 @@ class OfficesController extends Controller
 
         //Validate
         $this->validate($request,[
-            'name'     => 'required',
+            'name'     => 'required|string|max:1000|unique:zone_offices,name,'.$id,
             'offices'  => 'required'
         ]);
 

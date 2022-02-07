@@ -73,12 +73,11 @@
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td>
-                                    <span @click="currentUserView(singleData)">
-                                        {{ singleData.login  }}<br>
-                                        <img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image"
-                                            class="rounded-circle" height="100" width="100">
-                                    </span>
+                               <td class="text-center">
+                                    {{ singleData.login  }}<br>
+                                    <v-avatar size="100" @click="currentUserView(singleData)">
+                                            <img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image">
+                                    </v-avatar>
                                 </td>
                                 <td>
                                     <b>Name: </b> {{ singleData.name }} <br>

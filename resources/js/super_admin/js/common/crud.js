@@ -231,7 +231,7 @@ export default{
     addDataModel(){
         this.editmode = false;
         this.form.reset();
-        this.dataModalDialog=true
+        this.dataModalDialog = true
     },
 
     // Edit Data Modal

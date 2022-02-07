@@ -11,6 +11,7 @@ use Auth;
 use App\Http\Controllers\Common\ImageUpload;
 use App\Models\SuperAdmin\ZoneOffice;
 
+
 class IndexController extends Controller
 {
     use ImageUpload;
@@ -33,17 +34,17 @@ class IndexController extends Controller
             ->where('delete_temp', '!=', '1');
         
         // Zone Selected
-        if(!empty($zone_office)){
+        if(!empty($zone_office) && $zone_office != 'All'){
             $allDataQuery->whereIn('zone_office', explode(",",$zone_office));
         }
 
         // Department Selected
-        if(!empty($department)){
+        if(!empty($department) && $department != 'All'){
             $allDataQuery->whereIn('department', explode(",",$department));
         }
 
         // Search
-        if(!empty($search_field)){
+        if(!empty($search_field) && $search_field != 'All'){
             $val = trim(preg_replace('/\s+/' ,' ', $search));
             $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
         }else{
@@ -65,6 +66,12 @@ class IndexController extends Controller
             ->select('name', 'offices')
             ->orderBy('name')
             ->get();
+
+             
+        // Custom Field Data Add
+        $custom = collect( [['name' => 'All', 'offices' => 'All']] );
+        $allData = $custom->merge($allData);
+
         return response()->json($allData, 200);
     }
 
@@ -72,10 +79,18 @@ class IndexController extends Controller
     public function departments(){
 
         $allData = User::where('status', 1)
+            ->whereNotNull('department')
             ->select('department')
             ->orderBy('department')
             ->distinct()
-            ->get();
+            ->get()
+            ->toArray();
+
+        // Custom Field Data Add
+        $custom = collect( [['department' => 'All']] );
+        $allData = $custom->merge($allData);
+
+        // dd($allData);
 
         return response()->json($allData, 200);
     }

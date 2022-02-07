@@ -31,14 +31,13 @@ class IndexController extends Controller
     public function index(){
 
         
-        // $roleData = Auth::user()->roles->pluck('name');
-        // $ivcaData = Auth::user()->ivca_roles->pluck('name');
-        // // Merge collections
-        // $roles = $roleData->merge($ivcaData);
+        $roleData = Auth::user()->roles->pluck('name');
+        $ivcaData = Auth::user()->ivca_roles->pluck('name');
+        // Merge collections
+        $roles = $roleData->merge($ivcaData);
 
-        // dd($roleData, $ivcaData, $roles);
-
-        $roles = '';
+        //dd($roleData, $ivcaData, $roles);
+        //$roles = '';
 
         return view('ivca.admin.index', compact('roles'));
     }

@@ -1,34 +1,29 @@
 <template>
-<v-app>
+    <v-app>
 
-    
-    <sidebar></sidebar>
+        <side-bar></side-bar>
+            <v-main>
+                <v-container fluid>
+                    <router-view></router-view>
+                </v-container>
+            </v-main>
+        <page-footer></page-footer>
 
-    <v-main>
-        <v-container fluid>
-            <router-view></router-view>
-        </v-container>
-    </v-main>
-
-    <footer-bar></footer-bar>
-
-</v-app>
-   
+    </v-app>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import footer from './pages/common/footer.vue'
-import sidebar from './pages/common/sidebar.vue';
 
+import sideBar from './pages/common/sidebar.vue';
+import pageFooter from './pages/common/footer.vue'
 
 
 export default ({
     props: ['authuser', 'permission'],
 
     components:{
-        "footer-bar":footer,
-        sidebar,
+       'side-bar'      : sideBar,
+       'page-footer'   : pageFooter,
     },
     
     data(){
@@ -84,12 +79,12 @@ export default ({
     },
    
     created() {
-        //this.$store.commit('setUser', JSON.parse(this.authuser) )
-        //this.$store.commit('setRole', JSON.parse(this.permission) )
+        this.$store.commit('setAuth', JSON.parse(this.authuser) )
+        this.$store.commit('setRoles', JSON.parse(this.permission) )
 
         this.$Progress.start();
 
-        // console.log('main iVCA_app created', this.authuser)
+        console.log('main iVCA_app created', this.auth)
         this.$Progress.finish();
     },
 

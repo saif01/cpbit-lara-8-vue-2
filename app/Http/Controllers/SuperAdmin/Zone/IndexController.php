@@ -36,7 +36,7 @@ class IndexController extends Controller
 
         //Validate
         $this->validate($request,[
-            'name'     => 'required|string|max:100|unique:roles',
+            'name'     => 'required|string|max:100|unique:zones',
         ]);
 
         $data = new Zone();
@@ -64,7 +64,7 @@ class IndexController extends Controller
 
         //Validate
         $this->validate($request,[
-            'name'     => 'required|string|max:1000|unique:roles,name,'.$id,
+            'name'     => 'required|string|max:1000|unique:zones,name,'.$id,
         ]);
 
         $data = Zone::find($id);

@@ -70,8 +70,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::get('/roles_data', 'IndexController@roles_data');
             Route::post('/roles_update', 'IndexController@roles_update');  
             
-            Route::get('/zoneoffices', 'IndexController@zoneoffices');
-            Route::get('/departments', 'IndexController@departments');
+            Route::get('/zoneoffices', 'IndexController@zoneoffices')->withoutMiddleware(['can:superadmin']);
+            Route::get('/departments', 'IndexController@departments')->withoutMiddleware(['can:superadmin']);
 
         });
 
@@ -342,8 +342,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
 
-     //iVCA 
-     Route::namespace('iVCA')->prefix('ivca')->group(function(){
+    //iVCA 
+    Route::namespace('iVCA')->prefix('ivca')->group(function(){
 
         // Admin
         Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){

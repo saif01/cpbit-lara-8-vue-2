@@ -37,17 +37,17 @@ class IndexController extends Controller
         
 
         // Zone Selected
-        if(!empty($zone_office)){
+        if(!empty($zone_office) && $zone_office != 'All'){
             $allDataQuery->whereIn('zone_office', explode(",",$zone_office));
         }
 
         // Department Selected
-        if(!empty($department)){
+        if(!empty($department) && $department != 'All'){
             $allDataQuery->whereIn('department', explode(",",$department));
         }
 
         // Search
-        if(!empty($search_field)){
+        if(!empty($search_field) && $search_field != 'All'){
             $val = trim(preg_replace('/\s+/' ,' ', $search));
             $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
         }else{

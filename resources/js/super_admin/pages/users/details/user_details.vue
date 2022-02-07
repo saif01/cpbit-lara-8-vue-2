@@ -5,8 +5,8 @@
             <v-card class="bg_card">
                 <v-card-title class="justify-center">
                     <v-row>
-                        <v-col cols="10">
-                            User Details
+                        <v-col cols="10" class="text-white">
+                            User Details :
                         </v-col>
                         <v-col cols="2">
                             <v-btn @click="userDilog = false" color="error lighten-1" small text class="float-right">
@@ -127,7 +127,7 @@
 
 <style scoped>
     .bg_card {
-        background: linear-gradient(120deg, rgb(109, 115, 113) 60%, rgb(159, 152, 152) 40%);
+        background: linear-gradient(120deg, rgb(46, 51, 49) 60%, rgb(49, 79, 44) 40%);
     }
 
 </style>
