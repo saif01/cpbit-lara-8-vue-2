@@ -15,14 +15,15 @@
 
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                    {{ auth.name }}
-                    <v-avatar v-bind="attrs" v-on="on">
-                        <img src="/all-assets/common/logo/cpb/cpbit.png" alt="CPB-IT">
+                    <span v-if="auth" class="m-1">{{ auth.name }}</span>
+                    <v-avatar v-bind="attrs" v-on="on" contain>
+                        <img v-if="auth.image" :src="'/images/users/small/'+auth.image" alt="image">
+                        <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image">
                     </v-avatar>
                 </template>
 
                 <v-list>
-                    <v-list-item link>
+                    <v-list-item link router href="/logout">
                         <v-list-item-title>Logout</v-list-item-title>
                     </v-list-item>
                 </v-list>
@@ -36,9 +37,8 @@
         <v-navigation-drawer app dark class="gradient_color" v-model="drawer">
             <v-list-item href="/" class="px-2">
                 <v-list-item-avatar>
-                    <v-img src="https://cpbangladesh.com/all-assets/common/logo/cpb/cpbit-96x96.png"></v-img>
+                    <v-img src="/all-assets/common/icon/super-admin.png" alt="" height="40px"></v-img>
                 </v-list-item-avatar>
-
                 <v-list-item-title>Super Admin</v-list-item-title>
             </v-list-item>
             <!-- Divider -->
@@ -204,7 +204,7 @@
 
 <style scoped>
     .gradient_color {
-        background: linear-gradient(180deg, #093637, #44a08d);
+        background: linear-gradient(180deg, #a8bfbb, #0cb7bb);
     }
 
 </style>

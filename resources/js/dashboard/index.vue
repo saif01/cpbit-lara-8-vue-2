@@ -146,7 +146,6 @@
 
     /* background */
     .area {
-        background-color: #85FFBD;
         background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 99%);
         width: 100%;
         min-height: 100vh;

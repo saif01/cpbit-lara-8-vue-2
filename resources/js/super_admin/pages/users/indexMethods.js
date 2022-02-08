@@ -474,7 +474,7 @@ export default{
     // get Departments
     getDepartments(){
         axios.get(this.currentUrl+ '/departments').then(response=>{
-            console.log(response.data)
+            //console.log(response.data)
             this.allDepartments = response.data
         }).catch(error=>{
             console.log(error)

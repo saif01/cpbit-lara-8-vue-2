@@ -4,7 +4,7 @@
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
             <v-spacer></v-spacer>
-            <v-app-bar-title v-if="isAdministrator()" class="red--text" small>Administrator</v-app-bar-title>
+            <v-app-bar-title v-if="isAdministrator()" small>Administrator</v-app-bar-title>
             <v-spacer></v-spacer>
             <!-- <v-btn icon @click="toggle()">
                 <v-icon v-if="fullscreen">mdi-fullscreen</v-icon>
@@ -14,7 +14,7 @@
 
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                    <span v-if="auth">{{ auth.name }}</span>
+                    <span v-if="auth" class="m-1">{{ auth.name }}</span>
                     <v-avatar v-bind="attrs" v-on="on" contain>
                         <img v-if="auth.image" :src="'/images/users/small/'+auth.image" alt="image">
                         <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image">
@@ -33,9 +33,9 @@
         <!-- sidebar -->
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
             <v-list-item class="px-2" link href="/">
-                <v-list-item-icon>
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
-                </v-list-item-icon>
+                <v-list-item-avatar>
+                    <img src="/all-assets/common/icon/sms.png" alt="" height="40px" contain>
+                </v-list-item-avatar>
                 <v-list-item-title>SMS Admin</v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
@@ -132,9 +132,7 @@
 
 <style scoped>
     .bg_gradient {
-        background: #29d462;
-        background: -webkit-linear-gradient(to bottom, #093637, #44a08d);
-        background: linear-gradient(to bottom, #093637, #44a08d);
+        background: linear-gradient(180deg, #a8bfbb, #0cb7bb);
     }
 
     a:hover {

@@ -88,7 +88,7 @@
                         <div class="logo_div">
                             <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
                         </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVca</div> 
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVCA</div> 
                     </a>
                 </div>
                 <div class="col-lg-6 col-6">
@@ -135,9 +135,7 @@ export default {
 
 <style scoped>
     .bg_grad{
-        background: #EC6F66;
-        background: -webkit-linear-gradient(to right, #F3A183, #EC6F66);  
-        background: linear-gradient(to right, #F3A183, #EC6F66);
+        background: linear-gradient(to right, #F0C8BA, #F08D89);
         width: 100%;
         min-height: 100vh;
     }

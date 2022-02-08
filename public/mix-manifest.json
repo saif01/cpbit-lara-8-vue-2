@@ -11,6 +11,9 @@
     "/js/sms/user/app.js": "/js/sms/user/app.js",
     "/js/ivca/admin/app.js": "/js/ivca/admin/app.js",
     "/js/ivca/user/app.js": "/js/ivca/user/app.js",
+    "/js/cms/admin_application/app.js": "/js/cms/admin_application/app.js",
+    "/js/cms/admin_hardware/app.js": "/js/cms/admin_hardware/app.js",
+    "/js/cms/user/app.js": "/js/cms/user/app.js",
     "/css/app.css": "/css/app.css",
     "/css/auth/app.css": "/css/auth/app.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
@@ -22,5 +25,8 @@
     "/css/sms/admin/app.css": "/css/sms/admin/app.css",
     "/css/sms/user/app.css": "/css/sms/user/app.css",
     "/css/ivca/admin/app.css": "/css/ivca/admin/app.css",
-    "/css/ivca/user/app.css": "/css/ivca/user/app.css"
+    "/css/ivca/user/app.css": "/css/ivca/user/app.css",
+    "/css/cms/admin_application/app.css": "/css/cms/admin_application/app.css",
+    "/css/cms/admin_hardware/app.css": "/css/cms/admin_hardware/app.css",
+    "/css/cms/user/app.css": "/css/cms/user/app.css"
 }

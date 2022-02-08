@@ -18,7 +18,10 @@
 
         <!-- sidebar -->
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
-            <v-list-item class="px-2" link href="/">
+            <v-list-item href="/" class="px-2">
+                <v-list-item-avatar>
+                    <v-img src="/all-assets/common/icon/audit.png" alt="" height="40px"></v-img>
+                </v-list-item-avatar>
                 <v-list-item-title>iVCA Admin</v-list-item-title>
             </v-list-item>
 
@@ -304,13 +307,7 @@
 
 <style>
     .bg_gradient {
-        background: #757F9A;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to top, #a3abb9, #757F9A);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to top, #a3abb9, #757F9A);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+       background: linear-gradient(180deg, #a8bfbb, #0cb7bb);
     }
 
     .v-list-group__items .v-list-item--active {

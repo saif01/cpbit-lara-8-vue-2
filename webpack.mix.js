@@ -146,4 +146,42 @@ mix.styles([
 
 // *********End ivca *********End
 
+
+
+
+// *********Start cms *********Start
+
+//cms admin_application JS 
+mix.js('resources/js/cms/admin_application/js/app.js', 'public/js/cms/admin_application/app.js')
+    .vue();
+    
+//cms admin_application CSS 
+mix.styles([
+       'resources/css/common/preloader.css',
+    ], 'public/css/cms/admin_application/app.css');
+    
+
+//cms admin_hardware JS 
+mix.js('resources/js/cms/admin_hardware/js/app.js', 'public/js/cms/admin_hardware/app.js')
+    .vue();
+    
+//cms admin_hardware CSS 
+mix.styles([
+       'resources/css/common/preloader.css',
+    ], 'public/css/cms/admin_hardware/app.css');
+    
+
+
+//cms user JS 
+mix.js('resources/js/cms/user/js/app.js', 'public/js/cms/user/app.js')
+    .vue();
+    
+//cms user CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/cms/user/app.css');
+
+
+// *********End cms *********End
+
     
