@@ -95,9 +95,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['Administrator', 'Application-admin']);
         });
 
-        //Ihelpdex-user
-        Gate::define('ihelpdesk', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Ihelpdesk']);
+        //cms-user
+        Gate::define('cms', function($user){
+            return $user->hasAnyRoles(['Administrator', 'cms']);
         });
 
 

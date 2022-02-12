@@ -35,6 +35,7 @@ export default{
         return false; 
        
     },
+
     // Check role by array value
     isAnyRole( val =[] ){
         if(val){ 
@@ -80,8 +81,31 @@ export default{
     },
     isRoom(){
         return this.checkAnyRoleOfArray(['Administrator', 'Room']);
-    }
+    },
 
+    // SMS
+    isSmsAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Sms-admin']);
+    },
+    isSms(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Sms']);
+    },
+
+    // Ivca
+    isIvcaAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Ivca-admin']);
+    },
+    isIvca(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Ivca']);
+    },
+
+    // Carpool
+    isCarpoolAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Carpool-admin']);
+    },
+    isCarpool(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Carpool']);
+    },
 
 
 

@@ -4,13 +4,13 @@
         <div>
             <div class="d-flex flex-wrap justify-content-around" >
 
-                <!-- Super Admin -->
-                <div class="col-lg-3 col-6" v-if="isSuperAdmin()">
-                    <a href="/super_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                <!-- Carpool -->
+                <div class="col-lg-3 col-6" v-if="isCarpoolAdmin()">
+                    <a href="/carpool/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
-                            <div class="helpDesk img__logo"><img src="/all-assets/common/icon/super-admin.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
+                            <div class="carpool img__logo"><img src="/all-assets/common/icon/car.png" alt="Carpool" class="img-fluid rotate_icon"></div>
                         </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Super Admin</div> 
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Carpool</div> 
                     </a>
                 </div>
 
@@ -24,15 +24,17 @@
                     </a>
                 </div>
 
-                <!-- Carpool -->
+                <!-- Application -->
                 <div class="col-lg-3 col-6" v-if="isRoomAdmin()">
-                    <a href="/carpool/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                    <a href="/cms/a_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
-                            <div class="carpool img__logo"><img src="/all-assets/common/icon/car.png" alt="Carpool" class="img-fluid rotate_icon"></div>
+                            <div class="application img__logo"><img src="/all-assets/common/icon/application.png" alt="Application" class="img-fluid rotate_icon"></div>
                         </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Carpool</div> 
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Application</div> 
                     </a>
                 </div>
+
+               
                 
                 <!-- <div class="col-lg-3 col-6">
                     <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
@@ -71,19 +73,12 @@
                     </a>
                 </div>
 
-                    <div class="col-lg-3 col-6">
-                    <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="application img__logo"><img src="/all-assets/common/icon/application.png" alt="Application" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Application</div> 
-                    </a>
-                </div>
+                    
                 
             </div> -->
 
             <div class="d-flex flex-wrap mt-5 justify-content-around">
-                <div class="col-lg-6 col-6">
+                <div class="col-lg-3 col-4" v-if="isIvcaAdmin()">
                     <a href="/ivca/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
@@ -91,12 +86,21 @@
                         <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVCA</div> 
                     </a>
                 </div>
-                <div class="col-lg-6 col-6">
+                <div class="col-lg-3 col-4" v-if="isSmsAdmin()">
                     <a href="/sms/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="sms img__logo"><img src="/all-assets/common/icon/sms.png" alt="SMS" class="img-fluid rotate_icon"></div>
                         </div>
                         <div class="h3 mt-3 logo_text_response text-center font-weight-bold">SMS</div> 
+                    </a>
+                </div>
+                <!-- Super Admin -->
+                <div class="col-lg-3 col-4" v-if="isSuperAdmin()">
+                    <a href="/super_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <div class="logo_div">
+                            <div class="helpDesk img__logo"><img src="/all-assets/common/icon/super-admin.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
+                        </div>
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Super Admin</div> 
                     </a>
                 </div>
             </div>

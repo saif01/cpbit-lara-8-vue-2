@@ -3,6 +3,16 @@
         <nav-bar headerText="User"></nav-bar>
         <div>
             <div class="d-flex flex-wrap justify-content-around">
+
+                <div class="col-lg-3 col-6" v-if="isCarpool()">
+                    <a href="/carpool" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <div class="logo_div">
+                            <div class="carpool img__logo"><img src="/all-assets/common/icon/car.png" alt="Carpool" class="img-fluid rotate_icon"></div>
+                        </div>
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Carpool</div> 
+                    </a>
+                </div>
+
                 <div class="col-lg-3 col-6" v-if="isRoom()">
                     <a href="/room" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
@@ -13,15 +23,15 @@
                 </div>
 
                 <div class="col-lg-3 col-6">
-                    <a href="/carpool" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                    <a href="/cms" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
-                            <div class="carpool img__logo"><img src="/all-assets/common/icon/car.png" alt="Carpool" class="img-fluid rotate_icon"></div>
+                            <div class="helpDesk img__logo"><img src="/all-assets/common/icon/application.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
                         </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Carpool</div> 
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">CMS</div> 
                     </a>
                 </div>
 
-                <div class="col-lg-6 col-6">
+                <div class="col-lg-6 col-6" v-if="isSms()">
                     <a href="/sms" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="sms img__logo"><img src="/all-assets/common/icon/sms.png" alt="SMS" class="img-fluid rotate_icon"></div>
@@ -29,15 +39,10 @@
                         <div class="h3 mt-3 logo_text_response text-center font-weight-bold">SMS</div> 
                     </a>
                 </div>
+
+
                 
-                <!-- <div class="col-lg-3 col-6">
-                    <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="helpDesk img__logo"><img src="/all-assets/common/icon/application.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iHelp Desk</div> 
-                    </a>
-                </div>
+                <!--
                 <div class="col-lg-3 col-6">
                     <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
@@ -88,15 +93,14 @@
             </div>
 
             <div class="d-flex flex-wrap mt-5 justify-content-around">
-                <div class="col-lg-6 col-6">
+                <div class="col-lg-6 col-6" v-if="isIvca()">
                     <a href="/ivca" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
                         </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVca</div> 
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVCA</div> 
                     </a>
                 </div>
-                
             </div>
 
             <div class="d-flex flex-wrap justify-content-around mt-5 pb-5">
@@ -109,6 +113,8 @@
                     </a>
                 </div>
             </div>
+
+
             <footer-bar></footer-bar>
         </div>
     </div>

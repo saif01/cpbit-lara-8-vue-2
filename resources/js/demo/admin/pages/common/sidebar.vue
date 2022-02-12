@@ -14,7 +14,7 @@
 
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                    <span v-if="auth">{{ auth.name }}</span>
+                    <span v-if="auth" class="m-1">{{ auth.name }}</span>
                     <v-avatar v-bind="attrs" v-on="on" contain>
                         <img v-if="auth.image" :src="'/images/users/small/'+auth.image" alt="image">
                         <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image">
@@ -173,9 +173,7 @@
 
 <style scoped>
     .bg_gradient {
-        background: #44a08d;
-        background: -webkit-linear-gradient(to bottom, #093637, #44a08d);
-        background: linear-gradient(to bottom, #093637, #44a08d);
+       background: linear-gradient(180deg, #a8bfbb, #0cb7bb);
     }
 
     a:hover {

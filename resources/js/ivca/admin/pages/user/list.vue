@@ -333,6 +333,14 @@
 
 
         mounted() {
+            // window.onload = function() {
+            //     // Get Roles 
+            //     this.getRoles();
+            //     // All ZoneOffices
+            //     this.getZoneOffices();
+            //     //getDepartments
+            //     this.getDepartments();
+            // };
             setTimeout(() => {
                 // Get Roles 
                 this.getRoles();

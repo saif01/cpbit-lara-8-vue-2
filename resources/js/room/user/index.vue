@@ -1,18 +1,6 @@
 <template>
     <v-app>
         <nav-bar></nav-bar>
-          
-        <!-- <div class="container p-0">
-            <main class="content-wrapper">
-                <div class="pb-5">
-                
-                    <router-view></router-view>
-                    <vue-progress-bar></vue-progress-bar>
-                
-                </div>
-            </main>
-        </div> -->
-
         <v-main>
             <v-container fluid>
                 <router-view></router-view>

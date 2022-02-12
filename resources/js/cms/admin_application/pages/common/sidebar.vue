@@ -4,17 +4,17 @@
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
             <v-spacer></v-spacer>
-            <v-app-bar-title v-if="isAdministrator()" class="red--text" small>Administrator</v-app-bar-title>
+            <v-app-bar-title v-if="isAdministrator()" small>Administrator</v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-btn icon @click="toggle()">
+            <!-- <v-btn icon @click="toggle()">
                 <v-icon v-if="fullscreen">mdi-fullscreen</v-icon>
                 <v-icon v-else>mdi-fullscreen-exit</v-icon>
-            </v-btn>
+            </v-btn> -->
 
 
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                    <span v-if="auth">{{ auth.name }}</span>
+                    <span v-if="auth" class="m-1">{{ auth.name }}</span>
                     <v-avatar v-bind="attrs" v-on="on" contain>
                         <img v-if="auth.image" :src="'/images/users/small/'+auth.image" alt="image">
                         <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image">
@@ -34,9 +34,9 @@
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
             <v-list-item class="px-2" link href="/">
                 <v-list-item-icon>
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
+                    <img src="/all-assets/common/icon/application.png" alt="" height="40px" contain>
                 </v-list-item-icon>
-                <v-list-item-title>Room Admin</v-list-item-title>
+                <v-list-item-title>App. Admin</v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
 
@@ -44,39 +44,101 @@
 
                 <v-list-item link router :to="{name: 'Dashboard'}" exact>
                     <v-list-item-icon>
-                        <v-icon>mdi-view-dashboard-outline </v-icon>
+                        <v-icon>mdi-view-dashboard-outline</v-icon>
                     </v-list-item-icon>
-
                     <v-list-item-content>
                         <v-list-item-title>Dashboard</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'RoomIndex'}">
+                <v-list-item link router :to="{name: 'NotProcess'}">
                     <v-list-item-icon>
-                        <v-icon>mdi-home-group </v-icon>
+                        <v-icon color="pink lighten-3">mdi-home-group</v-icon>
                     </v-list-item-icon>
-
                     <v-list-item-content>
-                        <v-list-item-title>Rooms</v-list-item-title>
+                        <v-list-item-title>Not Process</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'ReportIndex'}">
+                <v-list-item link router :to="{name: 'Processing'}">
                     <v-list-item-icon>
-                        <v-icon>mdi-chart-bar</v-icon>
+                        <v-icon color="yellow lighten-2">mdi-home-group</v-icon>
                     </v-list-item-icon>
-
                     <v-list-item-content>
-                        <v-list-item-title>Report</v-list-item-title>
+                        <v-list-item-title>Processing</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+
+                <v-list-item link router :to="{name: 'Closed'}">
+                    <v-list-item-icon>
+                        <v-icon color="green darken-2">mdi-home-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Closed</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+
+                <!--Reports Multi level Item -->
+                <v-list-group prepend-icon="mdi-format-list-group" active-class="dark--text" no-action>
+                    <template v-slot:activator>
+                        <v-list-item-title>Reports</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router :to="{name: 'ReportIndex'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-format-list-checks</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Reports</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'ReportCanceled'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-format-list-checks</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All Canceled</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+
+                </v-list-group>
+
+
+
+                <!-- Sidebar Multi level Item -->
+                <v-list-group prepend-icon="mdi-format-list-group" active-class="dark--text" no-action>
+                    <template v-slot:activator>
+                        <v-list-item-title>Others</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router :to="{name: 'Category'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-format-list-checks</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Category</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'Subcategory'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-format-list-text</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Subcategory</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                </v-list-group>
+
 
                 <v-list-item link router href="/logout">
                     <v-list-item-icon>
-                        <v-icon>mdi-logout</v-icon>
+                        <v-icon color="red lighten-2">mdi-logout</v-icon>
                     </v-list-item-icon>
-
                     <v-list-item-content>
                         <v-list-item-title>Logout</v-list-item-title>
                     </v-list-item-content>
@@ -86,47 +148,6 @@
         </v-navigation-drawer>
 
 
-        <!-- <div id="navbar-container" class="shadow-sm">
-            <div class="d-flex justify-content-between align-items-center">
-                <div id="collapseIcon" class="btn ml-1" @click="(active = !active), response(active)">
-                    <i class="fas fa-bars"></i>
-                </div>
-
-                <div>
-                    <span v-if="isAdministrator()" class="text-danger">Administrator</span>
-                </div>
-
-                <div class="d-flex flex-items align-items-center">
-                    <div class="d-flex align-items-center" :class="{ 'icon-hide-reponsive': active }">
-                        <div class="mx-2">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <b-dropdown variant="none" no-caret>
-                            <template #button-content><i class="far fa-comment-dots"></i></template>
-                            <b-dropdown-item href="#">An item</b-dropdown-item>
-                            <b-dropdown-item href="#">Another item</b-dropdown-item>
-                        </b-dropdown>
-                        <b-dropdown variant="none" no-caret>
-                            <template #button-content><i class="far fa-bell"></i><span class="badge badge-warning badge_notification">9</span>
-                            </template>
-                            <b-dropdown-item href="#">An item</b-dropdown-item>
-                            <b-dropdown-item href="#">Another item</b-dropdown-item>
-                        </b-dropdown>
-                        <div class="mx-2">
-                            <i :class="{'fas fa-compress': fullMode,'fas fa-compress-arrows-alt': !fullMode,}" @click="(fullMode = !fullMode), toggle()"></i>
-                        </div>
-                    </div>
-                    <b-dropdown variant="none" no-caret>
-                        <template #button-content>
-                            <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar" alt="User Image" />
-                            <span style="color: black">Admin</span>
-                        </template>
-                        <b-dropdown-item href="/logout">Sign Out</b-dropdown-item>
-                    </b-dropdown>
-                    
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -173,13 +194,15 @@
 
 <style scoped>
     .bg_gradient {
-        background: #44a08d;
-        background: -webkit-linear-gradient(to bottom, #093637, #44a08d);
-        background: linear-gradient(to bottom, #093637, #44a08d);
+        background: linear-gradient(180deg, #a8bfbb, #0cb7bb);
     }
 
     a:hover {
         text-decoration: none;
+    }
+
+    .v-list-item--active {
+        color: #29292b !important;
     }
 
 </style>

@@ -38,6 +38,12 @@ export default{
     },
 
     // image Upload by name
+    uploadDocByName: function (event, currentFieldName) {
+        let file = event;
+        this.form[currentFieldName] = file;
+    },
+
+    // image Upload by name
     uploadImageByName: function (event, currentFieldName) {
 
         let file = event;

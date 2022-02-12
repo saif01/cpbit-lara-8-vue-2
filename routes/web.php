@@ -628,6 +628,89 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     //End iVCA 
 
 
+    // CMS Start
+    Route::namespace('CMS')->prefix('cms')->group(function(){
+
+        // Application Admin
+        Route::middleware(['can:appAdmin'])->namespace('ApplicationAdmin')->prefix('a_admin')->group(function(){
+
+            //Category 
+            Route::namespace('Category')->prefix('category')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+            });
+
+            //Subcategory 
+            Route::namespace('Subcategory')->prefix('subcategory')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+
+                Route::get('/category', 'IndexController@category');
+            });
+
+            //Complain 
+            Route::namespace('Complain')->prefix('complain')->group(function(){
+                Route::get('/not_process', 'ComplainController@not_process');
+                Route::get('/processing', 'ComplainController@processing');
+                Route::get('/closed', 'ComplainController@closed');
+
+                Route::get('/action/{id}', 'ActionController@action');
+                Route::post('/action_remarks', 'ActionController@action_remarks');
+            });
+
+            //Reports 
+            Route::namespace('Reports')->prefix('reports')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::get('/canceled', 'IndexController@canceled');
+               
+            });
+
+           
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+
+
+        //Hardware Admin
+        Route::middleware(['can:hardAdmin'])->namespace('HardwareAdmin')->prefix('h_admin')->group(function(){
+
+            //Room 
+            Route::namespace('Room')->prefix('room')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+                Route::post('/status/{id}', 'IndexController@status');
+            });
+
+           
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+        // User
+        Route::middleware(['can:cms'])->namespace('User')->group(function(){
+
+            //Application 
+            Route::prefix('app')->group(function(){
+               
+                Route::post('/complain', 'ApplicationController@complain');
+               
+                Route::get('/category', 'ApplicationController@category');
+                Route::get('/subcategory/{id}', 'ApplicationController@subcategory');
+            });
+
+
+            Route::get('{any?}', 'IndexController@index');
+        });
+    });
+    // CMS End
+
+
 
 
 

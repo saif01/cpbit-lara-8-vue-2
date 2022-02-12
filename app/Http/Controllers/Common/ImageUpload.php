@@ -43,6 +43,21 @@ trait ImageUpload {
         
     }
 
+    // Upload Documents
+    public function documentUpload($document, $uploadDocPath = 'images/', $docName=null){
 
+        $document_full_name = '';
+        if($document){
+            $document_name      = $docName.time().Str::random(15);
+            $ext                = strtolower($document->getClientOriginalExtension());
+            $document_full_name = $document_name . '.' . $ext;
+           // $document_url       = $uploadDocPath . $document_full_name;
+            $successImg         = $document->move($uploadDocPath, $document_full_name);
+        }
+       
+
+        return $document_full_name;
+
+    }
 
 }

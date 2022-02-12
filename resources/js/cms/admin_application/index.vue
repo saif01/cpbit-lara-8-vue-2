@@ -1,12 +1,12 @@
 <template>
     <v-app>
-
-    
+        
         <side-bar></side-bar>
 
         <v-main>
             <v-container fluid>
                 <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
             </v-container>
         </v-main>
 

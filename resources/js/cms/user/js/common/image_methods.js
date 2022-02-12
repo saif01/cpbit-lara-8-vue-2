@@ -1,6 +1,6 @@
-export default{
-     // Upload Image
-     upload_image(e) {
+export default {
+    // Upload Image
+    upload_image(e) {
         let file = e.target.files[0];
         let reader = new FileReader();
 
@@ -27,14 +27,20 @@ export default{
 
 
     // File Upload
-    onFileChange(e){
+    onFileChange(e) {
         let file = e.target.files[0];
 
-        if(file['size'] < this.fileMaxSize) {
+        if (file['size'] < this.fileMaxSize) {
             this.form.document = file;
-        }else{
-             alert('File size can not be bigger than 5 MB')
+        } else {
+            alert('File size can not be bigger than 5 MB')
         }
+    },
+
+    // image Upload by name
+    uploadDocByName: function (event, currentFieldName) {
+        let file = event;
+        this.form[currentFieldName] = file;
     },
 
     // image Upload by name
@@ -42,7 +48,7 @@ export default{
 
         let file = event;
         let reader = new FileReader();
-        console.log('Image upload: ',file, file['size'] )
+        console.log('Image upload: ', file, file['size'])
         if (file['size'] < this.imageMaxSize) {
             reader.onloadend = (file) => {
                 console.log('RESULT', reader.result)
@@ -66,5 +72,5 @@ export default{
         }
         return "/all-assets/common/img/no-image.png";
     },
-    
+
 }

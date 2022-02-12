@@ -29,3 +29,15 @@ INSERT INTO `cpbit_8`.`sms_operations`(`id`, `name`, `code`, `created_by`, `crea
 
 -- sms_operation_user
 INSERT INTO `cpbit_8`.`sms_operation_user`(`id`, `sms_operation_id`, `user_id`, `created_at`, `updated_at`) SELECT `id`, `iservice_operation_id`, `user_id`, `created_at`, `updated_at` FROM `cpbit`.`iservice_operation_user`
+
+
+
+
+
+
+
+-- application_categories
+INSERT INTO `cpbit_8`.`application_categories`(`id`, `name`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`application_categories`
+
+-- application_subcategories
+INSERT INTO `cpbit_8`.`application_subcategories`(`id`, `cat_id`, `name`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `cat_id`, `name`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`application_subcategories`
