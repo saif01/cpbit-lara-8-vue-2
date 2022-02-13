@@ -210,7 +210,7 @@
 
 
         <!-- bookby information modal -->
-        <v-dialog v-model="bookbyModal" max-width="600px">
+        <!-- <v-dialog v-model="bookbyModal" max-width="600px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -255,7 +255,100 @@
                     </v-list-item>
                 </v-card-text>
             </v-card>
+        </v-dialog> -->
+
+        
+
+
+        <v-dialog v-model="bookbyModal" max-width="900px">
+            <v-card  class="bg_card">
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            User Details
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="bookbyModal = false" color="red lighten-1 white--text" small
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+                    <v-row>
+                        <v-col cols="9">
+
+                            <v-row class="text-white text-overline">
+                                <v-col cols="6" >
+                                    <div>
+                                        Name: <span v-if="bookbyData">{{ bookbyData.name }}</span>
+                                    </div>
+
+                                    <div>
+                                        Personal Contact: <span v-if="bookbyData.personal_contact">{{ bookbyData.personal_contact }}</span>
+                                    </div>
+
+                                    <div>
+                                        Office ID: <span v-if="bookbyData.office_id">{{ bookbyData.office_id }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Office Contact: <span v-if="bookbyData.office_contact">{{ bookbyData.office_contact }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Office Email: <span v-if="bookbyData.office_email">{{ bookbyData.office_email }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Personal Email: <span v-if="bookbyData.personal_email">{{ bookbyData.personal_email }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+                                </v-col>
+
+                                <v-col cols="6">
+                                    <div>
+                                        Office: <span v-if="bookbyData.office">{{ bookbyData.office }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Zone Office: <span v-if="bookbyData.zone_office">{{ bookbyData.zone_office }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        NID: <span v-if="bookbyData.nid">{{ bookbyData.nid }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Manager: <span v-if="bookbyData.manager">{{ bookbyData.manager }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Manager Email: <span v-if="bookbyData.manager_emails">{{ bookbyData.manager_emails }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Designation: <span v-if="bookbyData.department">{{ bookbyData.department }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+
+                                    <div>
+                                        Business Unit: <span v-if="bookbyData.business_unit">{{ bookbyData.business_unit }}</span> <span v-else class="red--text">Not Available !</span>
+                                    </div>
+                                </v-col>
+                            </v-row>
+                            
+                        </v-col>
+
+                        <v-col cols="3">
+                            <v-img v-if="bookbyData.image" :src="imagePathSmBookby + bookbyData.image" alt="image"
+                                        contain max-height="220px"></v-img>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
+            </v-card>
         </v-dialog>
+
+
 
 
     </div>
@@ -477,5 +570,9 @@
     .image-thum-size{
         height: 50px;
         width: 100px;
+    }
+
+    .bg_card{
+        background: linear-gradient(120deg, rgb(249, 168, 37) 60%, rgba(0,0,0,1) 40%);
     }
 </style>

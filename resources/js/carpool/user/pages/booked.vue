@@ -2,78 +2,78 @@
     <div>
 
         <div v-if="allData">
+            
 
             <div v-if="allData.length > 0">
                 <!-- card -->
-                <div class="booking_card_details my-3">
-                    <v-card v-for="item in allData" :key="item.id">
-                        <v-row>
-                            <v-col cols="12" md="6">
-                                <div style="height:230px;">
-                                    <v-img v-if="item.car.image" :src="imagePath+item.car.image" alt="Image"
-                                        class="h-100 w-100" contain></v-img>
-                                    <v-img v-else src="/all-assets/common/img/no-image.png" class="h-100 w-100"
-                                        alt="Image" contain></v-img>
+                <v-card v-for="item in allData" :key="item.id" class="bg_card my-5">
+                    <v-row class="text-white">
+                        <v-col cols="12" md="6" class="py-0">
+                            <v-img v-if="item.car.image" :src="imagePath+item.car.image" alt="Image"
+                                max-height="220px" class="rounded-lg"></v-img>
+                            <v-img v-else src="/all-assets/common/img/no-image.png" 
+                                alt="Image" max-height="220px" class="rounded-lg"></v-img>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                            <div class="d-flex justify-content-between">
+                                <div class="h3">
+                                    Booking Details
                                 </div>
-                            </v-col>
 
-                            <v-col cols="12" md="6">
-                                <v-card-text class="mt-3">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="h3">
-                                            Booking Details
-                                        </div>
-                                        <div style="color: #001F61">
-                                            Booking Duration: {{ item.duration }}
-                                        </div>
-                                    </div>
-                                    <table>
-                                        <tr>
-                                            <th>Car Details</th>
-                                            <td class="pl-4"><span v-if="item.car">{{ item.car.name }} || {{ item.car.number }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Driver Details</th>
-                                            <td class="pl-4"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Purpose</th>
-                                            <td class="pl-4 py-2">{{ item.purpose }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Booked</th>
-                                            <td class="pl-4">{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
-                                                {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
-                                        </tr>
-                                    </table>
+                                <v-badge :content="`Booking Duration `+ durationCal(item.start, item.end)+ ` Hours`" inline color="indigo"></v-badge>
+                                <!-- <div class="indigo--text">
+                                    Booking Duration: {{ item.duration }}
+                                </div> -->
+                            </div>
+                            <table>
+                                <tr>
+                                    <th>Car Details:</th>
+                                    <td class="py-1"><span v-if="item.car">{{ item.car.name }} || {{ item.car.number }}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Driver Details:&nbsp;</th>
+                                    <td class="py-1"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Purpose:</th>
+                                    <td class="py-1">{{ item.purpose }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Booked:</th>
+                                    <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
+                                        {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
+                                </tr>
+                            </table>
 
 
-                                    <div class="float-right mt-5">
-                                        <v-btn v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)"
-                                            color="error" rounded class="px-4">
-                                            <v-icon>mdi-delete-empty</v-icon>
-                                            Cancel
-                                        </v-btn>
-                                        <v-btn @click="modifyBooking(item)" color="orange" rounded class="px-4">
-                                            <v-icon>mdi-fountain-pen-tip</v-icon>
-                                            Modify
-                                        </v-btn>
-                                    </div>
+                            <div class="float-right m-2">
+                                <v-btn v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)"
+                                    color="error" rounded class="px-4">
+                                    <v-icon>mdi-delete-empty</v-icon>
+                                    Cancel
+                                </v-btn>
+                                <v-btn @click="modifyBooking(item)" color="orange" rounded class="px-4">
+                                    <v-icon>mdi-fountain-pen-tip</v-icon>
+                                    Modify
+                                </v-btn>
+                            </div>
 
-                                </v-card-text>
-                            </v-col>
-                        </v-row>
-                    </v-card>
+                        </v-col>
+                    </v-row>
+                </v-card>
 
-                </div>
             </div>
+            
             <div v-else>
                 <div class="p-5 my-5">
                     <p class="text-center text-info h1">Sorry !! You have no current booking. </p>
                 </div>
             </div>
 
+
         </div>
+        
         <div v-else>
             <div v-if="dataLoading" class="p-5 my-5">
                 <p class="text-center h1">Loading.. <v-icon color="success" size="100">mdi mdi-loading mdi-spin</v-icon></p>
@@ -104,8 +104,8 @@
 
                 <v-card-text>
 
-                    <div v-if="selectedForModify.room" class="text-center rounded mb-2">
-                        Room: <b>{{ selectedForModify.room.name }}</b>, Booked:
+                    <div v-if="selectedForModify.car" class="text-center rounded mb-2">
+                        Car: <b>{{ selectedForModify.car.name }}</b>, Booked:
                         <b>{{ selectedForModify.start | moment("MMM Do YYYY, h:mm a") }} - To -
                             {{ selectedForModify.end | moment("MMM Do YYYY, h:mm a") }}</b>
                     </div>
@@ -114,11 +114,12 @@
                         <v-expansion-panels>
                             <v-expansion-panel>
                                 <v-expansion-panel-header>
-                                    <span v-if="selectedForModify.room">{{ selectedForModify.room.name }}</span> Related Bookings <v-icon>mdi-eye-check </v-icon>
+                                    <span v-if="selectedForModify.car">{{ selectedForModify.car.name }}</span> Related Bookings <v-icon>mdi-eye-check </v-icon>
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
                                     <v-card>
-                                        <div v-if="relatedBookings.length > 0">
+                                      
+                                            <div v-if="relatedBookings.length > 0">
                                             <v-card-text v-for="item in relatedBookings" :key="item.id" class="bg-info">
                                                 <table class="table table-sm text-center">
                                                     <tr>
@@ -133,6 +134,7 @@
                                                 </table>
                                             </v-card-text>
                                         </div>
+                                       
                                     </v-card>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
@@ -276,10 +278,10 @@
                     start_time: '00:01:00',
                     end_date: '',
                     end_time: '23:59:00',
-                    room_id: '',
+                    car_id: '',
                     start: '',
                     end: '',
-                    room_name: ''
+                    car_name: ''
                 }),
 
 
@@ -294,7 +296,7 @@
                 // Loading
                 this.dataLoading = true
                 axios.get(this.currentUrl + '/data').then(response => {
-                     console.log(response.data)
+                    //  console.log(response.data)
                     this.allData = response.data
                     // Loading
                     this.dataLoading = false
@@ -311,7 +313,7 @@
                 // Current Data 
                 this.selectedForModify = item
 
-                axios.post(this.currentUrl + '/byroom', {
+                axios.post(this.currentUrl + '/bycar', {
                     item
                 }).then(response => {
 
@@ -335,8 +337,8 @@
                     this.form.end_date = end_date
                     this.form.end_time = end_time
                     this.form.purpose = item.purpose
-                    this.form.room_id = item.room_id
-                    this.form.room_name = item.room.name
+                    this.form.car_id = item.car_id
+                    this.form.car_name = item.car.name
                     this.form.id = item.id
 
                     // Overlay
@@ -407,8 +409,8 @@
                             this.getBookedData();
                             // Hide Booking Modal
                             this.eventDataStoreModal = false
-                            // Hide Room Status Modal
-                            this.roomStatusShow = false
+                            // Hide car Status Modal
+                            this.carStatusShow = false
 
                             Swal.fire({
                                 icon: response.data.icon,
@@ -501,6 +503,19 @@
                 })
             },
 
+
+
+            // duration cal
+            durationCal(time1, time2){
+                let now  = time1;
+                let then = time2;
+
+                let duration = this.$moment.utc(this.$moment(now,"YYYY/MM/DD HH:mm:ss").diff(this.$moment(then,"YYYY/MM/DD HH:mm:ss"))).format("HH") ;
+
+                return duration
+
+            }
+
         },
 
         created() {
@@ -526,6 +541,10 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+
+    .bg_card{
+        background: linear-gradient(120deg, rgba(70,185,108,255) 60%, rgba(58,58,60,255) 40%);
     }
 
 </style>

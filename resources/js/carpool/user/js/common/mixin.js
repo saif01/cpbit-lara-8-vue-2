@@ -15,29 +15,37 @@ import globalRolePermissions from './../../../../role_permissions'
 
 export default {
     data() {
-      return {
-      
-        // DataTbl Common Featurs 
-        paginate: 10,
-        search: '',
-        search_field: '',
-        sort_direction: 'desc',
-        sort_field: 'id',
-        currentPageNumber: null,
-        // Our data object that holds the Laravel paginator data
-        allData: {},
-        totalValue: '',
-        dataShowFrom: '',
-        dataShowTo: '',
-        editmode: false,
-        dataModelTitle: 'Store Data',
-        // Loading Animation
-        dataLoading: false,
+        return {
+        
+            // DataTbl Common Featurs 
+            paginate: 10,
+            search: '',
+            search_field: '',
+            sort_direction: 'desc',
+            sort_field: 'id',
+            currentPageNumber: null,
+            // Our data object that holds the Laravel paginator data
+            allData: {},
+            totalValue: '',
+            dataShowFrom: '',
+            dataShowTo: '',
+            editmode: false,
+            dataModelTitle: 'Store Data',
+            // Loading Animation
+            dataLoading: false,
 
-        imageMaxSize: '2111775',
-        fileMaxSize: '5111775',
-        overlayshow: false,
-      }
+            imageMaxSize: '2111775',
+            fileMaxSize: '5111775',
+            overlayshow: false,
+            
+
+            //comment count
+            commentCount: null,
+            navbarKeyIndex: 0,
+
+            // Tbl number of data show
+            tblItemNumberShow:[5,10,15,25,50,100], 
+        }
     },
 
     methods: {
@@ -54,9 +62,6 @@ export default {
 
         // create Update Methods
         ...createUpdate,
-
-
-
 
     
         handleResize() {
@@ -82,29 +87,26 @@ export default {
 
 
 
-        testMethod(){
-            return ' Come form common';
-        },
+        // carNotCommented 
+        carNotCommented(){
+            axios.get('/carpool/comment/comment_count').then(response => {
+            
+                
+                this.commentCount = response.data;
+                console.log('car commented data', response.data);
 
+                this.navbarKeyIndex++
+
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+    
+
+        
 
        
-        
-        async callApi(method, url, dataObj) {
-
-            try {
-
-                return await axios({
-                    method: method,
-                    url: url,
-                    data: dataObj
-                })
-
-            } catch (e) {
-                return e.response
-            }
-
-        }
-
+     
         // End Methods
     },
 

@@ -187,7 +187,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     // Room End
 
 
-    // CarPool
+    //CarPool
     Route::namespace('Carpool')->prefix('carpool')->group(function(){
 
         // Admin
@@ -222,12 +222,11 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 // status
                 Route::post('/status/{id}', 'IndexController@status');
 
-                // car data
+                 // car data
                 Route::get('/car-data', 'IndexController@CarData');
 
+                // driver leave
                 Route::post('/store_leave', 'IndexController@store_leave');
-
-
 
             });
 
@@ -275,9 +274,19 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::prefix('booked')->group(function(){
                 Route::get('/data', 'BookedController@data');
                 Route::get('/canceled', 'BookedController@canceled');
-                Route::post('/byroom', 'BookedController@byroom');
+                Route::post('/bycar', 'BookedController@bycar');
                 Route::post('/store', 'BookedController@store');
                 Route::post('/status/{id}', 'BookedController@status');
+            });
+
+            Route::prefix('comment')->group(function(){
+                Route::get('/index', 'CommentController@index');
+                Route::put('/update_comment', 'CommentController@update_comment');
+                Route::get('/prev_comment/{id}', 'CommentController@PrevComment');
+                Route::get('/car-data/{car_id}', 'CommentController@carData');
+                Route::get('/comment_count', 'CommentController@comment_count');
+
+                
             });
 
 

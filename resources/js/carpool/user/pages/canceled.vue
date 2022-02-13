@@ -5,62 +5,58 @@
 
             <div v-if="allData.length > 0">
                 <!-- card -->
-                <div class="booking_card_details my-3">
-                    <v-card v-for="item in allData" :key="item.id">
-                        <v-row>
-                            <v-col cols="12" md="6">
-                                <v-img v-if="item.car" :src="imagePath+item.car.image" alt="Image" max-height="250px" width="100%" contain></v-img>
+                <v-card v-for="item in allData" :key="item.id" class="bg_card my-5">
+                    
+                        <v-row class="text-white">
+                            <v-col cols="12" md="6" class="py-0">
+                                <v-img v-if="item.car" :src="imagePath+item.car.image" alt="Image" max-height="220px" class="rounded-lg"></v-img>
 
-                                <v-img v-else src="/all-assets/common/img/no-image.png" alt="Image" max-height="250px" width="100%" contain></v-img>
+                                <v-img v-else src="/all-assets/common/img/no-image.png" alt="Image" max-height="220px" class="rounded-lg"></v-img>
                             </v-col>
 
                             <v-col cols="12" md="6">
-                                <v-card-text class="mt-3">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="h3">
-                                            Booking Details
-                                        </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <div class="h3">
+                                        Booking Details
                                     </div>
-                                    <table>
-                                        <tr>
-                                            <th>Car Details</th>
-                                            <td class="pl-4"><span v-if="item.car">{{ item.car.name }} || {{ item.car.number }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Driver Details</th>
-                                            <td class="pl-4"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Purpose</th>
-                                            <td class="pl-4 py-2">{{ item.purpose }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Booked</th>
-                                            <td class="pl-4">{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
-                                                {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
-                                        </tr>
-                        
-                                    </table>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <th>Car Details:</th>
+                                        <td class="py-1"><span v-if="item.car">{{ item.car.name }} || {{ item.car.number }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Driver Details:&nbsp;</th>
+                                        <td class="py-1"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Purpose:</th>
+                                        <td class="py-1">{{ item.purpose }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Booked:</th>
+                                        <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
+                                            {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
+                                    </tr>
+                    
+                                </table>
 
-                                     <div class="float-right mt-5 text-danger">
-                                        <th>Canceled At</th>
-                                            <td class="pl-4">{{ item.updated_at | moment("MMM Do YYYY, h:mm a") }}
-                                            </td>
-                                    </div>
+                                <div class="float-right mt-5 text-danger mx-2">
+                                    <div><b>Canceled At</b> {{ item.updated_at | moment("MMM Do YYYY, h:mm a") }}</div>
+                                </div>
 
-
-                                </v-card-text>
                             </v-col>
                         </v-row>
-                    </v-card>
+                </v-card>
 
-                </div>
             </div>
             <div v-else>
                 <div class="p-5 my-5">
                     <p class="text-center text-info h1">Sorry !! You have no current booking. </p>
                 </div>
             </div>
+
 
         </div>
         <div v-else>
@@ -74,7 +70,7 @@
 
 <script>
     // vform
-    import Form from 'vform';
+    //import Form from 'vform';
 
     export default {
         data() {
@@ -108,11 +104,6 @@
                     console.log(error)
                 })
             },
-
-            
-        
-
-
           
 
         },
@@ -130,11 +121,8 @@
 
 
 <style scoped>
-
-    .booking_card_details {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    .bg_card{
+        background: linear-gradient(120deg, rgba(182,29,32,255) 60%, rgba(58,58,60,255) 40%);
     }
 
 </style>

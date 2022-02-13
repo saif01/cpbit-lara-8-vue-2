@@ -41,9 +41,10 @@
             app
             dark
             v-model="drawer"
-            class="bg_gradient"   
+            class="bg_gradient"
+            
         >
-            <v-list-item class="px-2" link href="/">
+            <v-list-item class="px-2" link href="/admin/dashboard">
                 <v-list-item-icon>
                     <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
                 </v-list-item-icon>
@@ -75,7 +76,7 @@
 
                 <v-list-item link router :to="{name: 'DriverIndex'}">
                     <v-list-item-icon>
-                        <v-icon>mdi-car-cog </v-icon>
+                        <v-icon>mdi-car-child-seat</v-icon>
                     </v-list-item-icon>
                     
                     <v-list-item-content>
@@ -133,7 +134,7 @@
 
                 <v-list-item link router :to="{name: 'Destinations'}">
                     <v-list-item-icon>
-                        <v-icon>mdi-chart-bar</v-icon>
+                        <v-icon>mdi-road-variant</v-icon>
                     </v-list-item-icon>
                     
                     <v-list-item-content>

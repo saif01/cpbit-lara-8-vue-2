@@ -17,6 +17,8 @@ export default {
                 this.totalValue = response.data.total;
                 this.dataShowFrom = response.data.from;
                 this.dataShowTo = response.data.to;
+                
+                // stick into current page
                 this.currentPageNumber  = response.data.current_page
 
                 //console.log('currentPageNumber: ', this.currentPageNumber)

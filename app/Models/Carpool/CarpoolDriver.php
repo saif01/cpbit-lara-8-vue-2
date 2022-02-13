@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\User;
 use App\Models\Carpool\CarpoolCar;
-use App\Models\Carpool\CarpoolDriverLeave;
-use App\Models\Carpool\CarpoolCarMaintenance;
-use App\Models\Carpool\CarpoolCarRequisition;
+use App\Models\Carpool\CarpoolLeaves;
 
 class CarpoolDriver extends Model
 {
@@ -50,21 +48,21 @@ class CarpoolDriver extends Model
     // leave
     public function leave()
     {
-       return $this->hasMany( CarpoolDriverLeave::class, 'driver_id', 'id');
+       return $this->hasMany( CarpoolLeaves::class, 'driver_id', 'id');
 
     }
 
-    //maintenance
-    public function maintenance()
-    {
-       return $this->hasMany( CarpoolCarMaintenance::class, 'driver_id', 'id');
-    }
+    // //maintenance
+    // public function maintenance()
+    // {
+    //    return $this->hasMany( CarpoolLeaves::class, 'driver_id', 'id');
+    // }
 
 
-    //requisition
-    public function requisition()
-    {
-       return $this->hasMany( CarpoolCarRequisition::class, 'driver_id', 'id');
-    }
+    // //requisition
+    // public function requisition()
+    // {
+    //    return $this->hasMany( CarpoolLeaves::class, 'driver_id', 'id');
+    // }
 
 }

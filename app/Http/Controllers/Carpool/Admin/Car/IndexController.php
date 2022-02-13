@@ -153,7 +153,7 @@ class IndexController extends Controller
         //Validate
         $this->validate($request,[
             'name'      => 'required',
-            'number'    => 'required|unique:carpool_cars|max:50',
+            'number'    => 'required',
             'capacity'  => 'required',
             'remarks'   => 'nullable|max:1000',
             'status'    => 'nullable',

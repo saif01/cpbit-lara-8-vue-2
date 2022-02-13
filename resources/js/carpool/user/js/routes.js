@@ -8,6 +8,9 @@ import er404 from '../pages/common/404.vue'
 import Booked from '../pages/booked.vue'
 import Canceled from '../pages/canceled.vue'
 
+import NotCommented from '../pages/not-commented.vue'
+import CarDetails from '../pages/car-details.vue'
+
 const router = new VueRouter({
     mode: 'history',
     routes : [
@@ -17,7 +20,7 @@ const router = new VueRouter({
             component: Dashboard,
             name: 'Dashboard',
             meta:{
-                title: 'Room Dashboard',
+                title: 'Car Dashboard',
             },   
         },
         { 
@@ -25,7 +28,7 @@ const router = new VueRouter({
             component: Booked,
             name: 'Booked',
             meta:{
-                title: 'Room Booked',
+                title: 'Car Booked',
             },   
         },
         { 
@@ -33,7 +36,23 @@ const router = new VueRouter({
             component: Canceled,
             name: 'Canceled',
             meta:{
-                title: 'Room Canceled',
+                title: 'Car Canceled',
+            },   
+        },
+        { 
+            path: '/carpool/not-commented', 
+            component: NotCommented,
+            name: 'notCommented',
+            meta:{
+                title: 'Car Not Commented',
+            },   
+        },
+        { 
+            path: '/carpool/car-details', 
+            component: CarDetails,
+            name: 'carDetails',
+            meta:{
+                title: 'Car Not Commented',
             },   
         },
         
@@ -45,11 +64,11 @@ const router = new VueRouter({
 
 
         { 
-            path: '/room/*', 
+            path: '/Car/*', 
             component: er404,
             name: 'er404',
             meta:{
-                title: 'Room 404',
+                title: 'Car 404',
             },   
         },
 

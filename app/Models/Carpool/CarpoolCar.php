@@ -17,6 +17,11 @@ class CarpoolCar extends Model
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
 
+
+    public function carLeave(){
+        return $this->belongsTo('App\Models\Carpool\CarpoolLeaves', 'id', 'car_id');
+    }
+
     public function scopeSearch($query, $val='')
     {
         return $query

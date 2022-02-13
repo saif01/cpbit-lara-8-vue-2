@@ -48,92 +48,107 @@
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td>
-                                    <v-img v-if="singleData.image" :src="imagePathSmDriver + singleData.image"
-                                        alt="image" max-height="100px" contain></v-img>
+                                    <v-hover v-slot="{ hover }">
+                                        <v-card class="mx-auto" color="grey lighten-4">
+                                            <v-img v-if="singleData.image" :src="imagePathSmDriver + singleData.image" max-height="180" max-width="230">
+                                                <v-expand-transition>
+                                                    <div v-if="hover" class="transition-fast-in-fast-out teal darken-2 v-card--reveal white--text d-flex flex-column justify-center align-center" style="height: 100%;">
 
-                                    <div v-if="singleData.name">
-                                        <b>Driver Name:</b> {{ singleData.name}}
-                                    </div>
-                                    <div v-if="singleData.contact">
-                                        <b>Driver Number:</b> {{ singleData.contact}}
-                                    </div>
-                                    <div v-if="singleData.license">
-                                        <b>Driver License:</b> {{ singleData.license}}
-                                    </div>
-                                    <div v-if="singleData.nid">
-                                        <b>Driver NID:</b> {{ singleData.nid}}
-                                    </div>
-
+                                                        <div>
+                                                            Driver Name: {{ singleData.name}}
+                                                        </div>
+                                                        <div>
+                                                            Driver Number: {{ singleData.contact}}
+                                                        </div>
+                                                        <div>
+                                                            Driver License: {{ singleData.license}}
+                                                        </div>
+                                                        <div>
+                                                            Driver NID:{{ singleData.nid}}
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </v-expand-transition>
+                                            </v-img>
+                                        </v-card>
+                                    </v-hover>
                                 </td>
                                 <td>
-                                    <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image"
-                                        alt="image" max-height="100px" contain></v-img>
+                                    <v-hover v-slot="{ hover }">
+                                        <v-card class="mx-auto" color="grey lighten-4">
+                                            <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image" max-height="180" max-width="230" >
+                                                <v-expand-transition>
+                                                    <div v-if="hover" class="transition-fast-in-fast-out teal darken-2 v-card--reveal white--text d-flex flex-column justify-center align-center" style="height: 100%;">
 
-                                    <div v-if="singleData.car.name">
-                                        <b>Car Name:</b> {{ singleData.car.name}}
-                                    </div>
-                                    <div v-if="singleData.car.number">
-                                        <b>Car Number:</b> {{ singleData.car.number}}
-                                    </div>
-                                    <div v-if="singleData.car.capacity">
-                                        <b>Car Capacity:</b> {{ singleData.car.capacity}}
-                                    </div>
-                                    <div v-if="singleData.car.temporary==0">
-                                        <b>Car Type:</b> Temporary
-                                    </div>
-                                    <div v-if="singleData.car.temporary==1">
-                                        <b>Car Type:</b> Regular
+                                                        <div v-if="singleData.car.name">
+                                                            Car Name: {{ singleData.car.name}}
+                                                        </div>
+                                                        <div v-if="singleData.car.number">
+                                                            Car Number: {{ singleData.car.number}}
+                                                        </div>
+                                                        <div v-if="singleData.car.capacity">
+                                                            Car Capacity: {{ singleData.car.capacity}}
+                                                        </div>
+                                                        <div v-if="singleData.car.temporary==0">
+                                                            Car Type: Temporary
+                                                        </div>
+                                                        <div v-if="singleData.car.temporary==1">
+                                                            Car Type: Regular
+                                                        </div>
+                                                    </div>
+                                                </v-expand-transition>
+                                            </v-img>
+                                        </v-card>
+                                    </v-hover>
+                                </td>
+
+                                <td v-if="singleData.leave.length > 0" class="col-3 text-center align-middle">
+                                    <div v-for="leave in singleData.leave" :key="leave.id">
+
+                                        <div v-if="leave.type=='lev'">
+                                            <b>Leave Type: </b>Personal Leave
+                                        </div>
+                                        <div v-else-if="leave.type=='req'">
+                                            <b>Leave Type: </b>Police Requisition
+                                        </div>
+                                        <div v-else-if="leave.type=='mant'">
+                                            <b>Leave Type: </b>Car in Maintenances
+                                        </div>
+                                        
+                                        <div v-if="leave.start">
+                                            <b>From</b> {{ leave.start }} <b>to</b> {{ leave.end }}
+                                        </div>
+
                                     </div>
                                 </td>
 
-                                <td>
-                                    <div v-if="singleData.leave.start">
-                                        <b>Personal Leave:</b> {{ singleData.leave.start }} {{ singleData.leave.end }}
-                                    </div>
-                                    <div v-else>
-                                        <b>Personal Leave: </b> Not Available
-                                    </div>
 
-                                    <div v-if="singleData.maintenance">
-                                        <b>Car Maintenance:</b> {{ singleData.maintenance.start }}
-                                        {{ singleData.maintenance.end }}
-                                    </div>
-                                    <div v-else>
-                                        <b>Car Maintenance: </b> Not Available
-                                    </div>
-
-                                    <div v-if="singleData.requisition">
-                                        <b>Car Requsition:</b> {{ singleData.requisition.start }}
-                                        {{ singleData.requisition.end }}
-                                    </div>
-                                    <div v-else>
-                                        <b>Car Requsition: </b> Not Available
+                                <td v-else class="col-3 text-center align-middle">
+                                    <div class="error--text">
+                                        Not Available!!
                                     </div>
                                 </td>
 
 
-                                <td class="text-center">
-
+                                <td class="text-center col-3">
                                     <v-btn @click="driverLeave(singleData)" color="info" depressed small class="m-1">
                                         <v-icon left>mdi-ship-wheel</v-icon> Leave Action
                                     </v-btn>
 
                                     <v-btn v-if="singleData.car.status" @click="statusChange(singleData.car)"
                                         color="success" depressed small class="m-1">
-                                        <v-icon left>mdi-check-circle-outline</v-icon> Active
+                                        <v-icon small>mdi-check-circle-outline</v-icon> Active
                                     </v-btn>
-                                    <v-btn v-else @click="statusChange(singleData.car)" color="warning" depressed small
-                                        class="m-1">
-                                        <v-icon left>mdi-alert-circle-outline </v-icon> Inactive
+                                    <v-btn v-else @click="statusChange(singleData.car)" color="warning" depressed small class="m-1">
+                                        <v-icon small>mdi-alert-circle-outline </v-icon> Inactive
                                     </v-btn>
 
                                     <v-btn @click="editDataModel(singleData)" color="info" depressed small class="m-1">
-                                        <v-icon left>mdi-pencil-box-multiple-outline</v-icon> Edit
+                                        <v-icon small>mdi-pencil-box-multiple-outline</v-icon> Edit
                                     </v-btn>
 
-                                    <v-btn @click="deleteDataTemp(singleData.id)" color="error" depressed small
-                                        class="m-1">
-                                        <v-icon left>mdi-delete-empty</v-icon> Delete
+                                    <v-btn @click="deleteDataTemp(singleData.id)" color="error" depressed small class="m-1">
+                                        <v-icon small>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
 
                                     <br>
@@ -255,8 +270,10 @@
             </v-card>
         </v-dialog>
 
+
         <!-- Driver Leave -->
         <driver-leave-action v-if="currentCarDriver" :currentCarDriver="currentCarDriver" :key="leaveActionKey" ></driver-leave-action>
+
 
 
     </div>
@@ -268,20 +285,18 @@
     // vform
     import Form from 'vform';
 
+    //  leave component
     import driverLeaveAction from './driver_leave.vue'
 
 
     export default {
-
         components:{
-            'driver-leave-action' : driverLeaveAction,
+            "driver-leave-action": driverLeaveAction,
         },
 
         data() {
 
             return {
-
-                
 
                 // v-form
                 valid: false,

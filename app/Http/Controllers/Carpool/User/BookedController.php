@@ -9,7 +9,7 @@ use App\Models\Carpool\CarpoolBooking;
 use App\Models\Carpool\CarppolCar;
 use Auth;
 use Carbon\Carbon;
-use App\Http\Controllers\Room\CommonFunctions;
+use App\Http\Controllers\Carpool\CommonFunctions;
 
 
 class BookedController extends Controller
@@ -25,8 +25,6 @@ class BookedController extends Controller
             ->where('end', '>=', Carbon::now())
             ->orderBy('start', 'asc')
             ->get();
-       
-       // dd($allData);
 
         return response()->json($allData, 200);
     }
@@ -42,29 +40,24 @@ class BookedController extends Controller
             ->take(30)
             ->get();
 
-       // dd($allData);
-
         return response()->json($allData, 200);
     }
 
    
-    // byroom booked data
-    public function byroom(Request $request){
+    // bycar booked data
+    public function bycar(Request $request){
 
        
         // Request Arry convert in object
         $reqObjData = (object) $request->item;
         
-        //dd($reqObjData , $request->all());
 
         $id = $reqObjData->id;
-        $room_id = $reqObjData->room_id;
+        $car_id = $reqObjData->car_id;
 
         $start = $reqObjData->start; 
         $end   = $reqObjData->end; 
 
-        // $currentDateTime = Carbon::now();
-        // $newDateTime = Carbon::now()->addDays(-5);
         $back15Start = Carbon::create($start)->addDays(-15)->toDateTimeString();
         $next15End = Carbon::create($end)->addDays(15)->toDateTimeString();
 
@@ -76,7 +69,6 @@ class BookedController extends Controller
             ->orderBy('start')
             ->get();
 
-        //dd($back15Start, $next15End, $bookingData);
 
         return response()->json($bookingData);
 
@@ -85,7 +77,6 @@ class BookedController extends Controller
     // store
     public function store(Request $request){
 
-        //dd($request->all());
 
         //Validate
         $this->validate($request,[
@@ -100,10 +91,11 @@ class BookedController extends Controller
         $purpose          = $request->purpose;
         $start            = $request->start;
         $end              = $request->end;
-        $duration         = $this->DayOrHoure($start, $end);
 
         // Checking Booked 
         $booked =    $this->CheckModifyBookingHaveOrNot($id, $car_id, $start, $end);
+
+        $leave =    $this->CheckDriverLeaveOrNot($car_id, $start, $end);
 
         if($booked){
             return response()->json([
@@ -113,13 +105,40 @@ class BookedController extends Controller
             ]);
         }
 
+
+        if($leave){
+
+            if($leave->type == 'lev'){
+                return response()->json([
+                    'status'=>'error',
+                    'msg'=>'Driver in <b>Leave</b> At This Time !! &#128530;', 
+                    'icon'=>'warning'
+                ]);
+            }
+
+            if($leave->type == 'mant'){
+                return response()->json([
+                    'status'=>'error',
+                    'msg'=>'Car in <b>Maintenance</b> At This Time !! &#128530;', 
+                    'icon'=>'warning'
+                ]);
+            }
+
+            if($leave->type == 'req'){
+                return response()->json([
+                    'status'=>'error',
+                    'msg'=>'Car in <b>Police Requisition </b> At This Time !! &#128530;', 
+                    'icon'=>'warning'
+                ]);
+            }
+        }
+
         $data       = CarpoolBooking::find($id);
 
         $data->car_id       = $car_id;
         $data->user_id       = Auth::user()->id;
         $data->start         = $start;
         $data->end           = $end;
-        $data->duration      = $duration;
         $data->purpose       = $purpose;
         $data->status        = 1;
 
@@ -130,7 +149,7 @@ class BookedController extends Controller
         $endLine            = date("j-M-Y, g:i A", strtotime($end));
         $purposeLine        = str_replace('&', 'and', $purpose);
         //Send Line Message
-        $message = "Modify Status,%0A Modify By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Room: $room_name,%0A Start: $startLine,%0A End: $endLine,%0A Duration : $duration. ";
+        $message = "Modify Status,%0A Modify By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Room: $car_name,%0A Start: $startLine,%0A End: $endLine,%0A";
         //Send Line Message
         $this->lineMsg($message);
         // Save In DB
@@ -155,7 +174,6 @@ class BookedController extends Controller
 
     // Change Booking Status
     public function status($id){
-        // dd($id);
 
         $data = CarpoolBooking::find($id);
 

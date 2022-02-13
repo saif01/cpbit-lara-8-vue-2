@@ -148,7 +148,7 @@
                                             v-html="form.errors.get('start_time')" />
                                     </template>
                                     <v-time-picker v-if="menu3" v-model="form.start_time" full-width
-                                        @click:minute="$refs.menu3.save(time)" ampm-in-title scrollable></v-time-picker>
+                                        @click:minute="$refs.menu3.save(time)" ampm-in-title scrollable :min="minTime1" :max="maxTime1"></v-time-picker>
                                 </v-menu>
                             </v-col>
 
@@ -165,7 +165,7 @@
                                             v-html="form.errors.get('end_time')" />
                                     </template>
                                     <v-time-picker v-if="menu4" v-model="form.end_time" full-width
-                                        @click:minute="$refs.menu4.save(time)" scrollable></v-time-picker>
+                                        @click:minute="$refs.menu4.save(time)" ampm-in-title scrollable :min="minTime2" :max="maxTime2"></v-time-picker>
                                 </v-menu>
                             </v-col>
 
@@ -194,13 +194,13 @@
 
 
         <!-- car Details for Booking -->
-        <v-dialog v-model="carStatusShow" scrollable>
+        <v-dialog v-model="carStatusShow" scrollable max-width="1000px">
             <v-card>
-                <!-- Dilog Title -->
+                <!-- Dialog Title -->
                 <v-card-title class="justify-center">
                     <v-row>
                         <v-col cols="10">
-                            Select Car for Booking
+                            Car Booking
                         </v-col>
                         <v-col cols="2">
                             <v-btn @click="carStatusShow = false" color="red lighten-1 white--text" small class="float-right">
@@ -212,113 +212,208 @@
 
                 <v-card-text>
                     <!-- All Free Cars -->
-                    <div class="teal--text pa-4 text-center font-weight-black"> Cureent Available Cars </div>
-                    <table v-if="freeCars.length > 0"
-                        class="table table-bordered table-hover table-sm text-center">
-                        <thead class="teal white--text">
-                            <!-- <tr>
-                                <th colspan="3" class="text-center booking_table_border p-0"><span
-                                    style="border-bottom:2px solid white">All Free cars</span></th>
-                            </tr> -->
+                    <div class="teal--text pa-4 text-center font-weight-black text-overline"> Current Available Cars </div>
 
-                            <tr>
-                                <th>Car</th>
-                                <th>Driver</th>
-                                <th>Details</th>
-                                <th>Book</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="singleData in  freeCars" :key="singleData.id">
-                                <td class="col-2">
-                                    <v-img v-if="singleData.image" :src="imagePathSm + singleData.image" alt="image" class="rounded-pill"
-                                        height="100"></v-img>
 
-                                </td>
-                                <td class="col-2">
-                                    <v-img v-if="singleData.driver.image" :src="imagePathDriverSm + singleData.driver.image" class="rounded-circle" height="100" width="120" alt="driver image"></v-img>
-                                </td>
-                                <td class="col-4">
-                                    <div>
-                                        <b>Car Model:</b> {{ singleData.name }}
-                                    </div>
-                                    <div>
-                                        <b>Car Number:</b> {{ singleData.number }}
-                                    </div>
-                                    <div>
-                                        <b>Capacity:</b> {{ singleData.capacity }}
-                                    </div>
+                    <div v-if="freeCars.length > 0">
+                        <v-card v-for="singleData in  freeCars" :key="singleData.id" class="mb-5">
+                            <v-card-text>
+                                <v-row class="align-items-center">
+                                    <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
+                                        <v-col lg="11">
+                                            <v-img v-if="singleData.image" :src="imagePathSm + singleData.image" max-width="400"  class="rounded-lg"></v-img>
+                                        </v-col>
+
+                                        <div class="driver_image_position">
+                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
+                                        </div>
+                                    </v-col>
+
                                     
-                                </td>
-                                <td class="col-2">
-                                    <v-btn @click="bookingModal(singleData)" color="teal white--text" small>
-                                        <v-icon>mdi-plus-circle-outline</v-icon>
-                                        Book
-                                    </v-btn>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
+                                        <div class="d-flex justify-content-around">
+                                        
+                                            <div>
+                                                <div>Driver Name: {{ singleData.driver.name }}</div>
+                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            </div>
+
+                                            <div class="line"></div>
+
+                                            <div>
+                                                <div>Car Name: {{ singleData.name }} </div>
+                                                <div>Car Number: {{ singleData.number }} </div>
+                                                <div>Capacity: {{ singleData.capacity }}</div>
+                                            </div>
+
+                                        </div>
+
+                                        <v-btn @click="bookingModal(singleData)" color="teal white--text" class="mt-8" block>
+                                            <v-icon left>mdi-plus-circle-outline</v-icon>
+                                            Book
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+                    </div>
+
 
                     <!-- All Persial Free cars -->
                     <div v-if="bookings.length > 0">
-                        <div class="brown--text pa-4 text-center font-weight-black"> Partially Available Cars </div>
-                        <table class="table table-striped table-bordered table-hover table-sm text-center">
-                            <thead class="brown white--text">
-                                <!-- <tr>
-                                    <th colspan="3" class="text-center booking_table_border p-0"><span
-                                            style="border-bottom:2px solid black">All Partial Booked cars</span></th>
-                                </tr> -->
-                                <tr>
-                                    <th>Car</th>
-                                    <th>Driver</th>
-                                    <th>Details</th>
-                                    <th>Book</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="singleData in bookings" :key="singleData.id">
-                                    <td>
-                                        <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image"
-                                            alt="image" contain max-height="100"></v-img>
-                                        
-                                    </td>
-                                    <td>
-                                        <v-img v-if="singleData.driver.image" :src="imagePathDriverSm + singleData.driver.image" class="rounded-circle" height="100" width="120" alt="driver image"></v-img>
-                                    </td>
-                                    <td class="text-left">
-                                        <div>
-                                            <b>Car Model:</b> {{ singleData.car.name }}
-                                        </div>
-                                        <div>
-                                            <b>Car Number:</b> {{ singleData.car.number }}
-                                        </div>
-                                        <div>
-                                            <b>Capacity:</b> {{ singleData.car.capacity }}
-                                        </div>
-                                        <!-- <span v-if="singleData.car">
-                                            <b>Name:</b> {{ singleData.car.name }} <br>
-                                        </span>
-                                        <span>
-                                            <b>License:</b>
-                                        </span>
-                                        <span v-if="singleData.car">
-                                            <b>Capacity:</b> {{ singleData.car.capacity }} <br>
-                                        </span> -->
-                                        <b>Booked:</b> {{ singleBookedTimeShow(singleData.start, singleData.end) }} <br>
-                                        <div v-if="singleData.bookby">
-                                            <b>Booked By:</b> {{ singleData.bookby.name }} <br>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <v-btn @click="bookingModal(singleData.car)" color="brown white--text" small>
-                                            <v-icon>mdi-plus-circle-outline</v-icon> Book
-                                        </v-btn>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="orange--text pa-4 text-center font-weight-black text-overline"> Partially Available Cars </div>
 
+
+                        <v-card v-for="singleData in bookings" :key="singleData.id">
+                            <v-card-text>
+                                <v-row class="align-items-center">
+                                    <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
+                                        <v-col lg="11">
+                                            <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image" max-width="400" class="rounded-lg"></v-img>
+                                        </v-col>
+
+                                        <div class="driver_image_position">
+                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
+                                        </div>
+                                    </v-col>
+
+                                    
+                                    <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
+                                        <div class="d-flex justify-content-around">
+                                        
+                                            <div>
+                                                <div>Driver Name: {{ singleData.driver.name }}</div>
+                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            </div>
+
+                                            <div class="line"></div>
+
+                                            <div>
+                                                <div>Car Name: {{ singleData.car.name }} </div>
+                                                <div>Car Number: {{ singleData.car.number }} </div>
+                                                <div>Capacity: {{ singleData.car.capacity }}</div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="mt-3 text-center">
+                                            <v-badge :content="`Booked: ` + singleBookedTimeShow(singleData.start, singleData.end) " inline color="orange"></v-badge>
+                                        </div>
+                                        
+
+                                        <v-btn @click="bookingModal(singleData.car)" color="orange white--text" class="mt-8" block>
+                                            <v-icon left>mdi-plus-circle-outline</v-icon>
+                                            Book
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+
+                    </div>
+
+
+
+                    <!-- All temporary Cars -->
+                    <div v-if="temporaryCars.length > 0">
+                        <div class="indigo--text pa-4 text-center font-weight-black text-overline"> All Temporary Cars </div>
+
+
+                        <v-card v-for="singleData in temporaryCars" :key="singleData.id" class="mb-5">
+                            <v-card-text>
+                                <v-row class="align-items-center">
+                                    <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
+                                        <v-col lg="11">
+                                            <v-img v-if="singleData.image" :src="imagePathSm + singleData.image" max-width="400" class="rounded-lg"></v-img>
+                                        </v-col>
+
+                                        <div class="driver_image_position">
+                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
+                                        </div>
+                                    </v-col>
+
+                                    
+                                    <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
+                                        <div class="d-flex justify-content-around">
+                                        
+                                            <div>
+                                                <div>Driver Name: {{ singleData.driver.name }}</div>
+                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            </div>
+
+                                            <div class="line"></div>
+
+                                            <div>
+                                                <div>Car Name: {{ singleData.name }} </div>
+                                                <div>Car Number: {{ singleData.number }} </div>
+                                                <div>Capacity: {{ singleData.capacity }}</div>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- <div class="mt-3 text-center">
+                                            <v-badge color="error" :content="`Leave from: ` + singleBookedTimeShow(singleData.start, singleData.end) " inline></v-badge>
+                                        </div> -->
+
+
+                                        <v-btn @click="bookingModal(singleData),temporaryCarTime()" color="indigo white--text" class="mt-8" block>
+                                            <v-icon left>mdi-plus-circle-outline</v-icon>
+                                            Book
+                                        </v-btn>
+                                        
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+                    </div>
+
+
+
+                    <!-- All Leave Cars -->
+                    <div v-if="leaveCars.length > 0">
+                        <div class="error--text pa-4 text-center font-weight-black text-overline"> Drivers on Leave</div>
+
+
+                        <v-card v-for="singleData in leaveCars" :key="singleData.id" class="mb-5">
+                            <v-card-text>
+                                <v-row class="align-items-center">
+                                    <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
+                                        <v-col lg="11">
+                                            <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image" max-width="400" class="rounded-lg"></v-img>
+                                        </v-col>
+
+                                        <div class="driver_image_position">
+                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
+                                        </div>
+                                    </v-col>
+
+                                    
+                                    <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
+                                        <div class="d-flex justify-content-around">
+                                        
+                                            <div>
+                                                <div>Driver Name: {{ singleData.driver.name }}</div>
+                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            </div>
+
+                                            <div class="line"></div>
+
+                                            <div>
+                                                <div>Car Name: {{ singleData.car.name }} </div>
+                                                <div>Car Number: {{ singleData.car.number }} </div>
+                                                <div>Capacity: {{ singleData.car.capacity }}</div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="mt-3 text-center">
+                                            <v-badge color="error" :content="`Leave from: ` + singleBookedTimeShow(singleData.start, singleData.end) " inline></v-badge>
+                                        </div>
+                                        
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
                     </div>
 
                  
@@ -328,6 +423,7 @@
 
         </v-dialog>
 
+        
 
     </div>
 </template>
@@ -350,7 +446,7 @@
 
     export default {
         components: {
-            FullCalendar // make the <FullCalendar> tag available
+            FullCalendar ,// make the <FullCalendar> tag available
         },
         data: function () {
             return {
@@ -360,7 +456,10 @@
                 menu3: false,
                 menu4: false,
                 time: '',
-
+                minTime1:'',
+                maxTime1:'',
+                minTime2:'',
+                maxTime2:'',
 
                 calendarOptions: {
                     plugins: [
@@ -374,7 +473,7 @@
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
                     initialView: 'dayGridMonth',
-                    editable: true,
+                    editable: false,
                     selectable: true,
                     selectMirror: true,
                     dayMaxEvents: true,
@@ -423,7 +522,7 @@
                 imagePathSm: '/images/carpool/car/small/',
 
                 imagePathDriver: '/images/carpool/driver/',
-                imagePathDriverSm: '/images/carpool/driver/small/',
+                imagePathSmDriver: '/images/carpool/driver/small/',
 
                 carStatusShow: false,
                 eventDataStoreModal: false,
@@ -435,10 +534,16 @@
 
                 freeCars: {},
                 bookings: {},
+                leaveCars: {},
+                temporaryCars: {},
 
                 currentSelectedCar: '',
 
 
+
+                // not-comment component modal
+                
+                notCommentModal: true,
 
 
             }
@@ -451,7 +556,7 @@
                     const response = await axios.get(this.currentUrl + '/data');
                     // Data assign to calendar
                     this.calendarOptions.events = response.data
-                    console.log(response.data);
+                    //console.log(response.data);
                 } catch (error) {
                     console.error(error);
                 }
@@ -564,10 +669,14 @@
                         selectData
                     });
 
-                    console.log(response.data.cars);
+                    // console.log(response.data.cars);
 
                     this.freeCars = response.data.cars
                     this.bookings = response.data.bookings
+                    this.leaveCars = response.data.leave
+                    this.temporaryCars = response.data.temporary,
+
+                    //console.log(response.data.leave);
 
                     // Modal Show
                     this.carStatusShow = true;
@@ -594,6 +703,8 @@
 
             // Show Booking Modal
             bookingModal(car) {
+                // temporary car time make empty
+                this.temporaryCarTimeEmpty();
                 // show Modal
                 this.eventDataStoreModal = true
                 this.form.car_id = car.id
@@ -637,7 +748,7 @@
                     try {
 
                         const response = await this.form.post(this.currentUrl + '/store');
-                        console.log(response.data)
+                        //console.log(response.data)
                         // Overlay
                         this.loadingdataStoreShow = false
                         if (response.data.status == 'success') {
@@ -683,6 +794,25 @@
             },
 
 
+            // temporay car time min-max
+            temporaryCarTime(){
+                this.minTime1 = '9:00'
+                this.maxTime1 = '17:00'
+
+                this.minTime2 = '9:00'
+                this.maxTime2 = '17:00'
+            },
+
+            // temporay car time min-max empty
+            temporaryCarTimeEmpty(){
+                this.minTime1 = ''
+                this.maxTime1 = ''
+
+                this.minTime2 = ''
+                this.maxTime2 = ''
+            },
+
+
 
         },
 
@@ -693,7 +823,12 @@
             this.$Progress.start();
             // Data fetch from DB
             this.getDataAsync();
+            
             this.$Progress.finish();
+
+            
+
+
         }
 
 
@@ -738,9 +873,55 @@
         border-bottom: 1px solid transparent !important;
         border-right: 1px solid transparent !important;
     }
+    
+    .line{
+        background-color: #ddd;
+        width: 2px;
+    }
 
-    /* .a {
-        color: #290cf0 !important;
-    } */
+    .size_avatar{
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        padding: 0.2rem;
+        background-color: white;
+    }
+
+    .driver_image_position{
+        position: absolute;
+        right: 0%;
+        top: 22%;
+    }
+
+
+    @media all and (max-width: 900px) and (min-width: 500px) {
+        .size_avatar{
+            height: 100px;
+            width: 100px;
+        }
+
+        .driver_image_position{
+            top: 29%;
+            right: -4%;
+        }
+    }
+
+
+    @media all and (max-width: 450px) and (min-width: 350px) {
+
+        .size_avatar{
+            height: 115px;
+            width: 115px;
+        }
+
+        .driver_image_position{
+            top: 61%;
+            left: 31%
+        }
+
+        .detail_space_in_mobile{
+            margin-top: 2rem;
+        }
+    }
 
 </style>

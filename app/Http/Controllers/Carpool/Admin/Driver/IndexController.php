@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Carpool\CarpoolDriver;
 use App\Models\Carpool\CarpoolCar;
+use App\Models\Carpool\CarpoolLeaves;
 use Illuminate\Support\Str;
 use DataTables;
 use Validator;
@@ -20,6 +21,11 @@ class IndexController extends Controller
 {
     use ImageUpload;
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
+
     public function index(){
 
         $paginate       = Request('paginate', 10);
@@ -27,7 +33,7 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = CarpoolDriver::with('makby', 'car', 'leave', 'maintenance', 'requisition')
+        $allData = CarpoolDriver::with('makby', 'car', 'leave')
             ->where('delete_temp', '!=', '1')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
@@ -133,8 +139,8 @@ class IndexController extends Controller
         $this->validate($request,[
             'name'      => 'required',
             'contact'   => 'required',
-            'nid'       => 'required',
-            'license'   => 'required',
+            'nid'       => 'nullable',
+            'license'   => 'nullable',
             'status'    => 'nullable'
         ]);
 
@@ -230,11 +236,12 @@ class IndexController extends Controller
 
 
     // car data
+
     public function CarData(){
 
         $allData = CarpoolCar::
-        where("status", 1)
-        ->select('id', 'name', 'number')
+        // where("status", 1)
+        select('id', 'name', 'number')
         ->get();
 
         return response()->json($allData, 200);
@@ -243,15 +250,46 @@ class IndexController extends Controller
     }
 
 
-  
-    // store_leave
+    // driver leave
+    
     public function store_leave(Request $request){
 
-        dd( $request->all() );
+
+        //Validate
+        $this->validate($request,[
+            'start_date'    => 'required',
+            'start_time'    => 'required',
+            'end_date'      => 'required',
+            'end_time'      => 'required',
+            'car_id'        => 'required',
+            'driver_id'     => 'required',
+            'type'          => 'required'
+        ]);
+
+        $data = new CarpoolLeaves();
+
+        $start = $request->start_date ." ". $request->start_time;
+        $end = $request->end_date ." ". $request->end_time;
+
+    
+        $data->start       = $start;
+        $data->end         = $end;
+        $data->car_id      = $request->car_id;
+        $data->driver_id   = $request->driver_id;
+        $data->type        = $request->type;
+        
+        $data->created_by  =  Auth::user()->id;
+        $success           = $data->save();
+
+        if($success){
+            return response()->json(['msg'=>'Leave stored Successfully &#128513;', 'icon'=>'success'], 200);
+        }else{
+            return response()->json([
+                'msg' => 'Data not save in DB !!'
+            ], 422);
+        }
 
     }
-
-
 
 }
 

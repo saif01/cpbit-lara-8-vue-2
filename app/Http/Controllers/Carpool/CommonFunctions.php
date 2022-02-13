@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Carpool;
 
 use App\Models\Carpool\CarpoolBooking;
+use App\Models\Carpool\CarpoolLeaves;
 use App\Models\Carpool\Carpool;
 use Auth;
 use Carbon\Carbon;
@@ -24,11 +25,27 @@ trait CommonFunctions {
         }
     }
 
+    //Check Meeting Car Booking Have or Not
+    public function CheckDriverLeaveOrNot($car_id, $start, $end){
 
-    //Check Meeting Room Booking Have or Not
-    public function CheckBookingHaveOrNot($room_id, $start, $end){
+        $leaveData = CarpoolLeaves::select('type')
+            ->where('car_id', '=', $car_id)
+            ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
+            ->first();
+            
+        if($leaveData){
+            return $leaveData;
+        }else{
+            return false;
+        }
 
-        $bookingData = RoomBooking::where('room_id', '=', $room_id)
+    }
+
+
+    //Check Car Booking Have or Not
+    public function CheckBookingHaveOrNot($car_id, $start, $end){
+
+        $bookingData = CarpoolBooking::where('car_id', '=', $car_id)
             ->where('status', '=', '1')
             ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
             ->count();
@@ -42,11 +59,11 @@ trait CommonFunctions {
     }
 
 
-    //Check Meeting Room Booking Have or Not Except ID
-    public function CheckModifyBookingHaveOrNot($id, $room_id, $start, $end){
+    //Check Car Booking Have or Not Except ID
+    public function CheckModifyBookingHaveOrNot($id, $car_id, $start, $end){
 
-        $bookingData = RoomBooking::where('id', '!=', $id)
-            ->where('room_id', '=', $room_id)
+        $bookingData = CarpoolBooking::where('id', '!=', $id)
+            ->where('car_id', '=', $car_id)
             ->where('status', '=', '1')
             ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
             ->count();
@@ -64,7 +81,7 @@ trait CommonFunctions {
     //Today Booked Message Send
     function DailyBookedLineMsg(){
 
-        $allData = RoomBooking::with('bookby', 'room')
+        $allData = CarpoolBooking::with('bookby', 'car')
                  ->whereDate('start', Carbon::today())
                  ->where('status', 1)
                  ->get();
@@ -86,12 +103,12 @@ trait CommonFunctions {
             $userName      = $data->bookby->name;
             $department     = str_replace('&', 'and', $data->bookby->department);
             $purposeLine   = str_replace('&', 'and', $data->purpose);
-            $roomName      = $data->room->name;
+            $carName      = $data->car->name;
             $duration      = $data->duration;
 
 
             //*************For Sending Line Group Message*******************//
-            $message = "Booked #: $count, %0A Today Date ($today), %0A Booked By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Room: $roomName,%0A Start: $startLine,%0A End: $endLine,%0A Duration : $duration. ";
+            $message = "Booked #: $count, %0A Today Date ($today), %0A Booked By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Car: $carName,%0A Start: $startLine,%0A End: $endLine,%0A Duration : $duration. ";
 
 
             //Send Line Message
@@ -128,7 +145,7 @@ trait CommonFunctions {
         // //Test Group
         // $headers = array('Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.config('values.line_test_key'),);  // ��ѧ����� Bearer ��� line authen code �
 
-        //Room Booking Group
+        //Car Booking Group
         $headers = array('Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.config('values.line_room_key'),);  // ��ѧ����� Bearer ��� line authen code � env('APP_DEBUG')
         
         curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers);

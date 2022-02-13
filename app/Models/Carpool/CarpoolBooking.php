@@ -34,6 +34,11 @@ class CarpoolBooking extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
+    // leave
+    public function leave(){
+        return $this->belongsTo('App\Models\Carpool\CarpoolLeaves', 'car_id', 'car_id');
+    }
+
     //driver
     public function driver()
     {

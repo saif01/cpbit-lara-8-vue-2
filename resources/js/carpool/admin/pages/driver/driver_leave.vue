@@ -20,12 +20,13 @@
                     <v-row v-if="currentCarDriver">
                         <v-col cols="3">
                             <v-img v-if="currentCarDriver.car.image" :src="imagePathSm + currentCarDriver.car.image"
-                                alt="image" max-height="100px" contain></v-img>
+                                alt="image" max-height="100px" class="rounded-lg"></v-img>
                         </v-col>
                         <v-col cols="3" class="small">
                             <span v-if="currentCarDriver.car.name">
                                 <b>Name:</b> {{ currentCarDriver.car.name}}
-                            </span><br>
+                            </span>
+                            <br>
                             <span v-if="currentCarDriver.car.number">
                                 <b>Number:</b> {{ currentCarDriver.car.number}}
                             </span><br>
@@ -41,7 +42,7 @@
                         </v-col>
                        
                         <v-col cols="3">
-                            <v-img v-if="currentCarDriver.image" :src="imagePathSmDriver + currentCarDriver.image" alt="image" max-height="100px" contain></v-img> 
+                            <v-img v-if="currentCarDriver.image" :src="imagePathSmDriver + currentCarDriver.image" alt="image" max-height="100px" class="rounded-lg"></v-img> 
                         </v-col>
                         <v-col cols="3" class="small">
                              <span v-if="currentCarDriver.name">
@@ -61,98 +62,90 @@
                     </v-row>
 
                     <v-form v-model="valid">
-                    <form @submit.prevent="storeData()">
-                        <v-row>
-                            <v-col cols="12" md="6">
-                                <!-- start_date -->
-                                <v-menu v-model="menu" min-width="auto">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.start_date" label="Start Date"
-                                            prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" required >
-                                        </v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('start_date')"
-                                            v-html="form.errors.get('start_date')" />
-                                    </template>
+                        <form @submit.prevent="storeData()">
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <!-- start_date -->
+                                    <v-menu v-model="menu" min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.start_date" label="Start Date"
+                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" :rules="[v => !!v || 'Start date is required!']" required >
+                                            </v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('start_date')"
+                                                v-html="form.errors.get('start_date')" />
+                                        </template>
 
-                                    <v-date-picker v-model="form.start_date" no-title scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="menu = false"> Cancel</v-btn>
-                                        <v-btn text color="success"> Set Today</v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                            </v-col>
-
-                            <v-col cols="12" md="6">
-                                <!-- end_date -->
-                                <v-menu v-model="menu2" min-width="auto">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.end_date" :rules="[v => !!v || 'End date is required!']" label="End Date"
-                                            prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                             required>
-                                        </v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('end_date')"
-                                            v-html="form.errors.get('end_date')" />
-                                    </template>
-
-                                    <v-date-picker v-model="form.end_date" no-title scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="menu2 = false"> Cancel</v-btn>
-                                        <v-btn text color="success">  Set Today </v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                            </v-col>
-
-
-                            <v-col cols="12" md="6">
-                                <!-- start_time -->
-                                <v-menu ref="menu3" v-model="menu3" :close-on-content-click="false"
-                                    :return-value.sync="time" max-width="290px" min-width="290px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.start_time" label="Start Time"
-                                            prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"
-                                            id="Start_Time" 
-                                            required></v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('start_time')"
-                                            v-html="form.errors.get('start_time')" />
-                                    </template>
-                                    <v-time-picker v-if="menu3" v-model="form.start_time" full-width
-                                        @click:minute="$refs.menu3.save(time)"></v-time-picker>
-                                </v-menu>
-                            </v-col>
-
-                            <v-col cols="12" md="6">
-                                <v-menu ref="menu4" v-model="menu4" :close-on-content-click="false"
-                                    :return-value.sync="time" max-width="290px" min-width="290px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.end_time" label="End Time"
-                                            prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on" required></v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('end_time')"
-                                            v-html="form.errors.get('end_time')" />
-                                    </template>
-                                    <v-time-picker v-if="menu4" v-model="form.end_time" full-width
-                                        @click:minute="$refs.menu4.save(time)"></v-time-picker>
-                                </v-menu>
-                            </v-col>
-
-                         
-
-                            <v-col cols="12">
-                                <v-select v-model="form.type" :items="leaveTypes" item-text="name" :rules="selectRules" item-value="value" placeholder="Please, Select types" required></v-select>
-                            </v-col>
-
-                             <v-col cols="12" >
-                                    <v-text-field type="text" label="User AD ID"
-                                        :rules="[v => !!v || 'AD ID is required!']" v-model="form.start_date" required>
-                                    </v-text-field>
-                                    <div v-if="form.errors.has('login')" v-html="form.errors.get('login')" />
+                                        <v-date-picker v-model="form.start_date" no-title scrollable>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="menu = false"> Cancel</v-btn>
+                                            <v-btn text color="success"> Set Today</v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
                                 </v-col>
+
+                                <v-col cols="12" md="6">
+                                    <!-- end_date -->
+                                    <v-menu v-model="menu2" min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.end_date" :rules="[v => !!v || 'End date is required!']" label="End Date"
+                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                required>
+                                            </v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('end_date')"
+                                                v-html="form.errors.get('end_date')" />
+                                        </template>
+
+                                        <v-date-picker v-model="form.end_date" no-title scrollable>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="menu2 = false"> Cancel</v-btn>
+                                            <v-btn text color="success">  Set Today </v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
+                                </v-col>
+
+
+                                <v-col cols="12" md="6">
+                                    <!-- start_time -->
+                                    <v-menu ref="menu3" v-model="menu3" :close-on-content-click="false"
+                                        :return-value.sync="time" max-width="290px" min-width="290px">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.start_time" label="Start Time"
+                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"
+                                                id="Start_Time" 
+                                                required></v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('start_time')"
+                                                v-html="form.errors.get('start_time')" />
+                                        </template>
+                                        <v-time-picker v-if="menu3" v-model="form.start_time" full-width
+                                            @click:minute="$refs.menu3.save(time)"></v-time-picker>
+                                    </v-menu>
+                                </v-col>
+
+                                <v-col cols="12" md="6">
+                                    <v-menu ref="menu4" v-model="menu4" :close-on-content-click="false"
+                                        :return-value.sync="time" max-width="290px" min-width="290px">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.end_time" label="End Time"
+                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on" required></v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('end_time')"
+                                                v-html="form.errors.get('end_time')" />
+                                        </template>
+                                        <v-time-picker v-if="menu4" v-model="form.end_time" full-width
+                                            @click:minute="$refs.menu4.save(time)"></v-time-picker>
+                                    </v-menu>
+                                </v-col>
+
+                                <v-col cols="12">
+                                    <v-select v-model="form.type" :items="leaveTypes" item-text="name" item-value="value" placeholder="Please, Select types" :rules="[v => !!v || 'Leave Type is required!']" required></v-select>
+                                </v-col>
+                            </v-row>
+
 
                             <v-btn type="submit" block color="teal" class="white--text" :loading="loadingLeaveAction">
                                 <v-icon>mdi-fountain-pen-tip</v-icon> Submit
                             </v-btn>
-                        </v-row>
 
-                    </form>
+                        </form>
                     </v-form>
 
                 
@@ -162,6 +155,9 @@
         </v-dialog>
     </div>
 </template>
+
+
+
 
 <script>
 // vform
@@ -184,7 +180,7 @@ export default {
             menu4: false,
             time: '',
 
-            valid: true,
+            valid: false,
 
             loadingLeaveAction: false,
 
@@ -200,7 +196,7 @@ export default {
             leaveTypes:[
                 {
                     name: 'Select Leave Type',
-                    value: ''
+                    value: null
                 },
                 {
                     name: 'Personal Leave',
@@ -216,9 +212,7 @@ export default {
                 },
             ],
 
-            selectRules:[ (v) =>  v.length>0 || 'Login ID is required!',
-
-            ],
+            
 
             // Form
             form: new Form({
@@ -235,24 +229,54 @@ export default {
 
     methods:{
 
+        check(){
+            this.form.car_id = this.currentCarDriver.car_id;
+            this.form.driver_id = this.currentCarDriver.id;
+            
+        },
+
         storeData(){
-            // this.loadingLeaveAction = true
+            this.loadingLeaveAction = true
 
-            // this.form.post( this.currentUrl + '/store_leave').then(response=>{
+            this.form.post( this.currentUrl + '/store_leave').then(response=>{
+                this.$Progress.start();
+                this.getResults(this.currentPageNumber);
+                this.loadingLeaveAction = false;
+                this.driverLeaveDilog = false;
+                this.$Progress.finish()
 
-            //     console.log(response.data)
+                if (response.status == 200) {
+                    Toast.fire({
+                        icon: response.data.icon,
+                        title: response.data.msg
+                    });
+                    
+                    
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
+                    //console.log(response);
+                }
 
-            // }).catch(error=>{
-            //     console.log(error)
-            // })
+                
 
-            console.log(this.form)
+            }).catch(error=>{
+                console.log(error)
+            })
 
 
 
         }
 
     }, 
+
+    mounted(){
+        this.check();
+    }
 
 
 }
