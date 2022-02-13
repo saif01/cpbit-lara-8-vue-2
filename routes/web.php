@@ -273,6 +273,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             Route::prefix('booked')->group(function(){
                 Route::get('/data', 'BookedController@data');
+                Route::get('/destinations', 'BookedController@destinations');
                 Route::get('/canceled', 'BookedController@canceled');
                 Route::post('/bycar', 'BookedController@bycar');
                 Route::post('/store', 'BookedController@store');

@@ -16,7 +16,6 @@ class CarpoolDriver extends Model
 
     use HasFactory;
 
-    
 
     public function makby(){
         return $this->belongsTo('App\Models\User', 'created_by', 'id');

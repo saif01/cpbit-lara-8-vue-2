@@ -142,6 +142,14 @@
                     </div>
 
                     <form @submit.prevent="storeCurrentEventData()">
+
+                        <v-row>
+                            <v-col cols="12">
+                                <div class="small text-danger" v-if="form.errors.has('destination')" v-html="form.errors.get('destination')" />
+                                <v-autocomplete dense solo :items="allDestinations" v-model="form.destination" label="Select a destination" :rules="[v => !!v || 'Destination  is required!']" required></v-autocomplete>
+                            </v-col>
+                        </v-row>
+
                         <v-row>
                             <v-col cols="12" md="6">
                                 <!-- start_date -->
@@ -216,10 +224,11 @@
 
                          
 
+                            <!-- purpose -->
                             <v-col cols="12">
-                                <v-textarea v-model="form.purpose" outlined label="Booking Purpose" rows="2" id="purpose" 
-                                    placeholder="Enter booking purpose in details"
-                                    :class="{ 'is-invalid': form.errors.has('purpose') }" required></v-textarea>
+                                <div class="small text-danger" v-if="form.errors.has('purpose')" v-html="form.errors.get('purpose')" />
+                                <v-textarea label="Booking Purpose" rows="2" outlined v-model="form.purpose"
+                                    placeholder="Enter booking purpose in details" :rules="remRules" counter="500" required></v-textarea>
                             </v-col>
 
                             <v-btn type="submit" block color="teal" class="white--text" :loading="loadingdataStoreShow">
@@ -281,8 +290,16 @@
                     car_id: '',
                     start: '',
                     end: '',
-                    car_name: ''
+                    car_name: '',
+                    destination: '',
                 }),
+
+
+                allDestinations:[],
+                remRules:[
+                    v => (v || '' ).length <= 500 || 'Purpose must be 500 characters or less',
+                    v => (v || '' ).length >= 5 || '5 characters minimum or more',
+                ],
 
 
 
@@ -301,6 +318,19 @@
                     // Loading
                     this.dataLoading = false
                 }).catch(error => {
+                    console.log(error)
+                })
+            },
+
+            // getDastination
+            getDastination(){
+                axios.get( '/carpool/booked/destinations').then(response=>{
+                    // console.log(response.data)
+                    for ( let i = 0; i < response.data.length; i++ ) {
+                        this.allDestinations.push(response.data[i]);
+                        this.allDestinations[i] = { value: response.data[i].name, text: response.data[i].name  };
+                    }
+                }).catch(error=>{
                     console.log(error)
                 })
             },
@@ -522,6 +552,7 @@
             this.$Progress.start();
             // Fetch initial results
             this.getBookedData();
+            this.getDastination();
             this.$Progress.finish();
 
         }

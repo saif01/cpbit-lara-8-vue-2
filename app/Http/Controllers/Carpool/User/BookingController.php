@@ -97,23 +97,22 @@ class BookingController extends Controller
 
         //Validate
         $this->validate($request,[
+            'destination'    =>  'required',
             'start'          =>  'required',
             'end'            =>  'required',
             'purpose'        =>  'required|max:500',
         ]);
 
-       
-
     
-        $car_id          = $request->car_id;
-        $car_name        = $request->car_name;
+        $car_id           = $request->car_id;
+        $car_name         = $request->car_name;
         $purpose          = $request->purpose;
         $start            = $request->start;
         $end              = $request->end;
+        $destination      = $request->destination;
 
         // Checking Booked 
         $booked =    $this->CheckBookingHaveOrNot($car_id, $start, $end);
-
         $leave =    $this->CheckDriverLeaveOrNot($car_id, $start, $end);
 
         //dd($leave);
@@ -126,6 +125,7 @@ class BookingController extends Controller
             ]);
         }
 
+        // Leave
         if($leave){
 
             if($leave->type == 'lev'){
@@ -157,25 +157,36 @@ class BookingController extends Controller
 
         $data = new CarpoolBooking();
 
-        $data->car_id       = $car_id;
+        $data->car_id        = $car_id;
         $data->user_id       = Auth::user()->id;
         $data->start         = $start;
         $data->end           = $end;
         $data->purpose       = $purpose;
+        $data->destination   = $destination;
         $data->status        = 1;
-
-        //For Line Msg Sending Variable
-        $userName           = Auth::user()->name;
-        $department         = Auth::user()->department;
-        $startLine          = date("j-M-Y, g:i A", strtotime($start));
-        $endLine            = date("j-M-Y, g:i A", strtotime($end));
-        $purposeLine        = str_replace('&', 'and', $purpose);
-        //Send Line Message
-        $message = "Booked Status,%0A Booked By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Car: $car_name,%0A Start: $startLine,%0A End: $endLine";
-        //Send Line Message
-        $this->lineMsg($message);
         // Save In DB
         $success             = $data->save();
+
+
+       // car and driver data
+       $carDriData     = CarpoolCar::with('driver')->where('id', $car_id)->first();
+       $carNumber      = $carDriData->number;
+       $driverName     = $carDriData->driver->name;
+       $driverContact  = $carDriData->driver->contact;
+      
+       //For Line Msg Sending Variable
+       $userName           = Auth::user()->name;
+       $department         = Auth::user()->department;
+       $startLine          = date("j-M-Y, g:i A", strtotime($start));
+       $endLine            = date("j-M-Y, g:i A", strtotime($end));
+       $purposeLine        = str_replace('&', 'and', $purpose);
+       $destinationLine    = str_replace('&', 'and', $destination);
+
+       //Send Line Message
+       $message = "Booked Status,%0A Booked By: $userName,%0A Department: $department,%0A Destination: $destinationLine,%0A Purpose: $purposeLine,%0A Driver: $driverName ($driverContact),%0A Car: $carNumber,%0A Start: $startLine,%0A End: $endLine.";
+        //Send Line Message
+        $this->lineMsg($message);
+        
 
         if($success){
             return response()->json([

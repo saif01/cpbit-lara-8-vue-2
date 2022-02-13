@@ -98,6 +98,13 @@
                     <form @submit.prevent="storeCurrentEventData()">
 
                         <v-row>
+                            <v-col cols="12">
+                                <div class="small text-danger" v-if="form.errors.has('destination')" v-html="form.errors.get('destination')" />
+                                <v-autocomplete dense solo :items="allDestinations" v-model="form.destination" label="Select a destination" :rules="[v => !!v || 'Destination  is required!']" required></v-autocomplete>
+                            </v-col>
+                        </v-row>
+
+                        <v-row>
                             <v-col cols="12" md="6">
                                 <!-- start_date -->
                                 <v-menu v-model="menu" min-width="auto">
@@ -169,16 +176,19 @@
                                 </v-menu>
                             </v-col>
 
+                        </v-row>
 
+                        <v-row>
+                            <!-- purpose -->
                             <v-col cols="12">
+                                <div class="small text-danger" v-if="form.errors.has('purpose')" v-html="form.errors.get('purpose')" />
                                 <v-textarea label="Booking Purpose" rows="2" outlined v-model="form.purpose"
-                                    placeholder="Enter booking purpose in details"
-                                    :class="{ 'is-invalid': form.errors.has('purpose') }" required></v-textarea>
+                                    placeholder="Enter booking purpose in details" :rules="remRules" counter="500" required></v-textarea>
                             </v-col>
 
-
+                            <!-- submit -->
                             <v-btn type="submit" block blockdepressed :loading="loadingdataStoreShow"
-                                color="primary mt-3">
+                                color="primary">
                                 <v-icon left dark>mdi-plus-circle-outline</v-icon> Submit
                             </v-btn>
 
@@ -503,6 +513,7 @@
 
                 // Form
                 form: new Form({
+                    destination: '',
                     purpose: '',
                     start_date: '',
                     start_time: '00:01:00',
@@ -545,6 +556,12 @@
                 
                 notCommentModal: true,
 
+                allDestinations:[],
+                remRules:[
+                    v => (v || '' ).length <= 500 || 'Purpose must be 500 characters or less',
+                    v => (v || '' ).length >= 5 || '5 characters minimum or more',
+                ],
+
 
             }
         },
@@ -560,6 +577,19 @@
                 } catch (error) {
                     console.error(error);
                 }
+            },
+
+            // getDastination
+            getDastination(){
+                axios.get( '/carpool/booked/destinations').then(response=>{
+                    // console.log(response.data)
+                    for ( let i = 0; i < response.data.length; i++ ) {
+                        this.allDestinations.push(response.data[i]);
+                        this.allDestinations[i] = { value: response.data[i].name, text: response.data[i].name  };
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                })
             },
 
             // Mouse hover data
@@ -823,12 +853,9 @@
             this.$Progress.start();
             // Data fetch from DB
             this.getDataAsync();
+            this.getDastination();
             
             this.$Progress.finish();
-
-            
-
-
         }
 
 

@@ -4,7 +4,7 @@
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
             <v-spacer></v-spacer>
-            <v-app-bar-title v-if="isAdministrator()" class="red--text" small>Administrator</v-app-bar-title>
+            <v-app-bar-title v-if="isAdministrator()" small>Administrator</v-app-bar-title>
             <v-spacer></v-spacer>
             <v-btn icon @click="toggle()">
                 <v-icon v-if="fullscreen">mdi-fullscreen</v-icon>
@@ -44,7 +44,7 @@
             class="bg_gradient"
             
         >
-            <v-list-item class="px-2" link href="/admin/dashboard">
+            <v-list-item class="px-2" link href="/">
                 <v-list-item-icon>
                     <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
                 </v-list-item-icon>

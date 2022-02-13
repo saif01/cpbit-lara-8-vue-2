@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Carpool\CarpoolBooking;
-use App\Models\Carpool\CarppolCar;
+use App\Models\Carpool\CarpoolCar;
+use App\Models\Carpool\CarpoolDestination;
 use Auth;
 use Carbon\Carbon;
 use App\Http\Controllers\Carpool\CommonFunctions;
@@ -26,6 +27,13 @@ class BookedController extends Controller
             ->orderBy('start', 'asc')
             ->get();
 
+        return response()->json($allData, 200);
+    }
+
+
+    // destinations
+    public function destinations(){
+        $allData = CarpoolDestination::orderBy('name')->get();
         return response()->json($allData, 200);
     }
 
@@ -80,23 +88,25 @@ class BookedController extends Controller
 
         //Validate
         $this->validate($request,[
+            'destination'    =>  'required',
             'start'          =>  'required',
             'end'            =>  'required',
             'purpose'        =>  'required|max:500',
         ]);
 
         $id               = $request->id;
-        $car_id          = $request->car_id;
-        $car_name        = $request->car_name;
+        $car_id           = $request->car_id;
+        $car_name         = $request->car_name;
         $purpose          = $request->purpose;
+        $destination      = $request->destination;
         $start            = $request->start;
         $end              = $request->end;
 
         // Checking Booked 
         $booked =    $this->CheckModifyBookingHaveOrNot($id, $car_id, $start, $end);
+        $leave  =    $this->CheckDriverLeaveOrNot($car_id, $start, $end);
 
-        $leave =    $this->CheckDriverLeaveOrNot($car_id, $start, $end);
-
+        // Booked
         if($booked){
             return response()->json([
                 'status'=>'error',
@@ -105,7 +115,7 @@ class BookedController extends Controller
             ]);
         }
 
-
+        // Leave
         if($leave){
 
             if($leave->type == 'lev'){
@@ -134,26 +144,37 @@ class BookedController extends Controller
         }
 
         $data       = CarpoolBooking::find($id);
-
-        $data->car_id       = $car_id;
+        $data->car_id        = $car_id;
         $data->user_id       = Auth::user()->id;
         $data->start         = $start;
         $data->end           = $end;
         $data->purpose       = $purpose;
+        $data->destination   = $destination;
         $data->status        = 1;
+        // Save In DB
+        $success             = $data->save();
 
+
+        // car and driver data
+        $carDriData     = CarpoolCar::with('driver')->where('id', $car_id)->first();
+        $carNumber      = $carDriData->number;
+        $driverName     = $carDriData->driver->name;
+        $driverContact  = $carDriData->driver->contact;
+       
         //For Line Msg Sending Variable
         $userName           = Auth::user()->name;
         $department         = Auth::user()->department;
         $startLine          = date("j-M-Y, g:i A", strtotime($start));
         $endLine            = date("j-M-Y, g:i A", strtotime($end));
         $purposeLine        = str_replace('&', 'and', $purpose);
+        $destinationLine    = str_replace('&', 'and', $destination);
+
         //Send Line Message
-        $message = "Modify Status,%0A Modify By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Room: $car_name,%0A Start: $startLine,%0A End: $endLine,%0A";
+        $message = "Modify Status,%0A Modify By: $userName,%0A Department: $department,%0A Destination: $destinationLine,%0A Purpose: $purposeLine,%0A Driver: $driverName ($driverContact),%0A Car: $carNumber,%0A Start: $startLine,%0A End: $endLine.";
+
         //Send Line Message
         $this->lineMsg($message);
-        // Save In DB
-        $success             = $data->save();
+        
 
         if($success){
             return response()->json([
