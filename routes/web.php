@@ -634,6 +634,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         // Application Admin
         Route::middleware(['can:appAdmin'])->namespace('ApplicationAdmin')->prefix('a_admin')->group(function(){
 
+            Route::get('/dashboard_data', 'IndexController@dashboard_data');
+
             //Category 
             Route::namespace('Category')->prefix('category')->group(function(){
                 Route::get('/index', 'IndexController@index');
@@ -666,7 +668,6 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::namespace('Reports')->prefix('reports')->group(function(){
                 Route::get('/index', 'IndexController@index');
                 Route::get('/canceled', 'IndexController@canceled');
-               
             });
 
            

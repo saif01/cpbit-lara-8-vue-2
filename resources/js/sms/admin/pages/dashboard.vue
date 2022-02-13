@@ -2,7 +2,7 @@
     <div>
        <h1 class="text-center">SMS Admin Dashboard</h1>
 
-       <v-row>
+        <v-row>
             <v-col cols="4">
                 <v-card class="bg_card">
                     <v-card-text class="h5 white--text">
@@ -53,7 +53,6 @@
                 </v-card>
             </v-col>
 
-
             <v-col cols="4">
                 <v-card class="bg_card_3">
                     <v-card-text class="h5 white--text">
@@ -78,11 +77,8 @@
                     </v-card-text>
                 </v-card>
             </v-col>
+        </v-row>
 
-       </v-row>
-
-
-       
     </div>
 </template>
 
