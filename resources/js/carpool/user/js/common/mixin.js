@@ -40,8 +40,8 @@ export default {
             
 
             //comment count
-            commentCount: null,
-            navbarKeyIndex: 0,
+            // commentCount: null,
+            // navbarKeyIndex: 0,
 
             // Tbl number of data show
             tblItemNumberShow:[5,10,15,25,50,100], 
@@ -87,20 +87,24 @@ export default {
 
 
 
-        // carNotCommented 
         carNotCommented(){
             axios.get('/carpool/comment/comment_count').then(response => {
-            
+                let commentCount = response.data;
+                // console.log('car commented data', response.data);
+                // Data Update in store
+                this.$store.commit('setCounter', response.data)
+                if( commentCount >= 2 ){
+                    // Data Update in store
+                    this.$store.commit('setCounterDialog', true)
+                }
                 
-                this.commentCount = response.data;
-                console.log('car commented data', response.data);
-
-                this.navbarKeyIndex++
-
             }).catch(error => {
+                // Data Update in store
+                this.$store.commit('setCounterDialog', false)
                 console.log(error)
             })
         },
+    
     
 
         
@@ -158,6 +162,10 @@ export default {
         ...mapGetters({
             'auth'      : 'getAuth',
             'roles'     : 'getRoles',
+
+            'notComCount'  : 'getCounter',
+            'counterDialogShow' : 'getCounterDialog',
+            'counterDialogKey' : 'getCounterDialogKey'
         }),
 
     },

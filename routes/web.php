@@ -271,6 +271,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::post('/store', 'BookingController@store');
             });
 
+            // booked
             Route::prefix('booked')->group(function(){
                 Route::get('/data', 'BookedController@data');
                 Route::get('/destinations', 'BookedController@destinations');
@@ -280,6 +281,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::post('/status/{id}', 'BookedController@status');
             });
 
+            // comment
             Route::prefix('comment')->group(function(){
                 Route::get('/index', 'CommentController@index');
                 Route::put('/update_comment', 'CommentController@update_comment');

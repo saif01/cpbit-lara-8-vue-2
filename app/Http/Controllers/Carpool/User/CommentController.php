@@ -14,29 +14,28 @@ use App\Models\Carpool\CarpoolCar;
 class CommentController extends Controller
 {
 
-    // get uncommented data
+    // get uncommented data 
     public function index(){
-        $date = Carbon::now()->subDays(3);
-        $a = Auth::user()->id;
-
+       
         $allData = CarpoolBooking::with('car')
-            ->where('user_id', '=', 442)
+            ->where('status', '1')
+            ->where('user_id',  Auth::user()->id)
             ->whereNull('comit_st')
-            ->where('end', '<',Carbon::now())
-            ->take(3)
+            ->where('start', '<=', Carbon::now())
+            ->orderBy('start', 'asc')
             ->get();
 
         return response()->json($allData, 200);
     }
 
 
-
+    // comment_count
     public function comment_count(){
-        $date = Carbon::now()->subDays(3);
-        $a = Auth::user()->id;
-
-        $allData = CarpoolBooking::where('user_id', '=', 442)
+       
+        $allData = CarpoolBooking::where('user_id', Auth::user()->id )
+            ->where('status', '1')
             ->whereNull('comit_st')
+            ->where('end', '<=', Carbon::now())
             ->count();
 
         return response()->json($allData, 200);

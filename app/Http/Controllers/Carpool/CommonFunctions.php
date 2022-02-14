@@ -77,6 +77,17 @@ trait CommonFunctions {
 
     }
 
+    // Check Not Commented
+    public function CheckNotCommentedCount(){
+        $data = CarpoolBooking::where('user_id', Auth::user()->id )
+        ->where('status', '1')
+        ->whereNull('comit_st')
+        ->where('end', '<=', Carbon::now())
+        ->count();
+
+        return $data;
+    }
+
 
     //Today Booked Message Send
     function DailyBookedLineMsg(){

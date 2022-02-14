@@ -5,12 +5,12 @@
                 <v-card-text>
                     <v-row>
                         <v-col md="5">
-                            <v-img v-if="singleData.car.image" :src="imagePath + singleData.car.image" max-height="250" class="rounded-lg" @click="carDetails(singleData.car)" style="cursor:pointer"></v-img>
+                            <v-img v-if="singleData.car" :src="imagePath + singleData.car.image" max-height="250" class="rounded-lg" @click="carDetails(singleData.car)" style="cursor:pointer"></v-img>
                         </v-col>
 
                         <v-col md="7">
                             <div class="d-flex justify-content-between align-center flex-wrap">
-                                <div>
+                                <div v-if="singleData.car">
                                     <v-btn @click="carDetails(singleData.car)" depressed text color="indigo">
                                         {{singleData.car.name}} || {{singleData.car.number}}
                                     </v-btn>
@@ -26,7 +26,6 @@
                             <v-col cols="12">{{singleData.start}} -- To -- {{singleData.end}} </v-col>
 
                             <v-btn block color="teal white--text" @click="comment(singleData.id)">Comment</v-btn>
-                            
                             
                         </v-col>
                     </v-row>
@@ -178,7 +177,7 @@ export default {
             axios.get(this.currentUrl + '/index' ).then(response => {
             
                 this.commentData = response.data
-                this.carNotCommented();
+                // this.carNotCommented();
                 
                 
 
@@ -257,7 +256,7 @@ export default {
               
                 // carNotCommented
                 this.carNotCommented();
-                location.reload();
+                //location.reload();
     
                 Toast.fire({
                     icon: response.data.icon,
@@ -305,7 +304,11 @@ export default {
 
 
     created(){
+        this.$Progress.start();
+
         this.getCarData();
+
+        this.$Progress.finish();
     }
 }
 </script>

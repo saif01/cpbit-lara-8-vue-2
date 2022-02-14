@@ -2,6 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+// Vuex File
+import store from './store';
+
 import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
@@ -85,6 +88,12 @@ router.beforeEach( (to, from, next) => {
     // set current title
     document.title =`${ appName } ${ title }`;
 
+    // Not Commented Dialog Show
+    if(store.state.counter >= 2){
+        store.commit('setCounterDialogKey')
+        store.commit('setCounterDialog', true)
+    }
+    
     next();
 });
 

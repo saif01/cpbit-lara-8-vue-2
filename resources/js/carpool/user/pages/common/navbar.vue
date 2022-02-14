@@ -9,11 +9,10 @@
 
             <v-spacer></v-spacer>
             <v-btn icon link route :to="{ name: 'notCommented'}">
-                <v-badge color="green" :content="counter" left></v-badge>
+                <v-badge v-if="(notComCount >= 2)" color="error" :content="notComCount" left></v-badge>
                 <v-icon>
                     mdi-bell-ring-outline
                 </v-icon>
-
             </v-btn>
 
             <v-toolbar-items class="hidden-sm-and-down">
@@ -79,22 +78,23 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
+
+        
+
     </div>
 </template>
 
 <script>
-    export default {
-        props: ['counter'],
 
+    export default {
+       
         data(){
             return{
                 drawer: null,
             }
         },
 
-        created() {
-            //this.carNotCommented();
-        },
+       
     }
 
 </script>

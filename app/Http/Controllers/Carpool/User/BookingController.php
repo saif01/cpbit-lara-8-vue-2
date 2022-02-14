@@ -153,7 +153,15 @@ class BookingController extends Controller
             }
         }
 
-        
+        // CheckNotCommentedCount
+        $notCommentCounter = $this->CheckNotCommentedCount();
+        if( $notCommentCounter >= 2 ){
+            return response()->json([
+                'status'=>'error',
+                'msg'=>'Booked Car <b>Comment</b> Was Not Completed !! &#128530;', 
+                'icon'=>'warning'
+            ]);
+        }
 
         $data = new CarpoolBooking();
 
