@@ -14,7 +14,7 @@
 
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                    <span v-if="auth">{{ auth.name }}</span>
+                    <span v-if="auth" class="m-1">{{ auth.name }}</span>
                     <v-avatar v-bind="attrs" v-on="on" contain>
                         <img v-if="auth.image" :src="'/images/users/small/'+auth.image" alt="image">
                         <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image">
@@ -36,7 +36,7 @@
                 <v-list-item-icon>
                     <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
                 </v-list-item-icon>
-                <v-list-item-title>Room Admin</v-list-item-title>
+                <v-list-item-title>Hard. Admin</v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
 
@@ -54,7 +54,7 @@
 
                
                  <!-- Sidebar Multi level Item -->
-                <v-list-group prepend-icon="mdi-format-list-group" active-class="dark--text" no-action>
+                <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text" no-action>
                     <template v-slot:activator>
                         <v-list-item-title>Others</v-list-item-title>
                     </template>
@@ -150,6 +150,11 @@
         methods: {
             toggle() {
                 this.fullscreen = !this.fullscreen
+                if(this.fullscreen == false){
+                    this.expand();
+                }else{
+                    this.exitExpand();
+                }
             },
             expand() {
                 var elem = document.documentElement;
@@ -188,5 +193,12 @@
     a:hover {
         text-decoration: none;
     }
+
+    .v-list-group__items .v-list-item--active {
+        background-color: #3f51b5;
+        border-color: #3f51b5;
+        color: white;
+    }
+
 
 </style>

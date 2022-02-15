@@ -142,6 +142,11 @@
         methods: {
             toggle() {
                 this.fullscreen = !this.fullscreen
+                if(this.fullscreen == false){
+                    this.expand();
+                }else{
+                    this.exitExpand();
+                }
             },
             expand() {
                 var elem = document.documentElement;

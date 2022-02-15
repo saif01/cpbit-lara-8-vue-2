@@ -5,8 +5,8 @@ Vue.use(VueRouter);
 import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
-import Category from './../pages/category/index.vue'
-import Subcategory from './../pages/subcategory/index.vue'
+import Category from './../pages/others/category/index.vue'
+import Subcategory from './../pages/others/subcategory/index.vue'
 
 
 const router = new VueRouter({

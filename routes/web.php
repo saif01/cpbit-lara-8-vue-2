@@ -691,25 +691,30 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         //Hardware Admin 
         Route::middleware(['can:hardAdmin'])->namespace('HardwareAdmin')->prefix('h_admin')->group(function(){
 
-            //Category 
-            Route::namespace('Category')->prefix('category')->group(function(){
-                Route::get('/index', 'IndexController@index');
-                Route::post('/store', 'IndexController@store');
-                Route::put('/update/{id}', 'IndexController@update');
-                Route::delete('/destroy/{id}', 'IndexController@destroy');
+            // Others
+            Route::namespace('Others')->group(function(){
+
+                //Category 
+                Route::namespace('Category')->prefix('category')->group(function(){
+                    Route::get('/index', 'IndexController@index');
+                    Route::post('/store', 'IndexController@store');
+                    Route::put('/update/{id}', 'IndexController@update');
+                    Route::delete('/destroy/{id}', 'IndexController@destroy');
+                });
+
+                //Subcategory 
+                Route::namespace('Subcategory')->prefix('subcategory')->group(function(){
+                    Route::get('/index', 'IndexController@index');
+                    Route::post('/store', 'IndexController@store');
+                    Route::put('/update/{id}', 'IndexController@update');
+                    Route::delete('/destroy/{id}', 'IndexController@destroy');
+
+                    Route::get('/category', 'IndexController@category');
+                });
+
             });
 
-            //Subcategory 
-            Route::namespace('Subcategory')->prefix('subcategory')->group(function(){
-                Route::get('/index', 'IndexController@index');
-                Route::post('/store', 'IndexController@store');
-                Route::put('/update/{id}', 'IndexController@update');
-                Route::delete('/destroy/{id}', 'IndexController@destroy');
-
-                Route::get('/category', 'IndexController@category');
-            });
-
-           
+            
             Route::get('{any?}', 'IndexController@index');
         });
 
