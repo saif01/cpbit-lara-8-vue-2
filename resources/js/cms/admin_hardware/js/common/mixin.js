@@ -17,7 +17,6 @@ export default {
     data() {
       return {
       
-        // DataTbl Common Featurs 
         paginate: 10,
         search: '',
         search_field: '',
@@ -29,6 +28,12 @@ export default {
         totalValue: '',
         dataShowFrom: '',
         dataShowTo: '',
+
+        // For Modal Dilog
+        dataModalDialog :false,
+        // Loading Animation
+        dataModalLoading: false,
+
         editmode: false,
         dataModelTitle: 'Store Data',
         // Loading Animation
@@ -36,10 +41,11 @@ export default {
 
         imageMaxSize: '2111775',
         fileMaxSize: '5111775',
-        overlayshow: false,
 
         // Tbl number of data show
         tblItemNumberShow:[5,10,15,25,50,100],
+        // v-form
+        valid: false,
       }
     },
 

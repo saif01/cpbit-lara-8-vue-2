@@ -64,7 +64,7 @@
 
 
         created() {
-            console.log('I am demo dashboard')
+            console.log('I am CMS user dashboard')
         },
 
 

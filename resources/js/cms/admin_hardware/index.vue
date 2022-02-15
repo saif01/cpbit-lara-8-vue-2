@@ -1,7 +1,5 @@
 <template>
     <v-app>
-
-    
         <side-bar></side-bar>
 
         <v-main>
@@ -11,7 +9,6 @@
         </v-main>
 
         <page-footer></page-footer>
-
     </v-app>
 </template>
 
@@ -26,7 +23,7 @@ export default {
     props: ['authuser', 'permission'],
 
     components:{
-       'side-bar'        : sideBar,
+       'side-bar'       : sideBar,
        'page-footer'    : pageFooter,
     },   
 

@@ -5,9 +5,8 @@ Vue.use(VueRouter);
 import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
-
-
-
+import Category from './../pages/category/index.vue'
+import Subcategory from './../pages/subcategory/index.vue'
 
 
 const router = new VueRouter({
@@ -15,13 +14,32 @@ const router = new VueRouter({
     routes : [
 
         { 
-            path: '/demo/admin', 
+            path: '/cms/h_admin', 
             component: Dashboard,
             name: 'Dashboard',
             meta:{
-                title: 'Admin Demo Dashboard',
+                title: 'Admin Hardware Dashboard',
             },   
         },
+        { 
+            path: '/cms/h_admin/category', 
+            component: Category,
+            name: 'Category',
+            meta:{
+                title: 'Hardware Category Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/subcategory', 
+            component: Subcategory,
+            name: 'Subcategory',
+            meta:{
+                title: 'Hardware Subcategory Admin',
+            },   
+        },
+
+
+
 
         
 

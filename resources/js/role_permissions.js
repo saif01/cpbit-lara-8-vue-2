@@ -108,6 +108,16 @@ export default{
     },
 
 
+    // CMS
+    isApplicationAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Application-admin']);
+    },
+    isHardwareAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Hardware-admin']);
+    },
+    isCms(){
+        return this.checkAnyRoleOfArray(['Administrator', 'cms']);
+    },
 
 
 

@@ -21,6 +21,9 @@ class ApplicationSubcategory extends Model
     public function scopeSearch($query, $val='')
     {
         return $query
-        ->where('name', 'LIKE', '%'.$val.'%'); 
+        ->where('name', 'LIKE', '%'.$val.'%')
+        ->orWhereHas('category', function($q) use ($val){
+            $q->WhereRaw('name LIKE ?', '%'.$val.'%');
+        }); 
     }
 }

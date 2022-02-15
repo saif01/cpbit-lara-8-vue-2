@@ -22,7 +22,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6" v-if="isCms()">
                     <a href="/cms" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="helpDesk img__logo"><img src="/all-assets/common/icon/application.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
@@ -31,7 +31,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-6 col-6" v-if="isSms()">
+                <div class="col-lg-3 col-6" v-if="isSms()">
                     <a href="/sms" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="sms img__logo"><img src="/all-assets/common/icon/sms.png" alt="SMS" class="img-fluid rotate_icon"></div>

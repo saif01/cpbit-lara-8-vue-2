@@ -25,7 +25,7 @@
                 </div>
 
                 <!-- Application -->
-                <div class="col-lg-3 col-6" v-if="isRoomAdmin()">
+                <div class="col-lg-3 col-6" v-if="isApplicationAdmin()">
                     <a href="/cms/a_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="application img__logo"><img src="/all-assets/common/icon/application.png" alt="Application" class="img-fluid rotate_icon"></div>
@@ -34,16 +34,14 @@
                     </a>
                 </div>
 
-               
-                
-                <!-- <div class="col-lg-3 col-6">
-                    <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                <div class="col-lg-3 col-6" v-if="isHardwareAdmin()">
+                    <a href="/cms/h_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="hardware img__logo"><img src="/all-assets/common/icon/hardware.png" alt="Hardware" class="img-fluid rotate_icon"></div>
                         </div>
                         <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Hardware</div> 
                     </a>
-                </div> -->
+                </div>
             </div>
 
             <!-- <div class="d-flex flex-wrap justify-content-around mt-5">

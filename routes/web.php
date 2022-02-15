@@ -688,17 +688,25 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
 
-        //Hardware Admin
+        //Hardware Admin 
         Route::middleware(['can:hardAdmin'])->namespace('HardwareAdmin')->prefix('h_admin')->group(function(){
 
-            //Room 
-            Route::namespace('Room')->prefix('room')->group(function(){
+            //Category 
+            Route::namespace('Category')->prefix('category')->group(function(){
                 Route::get('/index', 'IndexController@index');
                 Route::post('/store', 'IndexController@store');
                 Route::put('/update/{id}', 'IndexController@update');
-                Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
                 Route::delete('/destroy/{id}', 'IndexController@destroy');
-                Route::post('/status/{id}', 'IndexController@status');
+            });
+
+            //Subcategory 
+            Route::namespace('Subcategory')->prefix('subcategory')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+
+                Route::get('/category', 'IndexController@category');
             });
 
            

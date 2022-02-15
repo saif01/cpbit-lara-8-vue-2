@@ -4,7 +4,7 @@
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
             <v-spacer></v-spacer>
-            <v-app-bar-title v-if="isAdministrator()" class="red--text" small>Administrator</v-app-bar-title>
+            <v-app-bar-title v-if="isAdministrator()" small>Administrator</v-app-bar-title>
             <v-spacer></v-spacer>
             <v-btn icon @click="toggle()">
                 <v-icon v-if="fullscreen">mdi-fullscreen</v-icon>
@@ -52,25 +52,33 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'RoomIndex'}">
-                    <v-list-item-icon>
-                        <v-icon>mdi-home-group </v-icon>
-                    </v-list-item-icon>
+               
+                 <!-- Sidebar Multi level Item -->
+                <v-list-group prepend-icon="mdi-format-list-group" active-class="dark--text" no-action>
+                    <template v-slot:activator>
+                        <v-list-item-title>Others</v-list-item-title>
+                    </template>
 
-                    <v-list-item-content>
-                        <v-list-item-title>Rooms</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item link router :to="{name: 'Category'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-format-list-checks</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Category</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item link router :to="{name: 'ReportIndex'}">
-                    <v-list-item-icon>
-                        <v-icon>mdi-chart-bar</v-icon>
-                    </v-list-item-icon>
+                    <v-list-item link router :to="{name: 'Subcategory'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-format-list-text</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Subcategory</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                    <v-list-item-content>
-                        <v-list-item-title>Report</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                </v-list-group>
+                
 
                 <v-list-item link router href="/logout">
                     <v-list-item-icon>
@@ -173,9 +181,8 @@
 
 <style scoped>
     .bg_gradient {
-        background: #44a08d;
-        background: -webkit-linear-gradient(to bottom, #093637, #44a08d);
-        background: linear-gradient(to bottom, #093637, #44a08d);
+        background: -webkit-linear-gradient(to bottom, #5bb0b0, #212839);
+        background: linear-gradient(to bottom, #5bb0b0, #212839);
     }
 
     a:hover {
