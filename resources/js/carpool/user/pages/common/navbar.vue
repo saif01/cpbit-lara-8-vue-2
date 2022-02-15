@@ -9,7 +9,7 @@
 
             <v-spacer></v-spacer>
             <v-btn icon link route :to="{ name: 'notCommented'}">
-                <v-badge v-if="(notComCount >= 2)" color="error" :content="notComCount" left></v-badge>
+                <v-badge v-if="notComCount" color="error" :content="notComCount" left></v-badge>
                 <v-icon>
                     mdi-bell-ring-outline
                 </v-icon>

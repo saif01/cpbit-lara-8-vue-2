@@ -14,7 +14,7 @@
         },
 
         created(){
-            console.log('I am room dashboard')
+            //console.log('I am room dashboard')
         }
     }
 </script>

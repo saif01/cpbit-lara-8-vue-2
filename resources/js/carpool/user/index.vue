@@ -14,7 +14,7 @@
 
 
         <!-- not commented component modal -->
-        <v-dialog v-if="notComCount" :key="counterDialogKey"  v-model="counterDialogShow" max-width="600">
+        <v-dialog persistent v-if="notComCount" :key="counterDialogKey"  v-model="counterDialogShow" max-width="600">
             <v-card>
                 <v-card-title justify-center>
                     <v-row>
@@ -23,11 +23,10 @@
                         </v-col>
                         <v-col cols="2">
                             <v-btn @click="$store.commit('setCounterDialog', false)" color="error lighten-1 white--text" small class="float-right" icon>
-                                <v-icon>mdi-close-octagon</v-icon>
+                                <v-icon>mdi-close-octagon</v-icon> Close
                             </v-btn>
                         </v-col>
                     </v-row>
-
                 </v-card-title>
                 
                 <v-card-text @click="$store.commit('setCounterDialog', false)">
@@ -68,25 +67,6 @@ export default {
 
     methods:{
 
-        
-        // carNotCommented(){
-        //     axios.get('/carpool/comment/comment_count').then(response => {
-        //         let commentCount = response.data;
-        //         // console.log('car commented data', response.data);
-        //         // Data Update in store
-        //         this.$store.commit('setCounter', response.data)
-        //         if( commentCount >= 2 ){
-        //             // Data Update in store
-        //             this.$store.commit('setCounterDialog', true)
-        //         }
-                
-        //     }).catch(error => {
-        //         // Data Update in store
-        //         this.$store.commit('setCounterDialog', false)
-        //         console.log(error)
-        //     })
-        // },
-    
 
        
     },
@@ -94,18 +74,7 @@ export default {
 
     mounted(){
 
-        // window.onload = (event) => {
-        //     //this.navbarKeyIndex++
-
-        //     this.commentValue = this.commentCount
-        //     console.log('outside', this.commentCount)
-        //     if(this.commentCount > 2){
-        //         console.log('inside if', this.commentCount )
-        //         this.commentDialogShow = true
-
-        //     };
-        // }
-
+       
         
     },
 
