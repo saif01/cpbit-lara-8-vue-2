@@ -77,6 +77,15 @@
                         </v-list-item-content>
                     </v-list-item>
 
+                    <v-list-item link router :to="{name: 'Acsosoris'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-format-list-text</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Acsosoris</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
                 </v-list-group>
                 
 

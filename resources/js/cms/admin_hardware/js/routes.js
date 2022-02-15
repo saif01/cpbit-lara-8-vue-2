@@ -7,6 +7,7 @@ import er404 from '../pages/common/404.vue'
 
 import Category from './../pages/others/category/index.vue'
 import Subcategory from './../pages/others/subcategory/index.vue'
+import Acsosoris from './../pages/others/acsosoris/index.vue'
 
 
 const router = new VueRouter({
@@ -35,6 +36,14 @@ const router = new VueRouter({
             name: 'Subcategory',
             meta:{
                 title: 'Hardware Subcategory Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/cat_dependency', 
+            component: Acsosoris,
+            name: 'Acsosoris',
+            meta:{
+                title: 'Hardware Acsosoris Admin',
             },   
         },
 

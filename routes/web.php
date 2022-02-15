@@ -712,6 +712,14 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                     Route::get('/category', 'IndexController@category');
                 });
 
+                //Acsosoris 
+                Route::namespace('Acsosoris')->prefix('acsosoris')->group(function(){
+                    Route::get('/index', 'IndexController@index');
+                    Route::post('/store', 'IndexController@store');
+                    Route::put('/update/{id}', 'IndexController@update');
+                    Route::delete('/destroy/{id}', 'IndexController@destroy');
+                });
+
             });
 
             
