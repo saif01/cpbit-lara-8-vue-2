@@ -31,7 +31,7 @@ class IndexController extends Controller
 
     // category
     public function category(){
-        $allData = HardwareCategory::select('id','name')->get();
+        $allData = HardwareCategory::select('id','name')->orderBy('name')->get();
         return response()->json($allData);
     }
 

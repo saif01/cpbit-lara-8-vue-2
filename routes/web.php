@@ -222,8 +222,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 // status
                 Route::post('/status/{id}', 'IndexController@status');
 
-                 // car data
-                Route::get('/car-data', 'IndexController@CarData');
+                // car data
+                Route::get('/free_car_data', 'IndexController@free_car_data');
 
                 // driver leave
                 Route::post('/store_leave', 'IndexController@store_leave');
@@ -700,6 +700,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                     Route::post('/store', 'IndexController@store');
                     Route::put('/update/{id}', 'IndexController@update');
                     Route::delete('/destroy/{id}', 'IndexController@destroy');
+
+                    Route::get('/acsosoris', 'IndexController@acsosoris');
                 });
 
                 //Subcategory 
@@ -722,6 +724,24 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             });
 
+            // User
+            Route::namespace('User')->prefix('user')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/roles_update', 'IndexController@roles_update');
+             
+                Route::get('/zone_data', 'IndexController@zone_data');
+            });
+
+            // Complain 
+            Route::namespace('Complain')->prefix('complain')->group(function(){
+                Route::get('/not_process', 'ComplainController@not_process');
+                Route::get('/processing', 'ComplainController@processing');
+                Route::get('/closed', 'ComplainController@closed');
+
+                Route::get('/action/{id}', 'ActionController@action');
+                Route::post('/action_remarks', 'ActionController@action_remarks');
+            });
+
             
             Route::get('{any?}', 'IndexController@index');
         });
@@ -733,9 +753,16 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::prefix('app')->group(function(){
                
                 Route::post('/complain', 'ApplicationController@complain');
-               
                 Route::get('/category', 'ApplicationController@category');
-                Route::get('/subcategory/{id}', 'ApplicationController@subcategory');
+                
+            });
+
+            //Hardware 
+            Route::prefix('hard')->group(function(){
+               
+                Route::post('/complain', 'HardwareController@complain');
+                Route::get('/category', 'HardwareController@category');
+               
             });
 
 

@@ -93,7 +93,7 @@
                             {{dataModelTitle}}
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="dataModalDialog = false" color="red lighten-1 white--text" small
+                            <v-btn @click="dataModalDialog = false,resetForm()" color="red lighten-1 white--text" small
                                 class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>

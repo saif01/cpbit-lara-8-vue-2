@@ -84,7 +84,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-group no-action prepend-icon="mdi-chart-bar">
+                <v-list-group no-action prepend-icon="mdi-chart-bar" active-class="indigo white--text">
                     <template v-slot:activator>
                         <v-list-item-title>Report</v-list-item-title>
                     </template>
@@ -170,6 +170,12 @@ export default {
     methods: {
         toggle() {
             this.fullscreen = !this.fullscreen
+
+            if(this.fullscreen == false){
+                this.expand()
+            }else{
+                this.exitExpand()
+            }
         },
         expand() {
             var elem = document.documentElement;
@@ -205,6 +211,12 @@ export default {
 }
 a:hover {
     text-decoration: none;
+}
+
+.v-list-group__items .v-list-item--active {
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+    color: white;
 }
 
 </style>

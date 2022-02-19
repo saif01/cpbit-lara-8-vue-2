@@ -20,4 +20,20 @@ class CarpoolLeaves extends Model
     	return $this->belongsTo('App\Models\Carpool\CarpoolDriver','driver_id');
     }
 
+
+    // search
+    public function scopeSearch($query, $val='')
+    {
+        return $query
+        ->where('start', 'LIKE', '%'.$val.'%')
+        ->OrWhere('end', 'LIKE', '%'.$val.'%')
+        ->OrWhere('status', 'LIKE', '%'.$val.'%')
+        ->orWhereHas('car', function($query) use ($val){
+            $query->WhereRaw('name LIKE ?', '%'.$val.'%');
+        })
+        ->orWhereHas('driver', function($query) use ($val){
+            $query->WhereRaw('name LIKE ?', '%'.$val.'%');
+        });
+    }
+
 }

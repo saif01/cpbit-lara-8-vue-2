@@ -9,7 +9,7 @@
             <div class="d-flex flex-wrap justify-content-around align-items-center adjust-gap">
                 <div class="col-12 col-lg-6 m-auto responsive-gap">
                     <div class="d-flex flex-column align-items-center">
-                        <div>
+                        <div @click="hardwareComplainDialog()">
                             <img src="/all-assets/common/icon/hardware.png" alt="image" class="img-fluid images bg-white" />
                         </div>
                         <div class="h2 my-1">Hardware & Network</div>
@@ -26,7 +26,10 @@
             </div>
         </div>
 
+        <!-- hardware-complain -->
+        <hardware-complain v-if="hardwareDialogShow" :key="hardwareComKey" ></hardware-complain>
 
+        <!-- application-complain -->
         <application-complain v-if="applicationDialogShow" :key="applicationComKey" ></application-complain>
 
     </div>
@@ -36,17 +39,24 @@
 
 <script>
 
+    import hardwareComplain from './hardware_complain.vue'
     import applicationComplain from './application_complain.vue'
 
 
     export default {
 
         components:{
-            applicationComplain
+            hardwareComplain,
+            applicationComplain,
         },
 
         data(){
             return{
+
+                hardwareDialogShow: false,
+                hardwareComKey: 0,
+
+
                 applicationDialogShow: false,
                 applicationComKey: 0,
 
@@ -54,11 +64,18 @@
         },
 
         methods:{
+
+            // hardwareComplainDialog
+            hardwareComplainDialog(){
+                this.hardwareDialogShow = true
+                this.hardwareComKey++
+            },
+
             // applicationComplainDialog
             applicationComplainDialog(){
                 this.applicationDialogShow = true
                 this.applicationComKey++
-            }
+            },
 
         },
 

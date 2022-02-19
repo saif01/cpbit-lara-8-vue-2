@@ -17,15 +17,15 @@ class ApplicationController extends Controller
 
     //category
     public function category(){
-        $allData = ApplicationCategory::select('id','name')->get();
+        $allData = ApplicationCategory::with('subcat')->orderBy('name')->get();
         return response()->json($allData);
     }
 
     //subcategory
-    public function subcategory($id){
-        $allData = ApplicationSubcategory::select('id','name')->get();
-        return response()->json($allData);
-    }
+    // public function subcategory($id){
+    //     $allData = ApplicationSubcategory::where('id', $id)->select('id','name')->orderBy('name')->get();
+    //     return response()->json($allData);
+    // }
 
     // complain
     public function complain(Request $request){

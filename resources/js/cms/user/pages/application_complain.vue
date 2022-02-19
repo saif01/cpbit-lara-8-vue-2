@@ -19,7 +19,7 @@
 
                      <form @submit.prevent="complainStore()"> 
                         
-                            <v-row align-content="center">
+                            <v-row align-content="center" class="pt-5">
                                 <v-col cols="6">
                                     <div class="small text-danger" v-if="form.errors.has('cat_id')" v-html="form.errors.get('cat_id')" />
                                     <v-autocomplete :items="allCategory" @change="getSubcategory
@@ -128,6 +128,8 @@
 
                 allCategory:[],
                 allSubcategory:[],
+                allCatData:'',
+                
 
                 dataModalLoading: false,
 
@@ -151,7 +153,7 @@
             // getAllCategory
             getAllCategory(){
                 axios.get( this.currentUrl + '/category').then( response=>{
-                    //this.allCategory = response.data
+                    this.allCatData = response.data
                     //console.log(response.data)
                     for (let i = 0; i < response.data.length; i++) {
                         this.allCategory.push(response.data[i]);
@@ -164,20 +166,28 @@
 
             // getSubcategory
             getSubcategory(){
-                console.log('cat id', this.form.cat_id)
-                // Make Empty
-                this.allSubcategory = []
-
-                axios.get( this.currentUrl + '/subcategory/'+ this.form.cat_id).then( response=>{
-                    //this.allCategory = response.data
-                    //console.log(response.data)
-                    for (let i = 0; i < response.data.length; i++) {
-                        this.allSubcategory.push(response.data[i]);
-                        this.allSubcategory[i] = { value: response.data[i].id, text: response.data[i].name };
+                // console.log('cat id', this.form.cat_id)
+               
+                this.allCatData.forEach(element=>{
+                    //console.log(element.id)
+                   
+                    if(element.id == this.form.cat_id){
+                        //console.log(element)
+                        this.allSubcategory = []
+                        if(element.subcat.length > 0){
+                            for (let i = 0; i < element.subcat.length; i++) {
+                                this.allSubcategory.push(element.subcat[i]);
+                                this.allSubcategory[i] = {
+                                    value: element.subcat[i].id,
+                                    text: element.subcat[i].name
+                                };
+                            }
+                       
+                        }
                     }
-                }).catch(error=>{
-                    console.log(error)
                 })
+
+             
             },
 
             // complainStore
@@ -186,11 +196,10 @@
                 this.dataModalLoading = true
 
                 this.form.post( this.currentUrl + '/complain' ).then(response=>{
-                    console.log(response.data)
+                    // console.log(response.data)
 
                     // Loading
                     this.dataModalLoading = false
-
                     this.appComplainDialog = false
 
                     Swal.fire({
@@ -202,6 +211,10 @@
                     // Loading
                     this.dataModalLoading = false
                     console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sorry!! Somthing going wrong',
+                    })
                 })
 
             },

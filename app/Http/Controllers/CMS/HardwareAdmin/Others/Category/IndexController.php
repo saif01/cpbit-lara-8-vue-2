@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Cms\Hardware\HardwareCategory;
+use App\Models\Cms\Hardware\HardwareAcsosoris;
 use Auth;
 
 class IndexController extends Controller
@@ -19,7 +20,7 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = HardwareCategory::with('makby')
+        $allData = HardwareCategory::with('makby', 'acsosoris')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
@@ -28,11 +29,17 @@ class IndexController extends Controller
 
     }
 
+    // acsosoris
+    public function acsosoris(){
+        $allData = HardwareAcsosoris::select('id','name')->orderBy('name')->get();
+        return response()->json($allData);
+    }
+
    
     // store
     public function store(Request $request){
 
-        //dd($request->all(), $request->image);
+        // dd($request->all());
 
         //Validate
         $this->validate($request,[
@@ -48,6 +55,11 @@ class IndexController extends Controller
         $data->label      = $request->label;
         $data->created_by = Auth::user()->id;
         $success          = $data->save();
+
+        // Update Acsosoris
+        if($request->acsosoris){
+            $data->acsosoris()->sync($request->acsosoris);
+        }
 
         if($success){
             return response()->json(['msg'=>'Stored Successfully &#128513;', 'icon'=>'success'], 200);
@@ -76,6 +88,11 @@ class IndexController extends Controller
         $data->label      = $request->label;
         $data->created_by = Auth::user()->id;
         $success          = $data->save();
+
+        // Update Acsosoris
+        if($request->acsosoris){
+            $data->acsosoris()->sync($request->acsosoris);
+        }
 
         if($success){
             return response()->json(['msg'=>'Updated Successfully &#128515;', 'icon'=>'success'], 200);

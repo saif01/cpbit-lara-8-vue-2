@@ -10,7 +10,7 @@
                     <v-row class="text-white">
                         <v-col cols="12" md="6" class="py-0">
                             <v-img v-if="item.car.image" :src="imagePath+item.car.image" alt="Image"
-                                max-height="220px" class="rounded-lg"></v-img>
+                                max-height="245px" class="rounded-lg"></v-img>
                             <v-img v-else src="/all-assets/common/img/no-image.png" 
                                 alt="Image" max-height="220px" class="rounded-lg"></v-img>
                         </v-col>
@@ -33,11 +33,15 @@
                                 </tr>
                                 <tr>
                                     <th>Driver Details:&nbsp;</th>
-                                    <td class="py-1"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
+                                    <td class="pb-1"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Destination:</th>
+                                    <td class="pb-1">{{ item.destination }}</td>
                                 </tr>
                                 <tr>
                                     <th>Purpose:</th>
-                                    <td class="py-1">{{ item.purpose }}</td>
+                                    <td class="pb-1">{{ item.purpose }}</td>
                                 </tr>
                                 <tr>
                                     <th>Booked:</th>
@@ -94,7 +98,7 @@
                             Modify Booking
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="eventDataStoreModal = false" color="red lighten-1" small text
+                            <v-btn @click="eventDataStoreModal = false, resetForm()" color="red lighten-1" small text
                                 class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
@@ -118,8 +122,7 @@
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
                                     <v-card>
-                                      
-                                            <div v-if="relatedBookings.length > 0">
+                                        <div v-if="relatedBookings.length > 0">
                                             <v-card-text v-for="item in relatedBookings" :key="item.id" class="bg-info">
                                                 <table class="table table-sm text-center">
                                                     <tr>
@@ -141,102 +144,106 @@
                         </v-expansion-panels>
                     </div>
 
-                    <form @submit.prevent="storeCurrentEventData()">
+                    <v-form ref="form">
 
-                        <v-row>
-                            <v-col cols="12">
-                                <div class="small text-danger" v-if="form.errors.has('destination')" v-html="form.errors.get('destination')" />
-                                <v-autocomplete dense solo :items="allDestinations" v-model="form.destination" label="Select a destination" :rules="[v => !!v || 'Destination  is required!']" required></v-autocomplete>
-                            </v-col>
-                        </v-row>
+                        <form @submit.prevent="storeCurrentEventData()">
 
-                        <v-row>
-                            <v-col cols="12" md="6">
-                                <!-- start_date -->
-                                <v-menu v-model="menu" min-width="auto">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.start_date" label="Start Date"
-                                            prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
-                                        </v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('start_date')"
-                                            v-html="form.errors.get('start_date')" />
-                                    </template>
+                            <v-row>
+                                <v-col cols="12">
+                                    <div class="small text-danger" v-if="form.errors.has('destination')" v-html="form.errors.get('destination')" />
+                                    <v-autocomplete dense solo :items="allDestinations" v-model="form.destination" label="Select a destination" :rules="[v => !!v || 'Destination  is required!']" required></v-autocomplete>
+                                </v-col>
+                            </v-row>
 
-                                    <v-date-picker v-model="form.start_date" no-title scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="menu = false"> Cancel</v-btn>
-                                        <v-btn text color="success"> Set Today</v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                            </v-col>
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <!-- start_date -->
+                                    <v-menu v-model="menu" min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.start_date" label="Start Date"
+                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                            </v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('start_date')"
+                                                v-html="form.errors.get('start_date')" />
+                                        </template>
 
-                            <v-col cols="12" md="6">
-                                <!-- end_date -->
-                                <v-menu v-model="menu2" min-width="auto">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.end_date" label="End Date"
-                                            prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                            :class="{ 'is-invalid': form.errors.has('end_date') }" required>
-                                        </v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('end_date')"
-                                            v-html="form.errors.get('end_date')" />
-                                    </template>
+                                        <v-date-picker v-model="form.start_date" no-title scrollable>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="menu = false"> Cancel</v-btn>
+                                            <v-btn text color="success"> Set Today</v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
+                                </v-col>
 
-                                    <v-date-picker v-model="form.end_date" no-title scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="menu2 = false"> Cancel</v-btn>
-                                        <v-btn text color="success">  Set Today </v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                            </v-col>
+                                <v-col cols="12" md="6">
+                                    <!-- end_date -->
+                                    <v-menu v-model="menu2" min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.end_date" label="End Date"
+                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                :class="{ 'is-invalid': form.errors.has('end_date') }" required>
+                                            </v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('end_date')"
+                                                v-html="form.errors.get('end_date')" />
+                                        </template>
+
+                                        <v-date-picker v-model="form.end_date" no-title scrollable>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="menu2 = false"> Cancel</v-btn>
+                                            <v-btn text color="success">  Set Today </v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
+                                </v-col>
 
 
-                            <v-col cols="12" md="6">
-                                <!-- start_time -->
-                                <v-menu ref="menu3" v-model="menu3" :close-on-content-click="false"
-                                    :return-value.sync="time" max-width="290px" min-width="290px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.start_time" label="Start Time"
-                                            prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"
-                                            id="Start_Time" :class="{ 'is-invalid': form.errors.has('start_time') }"
-                                            required></v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('start_time')"
-                                            v-html="form.errors.get('start_time')" />
-                                    </template>
-                                    <v-time-picker v-if="menu3" v-model="form.start_time" full-width
-                                        @click:minute="$refs.menu3.save(time)"></v-time-picker>
-                                </v-menu>
-                            </v-col>
+                                <v-col cols="12" md="6">
+                                    <!-- start_time -->
+                                    <v-menu ref="menu3" v-model="menu3" :close-on-content-click="false"
+                                        :return-value.sync="time" max-width="290px" min-width="290px">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.start_time" label="Start Time"
+                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"
+                                                id="Start_Time" :class="{ 'is-invalid': form.errors.has('start_time') }"
+                                                required></v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('start_time')"
+                                                v-html="form.errors.get('start_time')" />
+                                        </template>
+                                        <v-time-picker v-if="menu3" v-model="form.start_time" full-width
+                                            @click:minute="$refs.menu3.save(time)"></v-time-picker>
+                                    </v-menu>
+                                </v-col>
 
-                            <v-col cols="12" md="6">
-                                <v-menu ref="menu4" v-model="menu4" :close-on-content-click="false"
-                                    :return-value.sync="time" max-width="290px" min-width="290px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="form.end_time" label="End Time"
-                                            prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on" required></v-text-field>
-                                        <div class="small text-danger" v-if="form.errors.has('end_time')"
-                                            v-html="form.errors.get('end_time')" />
-                                    </template>
-                                    <v-time-picker v-if="menu4" v-model="form.end_time" full-width
-                                        @click:minute="$refs.menu4.save(time)"></v-time-picker>
-                                </v-menu>
-                            </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-menu ref="menu4" v-model="menu4" :close-on-content-click="false"
+                                        :return-value.sync="time" max-width="290px" min-width="290px">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.end_time" label="End Time"
+                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on" required></v-text-field>
+                                            <div class="small text-danger" v-if="form.errors.has('end_time')"
+                                                v-html="form.errors.get('end_time')" />
+                                        </template>
+                                        <v-time-picker v-if="menu4" v-model="form.end_time" full-width
+                                            @click:minute="$refs.menu4.save(time)"></v-time-picker>
+                                    </v-menu>
+                                </v-col>
 
-                         
+                            
 
-                            <!-- purpose -->
-                            <v-col cols="12">
-                                <div class="small text-danger" v-if="form.errors.has('purpose')" v-html="form.errors.get('purpose')" />
-                                <v-textarea label="Booking Purpose" rows="2" outlined v-model="form.purpose"
-                                    placeholder="Enter booking purpose in details" :rules="remRules" counter="500" required></v-textarea>
-                            </v-col>
+                                <!-- purpose -->
+                                <v-col cols="12">
+                                    <div class="small text-danger" v-if="form.errors.has('purpose')" v-html="form.errors.get('purpose')" />
+                                    <v-textarea label="Booking Purpose" rows="2" outlined v-model="form.purpose"
+                                        placeholder="Enter booking purpose in details" :rules="remRules" counter="500" required></v-textarea>
+                                </v-col>
 
-                            <v-btn type="submit" block color="teal" class="white--text" :loading="loadingdataStoreShow">
-                                <v-icon>mdi-fountain-pen-tip</v-icon> Modify
-                            </v-btn>
-                        </v-row>
+                                <v-btn type="submit" block color="teal" class="white--text" :loading="loadingdataStoreShow">
+                                    <v-icon>mdi-fountain-pen-tip</v-icon> Modify
+                                </v-btn>
+                            </v-row>
 
-                    </form>
+                        </form>
+
+                    </v-form>
 
                 </v-card-text>
             </v-card>
@@ -313,7 +320,7 @@
                 // Loading
                 this.dataLoading = true
                 axios.get(this.currentUrl + '/data').then(response => {
-                    //  console.log(response.data)
+                    //console.log(response.data)
                     this.allData = response.data
                     // Loading
                     this.dataLoading = false
@@ -370,6 +377,7 @@
                     this.form.car_id = item.car_id
                     this.form.car_name = item.car.name
                     this.form.id = item.id
+                    this.form.destination = item.destination
 
                     // Overlay
                     this.$Progress.finish()
@@ -441,6 +449,8 @@
                             this.eventDataStoreModal = false
                             // Hide car Status Modal
                             this.carStatusShow = false
+
+                            this.resetForm();
 
                             Swal.fire({
                                 icon: response.data.icon,
@@ -544,6 +554,12 @@
 
                 return duration
 
+            },
+
+            resetForm(){
+
+                this.form.reset()
+                this.$refs.form.resetValidation()
             }
 
         },

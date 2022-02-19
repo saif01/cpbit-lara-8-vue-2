@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\User;
 use App\Models\Carpool\CarpoolDriver;
+use Carbon\Carbon;
 
 class CarpoolCar extends Model
 {
@@ -19,7 +20,7 @@ class CarpoolCar extends Model
 
 
     public function carLeave(){
-        return $this->belongsTo('App\Models\Carpool\CarpoolLeaves', 'id', 'car_id');
+        return $this->hasMany('App\Models\Carpool\CarpoolLeaves', 'car_id', 'id')->whereDate('start', '>=', Carbon::now());
     }
 
     public function scopeSearch($query, $val='')

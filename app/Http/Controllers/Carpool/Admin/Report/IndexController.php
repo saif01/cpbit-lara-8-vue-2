@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Carpool\CarpoolBooking;
 use App\Models\Carpool\CarpoolCar;
 use App\Models\Carpool\CarpoolDriver;
-use App\Models\Carpool\CarpoolDriverLeave;
-use App\Models\Carpool\CarpoolCarMaintenance;
-use App\Models\Carpool\CarpoolCarRequisition;
+use App\Models\Carpool\CarpoolLeaves;
 use App\Models\User;
 
 use Carbon\Carbon;
@@ -73,7 +71,8 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = CarpoolDriverLeave::with('car', 'driver')
+        $allData = CarpoolLeaves::with('car', 'driver')
+            ->where('type', 'lev')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
@@ -93,7 +92,8 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = CarpoolCarMaintenance::with('car', 'driver')
+        $allData = CarpoolLeaves::with('car', 'driver')
+            ->where('type', 'mant')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
@@ -110,7 +110,8 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = CarpoolCarRequisition::with('car', 'driver')
+        $allData = CarpoolLeaves::with('car', 'driver')
+            ->where('type', 'req')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);

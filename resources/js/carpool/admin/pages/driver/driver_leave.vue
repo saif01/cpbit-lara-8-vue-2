@@ -232,7 +232,6 @@ export default {
         check(){
             this.form.car_id = this.currentCarDriver.car_id;
             this.form.driver_id = this.currentCarDriver.id;
-            
         },
 
         storeData(){
@@ -240,29 +239,18 @@ export default {
 
             this.form.post( this.currentUrl + '/store_leave').then(response=>{
                 this.$Progress.start();
-                this.getResults(this.currentPageNumber);
                 this.loadingLeaveAction = false;
                 this.driverLeaveDilog = false;
-                this.$Progress.finish()
-
-                if (response.status == 200) {
-                    Toast.fire({
-                        icon: response.data.icon,
-                        title: response.data.msg
-                    });
-                    
-                    
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Somthing Going Wrong<br>'+data.message,
-                        customClass: 'text-danger'
-                    });
-                    // Swal.fire("Failed!", data.message, "warning");
-                    //console.log(response);
-                }
-
                 
+                // Parent to child
+                this.$emit('childToParent')
+
+                this.$Progress.finish()
+                Swal.fire({
+                    icon: response.data.icon,
+                    title: response.data.msg,
+                });
+               
 
             }).catch(error=>{
                 console.log(error)

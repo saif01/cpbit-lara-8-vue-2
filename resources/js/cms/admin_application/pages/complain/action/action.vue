@@ -46,25 +46,25 @@
                         <th>Files:</th>
 
                         <td>
-                            <a v-if="complainDeta.document" :href="'/images/application/'+complainDeta.document"
+                            <a v-if="complainDeta.document" :href="docPath+complainDeta.document"
                                 class="btn btn-info btn-sm text-white" download>
                                 <v-icon color="white">mdi-download-network-outline</v-icon> Doc-1
                             </a>
                         </td>
                         <td>
-                            <a v-if="complainDeta.document2" :href="'/images/application/'+complainDeta.document2"
+                            <a v-if="complainDeta.document2" :href="docPath+complainDeta.document2"
                                 class="btn btn-info btn-sm text-white" download>
                                 <v-icon color="white">mdi-download-network-outline</v-icon> Doc-2
                             </a>
                         </td>
                         <td>
-                            <a v-if="complainDeta.document3" :href="'/images/application/'+complainDeta.document3"
+                            <a v-if="complainDeta.document3" :href="docPath+complainDeta.document3"
                                 class="btn btn-info btn-sm text-white" download>
                                 <v-icon color="white">mdi-download-network-outline</v-icon> Doc-3
                             </a>
                         </td>
                         <td>
-                            <a v-if="complainDeta.document4" :href="'/images/application/'+complainDeta.document4"
+                            <a v-if="complainDeta.document4" :href="docPath+complainDeta.document4"
                                 class="btn btn-info btn-sm text-white" download>
                                 <v-icon color="white">mdi-download-network-outline</v-icon> Doc-4
                             </a>
@@ -98,7 +98,7 @@
                                 <th>Document:</th>
                                 <td>
                                     <span v-if="item.document">
-                                        <a v-if="item.document" :href="'/images/application/'+item.document"
+                                        <a v-if="item.document" :href="docPath+item.document"
                                             class="btn btn-info btn-sm text-white" download>
                                             <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
                                         </a>
@@ -184,6 +184,7 @@
             return {
                 //current page url
                 currentUrl: '/cms/a_admin/complain',
+                docPath: '/images/application/',
 
                 comId: this.$route.query.id,
 

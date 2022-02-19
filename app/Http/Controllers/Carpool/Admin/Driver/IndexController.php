@@ -16,6 +16,7 @@ use Image;
 use Carbon\Carbon;
 use Auth;
 use App\Http\Controllers\Common\ImageUpload;
+use DB;
 
 class IndexController extends Controller
 {
@@ -218,7 +219,6 @@ class IndexController extends Controller
     //Delete
     public function destroyTemp($id){
 
-
         $data               = CarpoolDriver::findOrFail($id);
         $data->delete_temp  = 1;
         $data->delete_by    = Auth::user()->id;
@@ -235,17 +235,21 @@ class IndexController extends Controller
     }
 
 
-    // car data
+    // free_car_data
+    public function free_car_data(){
 
-    public function CarData(){
+        // car id in driver table
+        $carId = CarpoolDriver::where('status', 1)->pluck('car_id');
 
-        $allData = CarpoolCar::
-        // where("status", 1)
-        select('id', 'name', 'number')
+        // carpool car
+        $allData = CarpoolCar::whereNotIn('id', $carId)
+        ->where('status', 1)
+        ->select('id', 'name', 'number')
         ->get();
 
-        return response()->json($allData, 200);
+        //dd($carId, $allData);
 
+        return response()->json($allData, 200);
 
     }
 
@@ -253,7 +257,6 @@ class IndexController extends Controller
     // driver leave
     
     public function store_leave(Request $request){
-
 
         //Validate
         $this->validate($request,[
@@ -271,24 +274,45 @@ class IndexController extends Controller
         $start = $request->start_date ." ". $request->start_time;
         $end = $request->end_date ." ". $request->end_time;
 
+       // Check
+       $check = $this->leaveHave($start, $end, $request->driver_id);
+       if($check){
+        return response()->json(['msg'=>'Sorry! Date not avaiable &#128527;', 'icon'=>'error'], 201);
+       }
+
     
         $data->start       = $start;
         $data->end         = $end;
         $data->car_id      = $request->car_id;
         $data->driver_id   = $request->driver_id;
         $data->type        = $request->type;
-        
+        $data->status      = 1;
         $data->created_by  =  Auth::user()->id;
         $success           = $data->save();
 
         if($success){
-            return response()->json(['msg'=>'Leave stored Successfully &#128513;', 'icon'=>'success'], 200);
+            return response()->json(['msg'=>'Saved Successfully &#128513;', 'icon'=>'success'], 200);
         }else{
             return response()->json([
                 'msg' => 'Data not save in DB !!'
             ], 422);
         }
 
+    }
+
+
+    // check Leave have
+    public function leaveHave($start, $end, $driver_id){
+        $data = CarpoolLeaves::where('status', '1')
+        ->where('driver_id', $driver_id)
+        ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
+        ->count();
+
+        if($data > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

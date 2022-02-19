@@ -146,7 +146,7 @@
                             {{dataModelTitle}}
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="dataModalDialog = false" color="red lighten-1 white--text" small
+                            <v-btn @click="dataModalDialog = false, resetForm()" color="red lighten-1 white--text" small
                                 class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
@@ -248,7 +248,7 @@
                             Car Deadline
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="deadlineDialog = false" color="red lighten-1 white--text" small
+                            <v-btn @click="deadlineDialog = false,resetForm()" color="red lighten-1 white--text" small
                                 class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
@@ -257,7 +257,7 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <v-form v-model="valid">
+                    <v-form v-model="valid" ref="form">
                         <form @submit.prevent="createDeadlineData()">
                             <v-row>
                                 <v-col cols="12" md="6">

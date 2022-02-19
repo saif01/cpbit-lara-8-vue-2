@@ -112,7 +112,16 @@ class User extends Authenticatable
     }
 
 
-    
+    // Hardware Zone
+    public function zons()
+    {
+        // return $this->belongsToMany('App\Models\iService\iservicePowerbi');
+        return $this->belongsToMany('App\Models\SuperAdmin\Zone', 'hardware_zone_user_tabler', 'user_id', 'zone_id');
+    }
+
+    // public function zone_offices(){
+
+    // }
 
     
 }

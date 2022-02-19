@@ -7,8 +7,7 @@ export default{
         // request send and get response
         const response = await this.form.post(this.currentUrl +'/store'+ '');
         // Input field make empty
-        this.form.reset();
-        this.form.errors.clear();
+        this.resetForm();
         // Hide model
         //this.$refs['data-modal'].hide();
         this.dataModalDialog = false;
@@ -41,7 +40,7 @@ export default{
         // request send and get response
         const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
         // Input field make empty
-        this.form.reset();
+        this.resetForm();
         this.addCarpoolLoader = false
         // Hide model
         //this.$refs['data-modal'].hide();
@@ -285,17 +284,16 @@ export default{
     addDataModel() {
         this.editmode = false;
         this.form.reset();
-        //this.$refs['data-modal'].show();
         this.dataModalDialog = true;
     },
 
     // Edit Data Modal
     editDataModel(singleData) {
+        console.log('singleData', singleData)
         this.editmode = true;
         this.dataModelTitle = 'Update Data'
-        this.form.reset();
+        this.resetForm();
         this.form.fill(singleData);
-        //this.$refs['data-modal'].show();
         this.dataModalDialog = true;
     },
 
@@ -315,8 +313,7 @@ export default{
         // request send and get response
         const response = await this.form.post(this.currentUrl +'/deadline-store'+ '');
         // Input field make empty
-        this.form.reset();
-        this.form.errors.clear();
+        this.resetForm();
         // Hide model
         //this.$refs['data-modal'].hide();
         this.deadlineDialog = false;
@@ -398,5 +395,12 @@ export default{
         })
 
         
-    },          
+    },
+    
+    // reset form
+    resetForm(){
+        this.form.reset();
+        this.$refs.form.resetValidation();
+        this.form.errors.clear();
+    }
 }

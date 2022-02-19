@@ -9,9 +9,9 @@
                     
                         <v-row class="text-white">
                             <v-col cols="12" md="6" class="py-0">
-                                <v-img v-if="item.car" :src="imagePath+item.car.image" alt="Image" max-height="220px" class="rounded-lg"></v-img>
+                                <v-img v-if="item.car" :src="imagePath+item.car.image" alt="Image" max-height="230px" class="rounded-lg"></v-img>
 
-                                <v-img v-else src="/all-assets/common/img/no-image.png" alt="Image" max-height="220px" class="rounded-lg"></v-img>
+                                <v-img v-else src="/all-assets/common/img/no-image.png" alt="Image" max-height="240px" class="rounded-lg"></v-img>
                             </v-col>
 
                             <v-col cols="12" md="6">
@@ -28,11 +28,15 @@
                                     </tr>
                                     <tr>
                                         <th>Driver Details:&nbsp;</th>
-                                        <td class="py-1"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
+                                        <td class="pb-1"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Destination:</th>
+                                        <td class="pb-1">{{ item.destination }}</td>
                                     </tr>
                                     <tr>
                                         <th>Purpose:</th>
-                                        <td class="py-1">{{ item.purpose }}</td>
+                                        <td class="pb-1">{{ item.purpose }}</td>
                                     </tr>
                                     <tr>
                                         <th>Booked:</th>

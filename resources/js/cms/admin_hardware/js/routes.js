@@ -9,6 +9,12 @@ import Category from './../pages/others/category/index.vue'
 import Subcategory from './../pages/others/subcategory/index.vue'
 import Acsosoris from './../pages/others/acsosoris/index.vue'
 
+import User from './../pages/user/index.vue'
+
+import NotProcess from './../pages/complain/not_process.vue'
+import Processing from './../pages/complain/processing.vue'
+import Action from './../pages/complain/action/action.vue'
+
 
 const router = new VueRouter({
     mode: 'history',
@@ -46,8 +52,40 @@ const router = new VueRouter({
                 title: 'Hardware Acsosoris Admin',
             },   
         },
+        { 
+            path: '/cms/h_admin/user', 
+            component: User,
+            name: 'User',
+            meta:{
+                title: 'Hardware User Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/not_process', 
+            component: NotProcess,
+            name: 'NotProcess',
+            meta:{
+                title: 'Hardware Not Process Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/processing', 
+            component: Processing,
+            name: 'Processing',
+            meta:{
+                title: 'Hardware Processing Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/Action', 
+            component: Action,
+            name: 'Action',
+            meta:{
+                title: 'Hardware Action Admin',
+            },   
+        },
 
-
+        
 
 
         

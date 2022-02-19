@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Carpool;
 use App\Models\Carpool\CarpoolBooking;
 use App\Models\Carpool\CarpoolLeaves;
 use App\Models\Carpool\Carpool;
+use App\Models\Carpool\CarpoolCar;
 use Auth;
 use Carbon\Carbon;
 
@@ -74,6 +75,26 @@ trait CommonFunctions {
         }else{
             return false;
         }
+
+    }
+
+
+    //Check Car Use Deadline
+    public function CheckCarUseDeadline($carId, $end_date){
+
+        $data = CarpoolCar::where('id', $carId)
+            ->where('last_use', '!=', '' )
+            ->where('last_use', '<', $end_date)
+            ->select('last_use')
+            ->first();
+
+            //dd($data);
+
+            if( $data ){
+                return true;
+            }else{
+                return false;
+            }
 
     }
 

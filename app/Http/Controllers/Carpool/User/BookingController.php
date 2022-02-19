@@ -36,7 +36,10 @@ class BookingController extends Controller
 
         $start = $request->selectData['start_date'] ." ". $request->selectData['start_time'];
         $end = $request->selectData['end_date'] ." ". $request->selectData['end_time'];
+        //dd($start);
 
+        
+ 
 
 
         $bookingData = CarpoolBooking::with('car', 'bookby', 'driver')
@@ -54,31 +57,35 @@ class BookingController extends Controller
             }
         }
 
+        $futureDateTime = Carbon::now()->addDay(3);
 
         // car data
-        $carData = CarpoolCar::where('status', 1)
-            ->with('driver')
+        $carData = CarpoolCar::with('driver', 'carLeave')
+            // ->whereHas('carLeave', function($q)use($start, $end) {
+            //     $q->whereDate('start', '>=', Carbon::now());
+            //     //$q->orderBy('start', 'desc');
+            // })
+            ->where('status', 1)
             ->where('temporary', 0)
             ->whereNotIn('id', $booked_car_id)
             ->get();
 
+            //dd($carData);
+
 
         // leave car data
-        $leaveData = CarpoolLeaves::with('car','driver')
-            ->whereHas('car', function($q){
-                $q->where('status', 1);
-            })
-            ->whereNotIn('id', $booked_car_id)
-            ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
-            ->get();
+        // $leaveData = CarpoolLeaves::with('car','driver')
+        //     ->whereHas('car', function($q){
+        //         $q->where('status', 1);
+        //     })
+        //     //->whereBetween('end',['end',$futureDateTime])
+        //     ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
+        //     ->whereNotIn('car_id', $booked_car_id)
+        //     ->get();
             
 
         // tempoprary car data
-        $temporaryCarData = CarpoolCar::
-            // ->whereHas('carLeave', function($q) use($booked_car_id){
-            //     $q->whereNotIn('car_id', $booked_car_id);
-            // })
-            where('status', 1)
+        $temporaryCarData = CarpoolCar::where('status', 1)
             ->where('temporary', 1)
             ->with('driver')
             ->whereNotIn('id', $booked_car_id)
@@ -86,7 +93,7 @@ class BookingController extends Controller
       
 
 
-        return response()->json(['cars'=> $carData, 'bookings'=> $bookingData, 'leave'=> $leaveData, 'temporary'=> $temporaryCarData]);
+        return response()->json(['cars'=> $carData, 'bookings'=> $bookingData, 'temporary'=> $temporaryCarData]);
 
 
     }
@@ -153,12 +160,16 @@ class BookingController extends Controller
             }
         }
 
+        // CheckCarUseDeadline
+        $booked =    $this->CheckCarUseDeadline($car_id, $end);
+        
+
         // CheckNotCommentedCount
         $notCommentCounter = $this->CheckNotCommentedCount();
         if( $notCommentCounter >= 2 ){
             return response()->json([
                 'status'=>'error',
-                'msg'=>'Booked Car <b>Comment</b> Was Not Completed !! &#128530;', 
+                'msg'=>'Booked Car <b>Comment</b> Was Not Complete Yet !! &#128530;',
                 'icon'=>'warning'
             ]);
         }

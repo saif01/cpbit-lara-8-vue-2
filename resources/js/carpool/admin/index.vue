@@ -6,6 +6,7 @@
 
         <v-main>
             <v-container fluid>
+                <!-- <div id="google_translate_element"></div> -->
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
             </v-container>

@@ -50,9 +50,12 @@
                                 <td>
                                     <v-hover v-slot="{ hover }">
                                         <v-card class="mx-auto" color="grey lighten-4">
-                                            <v-img v-if="singleData.image" :src="imagePathSmDriver + singleData.image" max-height="180" max-width="230">
+                                            <v-img v-if="singleData.image" :src="imagePathSm + singleData.image"
+                                                max-height="180" max-width="230">
                                                 <v-expand-transition>
-                                                    <div v-if="hover" class="transition-fast-in-fast-out teal darken-2 v-card--reveal white--text d-flex flex-column justify-center align-center" style="height: 100%;">
+                                                    <div v-if="hover"
+                                                        class="transition-fast-in-fast-out teal darken-2 v-card--reveal white--text d-flex flex-column justify-center align-center"
+                                                        style="height: 100%;">
 
                                                         <div>
                                                             Driver Name: {{ singleData.name}}
@@ -66,7 +69,7 @@
                                                         <div>
                                                             Driver NID:{{ singleData.nid}}
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </v-expand-transition>
                                             </v-img>
@@ -74,54 +77,45 @@
                                     </v-hover>
                                 </td>
                                 <td>
-                                    <v-hover v-slot="{ hover }">
-                                        <v-card class="mx-auto" color="grey lighten-4">
-                                            <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image" max-height="180" max-width="230" >
-                                                <v-expand-transition>
-                                                    <div v-if="hover" class="transition-fast-in-fast-out teal darken-2 v-card--reveal white--text d-flex flex-column justify-center align-center" style="height: 100%;">
+                                    <div v-if="singleData.car">
+                                        <v-hover v-slot="{ hover }">
+                                            <v-card class="mx-auto" color="grey lighten-4">
+                                                <v-img v-if="singleData.car.image"
+                                                    :src="imagePathSmCar + singleData.car.image" max-height="180"
+                                                    max-width="230">
+                                                    <v-expand-transition>
+                                                        <div v-if="hover"
+                                                            class="transition-fast-in-fast-out teal darken-2 v-card--reveal white--text d-flex flex-column justify-center align-center"
+                                                            style="height: 100%;">
 
-                                                        <div v-if="singleData.car.name">
-                                                            Car Name: {{ singleData.car.name}}
+                                                            <div v-if="singleData.car.name">
+                                                                Car Name: {{ singleData.car.name}}
+                                                            </div>
+                                                            <div v-if="singleData.car.number">
+                                                                Car Number: {{ singleData.car.number}}
+                                                            </div>
+                                                            <div v-if="singleData.car.capacity">
+                                                                Car Capacity: {{ singleData.car.capacity}}
+                                                            </div>
+                                                            <div v-if="singleData.car.temporary==0">
+                                                                Car Type: Temporary
+                                                            </div>
+                                                            <div v-if="singleData.car.temporary==1">
+                                                                Car Type: Regular
+                                                            </div>
                                                         </div>
-                                                        <div v-if="singleData.car.number">
-                                                            Car Number: {{ singleData.car.number}}
-                                                        </div>
-                                                        <div v-if="singleData.car.capacity">
-                                                            Car Capacity: {{ singleData.car.capacity}}
-                                                        </div>
-                                                        <div v-if="singleData.car.temporary==0">
-                                                            Car Type: Temporary
-                                                        </div>
-                                                        <div v-if="singleData.car.temporary==1">
-                                                            Car Type: Regular
-                                                        </div>
-                                                    </div>
-                                                </v-expand-transition>
-                                            </v-img>
-                                        </v-card>
-                                    </v-hover>
-                                </td>
-
-                                <td v-if="singleData.leave.length > 0" class="col-3 text-center align-middle">
-                                    <div v-for="leave in singleData.leave" :key="leave.id">
-
-                                        <div v-if="leave.type=='lev'">
-                                            <b>Leave Type: </b>Personal Leave
-                                        </div>
-                                        <div v-else-if="leave.type=='req'">
-                                            <b>Leave Type: </b>Police Requisition
-                                        </div>
-                                        <div v-else-if="leave.type=='mant'">
-                                            <b>Leave Type: </b>Car in Maintenances
-                                        </div>
-                                        
-                                        <div v-if="leave.start">
-                                            <b>From</b> {{ leave.start }} <b>to</b> {{ leave.end }}
-                                        </div>
-
+                                                    </v-expand-transition>
+                                                </v-img>
+                                            </v-card>
+                                        </v-hover>
                                     </div>
                                 </td>
 
+                                <td v-if="singleData.leave.length > 0" class="col-3 text-center align-middle">
+                                    <v-btn small color="info" @click="driverAllStatus(singleData.leave)">
+                                        <v-icon left>mdi-ship-wheel</v-icon> Check Driver Status
+                                    </v-btn>
+                                </td>
 
                                 <td v-else class="col-3 text-center align-middle">
                                     <div class="error--text">
@@ -139,7 +133,8 @@
                                         color="success" depressed small class="m-1">
                                         <v-icon small>mdi-check-circle-outline</v-icon> Active
                                     </v-btn>
-                                    <v-btn v-else @click="statusChange(singleData.car)" color="warning" depressed small class="m-1">
+                                    <v-btn v-else @click="statusChange(singleData.car)" color="warning" depressed small
+                                        class="m-1">
                                         <v-icon small>mdi-alert-circle-outline </v-icon> Inactive
                                     </v-btn>
 
@@ -147,7 +142,8 @@
                                         <v-icon small>mdi-pencil-box-multiple-outline</v-icon> Edit
                                     </v-btn>
 
-                                    <v-btn @click="deleteDataTemp(singleData.id)" color="error" depressed small class="m-1">
+                                    <v-btn @click="deleteDataTemp(singleData.id)" color="error" depressed small
+                                        class="m-1">
                                         <v-icon small>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
 
@@ -188,7 +184,7 @@
                             {{dataModelTitle}}
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="dataModalDialog = false" color="red lighten-1 white--text" small
+                            <v-btn @click="dataModalDialog = false, resetForm()" color="red lighten-1 white--text" small
                                 class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
@@ -271,8 +267,66 @@
         </v-dialog>
 
 
+
+        <!-- driverStatus -->
+        <v-dialog v-model="driverStatus" max-width="700px">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            Diver Status
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="driverStatus = false" elevation="20" color="error white--text" small
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+
+                <v-card-text>
+
+                    <table class="table table-borderless text-center">
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>Leave Start</th>
+                            <th>Leave End</th>
+                        </tr>
+
+                        <tr v-for="leave in driverStatusData" :key="leave.id">
+                            <td>
+                                <div v-if="leave.type=='lev'">
+                                    Personal Leave
+                                </div>
+                                <div v-else-if="leave.type=='req'">
+                                    Police Requisition
+                                </div>
+                                <div v-else-if="leave.type=='mant'">
+                                    Car in Maintenances
+                                </div>
+                            </td>
+                            <td>
+                                <div v-if="leave.start">
+                                    {{ leave.start }}
+                                </div>
+                            </td>
+                            <td>
+                                <div v-if="leave.end">
+                                    {{ leave.end }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
+
         <!-- Driver Leave -->
-        <driver-leave-action v-if="currentCarDriver" :currentCarDriver="currentCarDriver" :key="leaveActionKey" ></driver-leave-action>
+        <driver-leave-action v-if="currentCarDriver" :currentCarDriver="currentCarDriver" :key="leaveActionKey"
+            @childToParent="childToParentCall"></driver-leave-action>
 
 
 
@@ -290,7 +344,7 @@
 
 
     export default {
-        components:{
+        components: {
             "driver-leave-action": driverLeaveAction,
         },
 
@@ -302,6 +356,10 @@
                 valid: false,
                 // dialog
                 dataModalDialog: false,
+
+                // driverStatus
+                driverStatus: false,
+                driverStatusData: [],
 
                 // loader
                 addCarpoolLoader: false,
@@ -317,7 +375,6 @@
                 ],
 
                 //current page url
-                //currentUrl: '/room/admin/room',
 
                 currentUrl: '/carpool/admin/driver',
 
@@ -331,7 +388,6 @@
                     },
                 ],
 
-
                 // Form
                 form: new Form({
                     id: '',
@@ -342,15 +398,14 @@
                     status: '',
                     image: '',
                     car_id: null
-
                 }),
 
                 imageMaxSize: '5111775',
-                imagePath: '/images/carpool/car/',
-                imagePathSm: '/images/carpool/car/small/',
+                imagePathCar: '/images/carpool/car/',
+                imagePathSmCar: '/images/carpool/car/small/',
 
-                imagePathDriver: '/images/carpool/driver/',
-                imagePathSmDriver: '/images/carpool/driver/small/',
+                imagePath: '/images/carpool/driver/',
+                imagePathSm: '/images/carpool/driver/small/',
 
 
                 // statusOptions
@@ -364,14 +419,13 @@
                     },
                 ],
 
-
                 // all car data
                 carData: [],
 
                 // Driver leave
                 driverLeaveDilog: false,
                 currentCarDriver: '',
-                leaveActionKey:0,
+                leaveActionKey: 0,
 
             }
 
@@ -380,9 +434,13 @@
 
         methods: {
 
+            childToParentCall() {
+                this.getResults();
+            },
+
             // get all car data
             getCarData() {
-                axios.get(this.currentUrl + '/car-data').then(response => {
+                axios.get(this.currentUrl + '/free_car_data').then(response => {
 
                     for (let i = 0; i < response.data.length; i++) {
                         this.carData.push(response.data[i]);
@@ -390,7 +448,6 @@
                             value: response.data[i].id,
                             text: response.data[i].name + ' || ' + response.data[i].number
                         };
-
                     }
 
 
@@ -404,6 +461,29 @@
                 this.leaveActionKey++
                 this.currentCarDriver = val
             },
+
+            // driverAllStatus
+            driverAllStatus(data) {
+                console.log(data)
+                this.driverStatus = true;
+                this.driverStatusData = data;
+            },
+
+
+            // Edit Data Modal
+            editDataModel(singleData) {
+                console.log('singleData', singleData)
+                this.editmode = true;
+                this.dataModelTitle = 'Update Data'
+                this.resetForm();
+                this.form.fill(singleData);
+                this.dataModalDialog = true;
+            },
+
+
+
+
+
 
         },
 

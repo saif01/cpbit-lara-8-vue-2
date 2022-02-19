@@ -160,8 +160,8 @@
                             v => (v && v.length == 2) || 'Code must be less than 2 numbers'
                             ],
                 namRules:[
-                    v => (v || '' ).length <= 100 || 'Description must be 1000 characters or less',
-                    v => (v || '' ).length >= 3 || '3 chars minimum or more',
+                    v => (v || '' ).length <= 100 || 'Description must be 100 characters or less',
+                    v => (v || '' ).length >= 2 || '2 chars minimum or more',
                 ],
                
                
