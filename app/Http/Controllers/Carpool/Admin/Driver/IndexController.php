@@ -128,8 +128,9 @@ class IndexController extends Controller
         }
 
     
-        $data->name         = $request->name;
+        $data->name         = $request->name; 
         $data->contact      = $request->contact;
+        $data->car_id       = $request->car_id;
         $data->nid          = $request->nid;
         $data->license      = $request->license;
         $data->status       = $request->status;
@@ -175,6 +176,7 @@ class IndexController extends Controller
       
         $data->name         = $request->name;
         $data->contact      = $request->contact;
+        $data->car_id       = $request->car_id;
         $data->nid          = $request->nid;
         $data->license      = $request->license;
         $data->status       = $request->status;

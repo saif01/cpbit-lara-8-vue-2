@@ -140,7 +140,7 @@ export default {
                 const response = await axios.get(this.currentUrl + '/data');
                 // Data assign to calendar
                 this.calendarOptions.events = response.data
-                console.log(response.data);
+                // console.log(response.data);
             } catch (error) {
                 console.error(error);
             }

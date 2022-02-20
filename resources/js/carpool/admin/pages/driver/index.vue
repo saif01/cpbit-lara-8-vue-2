@@ -113,7 +113,7 @@
 
                                 <td v-if="singleData.active_leave.length > 0" class="col-3 text-center align-middle">
                                     <v-btn small color="info" @click="driverAllStatus(singleData.active_leave)">
-                                        <v-icon left>mdi-ship-wheel</v-icon> Check Driver Status
+                                        <v-icon left>mdi-ship-wheel</v-icon> View Leave Status
                                     </v-btn>
                                 </td>
 
@@ -541,6 +541,15 @@
 
 
 
+
+        },
+
+        watch:{
+
+            allData: function(value){
+                this.carData = []
+                this.getCarData();
+            }
 
         },
 

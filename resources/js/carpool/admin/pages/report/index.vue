@@ -207,56 +207,6 @@
             </v-card>
         </v-dialog>
 
-
-
-        <!-- bookby information modal -->
-        <!-- <v-dialog v-model="bookbyModal" max-width="600px">
-            <v-card>
-                <v-card-title class="justify-center">
-                    <v-row>
-                        <v-col cols="10">
-                            User Details
-                        </v-col>
-                        <v-col cols="2">
-                            <v-btn @click="bookbyModal = false" color="red lighten-1 white--text" small
-                                class="float-right">
-                                <v-icon left dark>mdi-close-octagon</v-icon> Close
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-card-title>
-                <v-card-text>
-                    <v-list-item three-line>
-                        <v-list-item-content class="text-overline">
-                            <div>
-                                Name: <span v-if="bookbyData">{{ bookbyData.name }}</span>
-                            </div>
-                            <div>
-                                Contact: <span v-if="bookbyData.personal_contact">{{ bookbyData.personal_contact }}</span>
-                            </div>
-
-                            <div>
-                                Designation: <span v-if="bookbyData.department">{{ bookbyData.department }}</span> <span v-else class="error--text">Not Available !</span>
-                            </div>
-
-                            <div>
-                                Business Unit: <span v-if="bookbyData.business_unit">{{ bookbyData.business_unit }}</span> <span v-else class="error--text">Not Available !</span>
-                            </div>
-                            
-                        </v-list-item-content>
-
-                        <v-list-item-avatar
-                            tile
-                            size="100"
-                        >
-                        <v-img v-if="bookbyData.image" :src="imagePathSmBookby + bookbyData.image" alt="image"
-                                        max-height="120px" contain></v-img>
-                        </v-list-item-avatar>
-                    </v-list-item>
-                </v-card-text>
-            </v-card>
-        </v-dialog> -->
-
         
 
 
@@ -456,7 +406,7 @@
                             '&sort_by_endDate=' + this.sort_by_endDate
                         )
                         .then(response => {
-                            console.log(response.data.data);
+                            // console.log(response.data.data);
                             //console.log(response.data.from, response.data.to);
                             this.allData = response.data;
                             this.totalValue = response.data.total;

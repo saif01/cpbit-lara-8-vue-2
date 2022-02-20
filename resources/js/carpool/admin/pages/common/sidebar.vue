@@ -13,17 +13,11 @@
 
 
             <v-menu bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                    Admin
-                    <v-avatar
-                    v-bind="attrs"
-                    v-on="on"
-                    contain
-                    >
-                    <img
-                        src="https://www.w3schools.com/howto/img_avatar.png"
-                        alt="image"
-                    >
+               <template v-slot:activator="{ on, attrs }">
+                    <span v-if="auth" class="m-1">{{ auth.name }}</span>
+                    <v-avatar v-bind="attrs" v-on="on" contain>
+                        <img v-if="auth.image" :src="'/images/users/small/'+auth.image" alt="image">
+                        <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image">
                     </v-avatar>
                 </template>
 

@@ -202,7 +202,7 @@
                         '&search_field=' + this.search_field
                     )
                     .then(response => {
-                        console.log(response.data.data);
+                       // console.log(response.data.data);
                         //console.log(response.data.from, response.data.to);
                         this.allData = response.data;
                         this.totalValue = response.data.total;

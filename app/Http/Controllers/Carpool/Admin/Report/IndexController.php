@@ -53,7 +53,7 @@ class IndexController extends Controller
                       ->whereDate('end', '<=', $sort_by_endDate);
         }
 
-        $allData =  $allQuery ->orderBy($sort_field, $sort_direction)
+        $allData =  $allQuery->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
 
