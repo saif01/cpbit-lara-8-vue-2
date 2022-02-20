@@ -15,8 +15,6 @@ use Carbon\Carbon;
 
 class IndexController extends Controller
 {
-
-
     //index
     public function index(){
 
@@ -158,11 +156,13 @@ class IndexController extends Controller
         $allData = CarpoolCar::
         where("status", 1)
         ->select('id', 'name', 'number')
-        ->get();
+        ->get(); 
+
+        // Custom Field Data Add
+        $custom = collect( [['id' => '', 'name' => 'Car', 'number' => 'All']] );
+        $allData = $custom->merge($allData);
 
         return response()->json($allData, 200);
-
-
     }
 
 

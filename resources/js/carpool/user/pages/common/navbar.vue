@@ -29,6 +29,10 @@
                     My Cancelled
                 </v-btn>
 
+                <v-btn text link route :to="{ name: 'BookedHistory'}" small>
+                    Booked History
+                </v-btn>
+
                 <v-btn text link route href="/logout" small>
                     Logout
                 </v-btn>

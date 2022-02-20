@@ -10,9 +10,10 @@ import er404 from '../pages/common/404.vue'
 
 import Booked from '../pages/booked.vue'
 import Canceled from '../pages/canceled.vue'
+import BookedHistory from '../pages/booked_history.vue'
 
-import NotCommented from '../pages/not-commented.vue'
-import CarDetails from '../pages/car-details.vue'
+import NotCommented from '../pages/not_commented.vue'
+//import CarDetails from '../pages/car_details.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -51,11 +52,11 @@ const router = new VueRouter({
             },   
         },
         { 
-            path: '/carpool/car-details', 
-            component: CarDetails,
-            name: 'carDetails',
+            path: '/carpool/booked_history', 
+            component: BookedHistory,
+            name: 'BookedHistory',
             meta:{
-                title: 'Car Not Commented',
+                title: 'Car Booked History',
             },   
         },
         

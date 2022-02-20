@@ -249,12 +249,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/car-driver/{id}', 'IndexController@CarDriver');
                 Route::get('/bookby-user/{id}', 'IndexController@bookbyUser');
 
-
                 // car data
                 Route::get('/car-data', 'IndexController@CarData');
-                
-                
-
             });
 
 
@@ -289,8 +285,13 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/prev_comment/{id}', 'CommentController@PrevComment');
                 Route::get('/car-data/{car_id}', 'CommentController@carData');
                 Route::get('/comment_count', 'CommentController@comment_count');
+            });
 
-                
+            //History
+            Route::prefix('history')->group(function(){
+                Route::get('/index', 'HistoryController@index');
+                // car data
+                Route::get('/car-data', 'HistoryController@CarData');
             });
 
 

@@ -394,8 +394,7 @@ export default{
         }).catch(error => {
             console.log(error)
         })
-
-        
+ 
     },
     
     // reset form
