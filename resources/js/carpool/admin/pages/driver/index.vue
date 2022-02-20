@@ -111,8 +111,8 @@
                                     </div>
                                 </td>
 
-                                <td v-if="singleData.leave.length > 0" class="col-3 text-center align-middle">
-                                    <v-btn small color="info" @click="driverAllStatus(singleData.leave)">
+                                <td v-if="singleData.active_leave.length > 0" class="col-3 text-center align-middle">
+                                    <v-btn small color="info" @click="driverAllStatus(singleData.active_leave)">
                                         <v-icon left>mdi-ship-wheel</v-icon> Check Driver Status
                                     </v-btn>
                                 </td>
@@ -175,8 +175,8 @@
         </v-card>
 
 
-        <!-- Modal -->
-        <v-dialog v-model="dataModalDialog" max-width="1100px">
+        <!-- Driver Add/edit Modal -->
+        <v-dialog persistent  v-model="dataModalDialog" max-width="1100px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -192,7 +192,7 @@
                     </v-row>
                 </v-card-title>
                 <v-card-text>
-                    <v-form v-model="valid" ref="form">
+                    <v-form ref="form" v-model="valid" lazy-validation>
                         <form @submit.prevent="editmode ? updateData() : createData()">
 
                             <v-row>
@@ -268,13 +268,13 @@
 
 
 
-        <!-- driverStatus -->
-        <v-dialog v-model="driverStatus" max-width="700px">
+        <!-- driver form Show -->
+        <v-dialog persistent  v-model="driverStatus" max-width="700px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
                         <v-col cols="10">
-                            Diver Status
+                            Diver Levae Status
                         </v-col>
                         <v-col cols="2">
                             <v-btn @click="driverStatus = false" elevation="20" color="error white--text" small
@@ -292,6 +292,7 @@
                             <th>Leave Type</th>
                             <th>Leave Start</th>
                             <th>Leave End</th>
+                            <th>Action</th>
                         </tr>
 
                         <tr v-for="leave in driverStatusData" :key="leave.id">
@@ -315,6 +316,15 @@
                                 <div v-if="leave.end">
                                     {{ leave.end }}
                                 </div>
+                            </td>
+                            <td>
+                                <v-btn v-if="leave.status" @click="statusChangeDriverLeave(leave)" color="success"
+                                    depressed small>
+                                    <v-icon small>mdi-check-circle-outline</v-icon> Active
+                                </v-btn>
+                                <v-btn v-else @click="statusChangeDriverLeave(leave)" color="warning" depressed small>
+                                    <v-icon small>mdi-alert-circle-outline </v-icon> Inactive
+                                </v-btn>
                             </td>
                         </tr>
                     </table>
@@ -349,7 +359,6 @@
         },
 
         data() {
-
             return {
 
                 // v-form
@@ -434,6 +443,15 @@
 
         methods: {
 
+            // Add Data Model
+            addDataModel() {
+                this.editmode = false;
+                this.form.reset();
+                this.form.errors.clear()
+                this.dataModalDialog = true;
+            },
+
+            // childToParentCall
             childToParentCall() {
                 this.getResults();
             },
@@ -470,14 +488,53 @@
             },
 
 
-            // Edit Data Modal
-            editDataModel(singleData) {
-                console.log('singleData', singleData)
-                this.editmode = true;
-                this.dataModelTitle = 'Update Data'
-                this.resetForm();
-                this.form.fill(singleData);
-                this.dataModalDialog = true;
+            // Change statusChangeDriverLeave
+            statusChangeDriverLeave(data) {
+                // console.log('status', data.status)
+                if (data.status == 1) {
+                    var text = "Are you want to inactive ?"
+                    var btnText = "Yes Inactive"
+                } else {
+                    var text = "Are you want to active ?"
+                    var btnText = "Yes Active"
+                }
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: text,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: btnText,
+                }).then((result) => {
+
+                    // Send request to the server
+                    if (result.value) {
+                        //console.log(id);
+                        this.$Progress.start();
+                        axios.post(this.currentUrl + '/leave_status/' + data.id).then((response) => {
+                            //console.log(response);
+                            Swal.fire(
+                                'Changed!',
+                                'Status has been Changed.',
+                                'success'
+                            );
+                            // Refresh Tbl Data with current page
+                            this.getResults(this.currentPageNumber);
+                            this.driverStatus = false
+                            this.$Progress.finish();
+
+                        }).catch((data) => {
+                            this.driverStatus = false
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Somthing Going Wrong<br>' + data.message,
+                                customClass: 'text-danger'
+                            });
+                            // Swal.fire("Failed!", data.message, "warning");
+                        });
+                    }
+                })
             },
 
 
@@ -489,7 +546,6 @@
 
 
         mounted() {
-
             this.getCarData();
         },
 

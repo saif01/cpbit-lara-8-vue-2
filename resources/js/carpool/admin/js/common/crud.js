@@ -230,7 +230,6 @@ export default{
     },
 
     // Temporary Change
-
     temporaryChange(data){
         // console.log('status', data.status)
         if(data.temporary == 0){
@@ -284,15 +283,15 @@ export default{
     addDataModel() {
         this.editmode = false;
         this.form.reset();
+        this.form.errors.clear();
         this.dataModalDialog = true;
     },
 
     // Edit Data Modal
     editDataModel(singleData) {
-        console.log('singleData', singleData)
+        //console.log('singleData', singleData)
         this.editmode = true;
         this.dataModelTitle = 'Update Data'
-        this.resetForm();
         this.form.fill(singleData);
         this.dataModalDialog = true;
     },
@@ -382,13 +381,11 @@ export default{
 
 
     // report drive modal information
-
     getDriverModalData(id){
-
         axios.get(this.currentUrl + '/car-driver/' + id).then(response => {
             
             this.driverData = response.data
-            console.log(response.data);
+            // console.log(response.data);
             this.driverModal=true
         }).catch(error => {
             console.log(error)

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\User;
 use App\Models\Carpool\CarpoolCar;
 use App\Models\Carpool\CarpoolLeaves;
+use Carbon\Carbon;
 
 class CarpoolDriver extends Model
 {
@@ -48,6 +49,12 @@ class CarpoolDriver extends Model
     public function leave()
     {
        return $this->hasMany( CarpoolLeaves::class, 'driver_id', 'id');
+
+    }
+
+    public function active_leave()
+    {
+       return $this->hasMany( CarpoolLeaves::class, 'driver_id', 'id')->whereDate('start', '>=', Carbon::now());
 
     }
 

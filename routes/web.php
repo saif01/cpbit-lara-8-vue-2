@@ -221,12 +221,13 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::delete('/destroy_temp/{id}', 'IndexController@destroyTemp');
                 // status
                 Route::post('/status/{id}', 'IndexController@status');
-
+                
                 // car data
                 Route::get('/free_car_data', 'IndexController@free_car_data');
 
                 // driver leave
                 Route::post('/store_leave', 'IndexController@store_leave');
+                Route::post('/leave_status/{id}', 'IndexController@leave_status');
 
             });
 

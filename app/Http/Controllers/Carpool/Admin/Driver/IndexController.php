@@ -34,7 +34,7 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = CarpoolDriver::with('makby', 'car', 'leave')
+        $allData = CarpoolDriver::with('makby', 'car', 'active_leave')
             ->where('delete_temp', '!=', '1')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
@@ -52,7 +52,6 @@ class IndexController extends Controller
         if($data){
 
            $status = $data->status;
-           
             if($status == 1){
                 $data->status = null;
             }else{
@@ -60,7 +59,24 @@ class IndexController extends Controller
             }
             $success    =  $data->save();
             return response()->json('success', 200);
+        }
 
+    }
+
+    // leave_status
+    public function leave_status($id){
+
+        $data       =  CarpoolLeaves::find($id);
+        if($data){
+
+           $status = $data->status;
+            if($status == 1){
+                $data->status = null;
+            }else{
+                $data->status = 1;
+            }
+            $success    =  $data->save();
+            return response()->json('success', 200);
         }
 
     }

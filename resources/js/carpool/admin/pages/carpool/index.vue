@@ -239,7 +239,6 @@
 
 
         <!-- mdoal car deadline -->
-
         <v-dialog v-model="deadlineDialog" max-width="600px">
             <v-card>
                 <v-card-title class="justify-center">
