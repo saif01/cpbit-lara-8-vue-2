@@ -33,6 +33,8 @@ export default {
         dataModelTitle: 'Store Data',
         // Loading Animation
         dataLoading: false,
+        // Loading Animation
+        dataModalLoading: false,
 
         imageMaxSize: '2111775',
         fileMaxSize: '5111775',

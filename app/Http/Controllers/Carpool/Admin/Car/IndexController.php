@@ -94,8 +94,8 @@ class IndexController extends Controller
             'number'    => 'required|unique:carpool_cars|max:50',
             'capacity'  => 'required',
             'remarks'   => 'nullable|max:1000',
-            'status'    => 'nullable',
-            'temporary' => 'nullable'
+            'status'    => 'required',
+            'temporary' => 'required'
         ]);
 
         $data = new CarpoolCar();

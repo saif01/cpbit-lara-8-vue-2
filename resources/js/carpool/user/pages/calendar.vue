@@ -8,7 +8,7 @@
 
 
         <!-- Single Event data Show Modal -->
-        <v-dialog v-model="eventDetailsModal" max-width="600px">
+        <v-dialog persistent v-model="eventDetailsModal" max-width="600px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -73,7 +73,7 @@
 
 
         <!-- Booking Data Store Modal -->
-        <v-dialog v-model="eventDataStoreModal" max-width="700px">
+        <v-dialog persistent v-model="eventDataStoreModal" max-width="700px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -205,8 +205,8 @@
 
 
 
-        <!-- car Details for Booking -->
-        <v-dialog v-model="carStatusShow" scrollable max-width="1000px">
+        <!-- Car and driver Details for Booking -->
+        <v-dialog persistent v-model="carStatusShow" scrollable max-width="1000px">
             <v-card>
                 <!-- Dialog Title -->
                 <v-card-title class="justify-center">
@@ -228,7 +228,7 @@
 
 
                     <div v-if="freeCars.length > 0">
-                        <v-card v-for="singleData in  freeCars" :key="singleData.id" class="mb-5">
+                        <v-card v-for="singleData in freeCars" :key="singleData.id" class="mb-5">
                             <v-card-text>
                                 <v-row class="align-items-center">
                                     <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
@@ -237,7 +237,7 @@
                                         </v-col>
 
                                         <div class="driver_image_position">
-                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
+                                            <img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
                                         </div>
                                     </v-col>
 
@@ -245,7 +245,7 @@
                                     <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
                                         <div class="d-flex justify-content-around">
                                         
-                                            <div>
+                                            <div v-if="singleData.driver">
                                                 <div>Driver Name: {{ singleData.driver.name }}</div>
                                                 <div>Driver Number: {{ singleData.driver.contact }} </div>
                                             </div>
@@ -259,16 +259,9 @@
                                             </div>
 
                                         </div>
-
+                                        <!-- Driver Leave -->
                                         <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
-
-                                            <!-- <div v-if="checkStart(leave.start) || checkEnd(leave.end) ">
-                                                <div class="font-weight-bold my-2">Car on Leave</div>
-                                                <v-badge :content="leave.start+ ' to ' +leave.end" inline></v-badge>
-                                            </div> -->
-
-                                             <v-badge :content="leave.start+ ' to ' +leave.end" inline></v-badge>
-
+                                            <v-badge :content="leaveVal(leave)" inline></v-badge>
                                         </div>
 
                                         <v-btn @click="bookingModal(singleData)" color="teal white--text" class="mt-8" block>
@@ -296,7 +289,7 @@
                                         </v-col>
 
                                         <div class="driver_image_position">
-                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
+                                            <img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
                                         </div>
                                     </v-col>
 
@@ -304,7 +297,7 @@
                                     <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
                                         <div class="d-flex justify-content-around">
                                         
-                                            <div>
+                                            <div v-if="singleData.driver">
                                                 <div>Driver Name: {{ singleData.driver.name }}</div>
                                                 <div>Driver Number: {{ singleData.driver.contact }} </div>
                                             </div>
@@ -351,7 +344,7 @@
                                         </v-col>
 
                                         <div class="driver_image_position">
-                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
+                                            <img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
                                         </div>
                                     </v-col>
 
@@ -359,7 +352,7 @@
                                     <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
                                         <div class="d-flex justify-content-around">
                                         
-                                            <div>
+                                            <div v-if="singleData.driver">
                                                 <div>Driver Name: {{ singleData.driver.name }}</div>
                                                 <div>Driver Number: {{ singleData.driver.contact }} </div>
                                             </div>
@@ -374,9 +367,10 @@
 
                                         </div>
 
-                                        <!-- <div class="mt-3 text-center">
-                                            <v-badge color="error" :content="`Leave from: ` + singleBookedTimeShow(singleData.start, singleData.end) " inline></v-badge>
-                                        </div> -->
+                                        <!-- Driver Leave -->
+                                        <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
+                                            <v-badge :content="leaveVal(leave)" inline></v-badge>
+                                        </div>
 
 
                                         <v-btn @click="bookingModal(singleData),temporaryCarTime()" color="indigo white--text" class="mt-8" block>
@@ -389,57 +383,6 @@
                             </v-card-text>
                         </v-card>
                     </div>
-
-
-
-                    <!-- All Leave Cars -->
-                    <!-- <div v-if="leaveCars.length > 0">
-                        <div class="error--text pa-4 text-center font-weight-black text-overline"> Drivers on Leave</div>
-
-
-                        <v-card v-for="singleData in leaveCars" :key="singleData.id" class="mb-5">
-                            <v-card-text>
-                                <v-row class="align-items-center">
-                                    <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
-                                        <v-col lg="11">
-                                            <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image" max-width="400" class="rounded-lg"></v-img>
-                                        </v-col>
-
-                                        <div class="driver_image_position">
-                                            <img v-if="singleData.driver.image" :src="imagePathSmDriver + singleData.driver.image" alt="" class="size_avatar">
-                                        </div>
-                                    </v-col>
-
-                                    
-                                    <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
-                                        <div class="d-flex justify-content-around">
-                                        
-                                            <div>
-                                                <div>Driver Name: {{ singleData.driver.name }}</div>
-                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
-                                            </div>
-
-                                            <div class="line"></div>
-
-                                            <div>
-                                                <div>Car Name: {{ singleData.car.name }} </div>
-                                                <div>Car Number: {{ singleData.car.number }} </div>
-                                                <div>Capacity: {{ singleData.car.capacity }}</div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="mt-3 text-center">
-                                            <v-badge color="error" :content="`Leave from: ` + singleBookedTimeShow(singleData.start, singleData.end) " inline></v-badge>
-                                        </div>
-                                        
-                                    </v-col>
-                                </v-row>
-                            </v-card-text>
-                        </v-card>
-                    </div> -->
-
-                 
 
                 </v-card-text>
             </v-card>
@@ -471,6 +414,7 @@
         components: {
             FullCalendar ,// make the <FullCalendar> tag available
         },
+
         data: function () {
             return {
                 // time and date picker
@@ -578,29 +522,24 @@
 
             }
         },
+
         methods: {
-
-            checkStart(val){
-                let startDateTime = this.form.start_date + " " + this.form.start_time
-                
-                if(this.$moment(val).isAfter(startDateTime)){
-                    return true;
-                }else{
-                    return false
+            // Leave title
+            leaveVal(val){
+                //console.log(val)
+                let levType = ''
+                if(val.type == 'lev'){
+                    levType = 'Personal Leave'
+                }else if(val.type == 'req'){
+                    levType = 'Police Requisition'
                 }
-
+                else if(val.type == 'mant'){
+                    levType = 'Car Maintenances'
+                }
+                return levType +': ' + this.$moment(val.start).format('MMM Do YYYY, h:mm a') + ' -- ' + this.$moment(val.end).format('MMM Do YYYY, h:mm a');
             },
 
-            checkEnd(val){
-                let endDateTime = this.form.end_date + " " + this.form.end_time
-                if(this.$moment(val).isBefore(endDateTime)){
-                    return true;
-                }else{
-                    return false
-                }
-
-            },
-
+           
             // Fetch Data from DB
             async getDataAsync() {
                 try {
@@ -736,7 +675,7 @@
                     // console.log(response.data.cars);
 
                     this.freeCars = response.data.cars
-                    console.log(response.data.cars);
+                    //console.log(response.data.cars);
                     this.bookings = response.data.bookings
                     //this.leaveCars = response.data.leave
                     this.temporaryCars = response.data.temporary,
@@ -881,7 +820,6 @@
 
 
             resetForm(){
-
                 this.form.reset()
                 this.$refs.form.resetValidation()
             }

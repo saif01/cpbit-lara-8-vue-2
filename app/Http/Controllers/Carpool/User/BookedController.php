@@ -70,7 +70,7 @@ class BookedController extends Controller
         $next15End = Carbon::create($end)->addDays(15)->toDateTimeString();
 
         
-        $bookingData = CarpoolBooking::where('id', '!=', $id)
+        $bookingData = CarpoolBooking::where('id', '!=', $id) 
             ->where('car_id', '=', $car_id)
             ->where('status', '=', '1')
             ->whereRaw("( `start` BETWEEN '$back15Start' AND '$next15End' OR `end` BETWEEN '$back15Start' AND '$next15End' OR '$back15Start' BETWEEN `start` AND `end` OR '$next15End' BETWEEN `start` AND `end` )")

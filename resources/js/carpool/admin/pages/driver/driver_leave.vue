@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-dialog v-model="driverLeaveDilog" max-width="800">
+        <v-dialog persistent v-model="driverLeaveDilog" max-width="800">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -8,7 +8,7 @@
                             Diver Leave Action
                         </v-col>
                         <v-col cols="2">
-                            <v-btn @click="driverLeaveDilog = false" elevation="20" color="error white--text" small
+                            <v-btn @click="driverLeaveDilog = false, resetForm()" elevation="20" color="error white--text" small
                                 class="float-right">
                                 <v-icon left dark>mdi-close-octagon</v-icon> Close
                             </v-btn>
@@ -66,6 +66,7 @@
                             <v-row>
                                 <v-col cols="12" md="6">
                                     <!-- start_date -->
+                                    <div class="text-danger" v-if="form.errors.has('start_date')" v-html="form.errors.get('start_date')" />
                                     <v-menu v-model="menu" min-width="auto">
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="form.start_date" label="Start Date"
@@ -85,6 +86,7 @@
 
                                 <v-col cols="12" md="6">
                                     <!-- end_date -->
+                                    <div class="text-danger" v-if="form.errors.has('end_date')" v-html="form.errors.get('end_date')" />
                                     <v-menu v-model="menu2" min-width="auto">
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="form.end_date" :rules="[v => !!v || 'End date is required!']" label="End Date"
@@ -136,12 +138,13 @@
                                 </v-col>
 
                                 <v-col cols="12">
+                                    <div class="text-danger" v-if="form.errors.has('type')" v-html="form.errors.get('type')" />
                                     <v-select v-model="form.type" :items="leaveTypes" item-text="name" item-value="value" placeholder="Please, Select types" :rules="[v => !!v || 'Leave Type is required!']" required></v-select>
                                 </v-col>
                             </v-row>
 
 
-                            <v-btn type="submit" block color="teal" class="white--text" :loading="loadingLeaveAction">
+                            <v-btn type="submit" block color="teal" class="white--text" :loading="dataModalLoading">
                                 <v-icon>mdi-fountain-pen-tip</v-icon> Submit
                             </v-btn>
 
@@ -235,11 +238,11 @@ export default {
         },
 
         storeData(){
-            this.loadingLeaveAction = true
+            this.dataModalLoading = true
 
             this.form.post( this.currentUrl + '/store_leave').then(response=>{
                 this.$Progress.start();
-                this.loadingLeaveAction = false;
+                this.dataModalLoading = false;
                 this.driverLeaveDilog = false;
                 
                 // Parent to child
@@ -253,6 +256,7 @@ export default {
                
 
             }).catch(error=>{
+                this.dataModalLoading = false;
                 console.log(error)
             })
 

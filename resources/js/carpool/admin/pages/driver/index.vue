@@ -474,7 +474,7 @@
                 })
             },
 
-            // driverLeave
+            // driverLeavecon
             driverLeave(val) {
                 this.leaveActionKey++
                 this.currentCarDriver = val
@@ -482,7 +482,7 @@
 
             // driverAllStatus
             driverAllStatus(data) {
-                console.log(data)
+                // console.log(data)
                 this.driverStatus = true;
                 this.driverStatusData = data;
             },

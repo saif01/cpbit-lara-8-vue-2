@@ -38,10 +38,6 @@ class BookingController extends Controller
         $end = $request->selectData['end_date'] ." ". $request->selectData['end_time'];
         //dd($start);
 
-        
- 
-
-
         $bookingData = CarpoolBooking::with('car', 'bookby', 'driver')
             ->where('status', '1')
             ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
@@ -60,34 +56,27 @@ class BookingController extends Controller
         $futureDateTime = Carbon::now()->addDay(3);
 
         // car data
-        $carData = CarpoolCar::with('driver', 'carLeave')
-            // ->whereHas('carLeave', function($q)use($start, $end) {
-            //     $q->whereDate('start', '>=', Carbon::now());
-            //     //$q->orderBy('start', 'desc');
-            // })
+        $carData = CarpoolCar::with('driver', 'car_leave')
+            ->whereHas('driver', function($q){
+                // Check Driver assign
+                $q->whereNotNull('id');
+            })
             ->where('status', 1)
             ->where('temporary', 0)
             ->whereNotIn('id', $booked_car_id)
             ->get();
 
-            //dd($carData);
-
-
-        // leave car data
-        // $leaveData = CarpoolLeaves::with('car','driver')
-        //     ->whereHas('car', function($q){
-        //         $q->where('status', 1);
-        //     })
-        //     //->whereBetween('end',['end',$futureDateTime])
-        //     ->whereRaw("( `start` BETWEEN '$start' AND '$end' OR `end` BETWEEN '$start' AND '$end' OR '$start' BETWEEN `start` AND `end` OR '$end' BETWEEN `start` AND `end` )")
-        //     ->whereNotIn('car_id', $booked_car_id)
-        //     ->get();
+           
             
 
         // tempoprary car data
-        $temporaryCarData = CarpoolCar::where('status', 1)
+        $temporaryCarData = CarpoolCar::with('driver', 'car_leave')
+            ->whereHas('driver', function($q){
+                // Check Driver assign
+                $q->whereNotNull('id');
+            })
+            ->where('status', 1)
             ->where('temporary', 1)
-            ->with('driver')
             ->whereNotIn('id', $booked_car_id)
             ->get();
       

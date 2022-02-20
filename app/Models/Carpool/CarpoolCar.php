@@ -19,7 +19,7 @@ class CarpoolCar extends Model
     }
 
 
-    public function carLeave(){
+    public function car_leave(){
         return $this->hasMany('App\Models\Carpool\CarpoolLeaves', 'car_id', 'id')->whereDate('start', '>=', Carbon::now());
     }
 

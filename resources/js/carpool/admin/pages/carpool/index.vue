@@ -64,7 +64,7 @@
                                     <div v-if="singleData.capacity">
                                         <b>Capacity:</b> {{ singleData.capacity}}
                                     </div>
-                                    <div v-if="singleData.temporary==0">
+                                    <div v-if="singleData.temporary==1">
                                         <b>Car Type:</b> Temporary
 
                                         <v-btn depressed small color="indigo white--text" class="d-flex flex-end" @click="temporaryChange(singleData)">
@@ -72,7 +72,7 @@
                                         </v-btn>
 
                                     </div>
-                                    <div v-if="singleData.temporary==1">
+                                    <div v-if="singleData.temporary==0">
                                         <b>Car Type:</b> Regular
 
                                         <v-btn depressed small color="cyan white--text" class="d-flex flex-end" @click="temporaryChange(singleData)">
@@ -138,7 +138,7 @@
 
 
         <!-- Modal -->
-        <v-dialog v-model="dataModalDialog" max-width="1100px">
+        <v-dialog persistent v-model="dataModalDialog" max-width="1100px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -158,34 +158,39 @@
                         <form @submit.prevent="editmode ? updateData() : createData()">
 
                             <v-row>
-
                                 <v-col md="6" cols="12">
+                                    <div class="text-danger" v-if="form.errors.has('number')" v-html="form.errors.get('number')" />
                                     <v-text-field v-model="form.number" label="Enter Car Number" :rules="carRules" required></v-text-field>
                                 </v-col>
 
                                 <v-col md="6" cols="12">
+                                    <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                                     <v-text-field v-model="form.name" label="Enter Car Name" :rules="carRules" required></v-text-field>
                                 </v-col>
                             </v-row>
                             
                             <v-row>
                                 <v-col cols="12" md="6">
+                                    <div class="text-danger" v-if="form.errors.has('remarks')" v-html="form.errors.get('remarks')" />
                                     <v-textarea outlined rows="2" v-model="form.remarks" label="Enter Car Details" ></v-textarea>
                                 </v-col>
 
                                 
                                 
                                 <v-col cols="12" md="6">
+                                    <div class="text-danger" v-if="form.errors.has('capacity')" v-html="form.errors.get('capacity')" />
                                     <v-text-field type="number" v-model="form.capacity" label="Enter Car capacity" :rules="carRules" required></v-text-field>
                                 </v-col>
 
                                 
 
                                 <v-col md="6" cols="12">
+                                    <div class="text-danger" v-if="form.errors.has('status')" v-html="form.errors.get('status')" />
                                     <v-select label="Car Status (Default Active)" v-model="form.status" :items="statusOptions" :rules="carRulesOption" required>
                                     </v-select>
                                 </v-col>
                                 <v-col md="6" cols="12">
+                                    <div class="text-danger" v-if="form.errors.has('temporary')" v-html="form.errors.get('temporary')" />
                                     <v-select label="Car Type" v-model="form.temporary" :items="typeOptions" :rules="carRulesOption" required>
                                     </v-select>
                                 </v-col>
@@ -226,10 +231,9 @@
                                 </v-col>
                             </v-row>
 
-                            <v-btn v-show="editmode" type="submit" block depressed :loading="addCarpoolLoader" color="primary"><v-icon>mdi-edit</v-icon> Update</v-btn>
-                            <v-btn v-show="!editmode" type="submit" block depressed :loading="addCarpoolLoader" color="primary"><v-icon>mdi-save</v-icon> Create</v-btn>
+                            <v-btn v-show="editmode" type="submit" block depressed :loading="dataModalLoading" color="primary"><v-icon>mdi-edit</v-icon> Update</v-btn>
+                            <v-btn v-show="!editmode" type="submit" block depressed :loading="dataModalLoading" color="primary"><v-icon>mdi-save</v-icon> Create</v-btn>
                             
-
                         </form>
                     </v-form>
 
@@ -239,7 +243,7 @@
 
 
         <!-- mdoal car deadline -->
-        <v-dialog v-model="deadlineDialog" max-width="600px">
+        <v-dialog persistent v-model="deadlineDialog" max-width="600px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -393,7 +397,6 @@
         },
 
         methods: {
-
 
 
         },

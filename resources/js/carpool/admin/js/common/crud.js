@@ -2,14 +2,17 @@ export default{
 
     // Create Data
     async createData() {
+        // Loading Animation
+        this.dataModalLoading= true;
         //console.log('Form submited');
         this.$Progress.start()
         // request send and get response
         const response = await this.form.post(this.currentUrl +'/store'+ '');
         // Input field make empty
         this.resetForm();
+        // Loading Animation
+        this.dataModalLoading= false;
         // Hide model
-        //this.$refs['data-modal'].hide();
         this.dataModalDialog = false;
         // Refresh Tbl Data with current page
         this.getResults(this.currentPageNumber);
@@ -34,14 +37,16 @@ export default{
 
     // Update data
     async updateData() {
-        this.addCarpoolLoader = true
+        // Loading Animation
+        this.dataModalLoading= true;
         //console.log('Edit Form submited', this.form.id);
         this.$Progress.start();
         // request send and get response
         const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
         // Input field make empty
         this.resetForm();
-        this.addCarpoolLoader = false
+        // Loading Animation
+        this.dataModalLoading= false;
         // Hide model
         //this.$refs['data-modal'].hide();
         this.dataModalDialog = false;
@@ -233,12 +238,11 @@ export default{
     temporaryChange(data){
         // console.log('status', data.status)
         if(data.temporary == 0){
-            var text = "Are you want to make it Regular ?"
-            var btnText = "Yes, Regular"
-           
-        }else{
             var text = "Are you want to make it Temporary ?"
             var btnText = "Yes, Temporary"
+        }else{
+            var text = "Are you want to make it Regular ?"
+            var btnText = "Yes, Regular"
         }
 
         Swal.fire({
