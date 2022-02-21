@@ -62,7 +62,10 @@
                 
                 <!-- Details -->
                 <table class="table mb-0">
-                    
+                    <tr v-if="complainDeta.accessories">
+                        <th>Accessories: </th>
+                        <td>{{ complainDeta.accessories }}</td>
+                    </tr>
                     <tr>
                         <th>Details:</th>
                         <td>{{ complainDeta.details }}</td>
@@ -200,7 +203,7 @@
                 axios.get(this.currentUrl + '/action/' + this.comId).then(response => {
                     this.dataLoading = false
 
-                    console.log(response.data)
+                    //console.log(response.data)
                     this.complainDeta = response.data
 
                 }).catch(error => {

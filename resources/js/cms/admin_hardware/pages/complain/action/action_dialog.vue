@@ -34,12 +34,14 @@
                         
                             <v-row align-content="center">
                                
+                                <!-- Process -->
                                 <v-col cols="6">
                                     <div class="small text-danger" v-if="form.errors.has('process')" v-html="form.errors.get('process')" />
                                     <v-autocomplete :items="stepOptions" dense
                                     v-model="form.process" label="Select Step" :rules="[v => !!v || 'Step is required!']" outlined required></v-autocomplete>
                                 </v-col>
 
+                                <!-- Document -->
                                 <v-col cols="6">
                                     <v-file-input 
                                         @change="uploadDocByName($event, 'document')"
@@ -52,6 +54,20 @@
                                     ></v-file-input>
                                 </v-col>
 
+                                <!-- Accessoris -->
+                                <v-col cols="12" v-if="currentAccessories">
+                                    <v-input hide-details>Which Accessories are you received in Hardware, Please Select
+                                    </v-input>
+                                    <div class="d-flex align-center">
+                                        <!-- {{ checkedAccessories }} -->
+                                        <div v-for="(item, index) in currentAccessories" :key="index">
+                                            <v-checkbox class="mr-5" :label="item" :value="item"  v-model="checkedAccessories" 
+                                                hide-details></v-checkbox>
+                                        </div>
+                                    </div>
+                                </v-col>
+
+                                <!-- Details -->
                                 <v-col cols="12">
                                     <div class="small text-danger" v-if="form.errors.has('details')" v-html="form.errors.get('details')" />
                                    
@@ -133,6 +149,10 @@
 
                 stepOptions:[
                     {
+                        text: 'Not Processing',
+                        value: 'Not Processing'
+                    },
+                    {
                         text: 'Processing',
                         value: 'Processing'
                     },
@@ -143,6 +163,14 @@
                 ],
 
                 dataModalLoading : false,
+
+                currentAccessories: [],
+                // currentAccessories: [
+                //     'aaa', 'aaa2'
+                // ],
+
+                checkedAccessories:[],
+                otherAccessoris:'',
 
                 // Form
                 form: new Form({
@@ -156,6 +184,16 @@
         },
 
         methods:{
+
+            accessorisTextToArray(){
+                this.currentAccessories = []
+                let acc = this.comData.accessories
+                if(acc){
+                    this.currentAccessories = acc.split(',')
+                    //console.log(this.currentAccessories, acc)
+                }
+
+            },
 
             // actionStore
             actionStore(){
@@ -191,7 +229,8 @@
         },
 
         created(){
-            console.log('comData', this.comData )
+            this.accessorisTextToArray()
+            //console.log('comData', this.comData )
         }
     }
 

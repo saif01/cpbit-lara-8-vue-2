@@ -683,7 +683,6 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/index', 'IndexController@index');
                 Route::get('/canceled', 'IndexController@canceled');
             });
-
            
             Route::get('{any?}', 'IndexController@index');
         });
@@ -776,7 +775,11 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
 
-
+    // Email
+    Route::namespace('Common\Email')->prefix('email')->group(function(){
+        Route::get('/cms_app', 'ScheduleEmailCmsApplication@SEND');
+        
+    }); 
 
 
 
