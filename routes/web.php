@@ -739,6 +739,9 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/processing', 'ComplainController@processing');
                 Route::get('/closed', 'ComplainController@closed');
 
+                Route::get('/category', 'ModifyController@category');
+                Route::post('/category_modify', 'ModifyController@category_modify');
+
                 Route::get('/action/{id}', 'ActionController@action');
                 Route::post('/action_remarks', 'ActionController@action_remarks');
             });

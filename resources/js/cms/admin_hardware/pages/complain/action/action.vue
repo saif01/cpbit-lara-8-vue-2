@@ -15,9 +15,10 @@
                                 {{ complainDeta.id }}</div>
                         </td>
                         <th>Category:</th>
-                        <td><span v-if="complainDeta.category">{{ complainDeta.category.name }}</span></td>
+                        <td><v-btn v-if="complainDeta.category" @click="modifyDialogShow()" color="info" small ><v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.category.name }}</v-btn></td>
                         <th>Subcategory:</th>
-                        <td><span v-if="complainDeta.subcategory">{{ complainDeta.subcategory.name }}</span></td>
+                        <td>
+                        <v-btn v-if="complainDeta.subcategory" @click="modifyDialogShow()" color="info" small  ><v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.subcategory.name }}</v-btn></td>
                     </tr>
 
                     <tr>
@@ -142,6 +143,9 @@
         <!-- user-details -->
         <user-details v-if="CurrentUserData" :userData="CurrentUserData" :key="userDetailsDialogKey"></user-details>
 
+        <!-- Modify Dialog -->
+        <cat-sub-modify-dialog v-if="CurrentComDataModify" :comData="CurrentComDataModify" :key="comModifyDialogKey" @childToParent="childToParentCall"></cat-sub-modify-dialog>
+
         <!-- Action Model -->
         <action-dialog v-if="CurrentComData" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog>
 
@@ -154,7 +158,9 @@
     import userDetailsData from '../../../../../super_admin/pages/users/details/js/data'
     import userDetailsMethods from '../../../../../super_admin/pages/users/details/js/methods'
 
+    import catSubModifyDialog from './cat_sub_modify.vue'
     import actionDialog from './action_dialog.vue'
+    
 
 
 
@@ -162,6 +168,7 @@
 
         components: {
             'user-details': userDetails,
+            'cat-sub-modify-dialog': catSubModifyDialog,
             'action-dialog': actionDialog,
         },
 
@@ -179,6 +186,10 @@
                 //Action Dialog
                 comActionsDialogKey: 0,
                 CurrentComData: '',
+
+                // comModifyDialog
+                comModifyDialogKey: 0,
+                CurrentComDataModify: '',
 
 
                 // Current User Show By Dilog
@@ -215,10 +226,17 @@
 
             // actionDialogShow
             actionDialogShow() {
-
                 this.comActionsDialogKey++
                 this.CurrentComData = this.complainDeta
-            }
+            },
+
+            // modifyDialogShow
+            modifyDialogShow() {
+                this.comModifyDialogKey++
+                this.CurrentComDataModify = this.complainDeta
+            },
+
+
 
         },
 
