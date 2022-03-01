@@ -15,6 +15,7 @@ class CreateScheduleEmailCmsAppsTable extends Migration
     {
         Schema::create('schedule_email_cms_apps', function (Blueprint $table) {
             $table->id();
+            $table->integer('rem_id')->nullable();
             $table->string('to');
             $table->string('cc');
             $table->string('name')->nullable();

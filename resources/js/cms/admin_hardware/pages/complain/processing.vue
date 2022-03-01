@@ -36,8 +36,8 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'id'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'id'">&darr;</span>
                                 </th>
-                                <th>Software</th>
-                                <th>Module</th>
+                                <th>Category</th>
+                                <th>Subcategory</th>
                                 <th>User</th>
                                 <th>Department</th>
                             </tr>

@@ -11,9 +11,20 @@ import Acsosoris from './../pages/others/acsosoris/index.vue'
 
 import User from './../pages/user/index.vue'
 
+import Draft from './../pages/draft/index.vue'
+
 import NotProcess from './../pages/complain/not_process.vue'
 import Processing from './../pages/complain/processing.vue'
 import Action from './../pages/complain/action/action.vue'
+import Service from './../pages/complain/service.vue'
+
+
+// Damaged
+import AllDamaged from './../pages/complain/damaged/all.vue'
+import ApplicableDamaged from './../pages/complain/damaged/applicable/damaged.vue'
+import ApplicablePartialDamaged from './../pages/complain/damaged/applicable/partial_damaged.vue'
+import NotApplicableDamaged from './../pages/complain/damaged/not_applicable/damaged.vue'
+import NotApplicablePartialDamaged from './../pages/complain/damaged/not_applicable/partial_damaged.vue'
 
 
 const router = new VueRouter({
@@ -77,13 +88,70 @@ const router = new VueRouter({
             },   
         },
         { 
-            path: '/cms/h_admin/Action', 
+            path: '/cms/h_admin/action', 
             component: Action,
             name: 'Action',
             meta:{
                 title: 'Hardware Action Admin',
             },   
         },
+        { 
+            path: '/cms/h_admin/service', 
+            component: Service,
+            name: 'Service',
+            meta:{
+                title: 'Hardware Service Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/draft', 
+            component: Draft,
+            name: 'Draft',
+            meta:{
+                title: 'Hardware Draft Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/damaged_all', 
+            component: AllDamaged,
+            name: 'AllDamaged',
+            meta:{
+                title: 'Hardware All Damaged Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/damaged_acclicable', 
+            component: ApplicableDamaged,
+            name: 'ApplicableDamaged',
+            meta:{
+                title: 'Hardware Applicable Damaged Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/partial_damaged_acclicable', 
+            component: ApplicablePartialDamaged,
+            name: 'ApplicablePartialDamaged',
+            meta:{
+                title: 'Hardware Applicable Partial Damaged Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/damaged_not_acclicable', 
+            component: NotApplicableDamaged,
+            name: 'NotApplicableDamaged',
+            meta:{
+                title: 'Hardware Not Applicable Damaged Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/partial_damaged_not_acclicable', 
+            component: NotApplicablePartialDamaged,
+            name: 'NotApplicablePartialDamaged',
+            meta:{
+                title: 'Hardware Not Applicable Partial Damaged Admin',
+            },   
+        },
+        
 
         
 

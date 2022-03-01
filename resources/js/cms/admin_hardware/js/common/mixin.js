@@ -46,6 +46,9 @@ export default {
         tblItemNumberShow:[5,10,15,25,50,100],
         // v-form
         valid: false,
+
+        allRepDrafts: [],
+        selectDraft:'',
       }
     },
 
@@ -67,52 +70,18 @@ export default {
 
 
 
-    
-        handleResize() {
-            this.window.width = window.innerWidth;
-            this.window.height = window.innerHeight;
+        // all Replay Draft
+        allReplayDraft(){
+            axios.get('/cms/h_admin/draft/all_data').then(response=>{
+                console.log(response.data)
+                this.allRepDrafts = response.data;
+            }).catch(error=>{
+                console.log(error)
+            })
         },
 
        
-        // Add model show
-        newModal() {
-            this.editmode = false;
-            this.form.reset();
-            $('#addNew').modal('show');
-        },
-
-        // Edit Model show
-        editModal(singleData) {
-            this.editmode = true;
-            this.form.reset();
-            $('#addNew').modal('show');
-            this.form.fill(singleData);
-        },
-
-
-
-        testMethod(){
-            return ' Come form common';
-        },
-
-
        
-        
-        async callApi(method, url, dataObj) {
-
-            try {
-
-                return await axios({
-                    method: method,
-                    url: url,
-                    data: dataObj
-                })
-
-            } catch (e) {
-                return e.response
-            }
-
-        }
 
         // End Methods
     },
@@ -138,7 +107,16 @@ export default {
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();
-        }
+        },
+
+        // selectDraft
+        selectDraft: function(value){
+            if(this.form.details){
+                this.form.details = this.form.details + value 
+            }else{
+                this.form.details = value 
+            }
+        },
        
     },
 

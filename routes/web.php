@@ -738,12 +738,35 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/not_process', 'ComplainController@not_process');
                 Route::get('/processing', 'ComplainController@processing');
                 Route::get('/closed', 'ComplainController@closed');
+                Route::get('/service', 'ComplainController@service');
 
+                // Damaged
+                Route::get('/all_damaged', 'ComplainController@all_damaged');
+                Route::get('/applicable_damaged', 'ComplainController@applicable_damaged');
+                Route::get('/applicable_partial_damaged', 'ComplainController@applicable_partial_damaged');
+                Route::get('/not_applicable_damaged', 'ComplainController@not_applicable_damaged');
+                Route::get('/not_applicable_partial_damaged', 'ComplainController@not_applicable_partial_damaged');
+
+                // Complain modify
                 Route::get('/category', 'ModifyController@category');
                 Route::post('/category_modify', 'ModifyController@category_modify');
 
                 Route::get('/action/{id}', 'ActionController@action');
                 Route::post('/action_remarks', 'ActionController@action_remarks');
+
+                // Send mail
+                Route::get('/send_rem_email', 'IndexController@send_rem_email');
+                Route::get('/get_user_zone', 'IndexController@get_user_zone');
+            });
+
+            //Draft 
+            Route::namespace('Draft')->prefix('draft')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+                Route::post('/status/{id}', 'IndexController@status');
+                Route::get('/all_data', 'IndexController@all_data');
             });
 
             
@@ -766,7 +789,9 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                
                 Route::post('/complain', 'HardwareController@complain');
                 Route::get('/category', 'HardwareController@category');
-               
+                Route::get('/history', 'HardwareController@history');
+                Route::get('/damage_apply', 'HardwareController@damage_apply');
+
             });
 
 

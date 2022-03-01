@@ -25,13 +25,19 @@ class HardwareComplain extends Model
         return $this->hasMany('App\Models\Cms\Hardware\HardwareRemarks', 'comp_id', 'id');
     }
 
+    public function dam_apply(){
+        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamageApply', 'comp_id', 'id');
+    }
+
 
 
     public function scopeSearch($query, $val='')
     {
         return $query
         ->where('id', 'LIKE', '%'.$val.'%')
-        ->where('details', 'LIKE', '%'.$val.'%')
+        ->orWhere('process', 'LIKE', '%'.$val.'%')
+        ->orWhere('computer_name', 'LIKE', '%'.$val.'%')
+        ->orWhere('details', 'LIKE', '%'.$val.'%')
         ->orWhereHas('makby', function($query) use ($val){
             $query->WhereRaw('login LIKE ?', '%'.$val.'%');
         })

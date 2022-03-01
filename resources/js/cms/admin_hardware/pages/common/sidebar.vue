@@ -34,7 +34,7 @@
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
             <v-list-item class="px-2" link href="/">
                 <v-list-item-icon>
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
+                    <img src="/all-assets/common/icon/hardware.png" alt="" height="40px" contain>
                 </v-list-item-icon>
                 <v-list-item-title>Hard. Admin</v-list-item-title>
             </v-list-item>
@@ -51,7 +51,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'User'}" exact>
+                <v-list-item link router :to="{name: 'User'}" >
                     <v-list-item-icon>
                         <v-icon>mdi-account-group</v-icon>
                     </v-list-item-icon>
@@ -60,7 +60,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'NotProcess'}" exact>
+                <v-list-item link router :to="{name: 'NotProcess'}" >
                     <v-list-item-icon>
                         <v-icon>mdi-account-group</v-icon>
                     </v-list-item-icon>
@@ -69,7 +69,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'Processing'}" exact>
+                <v-list-item link router :to="{name: 'Processing'}" >
                     <v-list-item-icon>
                         <v-icon>mdi-account-group</v-icon>
                     </v-list-item-icon>
@@ -78,8 +78,93 @@
                     </v-list-item-content>
                 </v-list-item>
 
+                <v-list-item link router :to="{name: 'Service'}" >
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Service</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
                
-                 <!-- Sidebar Multi level Item -->
+
+                <v-list-item link router :to="{name: 'Draft'}" >
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Replay Draft</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+               
+
+                <!-- Damaged Sidebar Multi level Item -->
+                <v-list-group prepend-icon="mdi-account-group" active-class="dark--text" no-action>
+                    <template v-slot:activator>
+                        <v-list-item-title>Damaged</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router :to="{name: 'AllDamaged'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-details</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-group sub-group>
+                        <template v-slot:activator>
+                            <v-list-item-title>Applicable</v-list-item-title>
+                        </template>
+
+                        <v-list-item link router :to="{ name:'ApplicableDamaged' }">
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-multiple-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>Damaged</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item link router :to="{ name:'ApplicablePartialDamaged' }">
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-multiple-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>Partial Damaged</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-group>
+
+                    <v-list-group sub-group>
+                        <template v-slot:activator>
+                            <v-list-item-title>Not Applicable</v-list-item-title>
+                        </template>
+
+                        <v-list-item link router :to="{ name:'NotApplicableDamaged' }">
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-multiple-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>Damaged</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item link router :to="{ name:'NotApplicablePartialDamaged' }">
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-multiple-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>Partial Damaged</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-group>
+                </v-list-group>
+                
+
+               
+                <!-- Sidebar Multi level Item -->
                 <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text" no-action>
                     <template v-slot:activator>
                         <v-list-item-title>Others</v-list-item-title>
@@ -221,8 +306,8 @@
 
 <style scoped>
     .bg_gradient {
-        background: -webkit-linear-gradient(to bottom, #5bb0b0, #212839);
-        background: linear-gradient(to bottom, #5bb0b0, #212839);
+        background: -webkit-linear-gradient(to bottom, #803333, #1c1e1e);
+        background: linear-gradient(to bottom, #803333, #1c1e1e);
     }
 
     a:hover {

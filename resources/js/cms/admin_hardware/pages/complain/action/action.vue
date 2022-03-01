@@ -49,6 +49,11 @@
                             <div class="pa-1 success rounded-pill h6 text-white text-center">
                                 {{ complainDeta.process }}</div>
                         </td>
+
+                        <th v-if="complainDeta.computer_name" >C. Name:</th>
+                        <td v-if="complainDeta.computer_name">
+                           {{ complainDeta.computer_name }}
+                        </td>
                    
                         <th>Files:</th>
                         <td>
@@ -56,7 +61,9 @@
                                 class="btn btn-info btn-sm text-white" download>
                                 <v-icon color="white">mdi-download-network-outline</v-icon> Doc-1
                             </a>
+                            <span v-else class="text-danger">Not Attached</span>
                         </td>
+                        
                         
                     </tr>
                 </table>
@@ -80,7 +87,11 @@
 
                             <tr>
                                 <th>Process: ({{ index+1 }})</th>
-                                <td>{{ item.process }}</td>
+                                <td>
+                                    <span v-if="(item.process == 'Damaged')" class="text-danger bg-white rounded">Damaged</span> 
+                                    <span v-else-if="(item.process == 'Closed')" class="text-danger bg-white rounded">Closed</span> 
+                                    <span v-else>{{ item.process }}</span> 
+                                </td>
                                 <th>Document:</th>
                                 <td>
                                     <span v-if="item.document">
@@ -103,12 +114,35 @@
                                         </v-avatar> {{ item.makby.name }}
                                     </button>
                                 </td>
-                                <th>R. Register:</th>
+                                <th>Action At:</th>
                                 <td><span
                                         v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                 </td>
                             </tr>
-
+                            <!-- dam_apply -->
+                            <!-- {{ complainDeta.dam_apply }} -->
+                            <tr v-if="(item.process == 'Damaged') && complainDeta.dam_apply && complainDeta.dam_apply.apply_by" class="bg-info">
+                                <th>Damage Apply:</th>
+                                <td>Successfully </td>
+                                <th>Apply At:</th>
+                                <td><span v-if="complainDeta.dam_apply.apply_at" class="text-warning" >{{ complainDeta.dam_apply.apply_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                </td>
+                            </tr>
+                            <!-- Email send  -->
+                            <tr v-if="item.mail">
+                                <th>E-Mail:</th>
+                                <td>
+                                    <span v-if="item.mail.status" class="text-success">Successfully Sent</span>
+                                    <span v-else class="text-warning">Sending</span> 
+                                    <v-btn @click="mailSendManual(item.mail.id)" :loading="mailSendLoading" small class="float-right" ><v-icon>mdi-email-send</v-icon></v-btn>
+                                </td>
+                                <th>Send At:</th>
+                                <td><span v-if="item.mail.status">{{ item.mail.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                <span v-else class="text-warning">Sending</span>
+                                </td>
+                            </tr>
+                                
+                    
                         </table>
                         <table class="table mb-1 bg-secondary text-white rounded border-bottom  border-danger">
                             <tr>
@@ -121,7 +155,7 @@
 
                 <!-- Action Btn -->
                 <div>
-                    <v-btn v-if="complainDeta.process != 'Closed'" block class="success" @click="actionDialogShow()" elevation="20" >
+                    <v-btn v-if="complainDeta.process != 'Closed'" :loading="actionBtnLoading" block class="success" @click="actionDialogShow()" elevation="20" >
                         <v-icon left>mdi-gesture-tap-button</v-icon> Action
                     </v-btn>
                 </div>
@@ -146,8 +180,13 @@
         <!-- Modify Dialog -->
         <cat-sub-modify-dialog v-if="CurrentComDataModify" :comData="CurrentComDataModify" :key="comModifyDialogKey" @childToParent="childToParentCall"></cat-sub-modify-dialog>
 
-        <!-- Action Model -->
-        <action-dialog v-if="CurrentComData" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog>
+
+
+        <!-- Not Process Action Dialog -->
+        <action-dialog v-if="actionVal" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog>
+
+        <!-- Not Process Action Dialog -->
+        <action-dialog-2 v-if="actionVal2" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog-2>
 
     </div>
 </template>
@@ -159,7 +198,8 @@
     import userDetailsMethods from '../../../../../super_admin/pages/users/details/js/methods'
 
     import catSubModifyDialog from './cat_sub_modify.vue'
-    import actionDialog from './action_dialog.vue'
+    import actionDialog from './dialog/action_dialog.vue'
+    import actionDialog2 from './dialog/action_dialog_2.vue'
     
 
 
@@ -170,6 +210,7 @@
             'user-details': userDetails,
             'cat-sub-modify-dialog': catSubModifyDialog,
             'action-dialog': actionDialog,
+            'action-dialog-2': actionDialog2,
         },
 
         data() {
@@ -184,16 +225,22 @@
                 complainDeta: '',
 
                 //Action Dialog
-                comActionsDialogKey: 0,
+                actionBtnLoading:false,
+                actionVal:false,
+                actionVal2:false,
+                comActionsDialogKey: 3,
                 CurrentComData: '',
 
                 // comModifyDialog
-                comModifyDialogKey: 0,
+                comModifyDialogKey: 5,
                 CurrentComDataModify: '',
 
 
                 // Current User Show By Dilog
                 ...userDetailsData,
+
+                // Send Mail
+                mailSendLoading: false,
             }
         },
 
@@ -224,16 +271,57 @@
 
             },
 
-            // actionDialogShow
-            actionDialogShow() {
-                this.comActionsDialogKey++
-                this.CurrentComData = this.complainDeta
-            },
-
+           
             // modifyDialogShow
             modifyDialogShow() {
                 this.comModifyDialogKey++
                 this.CurrentComDataModify = this.complainDeta
+            },
+
+            // mailSendManual
+            mailSendManual(val){
+             this.mailSendLoading = true
+             axios.get(this.currentUrl+'/send_rem_email?id=' + val )
+                .then(response => {
+                    //console.log(response.data);
+                    this.getComplainData();
+                    Swal.fire({
+                        icon: response.data.icon,
+                        title: response.data.msg,
+                    })
+                    this.mailSendLoading = false
+                }).catch(error=>{
+                    this.mailSendLoading = false
+                    console.log(error);
+                });
+
+            },
+
+
+            // actionDialogShow
+            actionDialogShow() {
+                this.actionBtnLoading = true
+
+                //console.log('Process ', val)
+                let currPro = this.complainDeta.process
+
+                if(currPro == 'Not Process'){
+                    this.actionVal = true
+                    this.actionVal2 = false
+                }
+                
+                if(currPro == 'Processing' || currPro == 'Send Service' || currPro == 'Back Service'|| currPro == 'Again Send Service'){
+                    this.actionVal = false
+                    this.actionVal2 = true 
+                }
+
+                this.comActionsDialogKey++
+                this.CurrentComData = this.complainDeta
+
+                // this.comActionsDialogKey++
+                // this.CurrentComData = this.complainDeta
+
+                this.actionBtnLoading = false
             },
 
 
@@ -243,7 +331,7 @@
         created() {
             this.$Progress.start();
             this.getComplainData();
-            console.log(this.comId, this.$route.query.id)
+            //console.log(this.comId, this.$route.query.id)
             this.$Progress.finish();
         }
 

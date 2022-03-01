@@ -37,6 +37,9 @@ export default {
         imageMaxSize: '2111775',
         fileMaxSize: '5111775',
         overlayshow: false,
+
+        // Tbl number of data show
+        tblItemNumberShow:[5,10,15,25,50,100],
       }
     },
 

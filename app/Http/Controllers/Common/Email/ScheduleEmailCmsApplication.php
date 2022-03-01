@@ -54,6 +54,7 @@ class ScheduleEmailCmsApplication extends Controller
 
         $data = new ScheduleEmailCmsApp();
 
+        $data->rem_id   = $remarks->id;
         $data->to       = $to;
         $data->cc       = $managerMail;
         $data->name     = $userData->name;

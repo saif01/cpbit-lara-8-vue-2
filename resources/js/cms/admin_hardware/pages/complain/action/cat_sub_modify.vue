@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-dialog v-model="actionDailog" scrollable max-width="900px" >
+        <v-dialog v-model="actionDailog" scrollable max-width="600px" >
 
             <v-card>
                 <v-card-title class="justify-center">

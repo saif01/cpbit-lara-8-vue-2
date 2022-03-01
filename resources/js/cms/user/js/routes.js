@@ -2,8 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import Dashboard from '../pages/dashboard.vue'
-import er404 from '../pages/common/404.vue'
+import Dashboard from './../pages/dashboard.vue'
+import er404 from './../pages/common/404.vue'
+
+import HardwareHistory from './../pages/hardware_history.vue'
 
 
 const router = new VueRouter({
@@ -14,7 +16,15 @@ const router = new VueRouter({
             component: Dashboard,
             name: 'Dashboard',
             meta:{
-                title: 'Room Dashboard',
+                title: 'CMS Dashboard',
+            },   
+        },
+        { 
+            path: '/cms/hardware_history', 
+            component: HardwareHistory,
+            name: 'HardwareHistory',
+            meta:{
+                title: 'CMS Hardware History',
             },   
         },
        

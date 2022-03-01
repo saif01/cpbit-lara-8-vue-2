@@ -38,20 +38,18 @@
                                     outlined required></v-autocomplete>
                             </v-col>
                             
-                            <!-- Accessoris -->
-                            <v-col cols="12" v-if="currentAccessories">
+                            <!-- Accessoris currentAccessories:  {{ currentAccessoriesData }} --> 
+                            <v-col cols="12" v-if="currentAccessoriesData">
                                 <v-input hide-details>Which Accessories are you send in Hardware, Please Select
                                 </v-input>
                                 <div class="d-flex align-center">
-                                    <div v-for="(item, index) in currentAccessories" :key="index">
+                                    <div v-for="(item, index) in currentAccessoriesData" :key="index">
                                         <v-checkbox class="mr-5" :value="item.name" :label="item.name" v-model="checkedAccessories" 
                                             hide-details></v-checkbox>
                                     </div>
                                 </div>
                                 <v-text-field label="Other accessoris that you provide mention here" v-model="otherAccessoris" ></v-text-field>
-                            </v-col>
-
-                           
+                            </v-col>   
 
                             <!-- details -->
                             <v-col cols="12">
@@ -62,11 +60,9 @@
                                     :rules="remRules" required></v-textarea>
                             </v-col>
 
-
-
-
+                            <!-- document -->
                             <v-col lg="6" md="6" cols="12">
-                                <v-file-input @change="uploadDocByName($event, 'document')" show-size label="Document 1"
+                                <v-file-input @change="uploadDocByName($event, 'document')" show-size label="Document"
                                     accept="image/*, .pdf, .xlsx, .docx" :rules="docRules" outlined></v-file-input>
                             </v-col>
 
@@ -119,7 +115,7 @@
                 allSubcategory: [],
 
                 allCatData: [],
-                currentAccessories: '',
+                currentAccessoriesData: '',
 
                 checkedAccessories:[],
                 otherAccessoris:'',
@@ -166,14 +162,16 @@
 
                 this.allCatData.forEach(element => {
                     //console.log(element.id)
-                    this.currentAccessories = ''
+                    //this.currentAccessoriesData = ''
 
                     // Check Selected category ID 
                     if (element.id == this.form.cat_id) {
 
                         if (element.acsosoris.length > 0) {
-                            console.log('acsosoris', element.acsosoris)
-                            this.currentAccessories = element.acsosoris
+                           
+                            this.currentAccessoriesData = element.acsosoris
+
+                            //console.log('acsosoris', this.currentAccessoriesData, element.acsosoris)
                         }
                         //console.log(element)
                         this.allSubcategory = []
@@ -221,7 +219,10 @@
                 this.dataModalLoading = true
 
                 // combaine array and text
-                this.checkedAccessories.push(this.otherAccessoris)
+                if(this.otherAccessoris){
+                    this.checkedAccessories.push(this.otherAccessoris)
+                }
+                
                 // Assign in form 
                 this.form.accessories = this.checkedAccessories
 

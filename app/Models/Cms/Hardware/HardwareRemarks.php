@@ -17,6 +17,15 @@ class HardwareRemarks extends Model
         return $this->belongsTo('App\Models\Cms\Hardware\HardwareCategory', 'cat_id', 'id');
     }
 
+    public function mail(){
+        //return $this->belongsTo('App\Models\Email\ScheduleEmailCmsHard', 'id', 'rem_id')->select(['id']);
+        return $this->hasOne('App\Models\Email\ScheduleEmailCmsHard', 'rem_id', 'id');
+    }
+
+    public function dam_apply(){
+        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamageApply', 'comp_id', 'comp_id');
+    }
+
 
     public function scopeSearch($query, $val='')
     {
