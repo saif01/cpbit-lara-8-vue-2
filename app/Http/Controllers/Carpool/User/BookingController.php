@@ -20,7 +20,7 @@ class BookingController extends Controller
     public function data(){
 
         $allData = CarpoolBooking::where('status', '1')
-        ->with('car', 'bookby')
+        ->with('car', 'driver', 'bookby')
         ->orderBy('id', 'desc')
         ->take(200)
         ->get()

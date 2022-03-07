@@ -96,36 +96,37 @@
                             <v-row>
                                 <v-col>
                                     <div>
-                                        Gasoline: <span v-if="singleData.gasoline">{{ singleData.gasoline }}</span>
-                                        <span v-else class="error--text">Not Found !!</span>
-                                    </div>
-                                    <div>
-                                        Octane: <span v-if="singleData.octane">{{ singleData.octane }}</span> <span
-                                            v-else class="error--text">Not Found !!</span>
-                                    </div>
-                                    <div>
-                                        Toll: <span v-if="singleData.toll">{{ singleData.toll }}</span> <span v-else
-                                            class="error--text">Not Found !!</span>
-                                    </div>
-                                    <div>
                                         Mileage: <span v-if="singleData.start_mileage"> {{ singleData.start_mileage }}
-                                            || {{ singleData.end_mileage }} </span> <span v-else class="error--text">Not
+                                            -- {{ singleData.end_mileage }} </span> <span v-else class="error--text">Not
                                             Found !!</span>
                                     </div>
+                                    <div>
+                                        Gasoline: <span v-if="singleData.gasoline !== null">{{ singleData.gasoline }}</span>
+                                        <span v-else class="error--text">N/A</span>
+                                    </div>
+                                    <div>
+                                        Octane: <span v-if="singleData.octane !== null">{{ singleData.octane }}</span> <span
+                                            v-else class="error--text">N/A</span>
+                                    </div>
+                                    <div>
+                                        Toll: <span v-if="singleData.toll !== null">{{ singleData.toll }}</span> <span v-else
+                                            class="error--text">N/A</span>
+                                    </div>
+                                   
                                 </v-col>
                                 <v-col>
                                     <div>
                                         KM: <span v-if="singleData.km">{{ singleData.km }}</span> <span v-else
-                                            class="error--text">Not Found !!</span>
+                                            class="error--text">N/A</span>
                                     </div>
                                     <div>
-                                        Total: <span v-if="singleData.cost">{{ singleData.cost }}</span> <span v-else
-                                            class="error--text">Not Found !!</span>
+                                        Total: <span v-if="singleData.cost !== null">{{ singleData.cost }}</span> <span v-else
+                                            class="error--text">N/A</span>
                                     </div>
                                     <div>
                                         Rating: <span
                                             v-if="singleData.driver_rating">{{ singleData.driver_rating }}</span> <span
-                                            v-else class="error--text">Not Found !!</span>
+                                            v-else class="error--text">N/A</span>
                                     </div>
                                 </v-col>
                             </v-row>

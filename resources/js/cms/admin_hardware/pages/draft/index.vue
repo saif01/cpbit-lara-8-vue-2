@@ -4,7 +4,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="card-title">Replay Draft List</h3>
+                        <h3 class="card-title">Draft List</h3>
                     </div>
                     <div class="col-6">
                         <v-btn @click="addDataModel" elevation="10" small class="float-right" color="primary" outlined>

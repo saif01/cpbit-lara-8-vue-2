@@ -43,9 +43,15 @@
                         </v-avatar>
                         CPB-IT Portal Login
                     </v-card-title>
+                    <v-card-text>
+                        <!-- Error -->
+                        <v-alert v-if="error" shaped prominent type="error" dismissible>
+                            {{ errorMsg }}
+                        </v-alert>
 
-                    <form @submit.prevent="login()">
-                        <v-card-text>
+
+                        <form @submit.prevent="login()">
+
                             <v-text-field type="text" label="Login ID" :rules="[v => !!v || 'Login ID is required!']"
                                 v-model="form.login" prepend-icon="mdi-account-alert-outline" required></v-text-field>
                             <div v-if="form.errors.has('login')" v-html="form.errors.get('login')" />
@@ -68,15 +74,12 @@
                                 Login
                             </v-btn>
 
+                        </form>
 
+                    </v-card-text>
 
-                        </v-card-text>
-                    </form>
-
-
-
-                    <div class="text-center">Not register yet ?<router-link :to="{ name: 'Register' }"
-                            class="text_color"> <button class="teal--text">Create an account <v-icon size="16">
+                    <div class="text-center">Not register yet ? <router-link :to="{ name: 'Register' }"
+                            class="text_color"> <button class="teal--text ml-2">Create an account <v-icon size="16">
                                     mdi-account-plus</v-icon></button> </router-link>
                     </div>
                 </v-card>
@@ -124,7 +127,7 @@
 
                     // Error
                     if (resData.status == 'error') {
-
+                        console.log(resData)
                         this.error = true
                         this.errorMsg = resData.msg
 
@@ -132,7 +135,7 @@
 
                     // Success
                     if (resData.status == 'success') {
-
+                        console.log(resData)
                         this.error = false
 
                         // redirect with reload

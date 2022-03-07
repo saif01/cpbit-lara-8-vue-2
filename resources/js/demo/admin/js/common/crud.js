@@ -248,6 +248,11 @@ export default{
         this.dataModalDialog = true;
     },
 
-    
+    // reset form
+    resetForm(){
+        this.form.reset();
+        this.$refs.form.resetValidation();
+        this.form.errors.clear();
+    }
           
 }

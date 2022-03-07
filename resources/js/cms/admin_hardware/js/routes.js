@@ -10,6 +10,7 @@ import Subcategory from './../pages/others/subcategory/index.vue'
 import Acsosoris from './../pages/others/acsosoris/index.vue'
 
 import User from './../pages/user/index.vue'
+import Role from './../pages/user/role.vue'
 
 import Draft from './../pages/draft/index.vue'
 
@@ -25,6 +26,9 @@ import ApplicableDamaged from './../pages/complain/damaged/applicable/damaged.vu
 import ApplicablePartialDamaged from './../pages/complain/damaged/applicable/partial_damaged.vue'
 import NotApplicableDamaged from './../pages/complain/damaged/not_applicable/damaged.vue'
 import NotApplicablePartialDamaged from './../pages/complain/damaged/not_applicable/partial_damaged.vue'
+
+// H O Service
+import HOServiceIndex from './../pages/complain/h_o_service/index.vue'
 
 
 const router = new VueRouter({
@@ -69,6 +73,14 @@ const router = new VueRouter({
             name: 'User',
             meta:{
                 title: 'Hardware User Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/role', 
+            component: Role,
+            name: 'Role',
+            meta:{
+                title: 'Hardware Role Admin',
             },   
         },
         { 
@@ -149,6 +161,16 @@ const router = new VueRouter({
             name: 'NotApplicablePartialDamaged',
             meta:{
                 title: 'Hardware Not Applicable Partial Damaged Admin',
+            },   
+        },
+
+        // H O
+        { 
+            path: '/cms/h_admin/ho_service', 
+            component: HOServiceIndex,
+            name: 'HOServiceIndex',
+            meta:{
+                title: 'Hardware H O Service Admin',
             },   
         },
         

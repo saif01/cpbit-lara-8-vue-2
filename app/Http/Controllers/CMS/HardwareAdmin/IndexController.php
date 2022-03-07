@@ -15,6 +15,7 @@ class IndexController extends Controller
         // $ivcaData = Auth::user()->ivca_roles->pluck('name');
         // // Merge collections
         // $roles = $roleData->merge($ivcaData);
+        // dd($zones, $roles);
         return view('cms.hardware_admin.index', compact('roles'));
     }
 }

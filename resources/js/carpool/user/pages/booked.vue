@@ -130,7 +130,7 @@
                                                         <td>{{ item.purpose }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Booked:</th>
+                                                        <th>Booked: ( <span v-if="item.bookby">{{ item.bookby.name }}</span> )</th>
                                                         <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
                                                             {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
                                                     </tr>

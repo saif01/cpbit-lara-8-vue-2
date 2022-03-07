@@ -25,19 +25,32 @@ export default {
     components:{
        'side-bar'       : sideBar,
        'page-footer'    : pageFooter,
-    },   
+    }, 
+    
+    methods:{
+
+        zoneAccess(){
+            axios.get('/cms/h_admin/zone_access').then(response=>{
+                console.log('zone', response.data)
+            }).catch(error=>{
+                console.log(error)
+            })
+        }
+
+    },
 
     created(){
 
         // Set Auth and Role data in Store
         this.$store.commit('setAuth', JSON.parse(this.authuser) )
         this.$store.commit('setRoles', JSON.parse(this.permission) )
-
+       
         this.$Progress.start();
 
-        //checkUserRole
+        //checkUserZone Access
+        this.zoneAccess()
       
-        // console.log('CMS Admin Index, auth user', JSON.parse(this.authuser));
+        console.log('CMS Admin Index, auth user');
 
         // console.log('Role: ', this.isAdministrator(), this.isAnyRole(['Administrator', 'Ivca']), this.isRole('Administrator') )
 

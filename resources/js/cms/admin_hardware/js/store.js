@@ -18,8 +18,7 @@ export default new Vuex.Store({
         getRoles(state){
             return state.roles;
         },
-    
- 
+
     },
 
     mutations : {

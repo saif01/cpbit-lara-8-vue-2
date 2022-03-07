@@ -7,7 +7,7 @@
     </v-app>
 </template>
 
-<script>
+<script> 
 
     import chooseDashboard from './pages/choose.vue'
     import userDashboard from './pages/user.vue'

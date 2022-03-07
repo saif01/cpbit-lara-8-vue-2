@@ -692,6 +692,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         //Hardware Admin 
         Route::middleware(['can:hardAdmin'])->namespace('HardwareAdmin')->prefix('h_admin')->group(function(){
 
+            Route::get('/zone_access', 'Complain\ComplainController@zone_access');
+
             // Others
             Route::namespace('Others')->group(function(){
 
@@ -731,6 +733,16 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::post('/roles_update', 'IndexController@roles_update');
              
                 Route::get('/zone_data', 'IndexController@zone_data');
+
+                //Draft 
+                Route::prefix('role')->group(function(){
+                    Route::get('/index', 'RoleController@index');
+                    Route::post('/store', 'RoleController@store');
+                    Route::put('/update/{id}', 'RoleController@update');
+                    Route::delete('/destroy/{id}', 'RoleController@destroy');
+                    Route::post('/status/{id}', 'RoleController@status');
+                    Route::get('/all_data', 'RoleController@all_data');
+                });
             });
 
             // Complain 
@@ -746,6 +758,9 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/applicable_partial_damaged', 'ComplainController@applicable_partial_damaged');
                 Route::get('/not_applicable_damaged', 'ComplainController@not_applicable_damaged');
                 Route::get('/not_applicable_partial_damaged', 'ComplainController@not_applicable_partial_damaged');
+
+                // HO Controller
+                Route::get('/ho_service', 'HoController@ho_service');
 
                 // Complain modify
                 Route::get('/category', 'ModifyController@category');
@@ -799,6 +814,59 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         });
     });
     // CMS End
+
+
+
+    // Inventory Start
+    Route::namespace('Inventory')->prefix('inventory')->group(function(){
+
+        // Admin
+        Route::middleware(['can:SMSAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
+
+            Route::get('/dashboard_data', 'IndexController@dashboard_data');
+
+            Route::get('/category', 'IndexController@category');
+
+            // NewProduct Management
+            Route::namespace('NewProduct')->prefix('new_product')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+                Route::post('/status/{id}', 'IndexController@status');
+
+            });
+
+            //Operation 
+            Route::namespace('Operation')->prefix('operation')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update/{id}', 'IndexController@update');
+                Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
+                Route::delete('/destroy/{id}', 'IndexController@destroy');
+                Route::post('/status/{id}', 'IndexController@status');
+            });
+
+           
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+        // User
+        Route::middleware(['can:SMS'])->namespace('User')->group(function(){
+
+          
+
+            Route::get('{any?}', 'IndexController@index');
+        });
+    });
+    // Inventory End
+
+
+
+
+
+
 
 
 

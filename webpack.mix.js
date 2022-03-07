@@ -184,4 +184,28 @@ mix.styles([
 
 // *********End cms *********End
 
+
+
+// *********Start Inventory *********Start
+
+//inventory admin JS 
+mix.js('resources/js/inventory/admin/js/app.js', 'public/js/inventory/admin/app.js')
+    .vue(); 
+//inventory admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/inventory/admin/app.css');
+
+
+//inventory user JS 
+mix.js('resources/js/inventory/user/js/app.js', 'public/js/inventory/user/app.js')
+    .vue();
+//inventory user CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/inventory/user/app.css');
+
+// *********End Inventory *********End
+
+
     

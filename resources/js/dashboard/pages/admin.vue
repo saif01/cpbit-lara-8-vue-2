@@ -77,6 +77,14 @@
 
             <div class="d-flex flex-wrap mt-5 justify-content-around">
                 <div class="col-lg-3 col-4" v-if="isIvcaAdmin()">
+                    <a href="/inventory/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <div class="logo_div">
+                            <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
+                        </div>
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Inventory</div> 
+                    </a>
+                </div>
+                <div class="col-lg-3 col-4" v-if="isIvcaAdmin()">
                     <a href="/ivca/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>

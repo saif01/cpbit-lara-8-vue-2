@@ -51,14 +51,41 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'User'}" >
+                <!-- <v-list-item link router :to="{name: 'User'}" >
                     <v-list-item-icon>
                         <v-icon>mdi-account-group</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Users</v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>
+                </v-list-item> -->
+
+                <!-- Sidebar Multi level Item -->
+                <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text" no-action>
+                    <template v-slot:activator>
+                        <v-list-item-title>User Manage</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router :to="{name: 'User'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-group</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Users</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'Role'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-group</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Roles</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                 
+                </v-list-group>
 
                 <v-list-item link router :to="{name: 'NotProcess'}" >
                     <v-list-item-icon>
@@ -87,6 +114,15 @@
                     </v-list-item-content>
                 </v-list-item>
 
+                <v-list-item link router :to="{name: 'HOServiceIndex'}" >
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>HO Service</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
                
 
                 <v-list-item link router :to="{name: 'Draft'}" >
@@ -94,7 +130,7 @@
                         <v-icon>mdi-account-group</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>Replay Draft</v-list-item-title>
+                        <v-list-item-title>Draft</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 

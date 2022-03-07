@@ -62,7 +62,7 @@
                                     <v-radio v-for="(item, k) in applicableOptions"
                                     :key="k"
                                     :label="`${item.label}`"
-                                    :value="`${item.value}`" :color="`${item.color}`" required></v-radio>
+                                    :value="`${item.value}`" :color="`${item.color}`" ></v-radio>
                                     </v-radio-group>
                                 </v-col>
                                

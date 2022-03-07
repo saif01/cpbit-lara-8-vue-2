@@ -155,7 +155,7 @@
 
                 <!-- Action Btn -->
                 <div>
-                    <v-btn v-if="complainDeta.process != 'Closed'" :loading="actionBtnLoading" block class="success" @click="actionDialogShow()" elevation="20" >
+                    <v-btn v-if="checkActionBtnAccess()" :loading="actionBtnLoading" block class="success" @click="actionDialogShow()" elevation="20" >
                         <v-icon left>mdi-gesture-tap-button</v-icon> Action
                     </v-btn>
                 </div>
@@ -241,6 +241,8 @@
 
                 // Send Mail
                 mailSendLoading: false,
+
+                
             }
         },
 
@@ -254,6 +256,21 @@
 
             // CurrentUserData
             ...userDetailsMethods,
+
+
+            // check action btn access
+            checkActionBtnAccess(){
+               
+              if(this.complainDeta.process == 'HO Service' ){
+                   return true;
+               }
+               
+               if(this.complainDeta.process != 'Closed'){
+                   return true;
+               }
+
+                return false;
+            },
 
             // getComplainData
             getComplainData() {

@@ -8,7 +8,7 @@
 
 
         <!-- Single Event data Show Modal -->
-        <v-dialog persistent v-model="eventDetailsModal" max-width="600px">
+        <v-dialog persistent v-model="eventDetailsModal" max-width="800px" scrollable>
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -51,10 +51,12 @@
                             <td>
                                 <div class="row">
                                     <div class="col-3">
-                                        <span v-if="clickCurrentEvetData.extendedProps"><img
-                                                :src="'/images/users/small/' +clickCurrentEvetData.extendedProps.bookby.image"
-                                                alt="image" class="img-fluid img-thumbnail" height="80" width="60">
-                                        </span>
+                                        <v-avatar size="50" >
+                                            <v-img v-if="clickCurrentEvetData.extendedProps"><img
+                                                :src="'/images/users/small/' +clickCurrentEvetData.extendedProps.bookby.image" alt="image">
+                                            </v-img>
+                                        </v-avatar>
+                                       
                                     </div>
                                     <div class="col-9">
                                         <span v-if="clickCurrentEvetData.extendedProps">
@@ -66,6 +68,95 @@
                                 </div>
                             </td>
                         </tr>
+                        <!-- {{ clickCurrentEvetData }} -->
+                        <!-- Car and Driver -->
+                        <tr>
+                            <th>Car and Driver Details :</th>
+                            <td>
+                                <span>
+                                    <v-row>
+
+                                            <v-col cols="12" lg="3">
+                                                 <v-avatar size="60">
+                                                    <v-img v-if="clickCurrentEvetData.extendedProps"><img
+                                                        :src="'/images/carpool/driver/small/' +clickCurrentEvetData.extendedProps.driver.image" alt="image">
+                                                    </v-img>
+                                                </v-avatar>
+                                            </v-col>
+                                       
+                                            <v-col  cols="12" lg="9">
+                                                <div>
+                                                <b>Car: </b> <span v-if="clickCurrentEvetData.extendedProps">{{ clickCurrentEvetData.extendedProps.car.number }} </span> 
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+
+                                            <div>
+                                                <b>Driver: </b>
+                                                <span v-if="clickCurrentEvetData.extendedProps">{{clickCurrentEvetData.extendedProps.driver.name}}</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+                                            <div>
+                                                <b>Contact: </b><a v-if="clickCurrentEvetData.extendedProps" :href="'tel:'+clickCurrentEvetData.extendedProps.driver.contact" >{{clickCurrentEvetData.extendedProps.driver.contact}}</a>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+                                            </v-col>
+
+                                       
+                                    </v-row>
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <!-- Comment Details -->
+                        <tr>
+                            <th>Comment Details :</th>
+                            <td>
+                                <span v-if="clickCurrentEvetData.extendedProps">
+                                    <div class="d-flex justify-content-between flex-wrap">
+                                        <div>
+                                            <div>
+                                                <b>Mileage: </b> <span v-if="clickCurrentEvetData.extendedProps.start_mileage">{{ clickCurrentEvetData.extendedProps.start_mileage }} </span> 
+                                                <span v-if="clickCurrentEvetData.extendedProps.end_mileage"> -- {{ clickCurrentEvetData.extendedProps.end_mileage }} </span> 
+
+                                                <span v-if="clickCurrentEvetData.extendedProps.start_mileage && clickCurrentEvetData.extendedProps.end_mileage">( {{clickCurrentEvetData.extendedProps.end_mileage - clickCurrentEvetData.extendedProps.start_mileage}} KM )</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+
+                                            <div>
+                                                <b>Total Bill: </b><span v-if="clickCurrentEvetData.extendedProps.cost !== null">{{clickCurrentEvetData.extendedProps.cost}}</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+
+                                            <div>
+                                                <b>Driver Rating: </b><span v-if="clickCurrentEvetData.extendedProps.driver_rating">{{clickCurrentEvetData.extendedProps.driver_rating}}</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div>
+                                            <div>
+                                                <b>Gasoline: </b><span v-if="clickCurrentEvetData.extendedProps.gas !== null">{{clickCurrentEvetData.extendedProps.gas}}</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+
+                                            <div>
+                                                <b>Octane: </b><span v-if="clickCurrentEvetData.extendedProps.octane !== null">{{clickCurrentEvetData.extendedProps.octane}}</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+
+                                            <div>
+                                                <b>Toll: </b><span v-if="clickCurrentEvetData.extendedProps.toll !== null">{{clickCurrentEvetData.extendedProps.toll}}</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+
+
                     </table>
                 </v-card-text>
             </v-card>
@@ -597,7 +688,7 @@
                 // Asign Current event data
                 this.clickCurrentEvetData = clickInfo.event;
 
-                //console.log('clickInfo', this.clickCurrentEvetData.title, this.clickCurrentEvetData.extendedProps)
+                console.log('clickInfo', this.clickCurrentEvetData.extendedProps, this.clickCurrentEvetData.extendedProps.car )
 
             },
 

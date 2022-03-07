@@ -66,7 +66,7 @@
                                     <span v-if="sort_direction == 'asc' && sort_field == 'login'">&darr;</span>
                                 </th>
                                 <th>Details</th>
-                                <th>Role</th>
+                                <th>Zone</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

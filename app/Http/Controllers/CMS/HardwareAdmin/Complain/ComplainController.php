@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Cms\Hardware\HardwareComplain;
 use App\Models\SuperAdmin\ZoneOffice;
 use Auth;
-
+use App\Http\Controllers\CMS\HardwareAdmin\CommonController;
 
 class ComplainController extends Controller
 {
@@ -16,7 +16,7 @@ class ComplainController extends Controller
     public function not_process(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess );
 
@@ -27,8 +27,9 @@ class ComplainController extends Controller
 
         $allData = HardwareComplain::with('makby', 'category', 'subcategory')
             ->whereHas('makby', function($q) use($accessZoneOffices){
-                //dd($accessZoneOffices);
+                //dd($accessZoneOffices[0]);
                 $q->whereIn('zone_office', $accessZoneOffices);
+                //$q->whereIn('zone_office', ['Chittagong Feedmill', "Chittagong 1 Farm", "Chittagong 2 Farm", "Chittagong 4 Farm"]);
             })
             ->where('process', 'Not Process')
             ->orderBy($sort_field, $sort_direction)
@@ -44,7 +45,7 @@ class ComplainController extends Controller
     public function processing(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess );
 
@@ -90,7 +91,7 @@ class ComplainController extends Controller
     public function service(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess );
 
@@ -120,7 +121,7 @@ class ComplainController extends Controller
     public function all_damaged(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess ); 
 
@@ -146,7 +147,7 @@ class ComplainController extends Controller
     public function applicable_damaged(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess ); 
 
@@ -175,7 +176,7 @@ class ComplainController extends Controller
     public function applicable_partial_damaged(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess ); 
 
@@ -204,7 +205,7 @@ class ComplainController extends Controller
     public function not_applicable_damaged(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess ); 
 
@@ -233,7 +234,7 @@ class ComplainController extends Controller
     public function not_applicable_partial_damaged(){
 
         // Check access offices
-        $accessZoneOffices = $this->zoneOfficesByAdminAccess();
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess ); 
 
@@ -262,37 +263,42 @@ class ComplainController extends Controller
 
 
 
-    // zone Offices name By Admin Access
-    public function zoneOfficesByAdminAccess(){
+    // // zone Offices name By Admin Access 
+    // public function zoneOfficesByAdminAccess(){
 
-        // Zones By Users access
-        $zoneAccess = Auth::user()->zons()->select('name')->get()->toArray();
-        $zoneAccessName = [];
-        foreach( $zoneAccess as $item ){
-            array_push($zoneAccessName, $item['name'] );
-        }
+    //     // Zones By Users access
+    //     $zoneAccess = Auth::user()->zons()->select('name')->get()->toArray();
+    //     $zoneAccessName = [];
+    //     foreach( $zoneAccess as $item ){
+    //         array_push($zoneAccessName, $item['name'] );
+    //     }
 
-        // Zone offices
-        $zoneOffices = ZoneOffice::whereIn('name', $zoneAccessName)->get()->toArray();
-        $zoneOfficeName = [];
-        foreach( $zoneOffices as $item ){
-            $arr = explode(",", $item['offices'] );
-            array_push($zoneOfficeName, $arr);
-        }
+    //     // Zone offices
+    //     $zoneOffices = ZoneOffice::whereIn('name', $zoneAccessName)->get()->toArray();
+    //     $zoneOfficeName = [];
+    //     foreach( $zoneOffices as $item ){
+    //         $arr = explode(",", $item['offices'] );
+    //         array_push($zoneOfficeName, $arr);
+    //     }
 
-        $finalArrOffices = [];
-        // Array Size
-        if(sizeof($zoneOfficeName) > 1){
-            foreach($zoneOfficeName as $item){
-                // Array Merge
-                $finalArrOffices = array_merge($finalArrOffices, $item);
-            }
-        }else{
-            $finalArrOffices = $zoneOfficeName;
-        }
-
-        return $finalArrOffices;
+    //     $finalArrOffices = [];
+    //     // Array Size
+    //     foreach($zoneOfficeName as $item){
+    //         // Array Merge
+    //         $finalArrOffices = array_merge($finalArrOffices, $item);
+    //     }
+      
+    //     return $finalArrOffices;
         
+    // }
+
+
+    // zone_access
+    public function zone_access(){
+
+        $allData = CommonController::ZoneOfficesByAuth();
+        //$allData = CommonController::ZoneOfficesByAuth();
+        return response()->json($allData, 200);
     }
 
 

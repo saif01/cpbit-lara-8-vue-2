@@ -255,7 +255,7 @@
                 //console.log(officeArr, singleData)
                 
                 //this.form.fill(singleData);
-                this.dataModalDilog = true;
+                this.dataModalDialog = true;
             },
 
 
