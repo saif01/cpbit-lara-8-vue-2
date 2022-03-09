@@ -27,6 +27,12 @@ class RoleController extends Controller
 
     }
 
+    // all_data
+    public function all_data(){
+        $allData = HardwareRole::get()->toArray();
+        return response()->json($allData, 200);
+    }
+
 
     // store
     public function store(Request $request){

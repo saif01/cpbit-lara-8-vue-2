@@ -118,7 +118,12 @@ export default{
     isCms(){
         return this.checkAnyRoleOfArray(['Administrator', 'cms']);
     },
-
+    isHardwareHoService(){
+        return this.checkAnyRoleOfArray(['Administrator', 'HO-Service']);
+    },
+    isHardwareDamaged(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Damaged']);
+    },
 
 
 

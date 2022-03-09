@@ -760,7 +760,15 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/not_applicable_partial_damaged', 'ComplainController@not_applicable_partial_damaged');
 
                 // HO Controller
-                Route::get('/ho_service', 'HoController@ho_service');
+                Route::prefix('ho_service')->group(function(){
+                    Route::get('/index', 'HoController@index');
+                    Route::get('/zone_data', 'HoController@zone_data');
+                    // action_remarks
+                    Route::post('/action_remarks', 'HoController@action_remarks');
+                    Route::get('/action_remarks_data/{id}', 'HoController@action_remarks_data');
+                });
+                
+                
 
                 // Complain modify
                 Route::get('/category', 'ModifyController@category');

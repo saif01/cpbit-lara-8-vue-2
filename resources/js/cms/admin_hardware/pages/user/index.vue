@@ -67,6 +67,7 @@
                                 </th>
                                 <th>Details</th>
                                 <th>Zone</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -96,13 +97,23 @@
                                         <span class="text-danger">No data available</span>
                                     </span>
                                 </td>
+                                <td>
+                                    <span v-if="singleData.hard_roles.length">
+                                        <span v-for="(item, index) in singleData.hard_roles" :key="index">
+                                            <span class="p-1 m-1 rounded-pill small">{{ item.name }}, </span> 
+                                        </span>
+                                    </span>
+                                    <span v-else>
+                                        <span class="text-danger">No data available</span>
+                                    </span>
+                                </td>
 
 
 
                                 <td class="text-center">
 
                                     <v-btn @click="editRoleModel(singleData)" small elevation="10" class="mb-1">
-                                        <v-icon>mdi-alpha-r-circle-outline</v-icon> Zone
+                                        <v-icon>mdi-alpha-r-circle-outline</v-icon> Role
                                     </v-btn>
 
                                 </td>
@@ -137,7 +148,7 @@
                 <v-card-title class="justify-center">
                     <v-row>
                         <v-col cols="10">
-                            Assign Zone
+                            Assign Zone and Role
                         </v-col>
                         <v-col cols="2">
                             <v-btn @click="roleModelShow = false" color="red lighten-1" small text class="float-right">
@@ -148,20 +159,41 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <v-row>
-                        <!-- {{ currentZone }} -->
-                        <v-col class="pa-0" cols="3" v-for="(item, index) in allZons" :key="index">
+                   
+                       <div class="p-2">
+                            <!-- {{ currentZone }} -->
+                        <label>All Zones</label>
+                       <div>
+                           <v-row>
+                            <v-col class="pa-0" cols="3" v-for="(item, index) in allZons" :key="index">
                             <v-checkbox  v-model="currentZone" :label="item.name" color="indigo" :value="item.id"
                                 hide-details></v-checkbox>
                         </v-col>
+                       </v-row>
+                       </div>
+
+                        <hr>
+                        
+
+                        <!-- {{ currentRole }} -->
+                        <label>All Roles</label>
+                        <div>
+                            <v-row>
+                            <v-col class="pa-0" cols="3" v-for="(item, index) in allRole" :key="index">
+                                <v-checkbox  v-model="currentRole" :label="item.name" color="indigo" :value="item.id"
+                                    hide-details></v-checkbox>
+                            </v-col>
+                        </v-row>
+                        </div>
+                       </div>
 
 
                         <v-btn @click="updateUserRole()" block blockdepressed :loading="roleUpdating"
-                            color="primary mt-3">
+                            color="primary mt-5">
                             <v-icon left dark>mdi-circle-edit-outline</v-icon> Update
                         </v-btn>
 
-                    </v-row>
+                    
                 </v-card-text>
             </v-card>
 
@@ -215,8 +247,12 @@
                 allZons: {},
                 currentZone: [],
                 currentSelectId: null,
+                allRole:[],
+                currentRole:[],
                 roleUpdating: false,
                 roleModelShow: false,
+
+
 
 
                 // userTblData
@@ -236,11 +272,21 @@
             ...userTblMethods,
 
 
-            // Get all Role
+            // Get all Zone
             getZons() {
                 axios.get(this.currentUrl + '/zone_data').then(response => {
                     //console.log(response.data)
                     this.allZons = response.data
+                }).catch(error => {
+                    console.log(error)
+                })
+            },
+
+            // Get all Role
+            getRole() {
+                axios.get(this.currentUrl + '/role/all_data').then(response => {
+                    //console.log(response.data)
+                    this.allRole = response.data
                 }).catch(error => {
                     console.log(error)
                 })
@@ -253,10 +299,16 @@
                 this.currentSelectId = val.id
                 // Current role array empty
                 this.currentZone = []
+                this.currentRole = []
                 // role found then push in arry
                 val.zons.forEach(element => {
                     // console.log('loop', element.id)
                     this.currentZone.push(element.id)
+                })
+
+                val.hard_roles.forEach(element => {
+                    // console.log('loop', element.id)
+                    this.currentRole.push(element.id)
                 })
 
                 // Role modal show
@@ -269,7 +321,8 @@
                 this.roleUpdating = true
                 axios.post(this.currentUrl + '/roles_update', {
                         currentRoleId: this.currentSelectId,
-                        roles: this.currentZone,
+                        zone: this.currentZone,
+                        role: this.currentRole,
                     })
                     .then(response => {
                         this.roleUpdating = false
@@ -330,6 +383,8 @@
         mounted() {
             // Get Roles 
             this.getZons();
+            // getRole
+            this.getRole();
             // All ZoneOffices
             this.getZoneOffices();
             //getDepartments

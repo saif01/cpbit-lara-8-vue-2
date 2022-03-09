@@ -4,7 +4,7 @@
             <v-card-title class="justify-center">
                 <v-row>
                     <v-col cols="10">
-                        All H.O. Service Complain List
+                        <span class="teal--text">{{ selected_zone }}</span> H.O. Service Complain List
                     </v-col>
                     <v-col cols="2">
 
@@ -13,19 +13,30 @@
             </v-card-title>
 
             <v-card-text class="table-responsive">
-                <div v-if="allData.data">
-                    <v-row>
+                <v-row>
                         <v-col cols="2">
                             <!-- Show -->
                             <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" small>
                             </v-select>
                         </v-col>
+                        <v-col cols="4">
+                            <!-- selected_zone --> 
+                            <v-select v-model="selected_zone" 
+                            label="Zones:"
+                            :items="allZons"
+                            item-text="name"
+                            item-value="name"
+                            small>
+                            </v-select>
+                        </v-col>
 
-                        <v-col cols="10">
+                        <v-col cols="6">
                             <v-text-field prepend-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
                                 placeholder="Search Input..."></v-text-field>
                         </v-col>
                     </v-row>
+                <div v-if="allData.data">
+                    
 
                     <table class="table table-bordered">
                         <thead class="text-center">
@@ -126,12 +137,13 @@
 
             return {
                 //current page url
-                currentUrl: '/cms/h_admin/complain',
-
-
+                currentUrl: '/cms/h_admin/complain/ho_service',
 
                 // Current User Show By Dilog 
                 ...userDetailsData,
+
+                allZons:[],
+                selected_zone:'All'
             }
         },
 
@@ -143,12 +155,13 @@
             // Get table data
             getResults(page = 1) {
                 this.dataLoading = true;
-                axios.get(this.currentUrl + '/ho_service?page=' + page +
+                axios.get(this.currentUrl + '/index?page=' + page +
                         '&paginate=' + this.paginate +
                         '&search=' + this.search +
                         '&sort_direction=' + this.sort_direction +
                         '&sort_field=' + this.sort_field +
-                        '&search_field=' + this.search_field
+                        '&search_field=' + this.search_field +
+                        '&selected_zone=' + this.selected_zone
                     )
                     .then(response => {
                         //console.log(response.data.data);
@@ -162,6 +175,16 @@
                         this.dataLoading = false;
 
                     });
+            },
+
+             // Get all Zone
+            getZons() {
+                axios.get(this.currentUrl + '/zone_data').then(response => {
+                    //console.log(response.data)
+                    this.allZons = response.data
+                }).catch(error => {
+                    console.log(error)
+                })
             },
 
 
@@ -178,10 +201,20 @@
         },
 
 
+        watch:{
+            selected_zone:function(){
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            }
+        },
+
+
         created() {
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
+            this.getZons();
             this.$Progress.finish();
         },
 

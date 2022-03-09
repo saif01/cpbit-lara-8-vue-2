@@ -48,9 +48,9 @@ export default {
         this.$Progress.start();
 
         //checkUserZone Access
-        this.zoneAccess()
+        // this.zoneAccess()
       
-        console.log('CMS Admin Index, auth user');
+        // console.log('CMS Admin Index, auth user');
 
         // console.log('Role: ', this.isAdministrator(), this.isAnyRole(['Administrator', 'Ivca']), this.isRole('Administrator') )
 

@@ -84,7 +84,7 @@
                 <div v-if="complainDeta.remarks" class="mb-2">
                     <div v-for="(item, index) in  complainDeta.remarks" :key="index">
                         <table class="table mb-0 bg-secondary text-white rounded">
-
+                            <!-- remarks -->
                             <tr>
                                 <th>Process: ({{ index+1 }})</th>
                                 <td>
@@ -119,6 +119,7 @@
                                         v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                 </td>
                             </tr>
+
                             <!-- dam_apply -->
                             <!-- {{ complainDeta.dam_apply }} -->
                             <tr v-if="(item.process == 'Damaged') && complainDeta.dam_apply && complainDeta.dam_apply.apply_by" class="bg-info">
@@ -150,13 +151,64 @@
                                 <td v-html="item.details"></td>
                             </tr>
                         </table>
+
+                         <!--Start ho_remarks -->
+
+                            <div v-if="(item.process == 'HO Service')">
+                                <div v-for="(item, index) in  complainDeta.ho_remarks" :key="index">
+                                <table class="table mb-1 bg-info text-white rounded border-bottom  border-danger">
+                                   
+                                <tr>
+
+                                <th>HO Process: ({{ index+1 }})</th>
+                                <td>
+                                    <span v-if="(item.process == 'Damaged')" class="text-danger bg-white rounded">Damaged</span> 
+                                    <span v-else-if="(item.process == 'Closed')" class="text-danger bg-white rounded">Closed</span> 
+                                    <span v-else>{{ item.process }}</span> 
+                                </td>
+                                <th>Document:</th>
+                                <td>
+                                    <span v-if="item.document">
+                                        <a v-if="item.document" :href="docPath+item.document"
+                                            class="btn btn-info btn-sm text-white" download>
+                                            <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
+                                        </a>
+                                    </span>
+                                    <span v-else class="text-warning">No Document's Send</span>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <th>By:</th>
+                                    <td>
+                                        <button class="btn btn-secondary btn-sm" v-if="item.makby"
+                                            @click="currentUserView(item.makby)">
+                                            <v-avatar size="20">
+                                                <img v-if="item.makby.image" :src="'/images/users/small/' + item.makby.image"
+                                                    alt="image">
+                                            </v-avatar> {{ item.makby.name }}
+                                        </button>
+                                    </td>
+                                    <th>Action At:</th>
+                                    <td><span
+                                            v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                    </td>
+                                </tr>
+
+                               
+
+                                </table>
+                                </div>
+                            </div>
+                            <!--End ho_remarks -->
                     </div>
                 </div>
 
+               
+
                 <!-- Action Btn -->
                 <div>
-                    <v-btn v-if="checkActionBtnAccess()" :loading="actionBtnLoading" block class="success" @click="actionDialogShow()" elevation="20" >
-                        <v-icon left>mdi-gesture-tap-button</v-icon> Action
+                    <v-btn v-if="checkActionBtnAccess()" :loading="actionBtnLoading" block :class="actionBtnColor" @click="actionDialogShow()" elevation="20" >
+                        <v-icon left>mdi-gesture-tap-button</v-icon> {{ actionBtnText }}
                     </v-btn>
                 </div>
                 
@@ -182,11 +234,16 @@
 
 
 
+
+
         <!-- Not Process Action Dialog -->
         <action-dialog v-if="actionVal" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog>
 
         <!-- Not Process Action Dialog -->
         <action-dialog-2 v-if="actionVal2" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog-2>
+
+        <!-- Not Process Action Dialog -->
+        <action-dialog-3 v-if="actionVal3" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog-3>
 
     </div>
 </template>
@@ -200,6 +257,7 @@
     import catSubModifyDialog from './cat_sub_modify.vue'
     import actionDialog from './dialog/action_dialog.vue'
     import actionDialog2 from './dialog/action_dialog_2.vue'
+    import actionDialog3 from './dialog/action_dialog_3.vue'
     
 
 
@@ -211,6 +269,7 @@
             'cat-sub-modify-dialog': catSubModifyDialog,
             'action-dialog': actionDialog,
             'action-dialog-2': actionDialog2,
+            'action-dialog-3': actionDialog3,
         },
 
         data() {
@@ -228,12 +287,16 @@
                 actionBtnLoading:false,
                 actionVal:false,
                 actionVal2:false,
+                actionVal3:false,
                 comActionsDialogKey: 3,
                 CurrentComData: '',
 
                 // comModifyDialog
                 comModifyDialogKey: 5,
                 CurrentComDataModify: '',
+
+                actionBtnText:'Action',
+                actionBtnColor:'success',
 
 
                 // Current User Show By Dilog
@@ -261,7 +324,7 @@
             // check action btn access
             checkActionBtnAccess(){
                
-              if(this.complainDeta.process == 'HO Service' ){
+               if(this.complainDeta.process == 'HO Service' ){
                    return true;
                }
                
@@ -280,6 +343,7 @@
 
                     //console.log(response.data)
                     this.complainDeta = response.data
+                    this.actionBtn()
 
                 }).catch(error => {
                     this.dataLoading = false
@@ -321,15 +385,24 @@
 
                 //console.log('Process ', val)
                 let currPro = this.complainDeta.process
+                this.actionVal = false
+                this.actionVal2 = false
+                this.actionVal3 = false
 
                 if(currPro == 'Not Process'){
                     this.actionVal = true
-                    this.actionVal2 = false
+                   // this.actionVal2 = false
                 }
                 
                 if(currPro == 'Processing' || currPro == 'Send Service' || currPro == 'Back Service'|| currPro == 'Again Send Service'){
-                    this.actionVal = false
+                    // this.actionVal = false
                     this.actionVal2 = true 
+                }
+                
+                if( currPro == 'HO Service' && this.isHardwareHoService()){
+                    //console.log('HO Service')
+                    // HO service
+                    this.actionVal3 = true 
                 }
 
                 this.comActionsDialogKey++
@@ -342,13 +415,27 @@
             },
 
 
+            actionBtn(){
+
+                //console.log('Process ', val)
+                let currPro = this.complainDeta.process
+                // For Action BTN
+                if( currPro == 'HO Service' && !this.isHardwareHoService()){
+                    this.actionBtnText  ='Sorry! You have no access'
+                    this.actionBtnColor ='error'
+                }
+
+            }
+
+
 
         },
 
         created() {
             this.$Progress.start();
             this.getComplainData();
-            //console.log(this.comId, this.$route.query.id)
+            
+            //console.log(this.comId, this.$route.query.id, this.isHardwareHoService() )
             this.$Progress.finish();
         }
 

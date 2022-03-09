@@ -30,7 +30,7 @@ class IndexController extends Controller
         
 
         // Query
-        $allDataQuery = User::with('zons')
+        $allDataQuery = User::with('zons', 'hard_roles')
             ->where('delete_temp', '!=', '1')
             ->whereHas( 'roles', function($query){
                 $query->whereIn( 'name', ['Hardware-admin'] ); // role with no admin
@@ -103,7 +103,8 @@ class IndexController extends Controller
         if($id){
             $user = User::find($id);
             //Update Role in Roles table
-            $success = $user->zons()->sync($request->roles);
+            $success = $user->zons()->sync($request->zone);
+            $success = $user->hard_roles()->sync($request->role);
 
             if($success){
                 return response()->json(['msg'=>'Update Successfully &#128513;', 'icon'=>'success'], 200);

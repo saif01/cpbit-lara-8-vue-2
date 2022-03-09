@@ -187,6 +187,8 @@
 
             setProcessOptions(){
 
+                // current process
+                let crpro =  this.comData.process
                 this.stepOptions = []
 
                 this.assignedZone.forEach(element=>{
@@ -194,7 +196,7 @@
 
                     if(element.name == 'Dhaka'){
                         // console.log('Dhaka Zone found', element.name)
-                        if(this.comData.process == 'Processing' ){
+                        if(crpro == 'Processing' ){
                             this.stepOptions = [
                                 {
                                     text: 'Processing',
@@ -217,7 +219,7 @@
                                     value: 'Closed'
                                 },
                             ]
-                        }else if(this.comData.process == 'Send Service' || this.comData.process == 'Back Service' || this.comData.process == 'Again Send Service' ){
+                        }else if(crpro == 'Send Service' || crpro == 'Back Service' || crpro == 'Again Send Service' ){
 
                             this.stepOptions = [
                                 {
@@ -244,7 +246,7 @@
                         }
 
                     }else{
-                        if(this.comData.process == 'Processing' ){
+                        if(crpro == 'Processing' ){
                             this.stepOptions = [
                                 {
                                     text: 'Processing',

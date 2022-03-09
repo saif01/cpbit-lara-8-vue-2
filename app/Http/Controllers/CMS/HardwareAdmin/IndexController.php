@@ -12,10 +12,10 @@ class IndexController extends Controller
     //index
     public function index(){
         $roles = Auth::user()->roles->pluck('name');
-        // $ivcaData = Auth::user()->ivca_roles->pluck('name');
+        $otherData = Auth::user()->hard_roles->pluck('name');
         // // Merge collections
-        // $roles = $roleData->merge($ivcaData);
-        // dd($zones, $roles);
+        $roles = $roles->merge($otherData);
+        // dd( $roles);
         return view('cms.hardware_admin.index', compact('roles'));
     }
 }

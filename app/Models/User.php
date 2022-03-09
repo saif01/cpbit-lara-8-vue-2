@@ -119,9 +119,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\SuperAdmin\Zone', 'hardware_zone_user_tabler', 'user_id', 'zone_id');
     }
 
-    // public function zone_offices(){
-
-    // }
+    public function hard_roles(){
+        return $this->belongsToMany('App\Models\Cms\Hardware\HardwareRole', 'hardware_user_role', 'user_id', 'hard_role_id');
+    }
 
     
 }
