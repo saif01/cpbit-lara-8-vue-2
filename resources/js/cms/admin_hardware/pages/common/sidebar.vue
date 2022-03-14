@@ -105,6 +105,15 @@
                     </v-list-item-content>
                 </v-list-item>
 
+                <v-list-item link router :to="{name: 'Closed'}" >
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Closed</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
                 <v-list-item link router :to="{name: 'Service'}" >
                     <v-list-item-icon>
                         <v-icon>mdi-account-group</v-icon>
@@ -114,20 +123,38 @@
                     </v-list-item-content>
                 </v-list-item>
 
+                <v-list-item link router :to="{name: 'Deliverable'}" >
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Deliverable</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
                
 
                 <!-- Sidebar Multi level Item -->
                 <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text" no-action>
                     <template v-slot:activator>
-                        <v-list-item-title>H.O. Service</v-list-item-title>
+                        <v-list-item-title>Reports</v-list-item-title>
                     </template>
 
-                    <v-list-item link router :to="{name: 'HOServiceIndex'}">
+                    <v-list-item link router :to="{name: 'ReportIndex'}">
                         <v-list-item-icon>
                             <v-icon>mdi-account-group</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content>
                             <v-list-item-title>All</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'ReportDamaged'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-group</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Damaged</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -137,14 +164,7 @@
 
                
 
-                <v-list-item link router :to="{name: 'Draft'}" >
-                    <v-list-item-icon>
-                        <v-icon>mdi-account-group</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>Draft</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+               
 
                
 
@@ -209,6 +229,35 @@
                         </v-list-item>
                     </v-list-group>
                 </v-list-group>
+
+
+                 <!-- Sidebar Multi level Item -->
+                <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text" no-action>
+                    <template v-slot:activator>
+                        <v-list-item-title>H.O. Service</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router :to="{name: 'HOServiceIndex'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-group</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>All</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                  
+                 
+                </v-list-group>
+
+                 <v-list-item link router :to="{name: 'Draft'}" >
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Draft</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 
 
                

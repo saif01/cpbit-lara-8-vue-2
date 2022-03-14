@@ -11,7 +11,7 @@ use App\Models\SuperAdmin\Zone;
 use Auth;
 use App\Models\User;
 use App\Models\Cms\Hardware\HardwareHORemark;
-use App\Models\Cms\Hardware\HardwareDamageApply;
+use App\Models\Cms\Hardware\HardwareDamaged;
 
 use App\Http\Controllers\Common\ImageUpload;
 use App\Http\Controllers\CMS\HardwareAdmin\CommonController;
@@ -101,7 +101,6 @@ class HoController extends Controller
     public function action_remarks(Request $request){
 
         // dd($request->all());
-
         //Validate
         $this->validate($request,[
             'comp_id'   => 'required',
@@ -112,7 +111,7 @@ class HoController extends Controller
         $comp_id = $request->comp_id;
         $process = $request->process;
 
-        $data = new HardwareHORemark();
+        $remarks_data = new HardwareHORemark();
 
        
         $documentPath = 'images/hardware/';
@@ -120,46 +119,44 @@ class HoController extends Controller
         // Direct any file store
         if ($document) {
             $document_full_name = $this->documentUpload($document, $documentPath);
-            $data->document     = $document_full_name;
+            $remarks_data->document     = $document_full_name;
         }
 
-        $data->comp_id      = $comp_id;
-        $data->process      = $process;
-        $data->details      = $request->details;
-        $data->created_by   = Auth::user()->id;
+        $remarks_data->comp_id      = $comp_id;
+        $remarks_data->process      = $process;
+        $remarks_data->details      = $request->details;
+        $remarks_data->created_by   = Auth::user()->id;
        
-        $success = $data->save();
+        $success = $remarks_data->save();
        
 
         // Main Complain tbl data update 
         if($process == 'Damaged' || $process == 'Partial Damaged' || $process == 'Closed'){
-            $data2 = HardwareComplain::find($comp_id);
-            $data2->process      = $process;
-            $data2->save();
+
+            $complain_data           = HardwareComplain::find($comp_id);
+            $complain_data->process  = $process;
+            $complain_data->save();
+
+            // For email
+            ScheduleEmailCmsHardware::STORE_DAMAGED_HO($complain_data, $remarks_data);
         }
 
 
 
         // Damageded or partial damaged data update
         if($process == 'Damaged' || $process == 'Partial Damaged'){
-            $data3  = new HardwareDamageApply();
 
-            $data3->comp_id = $comp_id;
-            $data3->type    = $request->applicable;
-            $data3->created_by   = Auth::user()->id;
-            $data3->save();
+            $damaged_data  = new HardwareDamaged();
+            $damaged_data->comp_id         = $comp_id;
+            $damaged_data->damaged_reason  = $request->damaged_reason;
+            $damaged_data->applicable_type = $request->applicable_type;
+            $damaged_data->created_by      = Auth::user()->id;
+            $damaged_data->save();
+
         }
 
 
-
-
-        // dd($data2, $data);
-        //$accessories = $request->accessories;
-        // $warranty    = $request->warranty;
-        // $delivery    = $request->delivery;
-
-        // For email
-        //ScheduleEmailCmsHardware::STORE($data2, $data, $accessories);
+        
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);

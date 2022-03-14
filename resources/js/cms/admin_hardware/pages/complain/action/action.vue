@@ -15,10 +15,19 @@
                                 {{ complainDeta.id }}</div>
                         </td>
                         <th>Category:</th>
-                        <td><v-btn v-if="complainDeta.category" @click="modifyDialogShow()" color="info" small ><v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.category.name }}</v-btn></td>
+                        <td>
+                            <v-btn v-if="complainDeta.category" @click="modifyDialogShow()" color="info" small elevation="20">
+                                <v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.category.name }}
+                            </v-btn>
+                            <v-btn @click="modifyDialogShow()" v-else class="error">N/A</v-btn>
+                        </td>
                         <th>Subcategory:</th>
                         <td>
-                        <v-btn v-if="complainDeta.subcategory" @click="modifyDialogShow()" color="info" small  ><v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.subcategory.name }}</v-btn></td>
+                            <v-btn v-if="complainDeta.subcategory" @click="modifyDialogShow()" color="info" small elevation="20">
+                                <v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.subcategory.name }}
+                            </v-btn>
+                            <v-btn @click="modifyDialogShow()" v-else class="error">N/A</v-btn>
+                        </td>
                     </tr>
 
                     <tr>
@@ -50,11 +59,11 @@
                                 {{ complainDeta.process }}</div>
                         </td>
 
-                        <th v-if="complainDeta.computer_name" >C. Name:</th>
+                        <th v-if="complainDeta.computer_name">C. Name:</th>
                         <td v-if="complainDeta.computer_name">
-                           {{ complainDeta.computer_name }}
+                            {{ complainDeta.computer_name }}
                         </td>
-                   
+
                         <th>Files:</th>
                         <td>
                             <a v-if="complainDeta.document" :href="docPath+complainDeta.document"
@@ -63,11 +72,11 @@
                             </a>
                             <span v-else class="text-danger">Not Attached</span>
                         </td>
-                        
-                        
+
+
                     </tr>
                 </table>
-                
+
                 <!-- Details -->
                 <table class="table mb-0">
                     <tr v-if="complainDeta.accessories">
@@ -83,14 +92,17 @@
                 <!-- All Remarks -->
                 <div v-if="complainDeta.remarks" class="mb-2">
                     <div v-for="(item, index) in  complainDeta.remarks" :key="index">
-                        <table class="table mb-0 bg-secondary text-white rounded">
+                        <!--Start remarks -->
+                        <table class="table mb-1 bg-secondary text-white rounded border-bottom border-danger">
                             <!-- remarks -->
                             <tr>
                                 <th>Process: ({{ index+1 }})</th>
                                 <td>
-                                    <span v-if="(item.process == 'Damaged')" class="text-danger bg-white rounded">Damaged</span> 
-                                    <span v-else-if="(item.process == 'Closed')" class="text-danger bg-white rounded">Closed</span> 
-                                    <span v-else>{{ item.process }}</span> 
+                                    <span v-if="(item.process == 'Damaged')"
+                                        class="text-danger bg-white rounded">Damaged</span>
+                                    <span v-else-if="(item.process == 'Closed')"
+                                        class="text-danger bg-white rounded">Closed</span>
+                                    <span v-else>{{ item.process }}</span>
                                 </td>
                                 <th>Document:</th>
                                 <td>
@@ -109,8 +121,8 @@
                                     <button class="btn btn-secondary btn-sm" v-if="item.makby"
                                         @click="currentUserView(item.makby)">
                                         <v-avatar size="20">
-                                            <img v-if="item.makby.image" :src="'/images/users/small/' + item.makby.image"
-                                                alt="image">
+                                            <img v-if="item.makby.image"
+                                                :src="'/images/users/small/' + item.makby.image" alt="image">
                                         </v-avatar> {{ item.makby.name }}
                                     </button>
                                 </td>
@@ -122,96 +134,192 @@
 
                             <!-- dam_apply -->
                             <!-- {{ complainDeta.dam_apply }} -->
-                            <tr v-if="(item.process == 'Damaged') && complainDeta.dam_apply && complainDeta.dam_apply.apply_by" class="bg-info">
+                            <tr v-if="(item.process == 'Damaged') && complainDeta.dam_apply && complainDeta.dam_apply.apply_by"
+                                class="bg-info">
                                 <th>Damage Apply:</th>
                                 <td>Successfully </td>
                                 <th>Apply At:</th>
-                                <td><span v-if="complainDeta.dam_apply.apply_at" class="text-warning" >{{ complainDeta.dam_apply.apply_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                <td><span v-if="complainDeta.dam_apply.apply_at"
+                                        class="text-warning">{{ complainDeta.dam_apply.apply_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                 </td>
                             </tr>
-                            <!-- Email send  -->
+                            <!-- Start Email send  -->
                             <tr v-if="item.mail">
                                 <th>E-Mail:</th>
                                 <td>
                                     <span v-if="item.mail.status" class="text-success">Successfully Sent</span>
-                                    <span v-else class="text-warning">Sending</span> 
-                                    <v-btn @click="mailSendManual(item.mail.id)" :loading="mailSendLoading" small class="float-right" ><v-icon>mdi-email-send</v-icon></v-btn>
+                                    <span v-else class="text-warning">Sending</span>
+                                    <v-btn @click="mailSendManual(item.mail.id)" small class="float-right" elevation="20">
+                                        <v-icon>mdi-email-send</v-icon> 
+                                    </v-btn>
                                 </td>
                                 <th>Send At:</th>
-                                <td><span v-if="item.mail.status">{{ item.mail.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
-                                <span v-else class="text-warning">Sending</span>
+                                <td><span
+                                        v-if="item.mail.status">{{ item.mail.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                    <span v-else class="text-warning">Sending</span>
                                 </td>
                             </tr>
-                                
-                    
-                        </table>
-                        <table class="table mb-1 bg-secondary text-white rounded border-bottom  border-danger">
+                            <!-- End Email send  -->
                             <tr>
                                 <th>Remarks:</th>
-                                <td v-html="item.details"></td>
+                                <td colspan="3" v-html="item.details"></td>
                             </tr>
+
+
                         </table>
+                        <!--End remarks -->
 
-                         <!--Start ho_remarks -->
+                        <!--Start ho_remarks -->
+                        <div v-if="(item.process == 'HO Service')">
+                            <div v-for="(item, index) in  complainDeta.ho_remarks" :key="index">
+                                <table class="table mb-0 bg-info text-white rounded">
 
-                            <div v-if="(item.process == 'HO Service')">
-                                <div v-for="(item, index) in  complainDeta.ho_remarks" :key="index">
-                                <table class="table mb-1 bg-info text-white rounded border-bottom  border-danger">
-                                   
-                                <tr>
+                                    <tr>
 
-                                <th>HO Process: ({{ index+1 }})</th>
-                                <td>
-                                    <span v-if="(item.process == 'Damaged')" class="text-danger bg-white rounded">Damaged</span> 
-                                    <span v-else-if="(item.process == 'Closed')" class="text-danger bg-white rounded">Closed</span> 
-                                    <span v-else>{{ item.process }}</span> 
-                                </td>
-                                <th>Document:</th>
-                                <td>
-                                    <span v-if="item.document">
-                                        <a v-if="item.document" :href="docPath+item.document"
-                                            class="btn btn-info btn-sm text-white" download>
-                                            <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
-                                        </a>
-                                    </span>
-                                    <span v-else class="text-warning">No Document's Send</span>
-                                </td>
-                                </tr>
-                                <tr>
-                                    <th>By:</th>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" v-if="item.makby"
-                                            @click="currentUserView(item.makby)">
-                                            <v-avatar size="20">
-                                                <img v-if="item.makby.image" :src="'/images/users/small/' + item.makby.image"
-                                                    alt="image">
-                                            </v-avatar> {{ item.makby.name }}
-                                        </button>
-                                    </td>
-                                    <th>Action At:</th>
-                                    <td><span
-                                            v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
-                                    </td>
-                                </tr>
-
-                               
-
+                                        <th>HO Process: ({{ index+1 }})</th>
+                                        <td>
+                                            <span v-if="(item.process == 'Damaged')"
+                                                class="text-danger bg-white rounded">Damaged</span>
+                                            <span v-else-if="(item.process == 'Closed')"
+                                                class="text-danger bg-white rounded">Closed</span>
+                                            <span v-else>{{ item.process }}</span>
+                                        </td>
+                                        <th>Document:</th>
+                                        <td>
+                                            <span v-if="item.document">
+                                                <a v-if="item.document" :href="docPath+item.document"
+                                                    class="btn btn-info btn-sm text-white" download>
+                                                    <v-icon color="white" small>mdi-download-network-outline</v-icon>
+                                                    Document
+                                                </a>
+                                            </span>
+                                            <span v-else class="text-warning">No Document's Send</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>By:</th>
+                                        <td>
+                                            <button class="btn btn-secondary btn-sm" v-if="item.makby"
+                                                @click="currentUserView(item.makby)">
+                                                <v-avatar size="20">
+                                                    <img v-if="item.makby.image"
+                                                        :src="'/images/users/small/' + item.makby.image" alt="image">
+                                                </v-avatar> {{ item.makby.name }}
+                                            </button>
+                                        </td>
+                                        <th>Action At:</th>
+                                        <td><span
+                                                v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                        </td>
+                                    </tr>
+                                     <!-- Email send  -->
+                                    <tr v-if="item.mail">
+                                        <th>E-Mail:</th>
+                                        <td colspan="1">
+                                            <span v-if="item.mail.status">Successfully Sent</span>
+                                            <span v-else class="text-warning">Sending</span>
+                                            <v-btn @click="mailSendManual(item.mail.id)" small class="float-right" elevation="20">
+                                                <v-icon>mdi-email-send</v-icon> 
+                                            </v-btn>
+                                        </td>
+                                        <th>Send At:</th>
+                                        <td colspan="1"><span
+                                                v-if="item.mail.status">{{ item.mail.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                            <span v-else class="text-warning">Sending</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Remarks:</th>
+                                        <td colspan="3" v-html="item.details"></td>
+                                    </tr>
                                 </table>
-                                </div>
+                                
                             </div>
-                            <!--End ho_remarks -->
+                        </div>
+                        <!--End ho_remarks -->
                     </div>
                 </div>
 
-               
+                <!-- Start Damaged Replaced received -->
+                <table class="table mb-1 bg-secondary text-white rounded border-bottom border-danger"
+                    v-if="complainDeta.dam_apply && complainDeta.dam_apply.rep_pro_id ">
+                    <!-- {{ complainDeta.dam_apply }} -->
+
+                    <tr>
+                        <td colspan="8" class="text-center h3 text-success">Damaged Replaced</td>
+                    </tr>
+                    <tr class="bg-info">
+                        <th>Receiver Name:</th>
+                        <td> {{ complainDeta.dam_apply.rec_name }} </td>
+                        <th>Receiver Contact:</th>
+                        <td> {{ complainDeta.dam_apply.rec_contact }} </td>
+                        <th>Receiver Position:</th>
+                        <td> {{ complainDeta.dam_apply.rec_position }} </td>
+                        <th>Received At:</th>
+                        <td><span v-if="complainDeta.dam_apply.updated_at"
+                                class="text-warning">{{ complainDeta.dam_apply.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                        </td>
+                    </tr>
+                </table>
+                <!-- Start Damaged Replaced received -->
+
+
+
+
+                <!-- Start Delivered -->
+                <table class="table mb-1 bg-success text-white rounded border-bottom border-danger"
+                    v-if="complainDeta.delivery">
+                    <!-- {{ complainDeta.delivery }} -->
+
+                    <tr>
+                        <td colspan="8" class="text-center h3">----- Delivered -----</td>
+                    </tr>
+                    <!-- Start Email send  -->
+                    <tr v-if="complainDeta.delivery.mail">
+                        <th>E-Mail:</th>
+                        <td colspan="3">  
+                            <span v-if="complainDeta.delivery.mail.status" >Successfully Sent</span>
+                            <span v-else class="text-warning">Sending</span>
+                            <v-btn @click="mailSendManual(complainDeta.delivery.mail.id)" small class="float-right" elevation="20">
+                                <v-icon>mdi-email-send</v-icon> 
+                            </v-btn>
+                        </td>
+                        <th>Send At:</th>
+                        <td colspan="3"><span
+                                v-if="complainDeta.delivery.mail.status">{{ complainDeta.delivery.mail.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                            <span v-else class="text-warning">Sending</span>
+                        </td>
+                    </tr>
+                            <!-- End Email send  -->
+                    <tr>
+                        <th>Receiver Name:</th>
+                        <td> {{ complainDeta.delivery.rec_name }} </td>
+                        <th>Receiver Contact:</th>
+                        <td> {{ complainDeta.delivery.rec_contact }} </td>
+                        <th>Receiver Position:</th>
+                        <td> {{ complainDeta.delivery.rec_position }} </td>
+                        <th>Received At:</th>
+                        <td><span v-if="complainDeta.delivery.updated_at"
+                                class="text-warning">{{ complainDeta.delivery.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Remarks:</th>
+                        <td colspan="7" v-html="complainDeta.delivery.details"> </td>
+                    </tr>
+                </table>
+                <!-- Start Delivered -->
+
+
 
                 <!-- Action Btn -->
                 <div>
-                    <v-btn v-if="checkActionBtnAccess()" :loading="actionBtnLoading" block :class="actionBtnColor" @click="actionDialogShow()" elevation="20" >
+                    <v-btn v-if="checkActionBtnAccess()" :loading="actionBtnLoading" block :class="actionBtnColor"
+                        @click="actionDialogShow()" elevation="20">
                         <v-icon left>mdi-gesture-tap-button</v-icon> {{ actionBtnText }}
                     </v-btn>
                 </div>
-                
+
 
 
             </v-card-text>
@@ -226,24 +334,43 @@
 
         </v-card>
 
+        <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
+
         <!-- user-details -->
         <user-details v-if="CurrentUserData" :userData="CurrentUserData" :key="userDetailsDialogKey"></user-details>
 
         <!-- Modify Dialog -->
-        <cat-sub-modify-dialog v-if="CurrentComDataModify" :comData="CurrentComDataModify" :key="comModifyDialogKey" @childToParent="childToParentCall"></cat-sub-modify-dialog>
+        <cat-sub-modify-dialog v-if="CurrentComDataModify" :comData="CurrentComDataModify" :key="comModifyDialogKey"
+            @childToParent="childToParentCall"></cat-sub-modify-dialog>
 
 
 
 
 
         <!-- Not Process Action Dialog -->
-        <action-dialog v-if="actionVal" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog>
+        <action-dialog v-if="actionVal" :comData="CurrentComData" :key="comActionsDialogKey"
+            @childToParent="childToParentCall"></action-dialog>
 
-        <!-- Not Process Action Dialog -->
-        <action-dialog-2 v-if="actionVal2" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog-2>
+        <!-- Processing Action Dialog -->
+        <action-dialog-2 v-if="actionVal2" :comData="CurrentComData" :key="comActionsDialogKey"
+            @childToParent="childToParentCall"></action-dialog-2>
 
-        <!-- Not Process Action Dialog -->
-        <action-dialog-3 v-if="actionVal3" :comData="CurrentComData" :key="comActionsDialogKey" @childToParent="childToParentCall"></action-dialog-3>
+        <!-- H.O. Action Dialog -->
+        <action-dialog-3 v-if="actionVal3" :comData="CurrentComData" :key="comActionsDialogKey"
+            @childToParent="childToParentCall"></action-dialog-3>
+
+        <!-- Damaged Action Dialog -->
+        <action-dialog-4 v-if="actionVal4" :comData="CurrentComData" :key="comActionsDialogKey"
+            @childToParent="childToParentCall"></action-dialog-4>
+        <!-- Damaged Quotation -->
+        <action-dialog-5 v-if="actionVal5" :comData="CurrentComData" :key="comActionsDialogKey"
+            @childToParent="childToParentCall"></action-dialog-5>
+        <!-- Delivery -->
+        <action-dialog-6 v-if="actionVal6" :comData="CurrentComData" :key="comActionsDialogKey"
+            @childToParent="childToParentCall"></action-dialog-6>
+
 
     </div>
 </template>
@@ -258,7 +385,10 @@
     import actionDialog from './dialog/action_dialog.vue'
     import actionDialog2 from './dialog/action_dialog_2.vue'
     import actionDialog3 from './dialog/action_dialog_3.vue'
-    
+    import actionDialog4 from './dialog/action_dialog_4.vue'
+    import actionDialog5 from './dialog/action_dialog_5.vue'
+    import actionDialog6 from './dialog/action_dialog_6.vue'
+
 
 
 
@@ -270,6 +400,9 @@
             'action-dialog': actionDialog,
             'action-dialog-2': actionDialog2,
             'action-dialog-3': actionDialog3,
+            'action-dialog-4': actionDialog4,
+            'action-dialog-5': actionDialog5,
+            'action-dialog-6': actionDialog6,
         },
 
         data() {
@@ -284,10 +417,13 @@
                 complainDeta: '',
 
                 //Action Dialog
-                actionBtnLoading:false,
-                actionVal:false,
-                actionVal2:false,
-                actionVal3:false,
+                actionBtnLoading: false,
+                actionVal: false,
+                actionVal2: false,
+                actionVal3: false,
+                actionVal4: false,
+                actionVal5: false,
+                actionVal6: false,
                 comActionsDialogKey: 3,
                 CurrentComData: '',
 
@@ -295,23 +431,20 @@
                 comModifyDialogKey: 5,
                 CurrentComDataModify: '',
 
-                actionBtnText:'Action',
-                actionBtnColor:'success',
+                actionBtnText: 'Action',
+                actionBtnColor: 'success',
 
 
                 // Current User Show By Dilog
                 ...userDetailsData,
 
-                // Send Mail
-                mailSendLoading: false,
 
-                
             }
         },
 
         methods: {
 
-            childToParentCall () {
+            childToParentCall() {
                 //console.log('child') // someValue
                 // refresh data
                 this.getComplainData();
@@ -322,15 +455,15 @@
 
 
             // check action btn access
-            checkActionBtnAccess(){
-               
-               if(this.complainDeta.process == 'HO Service' ){
-                   return true;
-               }
-               
-               if(this.complainDeta.process != 'Closed'){
-                   return true;
-               }
+            checkActionBtnAccess() {
+
+                if (this.complainDeta.process == 'HO Service') {
+                    return true;
+                }
+
+                if (this.complainDeta.process != 'Closed') {
+                    return true;
+                }
 
                 return false;
             },
@@ -341,7 +474,7 @@
                 axios.get(this.currentUrl + '/action/' + this.comId).then(response => {
                     this.dataLoading = false
 
-                    //console.log(response.data)
+                    console.log(response.data)
                     this.complainDeta = response.data
                     this.actionBtn()
 
@@ -352,7 +485,7 @@
 
             },
 
-           
+
             // modifyDialogShow
             modifyDialogShow() {
                 this.comModifyDialogKey++
@@ -360,21 +493,21 @@
             },
 
             // mailSendManual
-            mailSendManual(val){
-             this.mailSendLoading = true
-             axios.get(this.currentUrl+'/send_rem_email?id=' + val )
-                .then(response => {
-                    //console.log(response.data);
-                    this.getComplainData();
-                    Swal.fire({
-                        icon: response.data.icon,
-                        title: response.data.msg,
-                    })
-                    this.mailSendLoading = false
-                }).catch(error=>{
-                    this.mailSendLoading = false
-                    console.log(error);
-                });
+            mailSendManual(val) {
+                this.overlay = true
+                axios.get(this.currentUrl + '/send_rem_email?id=' + val)
+                    .then(response => {
+                        //console.log(response.data);
+                        this.getComplainData();
+                        Swal.fire({
+                            icon: response.data.icon,
+                            title: response.data.msg,
+                        })
+                        this.overlay = false
+                    }).catch(error => {
+                        this.overlay = false
+                        console.log(error);
+                    });
 
             },
 
@@ -388,21 +521,56 @@
                 this.actionVal = false
                 this.actionVal2 = false
                 this.actionVal3 = false
+                this.actionVal4 = false
+                this.actionVal5 = false
+                this.actionVal6 = false
 
-                if(currPro == 'Not Process'){
+                if (currPro == 'Not Process') {
                     this.actionVal = true
-                   // this.actionVal2 = false
+                    // this.actionVal2 = false
                 }
-                
-                if(currPro == 'Processing' || currPro == 'Send Service' || currPro == 'Back Service'|| currPro == 'Again Send Service'){
+
+                // Processing
+                if (currPro == 'Processing' || currPro == 'Send Service' || currPro == 'Back Service' || currPro ==
+                    'Again Send Service') {
                     // this.actionVal = false
-                    this.actionVal2 = true 
+                    this.actionVal2 = true
                 }
-                
-                if( currPro == 'HO Service' && this.isHardwareHoService()){
+
+                // HO Service
+                if (currPro == 'HO Service' && this.isHardwareHoService()) {
                     //console.log('HO Service')
                     // HO service
-                    this.actionVal3 = true 
+                    this.actionVal3 = true
+                }
+
+                // Damaged
+                if (currPro == 'Damaged' || currPro == 'Partial Damaged') {
+                    let damagedData = this.complainDeta.dam_apply
+                    // Check Applicable
+                    if (damagedData.applicable_type == 'Applicable' && !damagedData.apply_quotation) {
+                        // Check user applied
+                        if (!damagedData.apply_at) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Sorry!! User not yet applied',
+                            })
+                        } else {
+                            this.actionVal5 = true
+                        }
+
+                    } else {
+                        // this.actionVal = false
+                        this.actionVal4 = true
+                    }
+
+                }
+
+                // Deliverable
+                if (currPro == 'Deliverable') {
+                    //console.log('Deliverable')
+                    // HO service
+                    this.actionVal6 = true
                 }
 
                 this.comActionsDialogKey++
@@ -415,26 +583,34 @@
             },
 
 
-            actionBtn(){
+            actionBtn() {
 
                 //console.log('Process ', val)
                 let currPro = this.complainDeta.process
                 // For Action BTN
-                if( currPro == 'HO Service' && !this.isHardwareHoService()){
-                    this.actionBtnText  ='Sorry! You have no access'
-                    this.actionBtnColor ='error'
+                if (currPro == 'HO Service' && !this.isHardwareHoService()) {
+                    this.actionBtnText = 'Sorry! You have no access'
+                    this.actionBtnColor = 'error'
                 }
 
             }
 
 
 
+
+
+        },
+
+        mounted() {
+            // console.log('drafts', this.drafts)
         },
 
         created() {
             this.$Progress.start();
             this.getComplainData();
-            
+
+            this.allReplayDraft();
+
             //console.log(this.comId, this.$route.query.id, this.isHardwareHoService() )
             this.$Progress.finish();
         }

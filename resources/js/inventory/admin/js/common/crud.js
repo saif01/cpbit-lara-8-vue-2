@@ -1,73 +1,70 @@
 export default{
 
     // Create Data
-    async createData() {
+    createData() {
         this.dataModalLoading = true;
-        //console.log('Form submited');
         this.$Progress.start()
         // request send and get response
-        const response = await this.form.post(this.currentUrl +'/store'+ '');
-        // Input field make empty
-        this.form.reset();
-        this.form.errors.clear();
-        this.resetForm();
-        this.dataModalLoading = false;
-        // Hide model
-        this.dataModalDialog = false;
-        // Refresh Tbl Data with current page
-        this.getResults(this.currentPageNumber);
-        this.$Progress.finish();
+        this.form.post(this.currentUrl + '/store' + '').then(response => {
+            // Input field make empty
+            this.form.reset();
+            this.form.errors.clear();
+            this.resetForm();
+            this.dataModalLoading = false;
+            // Hide model
+            this.dataModalDialog = false;
+            // Refresh Tbl Data with current page
+            this.getResults(this.currentPageNumber);
+            this.$Progress.finish();
 
-        if (response.status == 200) {
             Toast.fire({
                 icon: response.data.icon,
                 title: response.data.msg
             });
-        } else {
+
+        }).catch(error=>{
+            this.dataModalLoading = false;
             Swal.fire({
                 icon: 'error',
                 title: 'Somthing Going Wrong',
                 customClass: 'text-danger'
             });
-            // Swal.fire("Failed!", data.message, "warning");
             console.log(response);
-        }
+        });
 
     },
 
     // Update data
-    async updateData() {
+    updateData() {
         this.dataModalLoading = true;
-        //console.log('Edit Form submited', this.form.id);
         this.$Progress.start();
         // request send and get response
-        const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
-        // Input field make empty
-        this.form.reset();
-        this.resetForm();
-        this.$Progress.start()
-        this.dataModalLoading = false;
-        // Hide model
-        this.dataModalDialog = false;
-        // Refresh Tbl Data with current page
-        this.getResults(this.currentPageNumber);
-        this.$Progress.finish();
-        
-        if (response.status == 200) {
+        this.form.put(this.currentUrl + '/update/?id=' + this.form.id).then(response => {
+            // Input field make empty
+            this.form.reset();
+            this.form.errors.clear();
+            this.resetForm();
+            this.dataModalLoading = false;
+            // Hide model
+            this.dataModalDialog = false;
+            // Refresh Tbl Data with current page
+            this.getResults(this.currentPageNumber);
+            this.$Progress.finish();
+
             Toast.fire({
                 icon: response.data.icon,
                 title: response.data.msg
             });
-        } else {
+
+        }).catch(error=>{
+            this.dataModalLoading = false;
             Swal.fire({
                 icon: 'error',
                 title: 'Somthing Going Wrong',
                 customClass: 'text-danger'
             });
-            // Swal.fire("Failed!", data.message, "warning");
             console.log(response);
-        }
-
+        });;
     },
 
     // Delete Data
@@ -85,7 +82,7 @@ export default{
             if (result.value) {
                 //console.log(id);
                 this.$Progress.start();
-                this.form.delete(this.currentUrl + '/destroy_temp/' + id).then((response) => {
+                axios.delete(this.currentUrl + '/destroy_temp?id=' + id).then((response) => {
                     //console.log(response);
                     Swal.fire(
                         'Deleted!',
@@ -109,7 +106,8 @@ export default{
     },
 
     // Delete Data
-    deleteData(id) {
+    deleteData(id, loc) {
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -123,7 +121,7 @@ export default{
             if (result.value) {
                 //console.log(id);
                 this.$Progress.start();
-                this.form.delete(this.currentUrl + '/destroy/' + id).then((response) => {
+                axios.delete(this.currentUrl + '/destroy?id=' + id + '&location='+loc).then((response) => {
                     //console.log(response);
                     Swal.fire(
                         'Deleted!',
@@ -146,27 +144,26 @@ export default{
         })
     },
 
-
-    // Delete DataDirict Data without form
-    deleteDataDirict(id) {
+    // restore Data
+    restoreData(id, loc) {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You want to restore this data?",
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, Restore it!'
         }).then((result) => {
 
             // Send request to the server
             if (result.value) {
                 //console.log(id);
                 this.$Progress.start();
-                axios.delete(this.currentUrl + '/destroy/' + id).then((response) => {
+                axios.put(this.currentUrl + '/restore?id=' + id + '&location='+loc).then((response) => {
                     //console.log(response);
                     Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
+                        'Restored!',
+                        'Your file has been Restored.',
                         'success'
                     );
                     // Refresh Tbl Data with current page
@@ -184,6 +181,8 @@ export default{
             }
         })
     },
+
+
 
     // Change Status
     statusChange(data){

@@ -42,9 +42,9 @@
                                     <span v-if="sort_direction == 'asc' && sort_field == 'process'">&darr;</span>
                                 </th>
                                 <th>
-                                    <a href="#" @click.prevent="change_sort('process')">Process</a>
-                                    <span v-if="sort_direction == 'desc' && sort_field == 'process'">&uarr;</span>
-                                    <span v-if="sort_direction == 'asc' && sort_field == 'process'">&darr;</span>
+                                    <a href="#" @click.prevent="change_sort('apply_at')">Applied</a>
+                                    <span v-if="sort_direction == 'desc' && sort_field == 'apply_at'">&uarr;</span>
+                                    <span v-if="sort_direction == 'asc' && sort_field == 'apply_at'">&darr;</span>
                                 </th>
                                 <th>Category</th>
                                 <th>Subcategory</th>
@@ -69,6 +69,10 @@
                                     <div class="pa-1 info rounded-pill h6 text-white text-center">
                                         {{ singleData.process }}
                                     </div>
+                                </td>
+                                <td> 
+                                    <span v-if="singleData.dam_apply && singleData.dam_apply.apply_at" >{{ singleData.dam_apply.apply_at | moment("MMMM Do YYYY") }}</span>
+                                    <span v-else class="text-danger" >N/A</span>
                                 </td>
                                 <td>
                                     <span v-if="singleData.category">{{ singleData.category.name }}</span>
@@ -141,7 +145,7 @@
 
             return {
                 //current page url
-                currentUrl: '/cms/h_admin/complain',
+                currentUrl: '/cms/h_admin/complain/damaged',
                
 
                 // Current User Show By Dilog
@@ -157,7 +161,7 @@
             // Get table data
             getResults(page = 1) {
                 this.dataLoading = true;
-                axios.get(this.currentUrl + '/applicable_damaged?page=' + page +
+                axios.get(this.currentUrl + '/applicable?page=' + page +
                         '&paginate=' + this.paginate +
                         '&search=' + this.search +
                         '&sort_direction=' + this.sort_direction +

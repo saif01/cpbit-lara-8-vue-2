@@ -16,6 +16,8 @@ import Draft from './../pages/draft/index.vue'
 
 import NotProcess from './../pages/complain/not_process.vue'
 import Processing from './../pages/complain/processing.vue'
+import Closed from './../pages/complain/closed.vue'
+import Deliverable from './../pages/complain/deliverable.vue'
 import Action from './../pages/complain/action/action.vue'
 import Service from './../pages/complain/service.vue'
 
@@ -29,6 +31,10 @@ import NotApplicablePartialDamaged from './../pages/complain/damaged/not_applica
 
 // H O Service
 import HOServiceIndex from './../pages/complain/h_o_service/index.vue'
+
+// Reports
+import ReportIndex from './../pages/reports/index.vue'
+import ReportDamaged from './../pages/reports/damaged.vue'
 
 
 const router = new VueRouter({
@@ -97,6 +103,22 @@ const router = new VueRouter({
             name: 'Processing',
             meta:{
                 title: 'Hardware Processing Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/closed', 
+            component: Closed,
+            name: 'Closed',
+            meta:{
+                title: 'Hardware Closed Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/deliverable', 
+            component: Deliverable,
+            name: 'Deliverable',
+            meta:{
+                title: 'Hardware Deliverable Admin',
             },   
         },
         { 
@@ -171,6 +193,24 @@ const router = new VueRouter({
             name: 'HOServiceIndex',
             meta:{
                 title: 'Hardware H O Service Admin',
+            },   
+        },
+
+        // Reports
+        { 
+            path: '/cms/h_admin/reports', 
+            component: ReportIndex,
+            name: 'ReportIndex',
+            meta:{
+                title: 'Hardware Report Index Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/damaged_reports', 
+            component: ReportDamaged,
+            name: 'ReportDamaged',
+            meta:{
+                title: 'Hardware Report Index Admin',
             },   
         },
         

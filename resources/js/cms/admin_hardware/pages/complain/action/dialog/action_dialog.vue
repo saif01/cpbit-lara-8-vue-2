@@ -37,7 +37,7 @@
                             <v-row align-content="center">
 
                                 <!-- Process -->
-                                <v-col cols="6">
+                                <v-col cols="12" lg="6">
                                     <div class="small text-danger" v-if="form.errors.has('process')"
                                         v-html="form.errors.get('process')" />
                                     <v-autocomplete :items="stepOptions" dense v-model="form.process"
@@ -46,7 +46,7 @@
                                 </v-col>
 
                                 <!-- Document -->
-                                <v-col cols="6">
+                                <v-col cols="12" lg="6">
                                     <v-file-input @change="uploadDocByName($event, 'document')" show-size
                                         label="Document" accept="image/*, .pdf, .xlsx, .docx" :rules="docRules" outlined
                                         dense></v-file-input>
@@ -73,8 +73,8 @@
                                         <v-col cols="8">
                                             <label>Details :</label>
                                         </v-col>
-                                        <v-col cols="4" v-if="allRepDrafts.length">
-                                            <v-autocomplete :items="allRepDrafts" dense v-model="selectDraft"
+                                        <v-col cols="4" v-if="drafts.length">
+                                            <v-autocomplete :items="drafts" dense v-model="selectDraft"
                                                 label="Draft"></v-autocomplete>
                                         </v-col>
                                     </v-row>
@@ -243,7 +243,7 @@
 
         created() {
             this.accessorisTextToArray();
-            this.allReplayDraft();
+            
             //console.log('comData', this.comData )
         }
     }

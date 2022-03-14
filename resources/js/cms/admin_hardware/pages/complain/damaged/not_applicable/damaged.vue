@@ -136,7 +136,7 @@
 
             return {
                 //current page url
-                currentUrl: '/cms/h_admin/complain',
+                currentUrl: '/cms/h_admin/complain/damaged',
 
 
 
@@ -153,7 +153,7 @@
             // Get table data
             getResults(page = 1) {
                 this.dataLoading = true;
-                axios.get(this.currentUrl + '/not_applicable_damaged?page=' + page +
+                axios.get(this.currentUrl + '/not_applicable?page=' + page +
                         '&paginate=' + this.paginate +
                         '&search=' + this.search +
                         '&sort_direction=' + this.sort_direction +

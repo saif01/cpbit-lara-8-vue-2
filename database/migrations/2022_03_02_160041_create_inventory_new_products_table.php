@@ -23,6 +23,9 @@ class CreateInventoryNewProductsTable extends Migration
             $table->string('document')->nullable();
             $table->date('purchase')->nullable();
             $table->date('warranty')->nullable();
+            $table->string('invoice_num')->nullable();
+            $table->date('bill_submit')->nullable();
+            $table->string('req_payment_num')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('give_st')->default(0);
             $table->integer('po_number')->nullable();

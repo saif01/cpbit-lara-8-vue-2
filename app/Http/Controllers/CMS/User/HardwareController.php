@@ -10,7 +10,7 @@ use App\Models\Cms\Hardware\HardwareAcsosoris;
 use App\Models\Cms\Hardware\HardwareSubcategory;
 use App\Models\Cms\Hardware\HardwareComplain;
 use App\Http\Controllers\Common\ImageUpload;
-use App\Models\Cms\Hardware\HardwareDamageApply;
+use App\Models\Cms\Hardware\HardwareDamaged;
 use Carbon\Carbon;
 use Auth;
 
@@ -121,7 +121,7 @@ class HardwareController extends Controller
     public function damage_apply(){
         $id = Request('id');
 
-        $data = HardwareDamageApply::find($id);
+        $data = HardwareDamaged::find($id);
 
         if( ! $data->apply_by ){
 

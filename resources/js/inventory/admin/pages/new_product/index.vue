@@ -17,15 +17,22 @@
             <v-card-text>
                 <div v-if="allData.data">
                     <v-row>
-                        <v-col cols="2">
+                        <v-col lg="2" cols="4">
                             <!-- Show -->
-                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" small>
+                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col cols="10">
-                            <v-text-field prepend-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
-                                placeholder="Search Input..."></v-text-field>
+                        <v-col lg="10" cols="8">
+                            <v-text-field
+                                v-model="search"
+                                append-icon="mdi-magnify"
+                                label="Search"
+                                hide-details
+                                class="mb-5"
+                                outlined
+                                dense
+                            ></v-text-field>
                         </v-col>
                     </v-row>
 
@@ -63,12 +70,16 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td class="text-center">
 
-                                    <v-btn @click="editDataModel(singleData)" color="info" elevation="20" small>
+                                    <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20" small>
                                         <v-icon small>mdi-circle-edit-outline</v-icon> Edit
                                     </v-btn>
 
-                                    <v-btn @click="deleteDataTemp(singleData.id)" color="error" elevation="20" small>
+                                    <v-btn class="ma-2" @click="deleteDataTemp(singleData.id)" color="error" elevation="20" small>
                                         <v-icon small>mdi-delete-empty</v-icon> Delete
+                                    </v-btn>
+
+                                    <v-btn class="ma-2" @click="deliever(singleData)" color="orange" elevation="20" small>
+                                        <v-icon small>mdi-upload</v-icon> Delivery
                                     </v-btn>
                                     <br>
                                     <span v-if="singleData.makby" class="small text-muted">Create By--
@@ -170,22 +181,15 @@
 
 
                                 <!-- Document -->
-                                <!-- <v-col cols="12" lg="4">
+                                <v-col cols="12" lg="4">
                                     <v-file-input @change="uploadDocByName($event, 'document')" show-size 
                                         label="Document" accept="image/*, .pdf, .xlsx, .docx" :rules="docRules"  
                                         dense>
                                         <template slot="append" v-if="editmode">
-                                            <span v-if="form.document" class="success"><v-icon color="success">mdi-folder-check-outline</v-icon> Yes</span>
+                                            <span v-if="form.document" class="text-success"><v-icon color="success">mdi-check-decagram-outline</v-icon> Yes</span>
                                             <span v-else class="text-danger"><v-icon color="error">mdi-close-octagon</v-icon> No</span>
                                         </template>
                                         </v-file-input>
-                                </v-col> -->
-
-                                <v-col cols="12" lg="4">
-                                    <v-file-input @change="uploadDocByName($event, 'document')" show-size 
-                                        label="Document" accept="image/*, .pdf, .xlsx, .docx" :rules="docRules"
-                                        dense>
-                                    </v-file-input>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
@@ -195,9 +199,9 @@
                                     <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
                                         :return-value.sync="date" offset-y min-width="auto"  dense>
                                         <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field v-model="form.purchase" label="Report Date"
+                                            <v-text-field v-model="form.purchase" label="Purchase Bill Date"
                                                 prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" required
-                                                 dense :rules="[v => !!v || 'Report Date is required!']">
+                                                 dense :rules="[v => !!v || 'Purchase Bill Date is required!']">
                                             </v-text-field>
                                         </template>
                                         <v-date-picker v-model="form.purchase" scrollable  dense>
@@ -216,6 +220,42 @@
                                     <v-text-field v-model="form.serial" label="Serial Number"
                                         :rules="[v => !!v || 'Serial number is required!']"
                                         placeholder="Enter Product Serial number" dense  required>
+                                    </v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" lg="4">
+                                    <div class="small text-danger" v-if="form.errors.has('invoice_num')"
+                                        v-html="form.errors.get('invoice_num')" />
+                                    <v-text-field v-model="form.invoice_num" label="Invoice Number"
+                                        placeholder="Enter invoice number" dense >
+                                    </v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" lg="4">
+                                    <div class="small text-danger" v-if="form.errors.has('bill_submit')"
+                                        v-html="form.errors.get('bill_submit')" />
+                                    <!-- Date Picker -->
+                                    <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
+                                        :return-value.sync="date" offset-y min-width="auto" dense>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="form.bill_submit" label="Bill Submit Date"  prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense >
+                                            </v-text-field>
+                                        </template>
+                                        <v-date-picker v-model="form.bill_submit" scrollable  dense>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="menu = false">
+                                                Cancel</v-btn>
+                                            <v-btn text color="primary" @click="$refs.menu.save(date)">
+                                                OK </v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
+                                </v-col>
+
+                                <v-col cols="12" lg="4">
+                                    <div class="small text-danger" v-if="form.errors.has('req_payment_num')"
+                                        v-html="form.errors.get('req_payment_num')" />
+                                    <v-text-field v-model="form.req_payment_num" label="Request Payment Number"
+                                        placeholder="Enter request payment number" dense >
                                     </v-text-field>
                                 </v-col>
 
@@ -294,6 +334,9 @@
         </v-dialog>
 
 
+        
+        <delivery-component v-if="currentData" :currentData="currentData" :category="currentCategory" :subcategory="currentSubcategory" :key="leaveActionKey" ></delivery-component>
+
     </div>
 
 </template>
@@ -302,6 +345,7 @@
 <script>
     // vform
     import Form from 'vform';
+    import deliveryModal from './delivery.vue';
 
     import {
         VueEditor
@@ -313,7 +357,8 @@
     export default {
 
         components: {
-            VueEditor
+            VueEditor,
+            'delivery-component':deliveryModal,
         },
 
         data() {
@@ -343,7 +388,7 @@
                 // Custom Toolbar for vue2 text editor
                 ...vue2EditorToolbar,
 
-                // warranty
+                // warranty 
                 warranty: 'n',
                 warranty_type: 'month',
                 warranty_type_data: '',
@@ -367,11 +412,21 @@
                     document: '',
                     purchase: '',
                     warranty: '',
+                    invoice_num: '',
+                    bill_submit: '',
+                    req_payment_num: '',
                     po_number: '',
 
                 }),
 
                 
+
+
+                // deliver details
+                currentData: '',
+                leaveActionKey:0,
+                currentCategory:'',
+                currentSubcategory:'',
 
             }
 
@@ -424,7 +479,7 @@
             },
 
             // Create Data
-            async createData() {
+            createData() {
                 this.dataModalLoading = true;
                 //console.log('Form submited');
                 this.$Progress.start()
@@ -444,41 +499,44 @@
                 }
 
                 // request send and get response
-                const response = await this.form.post(this.currentUrl +'/store'+ '');
-                // Input field make empty
-                this.form.reset();
-                this.form.errors.clear();
-                this.resetForm();
-                this.dataModalLoading = false;
-                // Hide model
-                this.dataModalDialog = false;
-                // Refresh Tbl Data with current page
-                this.getResults(this.currentPageNumber);
-                this.$Progress.finish();
+                this.form.post(this.currentUrl +'/store'+ '').then(response=>{
 
-                if (response.status == 200) {
+                    // Input field make empty
+                    this.form.reset();
+                    this.form.errors.clear();
+                    this.resetForm();
+                    this.dataModalLoading = false;
+                    // Hide model
+                    this.dataModalDialog = false;
+                    // Refresh Tbl Data with current page
+                    this.getResults(this.currentPageNumber);
+                    this.$Progress.finish();
+
                     Toast.fire({
                         icon: response.data.icon,
                         title: response.data.msg
                     });
-                } else {
+
+                }).catch(error=>{
+                    this.dataModalLoading = false;
                     Swal.fire({
                         icon: 'error',
                         title: 'Somthing Going Wrong',
                         customClass: 'text-danger'
                     });
-                    // Swal.fire("Failed!", data.message, "warning");
                     console.log(response);
-                }
+                });
+
+
 
             },
 
             // Edit Data Modal
             editDataModel(singleData){
-                this.form.reset();
                 
                 this.editmode       = true;
                 this.dataModelTitle = 'Update Data'
+                //this.form.reset();
                
                 // Warranty
                 if(singleData.warranty){
@@ -489,15 +547,10 @@
                     //console.log(this.warranty_type_data, start)
                 }
 
-                // if(singleData.document){
-                //     this.documentAppend = true
-                // }else{
-                //     this.documentAppend = false
-                // }
-
-                
-                
+              
+                //console.log('singleData before',  singleData.document)
                 this.form.fill(singleData);
+                //console.log('singleData after',  this.form.document, singleData)
                 // Subcategory
                 this.getSubcategory()
 
@@ -505,7 +558,7 @@
             },
 
             // Update data
-            async updateData() {
+            updateData() {
                 this.dataModalLoading = true;
                 //console.log('Edit Form submited', this.form.id);
                 this.$Progress.start();
@@ -524,37 +577,53 @@
                     }
                 }
 
+                //console.log(this.form);
+
                 // request send and get response
-                const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
-                // Input field make empty
-                this.form.reset();
-                this.resetForm();
-                this.$Progress.start()
-                this.dataModalLoading = false;
-                // Hide model
-                this.dataModalDialog = false;
-                // Refresh Tbl Data with current page
-                this.getResults(this.currentPageNumber);
-                this.$Progress.finish();
-                
-                if (response.status == 200) {
+                this.form.post(this.currentUrl + '/update').then(response=>{
+
+                    // Input field make empty
+                    this.form.reset();
+                    this.form.errors.clear();
+                    this.resetForm();
+                    this.dataModalLoading = false;
+                    // Hide model
+                    this.dataModalDialog = false;
+                    // Refresh Tbl Data with current page
+                    this.getResults(this.currentPageNumber);
+                    this.$Progress.finish();
+
                     Toast.fire({
                         icon: response.data.icon,
                         title: response.data.msg
                     });
-                } else {
+
+                }).catch(error=>{
+                    this.dataModalLoading = false;
                     Swal.fire({
                         icon: 'error',
                         title: 'Somthing Going Wrong',
                         customClass: 'text-danger'
                     });
-                    // Swal.fire("Failed!", data.message, "warning");
                     console.log(response);
-                }
+                });
 
             },
 
 
+
+            // deliever
+            deliever(data){
+                if(data.category){
+                    this.currentCategory = data.category.name
+                }
+                if(data.subcategory){
+                    this.currentSubcategory = data.subcategory.name
+                }
+              
+                this.leaveActionKey++
+                this.currentData = data
+            },
 
 
         },

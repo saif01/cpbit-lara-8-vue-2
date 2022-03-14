@@ -20,7 +20,7 @@ class CreateHardwareDamageAppliesTable extends Migration
             $table->integer('apply_by')->nullable();
             $table->dateTime('apply_at')->nullable();
             $table->integer('status')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->integer('created_by')->nullable(); 
             $table->timestamps();
         });
     }

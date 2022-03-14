@@ -23,7 +23,7 @@ class HardwareRemarks extends Model
     }
 
     public function dam_apply(){
-        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamageApply', 'comp_id', 'comp_id');
+        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamaged', 'comp_id', 'comp_id');
     }
 
 

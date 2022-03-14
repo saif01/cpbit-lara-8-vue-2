@@ -26,7 +26,11 @@ class HardwareComplain extends Model
     }
 
     public function dam_apply(){
-        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamageApply', 'comp_id', 'id');
+        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamaged', 'comp_id', 'id');
+    }
+
+    public function delivery(){
+        return $this->hasOne('App\Models\Cms\Hardware\HardwareDelivery', 'comp_id', 'id');
     }
 
     public function ho_remarks(){

@@ -41,6 +41,8 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'process'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'process'">&darr;</span>
                                 </th>
+                                <th>Reason</th>
+                                <th>Type</th>
                                 <th>Category</th>
                                 <th>Subcategory</th>
                                 <th>User</th>
@@ -64,6 +66,21 @@
                                     <div class="pa-1 info rounded-pill h6 text-white text-center">
                                         {{ singleData.process }}
                                     </div>
+                                </td>
+                                <td>
+                                    <span v-if="singleData.dam_apply">{{ singleData.dam_apply.damaged_reason }}</span>
+                                </td>
+                                <td>
+                                    <span v-if="singleData.dam_apply">
+                                        <span
+                                            v-if="singleData.dam_apply.applicable_type == 'Applicable'">{{ singleData.dam_apply.applicable_type }}
+                                            <br>
+                                            <span class="text-muted small"
+                                                v-if="singleData.dam_apply.apply_at">Applied {{ singleData.dam_apply.apply_at | moment("MMM Do YYYY") }}</span>
+                                            <span v-else class="text-danger">N/A</span>
+                                        </span>
+                                        <span v-else> {{ singleData.dam_apply.applicable_type }}</span>
+                                    </span>
                                 </td>
                                 <td>
                                     <span v-if="singleData.category">{{ singleData.category.name }}</span>
@@ -136,7 +153,7 @@
 
             return {
                 //current page url
-                currentUrl: '/cms/h_admin/complain',
+                currentUrl: '/cms/h_admin/complain/damaged',
 
 
 
@@ -153,7 +170,7 @@
             // Get table data
             getResults(page = 1) {
                 this.dataLoading = true;
-                axios.get(this.currentUrl + '/all_damaged?page=' + page +
+                axios.get(this.currentUrl + '/all?page=' + page +
                         '&paginate=' + this.paginate +
                         '&search=' + this.search +
                         '&sort_direction=' + this.sort_direction +

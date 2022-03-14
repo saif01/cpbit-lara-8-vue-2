@@ -136,7 +136,7 @@
 
             return {
                 //current page url
-                currentUrl: '/cms/h_admin/complain',
+                currentUrl: '/cms/h_admin/complain/damaged',
                
 
                 // Current User Show By Dilog
@@ -152,7 +152,7 @@
             // Get table data
             getResults(page = 1) {
                 this.dataLoading = true;
-                axios.get(this.currentUrl + '/applicable_partial_damaged?page=' + page +
+                axios.get(this.currentUrl + '/applicable_partial?page=' + page +
                         '&paginate=' + this.paginate +
                         '&search=' + this.search +
                         '&sort_direction=' + this.sort_direction +

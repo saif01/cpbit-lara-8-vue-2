@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state : {
         auth  : null,
         roles : null,
+        draft : null,
     },
 
     getters : {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
         },
         getRoles(state){
             return state.roles;
+        },
+        getDraft(state){
+            return state.draft;
         },
 
     },
@@ -31,6 +35,12 @@ export default new Vuex.Store({
         // Roles User
         setRoles(state, data){
             state.roles = data;
+        },
+
+        // Draft User
+        setDraft(state, data){
+            //console.log('store drft', data)
+            state.draft = data;
         },
     
     },

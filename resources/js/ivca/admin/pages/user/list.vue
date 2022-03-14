@@ -252,14 +252,14 @@
             },
 
 
-            // editRoleModel
+            // editRoleModel 
             editRoleModel(roleData) {
                 console.log(roleData.id)
                 this.currentRoleId = roleData.id
                 // Current role array empty
                 this.currentRoles = []
                 // role found then push in arry
-                roleData.sms_roles.forEach(element => {
+                roleData.ivca_roles.forEach(element => {
                     // console.log('loop', element.id)
                     this.currentRoles.push(element.id)
                 })

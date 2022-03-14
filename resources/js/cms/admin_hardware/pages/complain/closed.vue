@@ -126,7 +126,7 @@
 
             return {
                 //current page url
-                currentUrl: '/cms/a_admin/complain',
+                currentUrl: '/cms/h_admin/complain',
 
 
 

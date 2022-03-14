@@ -39,7 +39,6 @@ export default {
 
     // image Upload by name
     uploadDocByName: function (event, currentFieldName) {
-        console.log(event)
         let file = event;
         this.form[currentFieldName] = file;
     },

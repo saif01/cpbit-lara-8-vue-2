@@ -21,6 +21,18 @@ class InventoryNewProduct extends Model
         return $this->belongsTo('App\Models\Cms\Hardware\HardwareSubcategory', 'subcat_id', 'id');
     }
 
+    public function business(){
+        return $this->belongsTo('App\Models\User', 'business_unit_id', 'id');
+    }
+
+    public function operation(){
+        return $this->belongsTo('App\Models\Inventory\InventoryOperation', 'operation_id', 'id');
+    }
+
+    public function office(){
+        return $this->belongsTo('App\Models\User', 'office_id', 'id');
+    }
+
 
     public function scopeSearch($query, $val='')
     {

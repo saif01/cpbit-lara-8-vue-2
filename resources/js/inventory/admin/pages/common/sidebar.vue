@@ -53,12 +53,128 @@
 
                 <v-list-item link router :to="{name: 'NewProduct'}" exact>
                     <v-list-item-icon>
-                        <v-icon>mdi-view-dashboard-outline </v-icon>
+                        <v-icon>mdi-grid-large</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>New Product</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+
+
+                <v-list-item link router :to="{name: 'OldProduct'}" exact>
+                    <v-list-item-icon>
+                        <v-icon>mdi-grid-large</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Old Product</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+
+                <v-list-group no-action prepend-icon="mdi-ballot-outline" active-class="indigo white--text">
+                    <template v-slot:activator>
+                        <v-list-item-title>Product Section</v-list-item-title>
+                    </template>
+
+
+                    <v-list-item link router :to="{name: 'givenProduct'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-grid-large</v-icon>
+                        </v-list-item-icon>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title>Given Product</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'runningProduct'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-grid-large</v-icon>
+                        </v-list-item-icon>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title>Running Product</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'damagedProduct'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-grid-large</v-icon>
+                        </v-list-item-icon>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title>Damaged Product</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                </v-list-group>
+
+
+                <v-list-group no-action prepend-icon="mdi-timetable" active-class="indigo white--text">
+                    <template v-slot:activator>
+                        <v-list-item-title>Warranty Section</v-list-item-title>
+                    </template>
+
+
+                    <v-list-item link router :to="{name: 'warrantyProduct'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-grid-large</v-icon>
+                        </v-list-item-icon>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title>Warranty Product</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'expireProduct'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-grid-large</v-icon>
+                        </v-list-item-icon>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title>Expire Product</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                </v-list-group>
+                
+
+                <v-list-item link router :to="{name: 'operation'}" exact>
+                    <v-list-item-icon>
+                        <v-icon>mdi-opera </v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Operation</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-group no-action prepend-icon="mdi-alert-decagram" active-class="indigo white--text">
+                    <template v-slot:activator>
+                        <v-list-item-title>Deleted Section</v-list-item-title>
+                    </template>
+
+
+                    <v-list-item link router :to="{name: 'deletedNewProduct'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-grid-large</v-icon>
+                        </v-list-item-icon>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title>New Product</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item link router :to="{name: 'deletedOldProduct'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-grid-large</v-icon>
+                        </v-list-item-icon>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title>Old Product</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                </v-list-group>
 
                
                 <v-list-item link router href="/logout">
@@ -131,6 +247,12 @@
 
     a:hover {
         text-decoration: none;
+    }
+
+    .v-list-group__items .v-list-item--active {
+        background-color: #3f51b5;
+        border-color: #3f51b5;
+        color: white;
     }
 
 </style>

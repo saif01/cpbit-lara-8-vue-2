@@ -137,11 +137,13 @@
                             <v-row align-content="center">
 
                                 <v-col md="4">
+                                    <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                                     <v-text-field v-model="form.name" label="Enter Room Name" :rules="roomRules"
                                         required></v-text-field>
                                 </v-col>
 
                                 <v-col md="4">
+                                    <div class="text-danger" v-if="form.errors.has('capacity')" v-html="form.errors.get('capacity')" />
                                     <v-text-field type="number" v-model="form.capacity" label="Enter Room capacity"
                                         :rules="roomRules" required></v-text-field>
                                 </v-col>
@@ -158,6 +160,7 @@
                                     <v-textarea outlined rows="2" v-model="form.remarks" label="Enter Room Details">
                                     </v-textarea>
                                 </v-col>
+
                             </v-row>
 
 

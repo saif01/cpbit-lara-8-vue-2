@@ -143,7 +143,8 @@
                 <v-card-title class="justify-center">
                     <v-row>
                         <v-col cols="10">
-                            {{dataModelTitle}}
+                            <span v-if="editmode">Update Car Information</span>
+                            <span v-else>Add New Car Information</span>
                         </v-col>
                         <v-col cols="2">
                             <v-btn @click="dataModalDialog = false, resetForm()" color="red lighten-1 white--text" small

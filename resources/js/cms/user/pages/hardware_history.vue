@@ -107,7 +107,7 @@
                                         </div>
                                     </span>
                                     <span v-else>
-                                        <v-btn v-if="singleData.dam_apply && (singleData.dam_apply.type == 'Applicable')"
+                                        <v-btn v-if="singleData.dam_apply && (singleData.dam_apply.applicable_type == 'Applicable')"
                                             @click="damagedReplace(singleData.dam_apply.id)" color="error" depressed small
                                             elevation="20">
                                             <v-icon small>mdi-file-replace </v-icon> Replace Apply

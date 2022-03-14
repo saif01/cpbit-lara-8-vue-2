@@ -6,6 +6,8 @@ import paginateMethods from './paginate_methods'
 import imageMethods from './image_methods'
 import createUpdate from './crud'
 
+import store from './../store'
+
 
 import globalRolePermissions from './../../../../role_permissions'
 
@@ -47,8 +49,20 @@ export default {
         // v-form
         valid: false,
 
-        allRepDrafts: [],
+        // allRepDrafts: [],
         selectDraft:'',
+        
+        // overlay
+        overlay:false,
+
+        // For Report search
+        allZoneOffices:[],
+        allDepartments:[],
+        
+        department:'',
+        start_date:'',
+        end_date:'',
+        zone_office:'',
       }
     },
 
@@ -73,8 +87,32 @@ export default {
         // all Replay Draft
         allReplayDraft(){
             axios.get('/cms/h_admin/draft/all_data').then(response=>{
-                console.log(response.data)
-                this.allRepDrafts = response.data;
+                //console.log(response.data)
+                //this.allRepDrafts = response.data;
+                // Store
+                store.commit('setDraft', response.data )
+
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
+
+
+        // get Zone Offices
+        getZoneOffices(){
+            axios.get('/super_admin/user/zoneoffices').then(response=>{
+                // console.log(response.data)
+                this.allZoneOffices = response.data
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
+
+        // get Departments
+        getDepartments(){
+            axios.get('/super_admin/user/departments').then(response=>{
+                //console.log(response.data)
+                this.allDepartments = response.data
             }).catch(error=>{
                 console.log(error)
             })
@@ -117,6 +155,37 @@ export default {
                 this.form.details = value 
             }
         },
+
+        start_date: function (value) {
+            if(this.end_date){
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            }
+        },
+
+        end_date: function (value) {
+            if(this.start_date){
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            }
+        },
+
+       
+        department: function (value) {
+            this.$Progress.start();
+            this.getResults();
+            this.$Progress.finish();
+        },
+
+        zone_office: function (value) {  
+            this.$Progress.start();
+            this.getResults();
+            this.$Progress.finish();
+        },
+
+
        
     },
 
@@ -143,6 +212,7 @@ export default {
         ...mapGetters({
             'auth'      : 'getAuth',
             'roles'     : 'getRoles',
+            'drafts'     : 'getDraft',
         }),
 
     },
