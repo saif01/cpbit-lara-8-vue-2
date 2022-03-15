@@ -113,3 +113,166 @@ INSERT INTO `cpbit_8`.`application_complains`(`id`, `user_id`, `cat_id`, `subcat
 
 -- application_remarks
 INSERT INTO `cpbit_8`.`application_remarks`(`id`, `comp_id`, `process`, `details`, `document`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `comp_id`, `process`, `details`, `document`, `created_by`, `created_at`, `updated_at` FROM `cpbit_copy`.`application_remarks`
+
+
+
+
+-- Inventory
+
+-- inventory_new_products
+INSERT INTO `cpbit_8`.`inventory_new_products`(`id`, `cat_id`, `subcat_id`, `name`, `serial`, `remarks`, `document`, `purchase`, `warranty`, `created_by`, `give_st`, `delete_temp`, `delete_by`, `created_at`, `updated_at`) SELECT `id`, `category`, `subcategory`, `name`, `serial`, `remarks`, `document`, `purchase`, `warranty`, `created_by`, `give_st`, `delete_temp`, `delete_by`, `created_at`, `updated_at` FROM `cpbit`.`inventory_new_products`
+
+UPDATE `inventory_new_products` SET `document`= REPLACE(`document`, 'images/inventory/', '')
+
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Attendance Machine'
+UPDATE `inventory_new_products` SET `category`= 30 WHERE `category` = 'Attendance Machine'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Printer Laser'
+UPDATE `inventory_new_products` SET `category`= 9 WHERE `category` = 'Printer Laser'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Printer Thermal'
+UPDATE `inventory_new_products` SET `category`= 10 WHERE `category` = 'Printer Thermal'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Printer Dot Matrix' 
+UPDATE `inventory_new_products` SET `category`= 16 WHERE `category` = 'Printer Dot Matrix'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'UPS'
+UPDATE `inventory_new_products` SET `category`= 6 WHERE `category` = 'UPS'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Monitor'
+UPDATE `inventory_new_products` SET `category`= 8 WHERE `category` = 'Monitor'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Projector'
+UPDATE `inventory_new_products` SET `category`= 21 WHERE `category` = 'Projector'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Mouse'
+UPDATE `inventory_new_products` SET `category`= 28 WHERE `category` = 'Mouse'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'WIFI'
+UPDATE `inventory_new_products` SET `category`= 23 WHERE `category` = 'WIFI'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Weight Scale'
+UPDATE `inventory_new_products` SET `category`= 42 WHERE `category` = 'Weight Scale'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Switch'
+UPDATE `inventory_new_products` SET `category`= 24 WHERE `category` = 'Switch'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'Computer Desktop'
+UPDATE `inventory_new_products` SET `category`= 12 WHERE `category` = 'Computer Desktop'
+
+SELECT `id` FROM `hardware_categories` WHERE `name` = 'CCTV'
+UPDATE `inventory_new_products` SET `category`= 22 WHERE `category` = 'CCTV'
+
+SELECT id FROM `hardware_categories` WHERE `name` = 'Barcode Scanner'
+UPDATE `inventory_new_products` SET `category`= 26 WHERE `category` = 'Barcode Scanner'
+
+SELECT id FROM `hardware_categories` WHERE `name` = 'Router'
+UPDATE `inventory_new_products` SET `category`= 25 WHERE `category` = 'Router'
+
+SELECT id FROM `hardware_categories` WHERE `name` = 'Printer Inkjet'
+UPDATE `inventory_new_products` SET `category`= 17 WHERE `category` = 'Printer Inkjet'
+
+SELECT id FROM `hardware_categories` WHERE `name` = 'Keyboard'
+UPDATE `inventory_new_products` SET `category`= 27 WHERE `category` = 'Keyboard'
+
+SELECT id FROM `hardware_categories` WHERE `name` = 'Laptop'
+UPDATE `inventory_new_products` SET `category`= 20 WHERE `category` = 'Laptop' 
+
+SELECT id FROM `hardware_categories` WHERE `name` = 'Computer All IN One'
+UPDATE `inventory_new_products` SET `category`= 19 WHERE `category` = 'Computer All IN One' 
+
+-- subcategory
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Canon'
+UPDATE `inventory_new_products` SET `subcategory`= 59 WHERE `subcategory` = 'Canon'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Actatek'
+UPDATE `inventory_new_products` SET `subcategory`= 116 WHERE `subcategory` = 'Actatek'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'A4Tech'
+UPDATE `inventory_new_products` SET `subcategory`= 104 WHERE `subcategory` = 'A4Tech'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'HP'
+UPDATE `inventory_new_products` SET `subcategory`= 57 WHERE `subcategory` = 'HP'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Epson'
+UPDATE `inventory_new_products` SET `subcategory`= 64 WHERE `subcategory` = 'Epson'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Online 10000 VA'
+UPDATE `inventory_new_products` SET `subcategory`= 84 WHERE `subcategory` = 'Online 10000 VA'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Samsung'
+UPDATE `inventory_new_products` SET `subcategory`= 58 WHERE `subcategory` = 'Samsung'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Netgear Gigaport'
+UPDATE `inventory_new_products` SET `subcategory`= 101 WHERE `subcategory` = 'Netgear Gigaport'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Brother'
+UPDATE `inventory_new_products` SET `subcategory`= 62 WHERE `subcategory` = 'Brother'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Altai'
+UPDATE `inventory_new_products` SET `subcategory`= 91 WHERE `subcategory` = 'Altai'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Wireless'
+UPDATE `inventory_new_products` SET `subcategory`= 92 WHERE `subcategory` = 'Wireless'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Wired (USB)'
+UPDATE `inventory_new_products` SET `subcategory`= 93 WHERE `subcategory` = 'Wired (USB)'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Mikrotik'
+UPDATE `inventory_new_products` SET `subcategory`= 94 WHERE `subcategory` = 'Mikrotik'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Camera HD'
+UPDATE `inventory_new_products` SET `subcategory`= 88 WHERE `subcategory` = 'Camera HD'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'HP CPU'
+UPDATE `inventory_new_products` SET `subcategory`= 69 WHERE `subcategory` = 'HP CPU'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Zebra'
+UPDATE `inventory_new_products` SET `subcategory`= 63 WHERE `subcategory` = 'Zebra'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Fm21e 300 Kg'
+UPDATE `inventory_new_products` SET `subcategory`= 238 WHERE `subcategory` = 'Fm21e 300 Kg'
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Offline 1000 VA '
+UPDATE `inventory_new_products` SET `subcategory`= 25 WHERE `subcategory` = 'Offline 1000 VA '
+
+SELECT id FROM `hardware_subcategories` WHERE `name` = 'Lenovo' 
+UPDATE `inventory_new_products` SET `subcategory`= 70 WHERE `subcategory` = 'Lenovo '
+
+SELECT id FROM `hardware_subcategories` WHERE name = 'Dell CPU'
+UPDATE `inventory_new_products` SET `subcategory`= 68 WHERE `subcategory` = 'Dell CPU '
+
+SELECT id FROM `hardware_subcategories` WHERE name = 'Dell'
+UPDATE `inventory_new_products` SET `subcategory`= 56 WHERE `subcategory` = 'Dell'
+
+SELECT id FROM `hardware_subcategories` WHERE name = 'Asus' 
+UPDATE `inventory_new_products` SET `subcategory`= 71 WHERE `subcategory` = 'Asus'
+
+-- operation
+UPDATE `inventory_old_products` SET `operation` = 2 WHERE `operation` = 'Head Office'
+UPDATE `inventory_old_products` SET `operation` = 3 WHERE `operation` = 'Feedmil'
+UPDATE `inventory_old_products` SET `operation` = 4 WHERE `operation` = 'Breeder & Hatchery'
+UPDATE `inventory_old_products` SET `operation` = 5 WHERE `operation` = 'Integration Business'
+UPDATE `inventory_old_products` SET `operation` = 6 WHERE `operation` = 'Aqua Business'
+UPDATE `inventory_old_products` SET `operation` = 7 WHERE `operation` = 'Food Business'
+
+
+-- inventory old product
+INSERT INTO `cpbit_8`.`inventory_old_products`( `id`, `new_pro_id`, `cat_id`, `subcat_id`, `office`, `business_unit`, `operation_id`, `name`, `serial`, `remarks`, `type`, `rec_name`, `rec_contact`, `rec_position`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at`) SELECT `id`, `new_pro_id`, `category`, `subcategory`, `office`, `business_unit`, `operation`, `name`, `serial`, `remarks`, `type`, `rec_name`, `rec_contact`, `rec_position`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at` FROM `cpbit`.`inventory_old_products`
+
+
+
+
+
+
+
+
+
+-- Power BI
+
+-- pbi_roles
+INSERT INTO `cpbit_8`.`pbi_roles`(`id`, `name`, `link`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `link`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`iservice_powerbis` 
+
+-- pbi_user_role
+INSERT INTO `cpbit_8`.`pbi_user_role`(`id`, `pbi_role_id`, `user_id`, `created_at`, `updated_at`) SELECT `id`, `iservice_powerbi_id`, `user_id`, `created_at`, `updated_at` FROM `cpbit`.`iservice_powerbi_user`

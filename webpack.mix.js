@@ -197,15 +197,38 @@ mix.styles([
     ], 'public/css/inventory/admin/app.css');
 
 
-//inventory user JS 
-mix.js('resources/js/inventory/user/js/app.js', 'public/js/inventory/user/app.js')
-    .vue();
-//inventory user CSS 
-mix.styles([
-        'resources/css/common/preloader.css',
-    ], 'public/css/inventory/user/app.css');
+// //inventory user JS 
+// mix.js('resources/js/inventory/user/js/app.js', 'public/js/inventory/user/app.js')
+//     .vue();
+// //inventory user CSS 
+// mix.styles([
+//         'resources/css/common/preloader.css',
+//     ], 'public/css/inventory/user/app.css');
 
 // *********End Inventory *********End
+
+
+// *********Start Inventory *********Start
+
+//pbi admin JS 
+mix.js('resources/js/pbi/admin/js/app.js', 'public/js/pbi/admin/app.js')
+    .vue(); 
+//pbi admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/pbi/admin/app.css');
+
+
+//pbi user JS 
+mix.js('resources/js/pbi/user/js/app.js', 'public/js/pbi/user/app.js')
+    .vue();
+//pbi user CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/pbi/user/app.css');
+
+// *********End Inventory *********End
+
 
 
     

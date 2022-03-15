@@ -83,8 +83,6 @@
                             <v-list-item-title>Roles</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-
-                 
                 </v-list-group>
 
                 <v-list-item link router :to="{name: 'NotProcess'}" >

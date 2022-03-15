@@ -45,23 +45,8 @@
             </div>
 
             <!-- <div class="d-flex flex-wrap justify-content-around mt-5">
-                <div class="col-lg-3 col-6">
-                    <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="inventory img__logo"><img src="/all-assets/common/icon/inventory.png" alt="Inventory" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Inventory</div> 
-                    </a>
-                    
-                </div>
-                <div class="col-lg-3 col-6">
-                    <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
-                    </a>
-                </div>
+                
+                
                 <div class="col-lg-3 col-6">
                     <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
@@ -112,7 +97,16 @@
             </div>
 
             <div class="d-flex flex-wrap justify-content-around mt-5 pb-5">
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-3 col-6">
+                    <a href="/pbi/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <div class="logo_div">
+                            <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
+                        </div>
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
+                    </a>
+                </div>
+                
+                <div class="col-lg-3 col-12">
                     <a href="/logout" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="logout img__logo"><img src="/all-assets/common/icon/logout.png" alt="Logout" class="img-fluid rotate_icon"></div>
@@ -121,8 +115,9 @@
                     </a>
                 </div>
             </div>
-            <footer-bar></footer-bar>
+           
         </div>
+        <footer-bar></footer-bar>
     </div>
 </template>
 

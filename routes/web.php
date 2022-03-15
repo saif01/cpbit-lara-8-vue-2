@@ -953,7 +953,47 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
 
+    // PBI Start
+    Route::namespace('PBI')->prefix('pbi')->group(function(){
 
+        // Admin
+        Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
+
+            // User
+            Route::namespace('User')->prefix('user')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/roles_update', 'IndexController@roles_update');
+             
+                Route::get('/zone_data', 'IndexController@zone_data');
+
+                //Draft 
+                Route::prefix('role')->group(function(){
+                    Route::get('/index', 'RoleController@index');
+                    Route::post('/store', 'RoleController@store');
+                    Route::put('/update/{id}', 'RoleController@update');
+                    Route::delete('/destroy/{id}', 'RoleController@destroy');
+                    Route::post('/status/{id}', 'RoleController@status');
+                    Route::get('/all_data', 'RoleController@all_data');
+                });
+            });
+
+            // API
+            Route::namespace('API')->prefix('api')->group(function(){
+                Route::post('/action', 'IndexController@action');
+            });
+
+           
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+        // User
+        Route::middleware(['can:room'])->namespace('User')->group(function(){
+
+
+            Route::get('{any?}', 'IndexController@index');
+        });
+    });
+    // PBI End
 
 
 

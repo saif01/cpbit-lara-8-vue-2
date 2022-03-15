@@ -33,9 +33,10 @@
                         </a>
                     </div>
                 </div>
-                <footer-bar></footer-bar>
+                
             </div>
         </div>
+        <footer-bar></footer-bar>
     </div>
 </template>
 

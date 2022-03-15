@@ -15,7 +15,8 @@
     "/js/cms/admin_hardware/app.js": "/js/cms/admin_hardware/app.js",
     "/js/cms/user/app.js": "/js/cms/user/app.js",
     "/js/inventory/admin/app.js": "/js/inventory/admin/app.js",
-    "/js/inventory/user/app.js": "/js/inventory/user/app.js",
+    "/js/pbi/admin/app.js": "/js/pbi/admin/app.js",
+    "/js/pbi/user/app.js": "/js/pbi/user/app.js",
     "/css/app.css": "/css/app.css",
     "/css/auth/app.css": "/css/auth/app.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
@@ -32,5 +33,6 @@
     "/css/cms/admin_hardware/app.css": "/css/cms/admin_hardware/app.css",
     "/css/cms/user/app.css": "/css/cms/user/app.css",
     "/css/inventory/admin/app.css": "/css/inventory/admin/app.css",
-    "/css/inventory/user/app.css": "/css/inventory/user/app.css"
+    "/css/pbi/admin/app.css": "/css/pbi/admin/app.css",
+    "/css/pbi/user/app.css": "/css/pbi/user/app.css"
 }

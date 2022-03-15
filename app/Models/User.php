@@ -123,5 +123,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Cms\Hardware\HardwareRole', 'hardware_user_role', 'user_id', 'hard_role_id');
     }
 
+    public function pbi_roles(){
+        return $this->belongsToMany('App\Models\Pbi\PbiRole', 'pbi_user_role', 'user_id', 'pbi_role_id');
+    }
+
     
 }
