@@ -27,20 +27,25 @@ Route::namespace('App\Http\Controllers\PBI\Admin\API')->prefix('powerbi-get')->g
     Route::get('farm-poultry-purchase', 'ShowController@farmPoultryPurchase');
     Route::get('farm-poultry-sales', 'ShowController@farmPoultrySales');
     
-
+    // Food
     Route::get('food-further-sales', 'ShowController@foodFurtherSales');
-    
     Route::get('food-slaughter-sales', 'ShowController@foodSlaughterSales');
-    Route::get('feed-agro-sales', 'ShowController@feedAgroSales');
-    Route::get('feed-poultry-sales', 'ShowController@feedPoultrySales');
-    Route::get('feed-cattle-sales', 'ShowController@feedCattleSales');
-    Route::get('feed-aqua-sales', 'ShowController@feedAquaSales');
-    Route::get('feed-purchase', 'ShowController@feedPurchase');
-   
+
+    // Feed
     Route::get('feed-production', 'ShowController@feedProduction');
-    Route::get('expense', 'ShowController@expense');
-    Route::get('map-unit-level', 'ShowController@mapUnitLevel');
+    Route::get('feed-purchase', 'ShowController@feedPurchase');
     Route::get('feed-sales', 'ShowController@feedSales');
+
+    Route::get('expense', 'ShowController@expense');
+
+
+
+    // Route::get('feed-agro-sales', 'ShowController@feedAgroSales');
+    // Route::get('feed-poultry-sales', 'ShowController@feedPoultrySales');
+    // Route::get('feed-cattle-sales', 'ShowController@feedCattleSales');
+    // Route::get('feed-aqua-sales', 'ShowController@feedAquaSales');
+    // Route::get('map-unit-level', 'ShowController@mapUnitLevel');
+    
 
 
 
