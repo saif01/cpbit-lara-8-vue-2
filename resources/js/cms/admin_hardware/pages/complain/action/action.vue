@@ -518,7 +518,7 @@
 
                 //console.log('Process ', val)
                 let currPro = this.complainDeta.process
-                this.actionVal = false
+                this.actionVal  = false
                 this.actionVal2 = false
                 this.actionVal3 = false
                 this.actionVal4 = false

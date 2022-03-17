@@ -5,7 +5,7 @@
                 <v-card-title class="justify-center">
                     <v-row>
                         <v-col cols="10">
-                           (Damaged) Complain Actions :
+                           (Damaged Replacment) Complain Actions :
                         </v-col>
                         <v-col cols="2">
                             <v-btn @click="actionDailog = false" color="error lighten-1" small text class="float-right">
@@ -41,19 +41,26 @@
                                             <v-btn @click="selectStockProduct(item)" :class="(secectedProID == item[0].category.id)? 'success': ''" outlined dense>{{ item[0].category.name }} :{{ item.length }}</v-btn>
                                         </v-col>
                                     </v-row>
+                                    <!-- {{ selectedProduct.length }} -- {{ selectedProduct }} <hr>
+                                    {{ initialSelectProduct }} -->
+
                                     <v-row v-if="selectedProduct.length">
                                         <!-- Product Select -->
                                         <v-col cols="6" >
-                                            <!-- {{ form.product_id }} -->
+                                            <!-- {{ form.product_id.length }} -->
                                             <v-autocomplete :items="selectedProduct"  v-model="form.product_id" label="Select Product"
-                                                :rules="[v => !!v || 'Product is required!']" outlined small required>
+                                                :rules="[v => !!v || 'Product is required!']" multiple outlined dense >
                                             </v-autocomplete>
                                         </v-col>
+                                        <v-col cols="2">
+                                            <!-- {{ form.product_id }} -->
+                                           Total Select: <span class="rounded bg-info px-1 h4">{{ form.product_id.length }}</span>
+                                        </v-col>
                                         <!-- Operation Select for Inventory -->
-                                        <v-col cols="6">
+                                        <v-col cols="4">
                                             <!-- {{ form.product_id }} -->
                                             <v-autocomplete :items="invOperations" v-model="form.operation_id" label="Select Operation"
-                                                :rules="[v => !!v || 'Operation is required!']" outlined small required>
+                                                :rules="[v => !!v || 'Operation is required!']" outlined dense required>
                                             </v-autocomplete>
                                         </v-col>
                                     </v-row>
@@ -115,9 +122,6 @@
                                
                             </v-row>
 
-                            
-
-                           
                            <v-row class="mt-2">
                                 <v-btn type="submit" block :loading="dataModalLoading" elevation="20"
                                     color="primary"><v-icon left dark>mdi-shape-polygon-plus</v-icon> Submit
@@ -190,7 +194,7 @@
                     details: '',
 
                     operation_id: '',
-                    product_id:'',
+                    product_id: [],
                     rec_name:'',
                     rec_contact:'',
                     rec_position:'',
@@ -201,6 +205,8 @@
                 selectedProduct: [],
                 secectedProID: '',
                 invOperations:[],
+
+                initialSelectProduct:[],
 
 
 
@@ -248,16 +254,37 @@
 
             // selectStockProduct
             selectStockProduct(val){
-                this.selectedProduct = []
+                //this.selectedProduct = []
+                //console.log('val :', val)
+
                 for (let i = 0; i < val.length; i++) {
-                        this.selectedProduct.push(val[i]);
-                        this.selectedProduct[i] = {value: val[i].id, text: val[i].category.name + ' -- ' + val[i].name + ' -- SL: ' + val[i].serial + ' -- P.O: ' + val[i].po_number};
-                    }
-                this.secectedProID = val[0].cat_id
-                console.log('Selected Product', val, this.secectedProID, this.selectedProduct)
+                    this.initialSelectProduct.push(val[i])
+                }
+
+                for (let i = 0; i < this.initialSelectProduct.length; i++) {
+                    let optionData = { value:  this.initialSelectProduct[i].id, text: this.initialSelectProduct[i].category.name + ' -- ' + this.initialSelectProduct[i].name + ' -- SL: ' + this.initialSelectProduct[i].serial + ' -- P.O: ' + this.initialSelectProduct[i].po_number }
+                    this.selectedProduct.push(optionData)
+                }
+
+              
+
+                console.log('Selected Product', this.initialSelectProduct)
+
+
+                // let selectedProduct =[]
+                // for (let i = 0; i < val.length; i++) {
+                //         selectedProduct.push(val[i]);
+                //         selectedProduct[i] = {value: val[i].id, text: val[i].category.name + ' -- ' + val[i].name + ' -- SL: ' + val[i].serial + ' -- P.O: ' + val[i].po_number};
+                //     }
+
+
+                //this.secectedProID = val[0].cat_id
+               // console.log('Selected Product', val, this.secectedProID, this.selectedProduct)
 
                 //this.selectedProduct = val
             },
+
+
          
 
             // actionStore

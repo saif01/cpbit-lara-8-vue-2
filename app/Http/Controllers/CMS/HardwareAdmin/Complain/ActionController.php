@@ -123,7 +123,15 @@ class ActionController extends Controller
 
         $comp_id = $request->comp_id;
         $process = 'Closed';
-        $product_id = $request->product_id;
+
+       
+        $product_id_arr = $request->product_id;
+        if($product_id_arr){
+            $product_id_text = implode(",", $product_id_arr);
+        }
+
+        //dd($product_id_arr, $product_id_text, $request->product_id);
+
 
         $rec_name       = $request->rec_name;
         $rec_contact    = $request->rec_contact;
@@ -157,7 +165,7 @@ class ActionController extends Controller
         // Damageded or partial damaged_data
         $damaged_data  = HardwareDamaged::where('comp_id', $comp_id)->first();
 
-        $damaged_data->rep_pro_id      = $product_id;
+        $damaged_data->rep_pro_id      = $product_id_text;
         $damaged_data->rec_name        = $rec_name;
         $damaged_data->rec_contact     = $rec_contact;
         $damaged_data->rec_position    = $rec_position;
@@ -168,33 +176,37 @@ class ActionController extends Controller
         $user_data = User::find($complain_data->user_id);
 
 
-        // Update inventory New Product table 
-        $inventory_new_data = InventoryNewProduct::find($product_id);
-        $inventory_new_data->give_st = 1;
-        $inventory_new_data->save();
+        foreach($product_id_arr as $product_id){
+            // Update inventory New Product table 
+            $inventory_new_data = InventoryNewProduct::find($product_id);
+            $inventory_new_data->give_st = 1;
+            $inventory_new_data->save();
 
-        // Update inventory Old Product table 
-        $inventory_old_data = new InventoryOldProduct();
-        $inventory_old_data->new_pro_id        = $product_id;
-        $inventory_old_data->cat_id            = $inventory_new_data->cat_id;
-        $inventory_old_data->subcat_id         = $inventory_new_data->subcat_id;
-        $inventory_old_data->name              = $inventory_new_data->name;
-        $inventory_old_data->serial            = $inventory_new_data->serial;
-        $inventory_old_data->operation_id      = $request->operation_id;
-        //  from user tbl
-        $inventory_old_data->business_unit     = $user_data->business_unit;
-        $inventory_old_data->office            = $user_data->zone_office;
+            // Update inventory Old Product table 
+            $inventory_old_data = new InventoryOldProduct();
+            $inventory_old_data->new_pro_id        = $product_id;
+            $inventory_old_data->cat_id            = $inventory_new_data->cat_id;
+            $inventory_old_data->subcat_id         = $inventory_new_data->subcat_id;
+            $inventory_old_data->name              = $inventory_new_data->name;
+            $inventory_old_data->serial            = $inventory_new_data->serial;
+            $inventory_old_data->operation_id      = $request->operation_id;
+            //  from user tbl
+            $inventory_old_data->business_unit     = $user_data->business_unit;
+            $inventory_old_data->office            = $user_data->zone_office;
 
-        $inventory_old_data->rec_name          = $rec_name;
-        $inventory_old_data->rec_contact       = $rec_contact;
-        $inventory_old_data->rec_position      = $rec_position;
+            $inventory_old_data->rec_name          = $rec_name;
+            $inventory_old_data->rec_contact       = $rec_contact;
+            $inventory_old_data->rec_position      = $rec_position;
+            
+            $inventory_old_data->created_by = Auth::user()->id;
+            $inventory_old_data->save();
+        }
+
         
-        $inventory_old_data->created_by = Auth::user()->id;
-        $inventory_old_data->save();
 
 
         // For email
-        ScheduleEmailCmsHardware::STORE_DAMAGED_REPLACE($complain_data, $remarks_data, $damaged_data);
+        //ScheduleEmailCmsHardware::STORE_DAMAGED_REPLACE($complain_data, $remarks_data, $damaged_data);
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);
