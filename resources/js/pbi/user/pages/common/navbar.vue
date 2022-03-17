@@ -12,9 +12,39 @@
                 Dashboard
             </v-btn>
 
+            <!-- <v-btn v-for="(item, index) in pbis" :key="index" text link route :to="{ name: 'Dashboard'}" small exact>
+                {{}}
+            </v-btn> -->
+
             <!-- <v-btn text link route :to="{ name: 'Booked'}" small>
                 My Booked
             </v-btn> -->
+
+             <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              dark
+              icon
+              v-on="on"
+            >
+              <v-icon color="primary">notifications</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-list dense>
+              <v-subheader>Notifications</v-subheader>
+              <v-divider></v-divider>
+              <v-list-tile
+                v-for="notification in notifications"
+                :key="`notification-key-${notification.id}`"
+              >
+                <v-list-tile-title>
+                  {{ notification.title }}
+                </v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+        </v-menu>
 
            
             <v-btn text link route href="/logout" small>
@@ -24,6 +54,41 @@
         </v-app-bar>
     </div>
 </template>
+
+<script>
+
+    export default{
+        data(){
+            return{
+
+                 notifications: [
+        { id: 1, title: 'Click Me' },
+        { id: 2, title: 'Click Me' },
+        { id: 3, title: 'Click Me' },
+        { id: 4, title: 'Click Me 2' }
+      ]
+
+            }
+        },
+
+        methods:{
+
+            getUserAccess(){
+
+            }
+
+        },
+
+        created(){
+
+
+        }
+
+
+    }
+
+    
+</script>
 
 <style scoped>
     .v-btn--active{

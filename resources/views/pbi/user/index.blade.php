@@ -6,16 +6,16 @@
     @include('common.cpbd-icon')
     <title>CPB-IT PBI</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/room/user/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pbi/user/app.css') }}">
 </head>
 <body>
     <div id="app">
         <div v-if="preloader" class="loader">
             <div class="loader-icon">Loading...</div>
         </div>
-        <index-component authuser="{{ Auth::user() }}" permission="{{ $roles }}"></index-component>
+        <index-component authuser="{{ Auth::user() }}" permission="{{ $roles }}" pbi_access="{{ $pbi }}"></index-component>
     </div>
-    <script src="{{ asset('js/room/user/app.js') }}"></script>
+    <script src="{{ asset('js/pbi/user/app.js') }}"></script>
 </body>
 
 </html>

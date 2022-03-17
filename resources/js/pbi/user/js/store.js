@@ -8,6 +8,8 @@ export default new Vuex.Store({
     state : {
         auth  : null,
         roles : null,
+        pbis  : null,
+        reportName  : null,
     },
 
     getters : {
@@ -17,6 +19,12 @@ export default new Vuex.Store({
         },
         getRoles(state){
             return state.roles;
+        },
+        getPbis(state){
+            return state.pbis;
+        },
+        getReportName(state){
+            return state.reportName;
         },
     
  
@@ -32,6 +40,16 @@ export default new Vuex.Store({
         // Roles User
         setRoles(state, data){
             state.roles = data;
+        },
+
+        // Pbis
+        setPbis(state, data){
+            state.pbis = data;
+        },
+
+        //Current Pbi Report reportName
+        setReportName(state, data){
+            state.reportName = data;
         },
     
     },

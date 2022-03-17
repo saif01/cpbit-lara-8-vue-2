@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 import Dashboard from '../pages/dashboard.vue'
 import er404 from '../pages/common/404.vue'
 
-
+import Reports from './../pages/reports.vue'
 
 
 const router = new VueRouter({
@@ -20,6 +20,24 @@ const router = new VueRouter({
                 title: 'PBI Dashboard',
             },   
         },
+
+        { 
+            path: '/pbi/report', 
+            component: Reports,
+            name: 'Reports',
+            meta:{
+                title: 'PBI Reports',
+            },   
+        },
+
+        // { 
+        //     path: '/pbi/reports', 
+        //     component: Reports,
+        //     name: 'Reports',
+        //     meta:{
+        //         title: 'PBI Reports',
+        //     },   
+        // },
        
        
         

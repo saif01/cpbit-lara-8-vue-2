@@ -1,11 +1,12 @@
 <template>
     <v-app>
-        <nav-bar></nav-bar>
+        <!-- <nav-bar></nav-bar> -->
+        <side-bar></side-bar>
         <v-main>
-            <v-container fluid>
+            <div class="pa-3">
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
-            </v-container>
+            </div>
         </v-main>
         <page-footer></page-footer>
       
@@ -15,15 +16,17 @@
 <script>
 
 import navBar from './pages/common/navbar.vue'
+import sideBar from './pages/common/sidebar.vue'
 import pageFooter from './pages/common/footer.vue'
 
 
 export default {
 
-    props: ['authuser', 'permission'],
+    props: ['authuser', 'permission', 'pbi_access'],
 
     components:{
        'nav-bar'        : navBar,
+       'side-bar'        : sideBar,
        'page-footer'    : pageFooter,
     },
 
@@ -36,6 +39,8 @@ export default {
 
     methods:{
 
+
+      
     
 
        
@@ -48,12 +53,18 @@ export default {
         // Set Auth and Role data in Store
         this.$store.commit('setAuth', JSON.parse(this.authuser) )
         this.$store.commit('setRoles', JSON.parse(this.permission) )
+        this.$store.commit('setPbis', JSON.parse(this.pbi_access) )
+
+        let pbiaccessArray = JSON.parse(this.pbi_access)
+        this.$store.commit('setReportName', pbiaccessArray[0] )
 
         this.$Progress.start();
 
-        //checkUserRole
+        
+
+        //this.check(checkUserRole)
       
-       // console.log('Index, auth user', JSON.parse(this.authuser));
+        console.log('Index: ', this.roles, this.pbis, this.reportName);
 
         //console.log('Role: ', this.isAdministrator(), this.isAnyRole(['Administrator', 'Ivca']), this.isRole('Administrator') )
 

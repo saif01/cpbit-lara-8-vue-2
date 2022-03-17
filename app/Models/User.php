@@ -127,5 +127,13 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Pbi\PbiRole', 'pbi_user_role', 'user_id', 'pbi_role_id');
     }
 
+    public function pbi_hasRole($role)
+    {
+        if($this->pbi_roles()->where('name',$role)->first()){
+            return true;
+        }
+        return false;
+    }
+
     
 }

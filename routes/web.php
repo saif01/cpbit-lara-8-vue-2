@@ -989,6 +989,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         // User
         Route::middleware(['can:room'])->namespace('User')->group(function(){
 
+            Route::post('/report', 'ReportController@report');
 
             Route::get('{any?}', 'IndexController@index');
         });

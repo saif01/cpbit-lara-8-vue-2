@@ -1,7 +1,7 @@
 <template>
     <div class="bg_grad">
         <nav-bar headerText="Admin"></nav-bar>
-        <div>
+        <div style="min-height: 100vh;">
             <div class="d-flex flex-wrap justify-content-around" >
 
                 <!-- Carpool -->
@@ -142,6 +142,5 @@ export default {
     .bg_grad{
         background: linear-gradient(to right, #F0C8BA, #F08D89);
         width: 100%;
-        min-height: 100vh;
     }
 </style>

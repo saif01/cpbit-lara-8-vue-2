@@ -4,7 +4,8 @@
         <v-main>
            <div class="pa-3">
                 <router-view></router-view>
-           </div>
+                <vue-progress-bar></vue-progress-bar>
+            </div>
         </v-main>
         <page-footer></page-footer>
     </v-app>

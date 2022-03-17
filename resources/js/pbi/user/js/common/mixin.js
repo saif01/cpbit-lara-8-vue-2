@@ -156,6 +156,8 @@ export default {
         ...mapGetters({
             'auth'      : 'getAuth',
             'roles'     : 'getRoles',
+            'pbis'      : 'getPbis',
+            'reportName'  : 'getReportName',
         }),
 
     },

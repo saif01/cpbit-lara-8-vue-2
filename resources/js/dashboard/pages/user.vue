@@ -1,7 +1,7 @@
 <template>
     <div class="bg_grad">
         <nav-bar headerText="User"></nav-bar>
-        <div>
+        <div style="min-height: 100vh;">
             <div class="d-flex flex-wrap justify-content-around">
 
                 <div class="col-lg-3 col-6" v-if="isCarpool()">
@@ -72,14 +72,7 @@
                     </a>
                     
                 </div>
-                <div class="col-lg-3 col-6">
-                    <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
-                    </a>
-                </div>
+              
                 <div class="col-lg-3 col-6">
                     <a href="/userdashboard" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
@@ -93,6 +86,14 @@
             </div>
 
             <div class="d-flex flex-wrap mt-5 justify-content-around">
+                <div class="col-lg-3 col-6">
+                    <a href="/pbi" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <div class="logo_div">
+                            <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
+                        </div>
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
+                    </a>
+                </div>
                 <div class="col-lg-6 col-6" v-if="isIvca()">
                     <a href="/ivca" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
@@ -141,6 +142,5 @@ export default {
         background: -webkit-linear-gradient(to right, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         width: 100%;
-        min-height: 100vh;
     }
 </style>

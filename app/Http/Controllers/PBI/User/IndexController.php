@@ -12,10 +12,10 @@ class IndexController extends Controller
     //index
     public function index(){
         $roles = Auth::user()->roles->pluck('name');
-        // $otherData = Auth::user()->hard_roles->pluck('name');
-        // // // Merge collections
-        // $roles = $roles->merge($otherData);
-        // dd( $roles);
-        return view('pbi.user.index', compact('roles'));
+        $pbi = Auth::user()->pbi_roles->pluck('name');
+        // // Merge collections
+        //$roles = $roles->merge($pbi);
+        //dd( $roles, $pbi['Farm : Poultry Farm Sales']);
+        return view('pbi.user.index', compact('roles', 'pbi'));
     }
 }
