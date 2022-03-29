@@ -28,6 +28,8 @@ class CreateInventoryNewProductsTable extends Migration
             $table->string('req_payment_num')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('give_st')->default(0);
+            $table->integer('damage_st')->nullable();
+            $table->integer('unit_price')->nullable();
             $table->integer('po_number')->nullable();
             $table->integer('delete_temp')->default(0);
             $table->integer('delete_by')->default(0);

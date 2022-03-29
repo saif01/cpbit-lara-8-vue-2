@@ -33,18 +33,20 @@ class InventoryNewProduct extends Model
         return $this->belongsTo('App\Models\User', 'office_id', 'id');
     }
 
+    public function newold(){
+        return $this->belongsTo('App\Models\Inventory\InventoryOldProduct', 'id', 'new_pro_id');
+    }
+
 
     public function scopeSearch($query, $val='')
     {
         return $query
         ->where('serial', 'LIKE', '%'.$val.'%')
-        ->where('name', 'LIKE', '%'.$val.'%')
-        ->where('remarks', 'LIKE', '%'.$val.'%')
+        ->orWhere('name', 'LIKE', '%'.$val.'%')
+        ->orWhere('remarks', 'LIKE', '%'.$val.'%')
         ->orWhereHas('makby', function($query) use ($val){
-            $query->WhereRaw('login LIKE ?', '%'.$val.'%');
-        })
-        ->orWhereHas('makby', function($query) use ($val){
-            $query->WhereRaw('name LIKE ?', '%'.$val.'%');
+            $query->WhereRaw('login LIKE ?', '%'.$val.'%')
+                ->WhereRaw('name LIKE ?', '%'.$val.'%');
         })
         ->orWhereHas('category', function($query) use ($val){
             $query->WhereRaw('name LIKE ?', '%'.$val.'%');

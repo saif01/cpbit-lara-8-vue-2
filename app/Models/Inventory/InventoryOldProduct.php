@@ -40,6 +40,10 @@ class InventoryOldProduct extends Model
         return $this->belongsTo('App\Models\User', 'office_id', 'id');
     }
 
+    public function complain(){
+        return $this->belongsTo('App\Models\Cms\Hardware\HardwareComplain', 'comp_id', 'id');
+    }
+
 
     public function scopeSearch($query, $val='')
     {

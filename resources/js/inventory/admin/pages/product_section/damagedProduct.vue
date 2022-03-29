@@ -7,7 +7,10 @@
                         All Damaged Product
                     </v-col>
                     <v-col cols="2">
-                        
+                        <v-btn outlined elevation="5" class="float-right" small @click="exportExcel()" :loading="exportLoading">
+                            <v-icon left color="success">mdi-file-excel</v-icon>
+                            Export
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-card-title>
@@ -15,13 +18,26 @@
             <v-card-text>
                 <div v-if="allData.data">
                     <v-row>
-                        <v-col lg="2" cols="4">
+                        <v-col lg="2" cols="6">
                             <!-- Show -->
                             <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col lg="10" cols="8">
+                        <v-col lg="2" cols="6">
+                            <!-- business_unit -->
+                            <v-select v-model="businessUnit" label="Business Unit:" :items="b_unit" outlined dense>
+                            </v-select>
+                        </v-col>
+
+                        <v-col lg="2" cols="6">
+                            <!-- search_field -->
+                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="text"
+                                item-value="value" outlined dense>
+                            </v-select>
+                        </v-col>
+
+                        <v-col lg="6" cols="6">
                             <v-text-field
                                 v-model="search"
                                 append-icon="mdi-magnify"
@@ -36,6 +52,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered text-center">
                             <thead>
+                                <th>View</th>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('name')">Product Model</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'name'">&uarr;</span>
@@ -59,10 +76,14 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'serial'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'serial'">&darr;</span>
                                 </th>
-                                <th>View</th>
                             </thead>
                             <tbody>
                                 <tr v-for="singleData in allData.data" :key="singleData.id">
+                                    <td class="text-center">
+                                        <v-btn @click="view(singleData)" color="teal white--text" depressed small>
+                                            <v-icon small>mdi-eye</v-icon> View
+                                        </v-btn>
+                                    </td>
                                     <td>
                                         <span v-if="singleData.name">{{singleData.name}}</span>
                                         <span v-else class="error--text">N/A</span>
@@ -90,11 +111,6 @@
                                     <td>
                                         <span v-if="singleData.serial">{{ singleData.serial }}</span>
                                         <span v-else class="error--text">N/A</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <v-btn @click="view(singleData)" color="teal" depressed small>
-                                            <v-icon small>mdi-eye</v-icon> View
-                                        </v-btn>
                                     </td>
                                 </tr>
                             </tbody>
@@ -143,7 +159,7 @@ import viewProduct from './../viewData.vue'
 
 
                 //current page url
-                currentUrl: '/inventory/admin/product/given-product',
+                currentUrl: '/inventory/admin/product/damaged-product',
 
 
                 // view details
@@ -152,6 +168,50 @@ import viewProduct from './../viewData.vue'
                 currentCategory:'',
                 currentSubcategory:'',
                 currentOperation:'',
+
+                customSrcByFields:[
+                    {
+                        value: 'All',
+                        text: 'All'
+                    },
+                    {
+                        value: 'office',
+                        text: 'Office'
+                    },
+                    {
+                        value: 'business_unit',
+                        text: 'Business unit'
+                    },
+                    {
+                        value: 'serial',
+                        text: 'Serial'
+                    },
+                    {
+                        value: 'cat_id',
+                        text: 'Category'
+                    },
+                    {
+                        value: 'subcat_id',
+                        text: 'Subcategory'
+                    },
+                    {
+                        value: 'operation',
+                        text: 'Operation'
+                    },
+                    {
+                        value: 'name',
+                        text: 'Product Name'
+                    },
+                ],
+
+                // businessUnit for sort
+                businessUnit: '',
+                b_unit:[],
+
+
+                // exportLoading
+                exportLoading: false,
+
             }
 
 
@@ -181,6 +241,106 @@ import viewProduct from './../viewData.vue'
 
 
 
+            // getBusinessUnitOldProductTable
+            getBunit() {
+                axios.get('/inventory/admin/old_product/business_unit').then(response => {
+                    
+                    // business_unit
+                    response.data.forEach(element => {
+                        this.b_unit.push({
+                            value: element.business_unit,
+                            text: element.business_unit
+                        }) ;
+                        //console.log('business_unit',  this.allOffice, element);
+                    });
+
+                }).catch(error => {
+                    console.log(error)
+                })
+            },
+
+
+
+            getResults(page = 1) {
+                this.dataLoading = true;
+                axios.get(this.currentUrl+'/index?page=' + page +
+                        '&paginate=' + this.paginate +
+                        '&search=' + this.search +
+                        '&sort_direction=' + this.sort_direction +
+                        '&sort_field=' + this.sort_field +
+                        '&search_field=' + this.search_field +
+                        '&business_unit=' + this.businessUnit
+                    )
+                    .then(response => {
+                        //console.log(response.data.data);
+                        //console.log(response.data.from, response.data.to, response.data.current_page);
+                        this.allData = response.data;
+                        this.totalValue = response.data.total;
+                        this.dataShowFrom = response.data.from;
+                        this.dataShowTo = response.data.to;
+                        this.currentPageNumber  = response.data.current_page
+                        // Loading Animation
+                        this.dataLoading = false;
+
+                    });
+            },
+
+
+
+
+            exportExcel(){
+                this.exportLoading = true;
+
+                axios({
+                    method: 'get',
+                    url: this.currentUrl+'/export_data?search=' + this.search +
+                        '&sort_direction=' + this.sort_direction +
+                        '&sort_field=' + this.sort_field +
+                        '&search_field=' + this.search_field +
+                        '&business_unit=' + this.businessUnit,
+
+                    responseType: 'blob', // important
+                }).then((response) => {
+
+                    
+
+                    let repName = new Date();
+
+                    const url = URL.createObjectURL(new Blob([response.data]))
+                    const link = document.createElement('a')
+                    link.href = url
+                    link.setAttribute('download', `${repName}.xlsx`)
+                    document.body.appendChild(link)
+                    link.click()
+
+                    this.exportLoading = false;
+
+                }).catch(error => {
+                    //stop Loading
+                    this.exportLoading = false
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Somthing going wrong !!'
+                    })
+                })
+
+
+            }
+
+
+
+        },
+
+
+        watch:{
+            //Excuted When make change value 
+            businessUnit: function (value) {
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            },
         },
 
 
@@ -189,6 +349,7 @@ import viewProduct from './../viewData.vue'
             // Fetch initial results
             this.getResults();
             this.$Progress.finish();
+            this.getBunit();
         },
 
 

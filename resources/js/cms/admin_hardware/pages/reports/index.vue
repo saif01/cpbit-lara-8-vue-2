@@ -7,23 +7,26 @@
                         All Complain Reports
                     </v-col>
                     <v-col cols="2">
-
+                        <v-btn outlined elevation="5" class="float-right" small @click="exportExcel()" :loading="exportLoading">
+                            <v-icon left color="success">mdi-file-excel</v-icon>
+                            Export
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-card-title>
 
-            <v-card-text class="table-responsive">
+            <v-card-text class="table-responsive pt-3">
                 <div v-if="allData.data">
                     <v-row>
                         <v-col cols="2">
                             <!-- Show -->
-                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" small>
+                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" outlined dense>
                             </v-select>
                         </v-col>
                          <v-col cols="2">
                             <!-- {{ zone_office }} -->
                             <v-select v-model="zone_office" label="Zones:" :items="allZoneOffices" item-text="name"
-                                item-value="offices" small>
+                                item-value="offices" outlined dense>
                             </v-select>
                         </v-col>
 
@@ -31,20 +34,46 @@
                         <v-col cols="2">
                             <!-- Departments -->
                             <v-select v-model="department" label="Departments:" :items="allDepartments"
-                                item-text="department" item-value="department" small>
+                                item-text="department" item-value="department" outlined dense>
                             </v-select>
                         </v-col>
 
                         <v-col cols="2">
-                            <v-text-field prepend-icon="mdi-calendar-cursor" label="Start:" type="date" v-model="start_date" ></v-text-field>
+                            <!-- <v-text-field prepend-icon="mdi-calendar-cursor" label="Start:" type="date" v-model="start_date" ></v-text-field> -->
+                            <v-menu v-model="menu" min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="start_date" label="Start date" prepend-inner-icon="mdi-calendar"
+                                        readonly v-bind="attrs" v-on="on" outlined dense></v-text-field>
+                                </template>
+
+                                <v-date-picker v-model="start_date" no-title scrollable>
+                                    <v-spacer></v-spacer>
+                                    <v-btn text color="primary" @click="menu = false">
+                                        Cancel
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-menu>
                         </v-col>
                         <v-col cols="2">
-                            <v-text-field prepend-icon="mdi-calendar-cursor" label="End:" type="date" v-model="end_date" ></v-text-field>
+                            <!-- <v-text-field prepend-icon="mdi-calendar-cursor" label="End:" type="date" v-model="end_date" ></v-text-field> -->
+                            <v-menu v-model="menu2" min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="end_date" label="End Date" prepend-inner-icon="mdi-calendar"
+                                        readonly v-bind="attrs" v-on="on" outlined dense></v-text-field>
+                                </template>
+
+                                <v-date-picker v-model="end_date" no-title scrollable>
+                                    <v-spacer></v-spacer>
+                                    <v-btn text color="primary" @click="menu2 = false">
+                                        Cancel
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-menu>
                         </v-col>
 
                         <v-col cols="2">
-                            <v-text-field prepend-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
-                                placeholder="Search Input..."></v-text-field>
+                            <v-text-field prepend-inner-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
+                                placeholder="Search Input..." outlined dense></v-text-field>
                         </v-col>
                     </v-row>
 
@@ -102,13 +131,13 @@
 
                                 <td class="text-center">
 
-                                    <button class="btn btn-secondary btn-sm" v-if="singleData.makby"
+                                    <v-btn x-small class="secondary" v-if="singleData.makby"
                                         @click="currentUserView(singleData.makby)">
                                         <v-avatar size="20" @click="currentUserView(singleData.makby)">
                                             <img v-if="singleData.makby.image"
                                                 :src="'/images/users/small/' + singleData.makby.image" alt="image">
                                         </v-avatar> {{ singleData.makby.name }}
-                                    </button>
+                                    </v-btn>
 
                                 </td>
                                 <td>
@@ -172,6 +201,14 @@
                 // Current User Show By Dilog
                 ...userDetailsData,
 
+
+                // exportLoading
+                exportLoading: false,
+
+                // datepicker
+                menu: '',
+                menu2: '',
+
                 
             }
         },
@@ -221,6 +258,52 @@
                     }
                 })
             },
+
+
+            // exportExcel
+            exportExcel(){
+                this.exportLoading = true;
+
+                axios({
+                    method: 'get',
+                    url: this.currentUrl+'/export_data?search=' + this.search +
+                        '&sort_direction=' + this.sort_direction +
+                        '&sort_field=' + this.sort_field +
+                        '&search_field=' + this.search_field + 
+                        '&start='+ this.start_date +
+                        '&end='+ this.end_date +
+                        '&zone_office='+ this.zone_office+
+                        '&department='+ this.department,
+
+                    responseType: 'blob', // important
+                }).then((response) => {
+
+                    
+
+                    let repName = new Date();
+
+                    const url = URL.createObjectURL(new Blob([response.data]))
+                    const link = document.createElement('a')
+                    link.href = url
+                    link.setAttribute('download', `${repName}.xlsx`)
+                    document.body.appendChild(link)
+                    link.click()
+
+                    this.exportLoading = false;
+
+                }).catch(error => {
+                    //stop Loading
+                    this.exportLoading = false
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Somthing going wrong !!'
+                    })
+                })
+
+
+            }
 
         },
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Cms\Hardware\HardwareCategory;
 use App\Models\User;
+use DB;
 
 use App\Models\Inventory\InventoryNewProduct;
 use App\Models\Inventory\InventoryOperation;
@@ -36,9 +37,23 @@ class IndexController extends Controller
                 ->get()
                 ->toArray();
 
-        //dd($newProduct);
+        $operationWiseProduct = InventoryOldProduct::with('operation')
+                ->where('delete_temp', 0)
+                ->where('operation_id', '!=', 0)
+                ->groupBy('operation_id')
+                ->selectRaw('count(*) as total, operation_id')
+                //->select('*',  DB::raw('count(*) as total'))
+                ->get()
+                ->toArray();
 
-        return response()->json(['remainProduct'=> $remainProduct  ],200);
+                
+        $chartData = InventoryNewProduct::with('category')
+            ->where('delete_temp', 0)
+            ->select('*',  DB::raw('count(*) as total'))
+            ->groupBy('cat_id')
+            ->get();
+
+        return response()->json(['remainProduct'=> $remainProduct, 'operationWiseProduct'=> $operationWiseProduct, 'chartData'=> $chartData  ],200);
 
     }
 

@@ -78,8 +78,8 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'process'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'process'">&darr;</span>
                                 </th>
-                                <th>Software</th>
-                                <th>Module</th>
+                                <th>Category</th>
+                                <th>Subcategory</th>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('created_at')">Complain At</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'created_at'">&uarr;</span>
@@ -92,7 +92,7 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
 
                                 <td class="text-center">
-                                    <v-btn @click="remarksDetailsShow(singleData.remarks)" color="success" depressed
+                                    <v-btn @click="remarksDetailsShow(singleData)" color="success" depressed
                                         small elevation="20">
                                         <v-icon small>mdi-eye-arrow-left </v-icon> View
                                     </v-btn>
@@ -132,13 +132,13 @@
                                     </div>
 
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span v-if="singleData.category">{{ singleData.category.name }}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span
                                         v-if="singleData.created_at">{{ singleData.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                 </td>
@@ -168,8 +168,8 @@
         </v-card>
 
 
-        <!-- driver infomation modal -->
-        <v-dialog v-if="allRemarks" v-model="remarksDialog" scrollable>
+        <!-- remarks infomation modal -->
+        <v-dialog v-if="allRemarks" v-model="remarksDialog">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -195,10 +195,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in allRemarks" :key="index">
-                                <td>{{ item.process }}</td>
-                                <td v-html="item.details"></td>
-                                <td>
+                            <tr v-for="(item, index) in allRemarks.remarks" :key="index">
+
+                                <td class="text-center">
+                                    {{ item.process }}
+                                    
+                                    <div v-if="item.process == 'Damaged Quotation' " >
+                                        <hr>
+                                        <v-btn @click="damQuotationModal = true " outlined color="indigo">View Delivery Details</v-btn>
+                                    </div>
+                                </td>
+
+                                <td v-if="item.process == 'Damaged Quotation' " v-html="item.details" class="text-success font-weight-bold"></td>
+                                <td v-else v-html="item.details"></td>
+
+                                <!-- <div v-if="item.process == 'Damaged Quotation' ">
+                                    <div v-if="allRemarks.dam_apply && allRemarks.dam_apply.rep_pro_id">
+
+                                        <div >Damage Replace</div>
+
+                                        <div>
+                                            <div>
+                                                <b>Receiver Name</b> {{allRemarks.dam_apply.rec_name}}
+                                            </div>
+                                            <div>
+                                                <b>Receiver Contact</b> {{allRemarks.dam_apply.rec_contact}}
+                                            </div>
+                                            <div>
+                                                <b>Receiver Position</b> {{allRemarks.dam_apply.rec_position}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <td class="text-center">
                                     <span v-if="item.document">
                                         <a v-if="item.document" :href="docPath+item.document"
                                             class="btn btn-info btn-sm text-white" download>
@@ -207,17 +237,50 @@
                                     </span>
                                     <span v-else class="text-danger">No Document's Send</span>
                                 </td>
-                                <td>
+
+                                <td class="text-center">
                                     <span
                                         v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span><br>
                                     <span v-if="item.makby" class="text-muted small">--{{ item.makby.name }}</span>
-
                                 </td>
 
                             </tr>
+
                         </tbody>
                     </table>
 
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog max-width="500px" v-model="damQuotationModal">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            Damage Replace
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="damQuotationModal = false" color="red lighten-1 white--text" small
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+                    <div v-if="allRemarks.dam_apply && allRemarks.dam_apply.rep_pro_id">
+
+                        <div>
+                            <b>Receiver Name</b> {{allRemarks.dam_apply.rec_name}}
+                        </div>
+                        <div>
+                            <b>Receiver Contact</b> {{allRemarks.dam_apply.rec_contact}}
+                        </div>
+                        <div>
+                            <b>Receiver Position</b> {{allRemarks.dam_apply.rec_position}}
+                        </div>
+                    </div>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -295,7 +358,9 @@
                 remarksDialog: false,
                 allRemarks: [],
                 docPath: '/images/hardware/',
-
+                
+                // damQuotationModal
+                damQuotationModal: false,
             }
 
 

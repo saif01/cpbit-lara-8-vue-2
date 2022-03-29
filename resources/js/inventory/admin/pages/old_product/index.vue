@@ -17,26 +17,33 @@
             <v-card-text>
                 <div v-if="allData.data">
                     <v-row>
-                        <v-col lg="2" cols="6">
+                        <v-col lg="2" cols="4">
                             <!-- Show -->
                             <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col lg="2" cols="6">
+                        <v-col lg="2" cols="4">
                             <!-- business_unit -->
                             <v-select v-model="businessUnit" label="Business Unit:" :items="b_unit" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col lg="2" cols="6">
-                            <!-- search_field -->
-                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="name"
+                        <v-col lg="2" cols="4">
+                            <!-- search_type -->
+                            <v-select v-model="search_type" label="Product type:" :items="search_by_type" item-text="text"
                                 item-value="value" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col lg="6" cols="6">
+                        <v-col lg="2" cols="6">
+                            <!-- search_field -->
+                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="text"
+                                item-value="value" outlined dense>
+                            </v-select>
+                        </v-col>
+
+                        <v-col lg="4" cols="6">
                             <v-text-field
                                 v-model="search"
                                 append-icon="mdi-magnify"
@@ -128,6 +135,11 @@
                                             </div>
                                             <div>
                                                 <b>Bill Submit Date : </b> <span v-if="singleData.bill_submit">{{ singleData.bill_submit | moment("MMMM Do YYYY") }}</span>
+                                                <span v-else class="error--text">N/A</span>
+                                            </div>
+
+                                            <div>
+                                                <b>Remarks : </b> <span v-if="singleData.remarks" v-html="singleData.remarks"></span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
 
@@ -449,31 +461,85 @@
 
                 customSrcByFields:[
                     {
+                        value: 'All',
+                        text: 'All'
+                    },
+                    {
+                        value: 'invoice_num',
+                        text: 'Invoice Number'
+                    },
+                    {
+                        value: 'req_payment_num',
+                        text: 'Request Payment Number'
+                    },
+                    {
+                        value: 'serial',
+                        text: 'Serial'
+                    },
+                    {
                         value: 'cat_id',
-                        Name: 'Category'
+                        text: 'Category'
                     },
                     {
-                        value: '',
-                        Name: ''
+                        value: 'subcat_id',
+                        text: 'Subcategory'
                     },
                     {
-                        value: '',
-                        Name: ''
+                        value: 'name',
+                        text: 'Name'
                     },
                     {
-                        value: '',
-                        Name: ''
+                        value: 'operation',
+                        text: 'Operation'
+                    },
+                    // {
+                    //     value: 'business_unit',
+                    //     text: 'Business Unit'
+                    // },
+                    {
+                        value: 'office',
+                        text: 'Office'
+                    },
+                    // {
+                    //     value: 'Running',
+                    //     text: 'Running Product'
+                    // },
+                    // {
+                    //     value: 'Damaged',
+                    //     text: 'Damaged Product'
+                    // },
+                    {
+                        value: 'rec_name',
+                        text: 'Receiver Name'
                     },
                     {
-                        value: '',
-                        Name: ''
+                        value: 'rec_position',
+                        text: 'Receiver Position'
                     },
+                    
                 ],
 
 
 
                 // type
                 type: [
+                    {
+                        value: 'Running',
+                        text: 'Running Product'
+                    },
+                    {
+                        value: 'Damaged',
+                        text: 'Damaged Product'
+                    },
+                ],
+
+
+                // search_by_type
+                search_by_type: [
+                    {
+                        value: 'All',
+                        text: 'All'
+                    },
                     {
                         value: 'Running',
                         text: 'Running Product'
@@ -502,6 +568,9 @@
 
                 // businessUnit for sort
                 businessUnit: '',
+
+                // search_type
+                search_type: '',
 
                 
 
@@ -619,6 +688,10 @@
                 this.editmode       = true;
                 this.dataModelTitle = 'Update Data'
                 this.form.fill(singleData);
+
+                if(singleData.remarks === null){
+                    this.form.remarks = '';
+                }
                 // Subcategory
                 this.getSubcategory()
                 this.dataModalDialog = true;
@@ -649,7 +722,8 @@
                         '&sort_direction=' + this.sort_direction +
                         '&sort_field=' + this.sort_field +
                         '&search_field=' + this.search_field +
-                        '&business_unit=' + this.businessUnit
+                        '&business_unit=' + this.businessUnit +
+                        '&search_type=' + this.search_type
                     )
                     .then(response => {
                         //console.log(response.data.data);
@@ -678,6 +752,13 @@
         watch:{
             //Excuted When make change value 
             businessUnit: function (value) {
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            },
+
+            //Excuted When make change value 
+            search_type: function (value) {
                 this.$Progress.start();
                 this.getResults();
                 this.$Progress.finish();

@@ -21,7 +21,9 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
+        $search_field  = Request('search_field', '');
         $business_unit  = Request('business_unit', '');
+        $search_type  = Request('search_type', '');
 
         $allDataQuery = InventoryOldProduct::with('makby', 'category', 'subcategory', 'operation')
             ->where('delete_temp', '!=', '1');
@@ -30,13 +32,50 @@ class IndexController extends Controller
         if(!empty($business_unit) && $business_unit != 'All'){
             $allDataQuery->where('business_unit', $business_unit);
         }
+
+        // search type
+        if(!empty($search_type) && $search_type != 'All'){
+            $allDataQuery->where('type', $search_type);
+        }
         
 
         // Search
-        if(!empty($search_field) && $search_field != 'All'){
+        if(!empty($search_field) && $search_field != 'All' && $search_field != 'cat_id' && $search_field != 'subcat_id'  && $search_field != 'operation'){
+
             $val = trim(preg_replace('/\s+/' ,' ', $search));
             $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
-        }else{
+
+        }elseif($search_field == 'cat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'category', function($query) use($val){
+                //$query->where( 'name', $search_field );
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        elseif($search_field == 'subcat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'subcategory', function($query) use($val){
+                //$query->where( 'name', $search_field );
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        elseif($search_field == 'operation'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'operation', function($query) use($val){
+                //$query->where( 'name', $search_field );
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        else{
             $allDataQuery->search( trim(preg_replace('/\s+/' ,' ', $search)) );
         }
 

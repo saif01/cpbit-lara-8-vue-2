@@ -23,7 +23,14 @@
                             </v-select>
                         </v-col>
 
-                        <v-col lg="10" cols="8">
+                        <v-col lg="2" cols="4">
+                            <!-- search_field -->
+                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="text"
+                                item-value="value" outlined dense>
+                            </v-select>
+                        </v-col>
+
+                        <v-col lg="8" cols="4">
                             <v-text-field
                                 v-model="search"
                                 append-icon="mdi-magnify"
@@ -42,23 +49,7 @@
                                 <th>
                                     Action
                                 </th>
-                                <th>
-                                    <a href="#" @click.prevent="change_sort('name')">Name/Model</a>
-                                    <span v-if="sort_direction == 'desc' && sort_field == 'name'">&uarr;</span>
-                                    <span v-if="sort_direction == 'asc' && sort_field == 'name'">&darr;</span>
-                                </th>
-                                <th>Category</th>
-                                <th>Subcategory</th>
-                                <th>
-                                    <a href="#" @click.prevent="change_sort('serial')">Serial</a>
-                                    <span v-if="sort_direction == 'desc' && sort_field == 'serial'">&uarr;</span>
-                                    <span v-if="sort_direction == 'asc' && sort_field == 'serial'">&darr;</span>
-                                </th>
-                                <th>
-                                    <a href="#" @click.prevent="change_sort('remarks')">Remarks</a>
-                                    <span v-if="sort_direction == 'desc' && sort_field == 'remarks'">&uarr;</span>
-                                    <span v-if="sort_direction == 'asc' && sort_field == 'remarks'">&darr;</span>
-                                </th>
+                                <th>Details</th>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('document')">Document</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'document'">&uarr;</span>
@@ -71,30 +62,62 @@
                                 <td class="text-center">
 
                                     <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20" small>
-                                        <v-icon small>mdi-circle-edit-outline</v-icon> Edit
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
                                     </v-btn>
 
                                     <v-btn class="ma-2" @click="deleteDataTemp(singleData.id)" color="error" elevation="20" small>
-                                        <v-icon small>mdi-delete-empty</v-icon> Delete
+                                        <v-icon left>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
 
                                     <v-btn class="ma-2" @click="deliever(singleData)" color="orange" elevation="20" small>
-                                        <v-icon small>mdi-upload</v-icon> Delivery
+                                        <v-icon left>mdi-upload</v-icon> Delivery
                                     </v-btn>
+
+                                    <v-btn v-if="singleData.damage_st === null" @click="damageChange(singleData)" color="success"
+                                        depressed small>
+                                        <v-icon left>mdi-check-circle-outline</v-icon> Good
+                                    </v-btn>
+                                    <v-btn v-else @click="statusChange(singleData)" color="warning" depressed small>
+                                        <v-icon left>mdi-alert-circle-outline </v-icon> Damage
+                                    </v-btn>
+
                                     <br>
                                     <span v-if="singleData.makby" class="small text-muted">Create By--
                                         {{ singleData.makby.name }}</span>
                                 </td>
-                                <td>{{ singleData.name }}</td>
-                                <td><span v-if="singleData.category">{{ singleData.category.name }}</span></td>
-                                <td><span v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span></td>
-                                <td>{{ singleData.serial }}</td>
-                                <td v-html="singleData.remarks"></td>
                                 <td>
-                                    <a v-if="singleData.document" :href="'/images/inventory/'+singleData.document"
-                                        class="btn btn-info btn-sm text-white" download>
-                                        <v-icon color="white">mdi-download-network-outline</v-icon> Document
-                                    </a>
+                                    <div class="d-flex justify-content-between align-center">
+                                        <div>
+                                            <div>
+                                                <b>Name/Model</b> {{ singleData.name }}
+                                            </div>
+                                            <div>
+                                                <b>Serial</b> <span v-html="singleData.serial"></span>
+                                            </div>
+
+                                            <div>
+                                                <b>Unit Price</b> <span v-if="singleData.unit_price">
+                                                    {{singleData.unit_price}}
+                                                </span>
+                                                <span v-else class="error--text">Not Available</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <b>Category</b> <span v-if="singleData.category">{{ singleData.category.name }}</span>
+                                            </div>
+                                            <div>
+                                                <b>Subcategory</b> <span v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
+                                            </div>
+                                            <div>
+                                                <b>Warranty</b> <span v-if="singleData.warranty && singleData.warranty > $moment(new Date()).format('YYYY-MM-DD')"> {{ singleData.warranty | moment("from") }} </span> 
+                                                <span v-else class="error--text">Expired </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <v-btn v-if="singleData.document" :href="'/images/inventory/'+singleData.document" color="info" download><v-icon left>mdi-download-network-outline</v-icon> File</v-btn>
                                     <span v-else class="text-danger">Not Attached</span>
                                 </td>
 
@@ -235,7 +258,7 @@
                                     <div class="small text-danger" v-if="form.errors.has('bill_submit')"
                                         v-html="form.errors.get('bill_submit')" />
                                     <!-- Date Picker -->
-                                    <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
+                                    <v-menu ref="menu2" v-model="menu2" :close-on-content-click="false"
                                         :return-value.sync="date" offset-y min-width="auto" dense>
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="form.bill_submit" label="Bill Submit Date"  prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense >
@@ -243,9 +266,9 @@
                                         </template>
                                         <v-date-picker v-model="form.bill_submit" scrollable  dense>
                                             <v-spacer></v-spacer>
-                                            <v-btn text color="primary" @click="menu = false">
+                                            <v-btn text color="primary" @click="menu2 = false">
                                                 Cancel</v-btn>
-                                            <v-btn text color="primary" @click="$refs.menu.save(date)">
+                                            <v-btn text color="primary" @click="$refs.menu2.save(date)">
                                                 OK </v-btn>
                                         </v-date-picker>
                                     </v-menu>
@@ -266,6 +289,14 @@
                                         <v-radio label="Yes" value="y" color="success"></v-radio>
                                         <v-radio label="No" value="n" color="error"></v-radio>
                                     </v-radio-group>
+                                </v-col>
+
+                                <v-col cols="12" lg="4">
+                                    <div class="small text-danger" v-if="form.errors.has('unit_price')"
+                                        v-html="form.errors.get('unit_price')" />
+                                    <v-text-field v-model="form.unit_price" label="Unit Price"
+                                        placeholder="Enter request payment number" dense >
+                                    </v-text-field>
                                 </v-col>
 
                                 <v-col cols="12" lg="4" v-if="warranty == 'y'">
@@ -371,6 +402,7 @@
 
                 // timepicker
                 menu: false,
+                menu2: false,
                 date: '',
 
 
@@ -412,12 +444,35 @@
                     document: '',
                     purchase: '',
                     warranty: '',
+                    unit_price: '',
                     invoice_num: '',
                     bill_submit: '',
                     req_payment_num: '',
                     po_number: '',
 
                 }),
+
+
+                customSrcByFields:[
+                    {
+                        value: 'All',
+                        text: 'All'
+                    },
+                    {
+                        value: 'serial',
+                        text: 'Serial'
+                    },
+                    {
+                        value: 'cat_id',
+                        text: 'Category'
+                    },
+                    {
+                        value: 'subcat_id',
+                        text: 'Subcategory'
+                    },
+                ],
+
+                sortByProduct: [],
 
                 
 
@@ -427,6 +482,9 @@
                 leaveActionKey:0,
                 currentCategory:'',
                 currentSubcategory:'',
+
+
+               
 
             }
 
@@ -626,7 +684,14 @@
             },
 
 
+
+
+
+
+
+
         },
+
 
 
         created() {

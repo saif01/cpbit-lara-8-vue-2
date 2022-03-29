@@ -230,5 +230,42 @@ mix.styles([
 // *********End Inventory *********End
 
 
+//iTemp user JS 
+mix.js('resources/js/itemp/user/js/app.js', 'public/js/itemp/user/app.js')
+    .vue();
+//itemp user CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/itemp/user/app.css');
+
+// *********End itemp *********End
+
+
+
+// *********Start network *********Start
+
+//network admin JS 
+mix.js('resources/js/network/admin/js/app.js', 'public/js/network/admin/app.js')
+    .vue();
+    
+//network admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+], 'public/css/network/admin/app.css');
+
+// *********End network *********End
+
+
+//iaccess user JS 
+mix.js('resources/js/iaccess/user/js/app.js', 'public/js/iaccess/user/app.js')
+    .vue();
+//iaccess user CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/iaccess/user/app.css');
+
+// *********End iaccess *********End
+
+
 
     

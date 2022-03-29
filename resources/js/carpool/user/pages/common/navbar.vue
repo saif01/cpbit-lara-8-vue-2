@@ -14,6 +14,33 @@
                     mdi-bell-ring-outline
                 </v-icon>
             </v-btn>
+            <!-- dropwdown start -->
+            <!-- <v-menu open-on-hover offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    flat
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    Dropdown
+                </v-btn>
+                </template>
+                <v-list dense>
+                <v-list-item router link>
+                    <v-list-item-title>Title</v-list-item-title>
+                </v-list-item>
+                
+                <v-list-item router link>
+                    <v-list-item-title>Title</v-list-item-title>
+                </v-list-item>
+                
+                <v-list-item router link>
+                    <v-list-item-title>Title</v-list-item-title>
+                </v-list-item>
+                </v-list>
+            </v-menu> -->
+
+            <!-- dropdown end -->
 
             <v-toolbar-items class="hidden-sm-and-down">
 

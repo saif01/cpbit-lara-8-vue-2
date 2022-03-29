@@ -11,7 +11,7 @@ import store from './../store'
 
 import globalRolePermissions from './../../../../role_permissions'
 
-
+import {debounce} from './../../../../helpers'
 
 
 
@@ -62,7 +62,9 @@ export default {
         department:'',
         start_date:'',
         end_date:'',
-        zone_office:'',
+        zone_office: '',
+        
+          
       }
     },
 
@@ -118,6 +120,22 @@ export default {
             })
         },
 
+        // countNotProcess
+        countAll() {
+
+            axios.get('/cms/h_admin/count/sidebar_count_data').then(response=>{
+                //console.log(response.data)
+
+                store.commit('setCountNotProcess', response.data.notprocess)
+                store.commit('setCountProcess', response.data.process)
+                store.commit('setCountDeliverable', response.data.deliverable)
+                store.commit('setCountService', response.data.service )
+            }).
+            catch(error=>{
+                console.log(error)
+            })
+            
+        },
        
        
 
@@ -134,18 +152,18 @@ export default {
         },
 
         //Excuted When make change value 
-        search: function (value) {
+        search: debounce(function (value) {
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();
-        },
+        }, 500),
 
         //Excuted When make change value 
         search_field: function (value) {
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();
-        },
+        }, 
 
         // selectDraft
         selectDraft: function(value){
@@ -154,7 +172,7 @@ export default {
             }else{
                 this.form.details = value 
             }
-        },
+        }, 
 
         start_date: function (value) {
             if(this.end_date){
@@ -162,7 +180,7 @@ export default {
                 this.getResults();
                 this.$Progress.finish();
             }
-        },
+        }, 
 
         end_date: function (value) {
             if(this.start_date){
@@ -170,20 +188,20 @@ export default {
                 this.getResults();
                 this.$Progress.finish();
             }
-        },
+        }, 
 
        
         department: function (value) {
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();
-        },
+        }, 
 
         zone_office: function (value) {  
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();
-        },
+        }, 
 
 
        
@@ -210,9 +228,13 @@ export default {
 
         // map this.count to store.state.count getLoading 
         ...mapGetters({
-            'auth'      : 'getAuth',
-            'roles'     : 'getRoles',
-            'drafts'     : 'getDraft',
+            'auth'        : 'getAuth',
+            'roles'       : 'getRoles',
+            'drafts'      : 'getDraft',
+            'notprocess'  : 'getCountNotProcess',
+            'process'     : 'getCountProcess',
+            'deliverable' : 'getCountDeliverable',
+            'service'     : 'getCountService',
         }),
 
     },

@@ -1,7 +1,19 @@
 <template>
     <div>
         <v-card>
-            <v-card-title>All Car Requisition Records</v-card-title>
+            <v-card-title>
+                <v-row>
+                    <v-col cols="10">
+                        <h3> All Car Requisition Records </h3>
+                    </v-col>
+                    <v-col cols="2">
+                        <v-btn outlined elevation="5" class="float-right" small @click="exportExcel()" :loading="exportLoading">
+                            <v-icon left color="success">mdi-file-excel</v-icon>
+                            Export
+                        </v-btn>
+                    </v-col>
+                </v-row>
+        </v-card-title>
 
             <v-card-text>
                 <div v-if="allData.data">
@@ -183,7 +195,10 @@
                 imageMaxSize: '5111775',
                 imagePath: '/images/carpool/driver/',
                 imagePathSm: '/images/carpool/driver/small/',
+                
 
+                // exportLoading
+                exportLoading: false,
             }
 
 
@@ -216,6 +231,52 @@
                         this.dataLoading = false;
 
                     });
+            },
+
+
+
+
+            // exportExcel
+            exportExcel(){
+
+                    this.exportLoading = true;
+
+                    axios({
+                        method: 'get',
+                        url: this.currentUrl+'/export_data_req?search=' + this.search +
+                            '&sort_direction=' + this.sort_direction +
+                            '&sort_field=' + this.sort_field +
+                            '&search_field=' + this.search_field,
+                            
+
+                        responseType: 'blob', // important
+                    }).then((response) => {
+
+                        
+
+                        let repName = new Date();
+
+                        const url = URL.createObjectURL(new Blob([response.data]))
+                        const link = document.createElement('a')
+                        link.href = url
+                        link.setAttribute('download', `${repName}.xlsx`)
+                        document.body.appendChild(link)
+                        link.click()
+
+                        this.exportLoading = false;
+
+                    }).catch(error => {
+                        //stop Loading
+                        this.exportLoading = false
+                        console.log(error)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error !!',
+                            text: 'Somthing going wrong !!'
+                        })
+                    })
+
+
             },
 
 

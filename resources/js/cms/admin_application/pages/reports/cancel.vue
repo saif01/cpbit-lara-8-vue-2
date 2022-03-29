@@ -7,30 +7,55 @@
                         All Complain Canceled Reports
                     </v-col>
                     <v-col cols="2">
-
+                        <v-btn outlined elevation="5" class="float-right" small @click="exportExcel()" :loading="exportLoading">
+                            <v-icon left color="success">mdi-file-excel</v-icon>
+                            Export
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-card-title>
 
-            <v-card-text class="table-responsive">
+            <v-card-text class="table-responsive pt-3">
                 <div v-if="allData.data">
                     <v-row>
-                        <v-col cols="2">
+                        <v-col lg="2" cols="4">
                             <!-- Show -->
-                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" small>
+                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col cols="3">
-                            <v-text-field prepend-icon="mdi-calendar-cursor" label="Start:" type="date" v-model="start_date" ></v-text-field>
+                        <v-col lg="3" cols="4">
+                            <v-text-field prepend-inner-icon="mdi-calendar-cursor" label="Start:" type="date" v-model="start_date" outlined dense></v-text-field>
                         </v-col>
-                        <v-col cols="3">
-                            <v-text-field prepend-icon="mdi-calendar-cursor" label="End:" type="date" v-model="end_date" ></v-text-field>
+                        <v-col lg="3" cols="4">
+                            <v-text-field prepend-inner-icon="mdi-calendar-cursor" label="End:" type="date" v-model="end_date" outlined dense></v-text-field>
                         </v-col>
 
-                        <v-col cols="4">
-                            <v-text-field prepend-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
-                                placeholder="Search Input..."></v-text-field>
+                        <v-col lg="2" cols="6">
+                            <!-- {{ zone_office }} -->
+                            <v-select v-model="zone_office" label="Zones:" :items="allZoneOffices" item-text="name"
+                                item-value="offices" outlined dense>
+                            </v-select>
+                        </v-col>
+
+
+                        <v-col lg="2" cols="6">
+                            <!-- Departments -->
+                            <v-select v-model="department" label="Departments:" :items="allDepartments"
+                                item-text="department" item-value="department" outlined dense>
+                            </v-select>
+                        </v-col>
+
+                        <v-col lg="6" cols="6">
+                            <!-- search_field -->
+                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="text"
+                                item-value="value" outlined dense>
+                            </v-select>
+                        </v-col>
+
+                        <v-col lg="6" cols="6">
+                            <v-text-field prepend-inner-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
+                                placeholder="Search Input..." outlined dense></v-text-field>
                         </v-col>
                     </v-row>
 
@@ -78,13 +103,13 @@
 
                                 <td class="text-center">
 
-                                    <button class="btn btn-secondary btn-sm" v-if="singleData.makby"
+                                    <v-btn x-small class="secondary" v-if="singleData.makby"
                                         @click="currentUserView(singleData.makby)">
                                         <v-avatar size="20" @click="currentUserView(singleData.makby)">
                                             <img v-if="singleData.makby.image"
                                                 :src="'/images/users/small/' + singleData.makby.image" alt="image">
                                         </v-avatar> {{ singleData.makby.name }}
-                                    </button>
+                                    </v-btn>
 
                                 </td>
                                 <td>
@@ -150,6 +175,41 @@
 
                 start_date:'',
                 end_date:'',
+
+                customSrcByFields:[
+                    {
+                        value: 'All',
+                        text: 'All'
+                    },
+                    {
+                        value: 'cat_id',
+                        text: 'Software'
+                    },
+                    {
+                        value: 'subcat_id',
+                        text: 'Module'
+                    },
+                    {
+                        value: 'department',
+                        text: 'Department'
+                    },
+                    
+                    
+                ],
+
+
+                // search_type
+                search_field: '',
+
+                // excelData
+                excelData: '',
+
+                // exportLoading
+                exportLoading: false,
+
+
+                zone_office:'',
+                department: '',
             }
         },
 
@@ -169,7 +229,9 @@
                         '&sort_field=' + this.sort_field +
                         '&search_field=' + this.search_field + 
                         '&start='+ this.start_date +
-                        '&end='+ this.end_date
+                        '&end='+ this.end_date +
+                        '&zone_office='+ this.zone_office+
+                        '&department='+ this.department
 
                     )
                     .then(response => {
@@ -184,6 +246,7 @@
                         this.dataLoading = false;
 
                     });
+                    
             },
 
 
@@ -196,6 +259,52 @@
                     }
                 })
             },
+
+
+            // exportExcel
+            exportExcel(){
+                this.exportLoading = true;
+
+                axios({
+                    method: 'get',
+                    url: this.currentUrl+'/export_data_cancel?search=' + this.search +
+                        '&sort_direction=' + this.sort_direction +
+                        '&sort_field=' + this.sort_field +
+                        '&search_field=' + this.search_field + 
+                        '&start='+ this.start_date +
+                        '&end='+ this.end_date +
+                        '&zone_office='+ this.zone_office+
+                        '&department='+ this.department,
+
+                    responseType: 'blob', // important
+                }).then((response) => {
+
+                    
+
+                    let repName = new Date();
+
+                    const url = URL.createObjectURL(new Blob([response.data]))
+                    const link = document.createElement('a')
+                    link.href = url
+                    link.setAttribute('download', `${repName}.xlsx`)
+                    document.body.appendChild(link)
+                    link.click()
+
+                    this.exportLoading = false;
+
+                }).catch(error => {
+                    //stop Loading
+                    this.exportLoading = false
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Somthing going wrong !!'
+                    })
+                })
+
+
+            }
 
         },
 
@@ -217,6 +326,30 @@
                     this.$Progress.finish();
                 }
             },
+
+            search_field: function (value) {
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            },
+
+            zone_office: function (value) {
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            },
+
+            department: function (value) {
+                this.$Progress.start();
+                this.getResults();
+                this.$Progress.finish();
+            },
+        },
+
+
+        mounted(){
+            this.getZoneOffices();
+            this.getDepartments();
         },
 
 

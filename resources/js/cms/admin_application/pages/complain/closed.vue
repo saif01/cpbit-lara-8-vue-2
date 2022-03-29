@@ -64,13 +64,13 @@
 
                                 <td class="text-center">
 
-                                    <button class="btn btn-secondary btn-sm" v-if="singleData.makby"
+                                    <v-btn class="btn btn-secondary btn-sm" v-if="singleData.makby"
                                         @click="currentUserView(singleData.makby)">
                                         <v-avatar size="20" @click="currentUserView(singleData.makby)">
                                             <img v-if="singleData.makby.image"
                                                 :src="'/images/users/small/' + singleData.makby.image" alt="image">
                                         </v-avatar> {{ singleData.makby.name }}
-                                    </button>
+                                    </v-btn>
 
                                 </td>
                                 <td>

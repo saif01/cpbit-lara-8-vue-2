@@ -7,9 +7,7 @@
                         All Old Product Deleted Data
                     </v-col>
                     <v-col cols="2">
-                        <v-btn @click="addDataModel()" color="primary" elevation="20" small outlined class="float-right">
-                            <v-icon left dark>mdi-plus-circle-outline </v-icon> Add
-                        </v-btn>
+                        
                     </v-col>
                 </v-row>
             </v-card-title>
@@ -74,8 +72,8 @@
                                         <b>Product Serial: </b>{{ singleData.serial }}
                                     </div>
                                 </td>
-                                <td>
-                                    
+                                <td class="text-center text-muted">
+                                    -----{{singleData.makby.name}}-----
                                 </td>
 
                             </tr>

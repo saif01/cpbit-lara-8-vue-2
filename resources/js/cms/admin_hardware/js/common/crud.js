@@ -25,8 +25,8 @@ export default{
             });
         } else {
             Swal.fire({
-                icon: 'error',
-                title: 'Somthing Going Wrong<br>'+data.message,
+                icon: response.data.icon,
+                title: response.data.msg,
                 customClass: 'text-danger'
             });
             // Swal.fire("Failed!", data.message, "warning");
@@ -60,8 +60,8 @@ export default{
             });
         } else {
             Swal.fire({
-                icon: 'error',
-                title: 'Somthing Going Wrong<br>'+data.message,
+                icon: response.data.icon,
+                title: response.data.msg,
                 customClass: 'text-danger'
             });
             // Swal.fire("Failed!", data.message, "warning");

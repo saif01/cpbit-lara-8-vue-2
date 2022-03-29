@@ -17,6 +17,9 @@
     "/js/inventory/admin/app.js": "/js/inventory/admin/app.js",
     "/js/pbi/admin/app.js": "/js/pbi/admin/app.js",
     "/js/pbi/user/app.js": "/js/pbi/user/app.js",
+    "/js/itemp/user/app.js": "/js/itemp/user/app.js",
+    "/js/network/admin/app.js": "/js/network/admin/app.js",
+    "/js/iaccess/user/app.js": "/js/iaccess/user/app.js",
     "/css/app.css": "/css/app.css",
     "/css/auth/app.css": "/css/auth/app.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
@@ -34,5 +37,8 @@
     "/css/cms/user/app.css": "/css/cms/user/app.css",
     "/css/inventory/admin/app.css": "/css/inventory/admin/app.css",
     "/css/pbi/admin/app.css": "/css/pbi/admin/app.css",
-    "/css/pbi/user/app.css": "/css/pbi/user/app.css"
+    "/css/pbi/user/app.css": "/css/pbi/user/app.css",
+    "/css/itemp/user/app.css": "/css/itemp/user/app.css",
+    "/css/network/admin/app.css": "/css/network/admin/app.css",
+    "/css/iaccess/user/app.css": "/css/iaccess/user/app.css"
 }

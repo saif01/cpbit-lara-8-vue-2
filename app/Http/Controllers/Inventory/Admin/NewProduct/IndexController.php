@@ -12,6 +12,8 @@ use App\Models\User;
 use Auth;
 use App\Http\Controllers\Common\ImageUpload;
 
+
+
 class IndexController extends Controller
 {
     use ImageUpload;
@@ -24,16 +26,55 @@ class IndexController extends Controller
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = InventoryNewProduct::with('makby', 'category', 'subcategory')
+        $search_field     = Request('search_field', '');
+
+        $allDataQuery = InventoryNewProduct::with('makby', 'category', 'subcategory')
             ->where('delete_temp', '!=', '1')
-            ->where('give_st', '!=', '1')
-            ->orderBy($sort_field, $sort_direction)
-            ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
-            ->paginate($paginate);
+            ->where('give_st', '!=', '1');
+
+
+
+            // Search
+        if(!empty($search_field) && $search_field != 'All' && $search_field != 'cat_id' && $search_field != 'subcat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+            $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
+
+        }elseif($search_field == 'cat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'category', function($query) use($val){
+                //$query->where( 'name', $search_field );
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        elseif($search_field == 'subcat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'subcategory', function($query) use($val){
+                //$query->where( 'name', $search_field );
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        else{
+            $allDataQuery->search( trim(preg_replace('/\s+/' ,' ', $search)) );
+        }
+
+
+         // Final Data
+        $allData =  $allDataQuery->orderBy($sort_field, $sort_direction)
+                ->paginate($paginate);
 
         return response()->json($allData, 200);
 
     }
+
+
+    
 
    
     // store
@@ -42,15 +83,16 @@ class IndexController extends Controller
 
         //Validate
         $this->validate($request,[
-            'cat_id'        =>  'required',
-            'subcat_id'     =>  'required',
-            'name'          =>  'required',
-            'serial'        =>  'required|max:200|unique:inventory_new_products',
-            'po_number'     =>  'nullable|max:200|unique:inventory_new_products',
-            'invoice_num'      =>  'nullable|max:200|unique:inventory_new_products',
-            'req_payment_num'  =>  'nullable|max:200|unique:inventory_new_products',
-            'purchase'      =>  'required',
-            'remarks'       =>  'required|min:10|max:2000',
+            'cat_id'            =>  'required',
+            'subcat_id'         =>  'required',
+            'name'              =>  'required',
+            'serial'            =>  'required|max:200|unique:inventory_new_products',
+            'po_number'         =>  'nullable|max:200|unique:inventory_new_products',
+            'invoice_num'       =>  'nullable|max:200|unique:inventory_new_products',
+            'req_payment_num'   =>  'nullable|max:200|unique:inventory_new_products',
+            'purchase'          =>  'required',
+            'unit_price'        =>  'required',
+            'remarks'           =>  'required|min:10|max:2000',
         ]);
 
         $data = new InventoryNewProduct();
@@ -72,6 +114,7 @@ class IndexController extends Controller
         $data->remarks      = $request->remarks;
         $data->purchase     = $request->purchase;
         $data->warranty     = $request->warranty;
+        $data->unit_price   = $request->unit_price;
         $data->invoice_num     = $request->invoice_num;
         $data->bill_submit     = $request->bill_submit;
         $data->req_payment_num = $request->req_payment_num;
@@ -91,6 +134,28 @@ class IndexController extends Controller
     }
 
 
+
+    // damage_status
+    public function damage_status($id){
+
+        $data       =  InventoryNewProduct::find($id);
+        if($data){
+
+           $status = $data->damage_st;
+           
+            if($status == 1){
+                $data->status = null;
+            }else{
+                $data->status = 1;
+            }
+            $success    =  $data->save();
+            return response()->json('success', 200);
+
+        }
+
+    }
+
+
     // update
     public function update(Request $request){
 
@@ -101,6 +166,7 @@ class IndexController extends Controller
             'cat_id'        =>  'required',
             'subcat_id'     =>  'required',
             'name'          =>  'required',
+            'unit_price'        =>  'required',
             'serial'        =>  'required|max:200|unique:inventory_new_products,serial,'.$request->id,
             'po_number'     =>  'nullable|max:200|unique:inventory_new_products,po_number,'.$request->id,
             'invoice_num'     =>  'nullable|max:200|unique:inventory_new_products,invoice_num,'.$request->id,
@@ -133,6 +199,7 @@ class IndexController extends Controller
         $data->remarks      = $request->remarks;
         $data->purchase     = $request->purchase;
         $data->warranty     = $request->warranty;
+        $data->unit_price   = $request->unit_price;
         $data->invoice_num     = $request->invoice_num;
         $data->bill_submit     = $request->bill_submit;
         $data->req_payment_num = $request->req_payment_num;
@@ -242,4 +309,7 @@ class IndexController extends Controller
 
 
     }
+
+
+    
 }

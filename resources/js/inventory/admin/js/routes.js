@@ -17,6 +17,10 @@ import damagedProduct from './../pages/product_section/damagedProduct.vue'
 import warrantyProduct from './../pages/warranty_section/warrantyProduct.vue'
 import expireProduct from './../pages/warranty_section/expireProduct.vue'
 
+// Report
+import report_new_product from './../pages/report/newProduct.vue'
+import reportStock from './../pages/report/stock.vue'
+
 import deletedNewProduct from './../pages/deleted_section/new_product.vue'
 import deletedOldProduct from './../pages/deleted_section/old_product.vue'
 
@@ -102,6 +106,27 @@ const router = new VueRouter({
                 title: 'Admin expire Product',
             },   
         },
+
+        // report section
+        { 
+            path: '/inventory/admin/report-newproduct', 
+            component: report_new_product,
+            name: 'new_product',
+            meta:{
+                title: 'Admin Report New Product',
+            },   
+        },
+
+        { 
+            path: '/inventory/admin/report_stock', 
+            component: reportStock,
+            name: 'reportStock',
+            meta:{
+                title: 'Admin Report Stock',
+            },   
+        },
+
+        
 
         // deletedSection
         { 

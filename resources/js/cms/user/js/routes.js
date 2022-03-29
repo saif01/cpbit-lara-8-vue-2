@@ -6,6 +6,7 @@ import Dashboard from './../pages/dashboard.vue'
 import er404 from './../pages/common/404.vue'
 
 import HardwareHistory from './../pages/hardware_history.vue'
+import ApplicationHistory from './../pages/application_history.vue'
 
 
 const router = new VueRouter({
@@ -25,6 +26,14 @@ const router = new VueRouter({
             name: 'HardwareHistory',
             meta:{
                 title: 'CMS Hardware History',
+            },   
+        },
+         { 
+            path: '/cms/application_history', 
+            component: ApplicationHistory,
+            name: 'ApplicationHistory',
+            meta:{
+                title: 'CMS application History',
             },   
         },
        

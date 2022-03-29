@@ -19,7 +19,7 @@ class CreateHardwareDamagedsTable extends Migration
             $table->string('applicable_type', 100)->nullable();
             $table->string('damaged_type', 100)->nullable();
             $table->string('damaged_reason', 100)->nullable();
-            $table->integer('rep_pro_id')->nullable();
+            $table->string('rep_pro_id')->nullable();
             $table->integer('apply_by')->nullable();
             $table->dateTime('apply_at')->nullable();
             $table->integer('status')->nullable();

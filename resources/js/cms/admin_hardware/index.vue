@@ -5,7 +5,6 @@
         <v-main>
             <div class="pa-3">
                 <router-view></router-view>
-                <vue-progress-bar></vue-progress-bar>
             </div>
         </v-main>
 
@@ -38,6 +37,10 @@ export default {
             })
         }
 
+    },
+
+    mounted(){
+        this.countAll();
     },
 
     created(){

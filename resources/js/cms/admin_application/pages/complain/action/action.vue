@@ -23,13 +23,13 @@
                     <tr>
                         <th>Complain By:</th>
                         <td>
-                            <button class="btn btn-secondary btn-sm" v-if="complainDeta.makby"
+                            <v-btn x-small class="secondary" v-if="complainDeta.makby"
                                 @click="currentUserView(complainDeta.makby)">
                                 <v-avatar size="20" @click="currentUserView(complainDeta.makby)">
                                     <img v-if="complainDeta.makby.image"
                                         :src="'/images/users/small/' + complainDeta.makby.image" alt="image">
                                 </v-avatar> {{ complainDeta.makby.name }}
-                            </button>
+                            </v-btn>
                         </td>
                         <th>Department:</th>
                         <td><span v-if="complainDeta.makby">{{ complainDeta.makby.department }}</span></td>
@@ -109,13 +109,13 @@
                             <tr>
                                 <th>By:</th>
                                 <td>
-                                    <button class="btn btn-secondary btn-sm" v-if="item.makby"
+                                    <v-btn x-small class="secondary" v-if="item.makby"
                                         @click="currentUserView(item.makby)">
                                         <v-avatar size="20">
                                             <img v-if="item.makby.image" :src="'/images/users/small/' + item.makby.image"
                                                 alt="image">
                                         </v-avatar> {{ item.makby.name }}
-                                    </button>
+                                    </v-btn>
                                 </td>
                                 <th>R. Register:</th>
                                 <td><span

@@ -19,37 +19,22 @@
                         <v-form v-model="valid" ref="form" >
                             <form @submit.prevent="deliveryData()">
 
-                                <v-row align-content="center">
+                                <v-row>
 
                                     <v-col cols="12" lg="3">
-                                        <v-text-field disabled label="Category" :value="category"></v-text-field>
-                                        <!-- <v-autocomplete disabled :items="allCategory" @change="getSubcategory
-                                        ()" v-model="form.cat_id" label="Select Category"
-                                            :rules="[v => !!v || 'Category is required!']" dense required>
-                                        </v-autocomplete> -->
+                                        <v-text-field disabled label="Category" :value="category" dense></v-text-field>
                                     </v-col>
                                     <v-col cols="12" lg="3">
-                                        <v-text-field disabled label="Subcategory" :value="subcategory"></v-text-field>
-                                        <!-- <v-autocomplete disabled :items="allSubcategory" v-model="form.subcat_id"
-                                            label="Select Subcategory" :rules="[v => !!v || 'Subcategory is required!']"
-                                            dense  required></v-autocomplete> -->
+                                        <v-text-field disabled label="Subcategory" :value="subcategory" dense></v-text-field>
                                     </v-col>
 
                                     <v-col cols="12" lg="3">
-                                        <v-text-field disabled v-model="form.name" label="Product Name or Model"
-                                            :rules="[v => !!v || 'Product Name or Model is required!']"
-                                            placeholder="Enter Product Product Name or Model" dense  required>
-                                        </v-text-field>
+                                        <v-text-field disabled v-model="form.name" label="Product Name or Model" dense></v-text-field>
                                     </v-col>
 
                                     <v-col cols="12" lg="3">
-                                        <v-text-field disabled v-model="form.serial" label="Serial Number"
-                                            :rules="[v => !!v || 'Serial number is required!']"
-                                            placeholder="Enter Product Serial number" dense  required>
-                                        </v-text-field>
+                                        <v-text-field disabled v-model="form.serial" label="Serial Number" dense></v-text-field>
                                     </v-col>
-
-
 
                                     <v-col cols="12" lg="4">
                                         <div class="small text-danger" v-if="form.errors.has('operation_id')"

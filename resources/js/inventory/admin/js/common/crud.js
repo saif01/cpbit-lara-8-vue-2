@@ -232,6 +232,56 @@ export default{
         })
     },
 
+
+
+
+    damageChange(data){
+        // console.log('status', data.status)
+        if(data.damage_st == 1){
+            var text = "Are you want to mark this as Damage ?"
+            var btnText = "Damage"
+           
+        }else{
+            var text = "Are you want to mark this as Good ?"
+            var btnText = "Good"
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: text,
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: btnText,
+        }).then((result) => {
+
+            // Send request to the server
+            if (result.value) {
+                //console.log(id);
+                this.$Progress.start();
+                axios.post(this.currentUrl + '/damage_status/' + data.id).then((response) => {
+                    //console.log(response);
+                    Swal.fire(
+                        'Changed!',
+                        'Product has been Changed.',
+                        'success'
+                    );
+                    // Refresh Tbl Data with current page
+                    this.getResults(this.currentPageNumber);
+                    this.$Progress.finish();
+
+                }).catch((data) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
+                });
+            }
+        })
+    },
+
     // Add Data Model
     addDataModel() {
         this.editmode = false;

@@ -1,7 +1,18 @@
 <template>
     <div>
 
-        <h3> Car Bookings Information </h3>
+        
+        <v-row>
+            <v-col cols="10">
+                <h3> Car Bookings Information </h3>
+            </v-col>
+            <v-col cols="2">
+                <v-btn outlined elevation="5" class="float-right" small @click="exportExcel()" :loading="exportLoading">
+                    <v-icon left color="success">mdi-file-excel</v-icon>
+                    Export
+                </v-btn>
+            </v-col>
+        </v-row>
 
         <div v-if="allData.data">
 
@@ -407,6 +418,10 @@
                 imagePathBookby: '/images/users/',
                 imagePathSmBookby: '/images/users/small/',
 
+
+                // exportLoading
+                exportLoading: false,
+
             }
 
 
@@ -429,8 +444,6 @@
                         '&sort_by_endDate=' + this.sort_by_endDate
                     )
                     .then(response => {
-                        // console.log(response.data.data);
-                        //console.log(response.data.from, response.data.to);
                         this.allData = response.data;
                         this.totalValue = response.data.total;
                         this.dataShowFrom = response.data.from;
@@ -440,6 +453,53 @@
                         this.dataLoading = false;
 
                     });
+            },
+
+
+            // exportExcel
+            exportExcel(){
+                    this.exportLoading = true;
+
+                    axios({
+                        method: 'get',
+                        url: this.currentUrl+'/export_data_all?search=' + this.search +
+                            '&sort_direction=' + this.sort_direction +
+                            '&sort_field=' + this.sort_field +
+                            '&search_field=' + this.search_field +
+                            '&sort_by_car=' + this.sort_by_car +
+                            '&sort_by_day=' + this.sort_by_day +
+                            '&sort_by_startDate=' + this.sort_by_startDate +
+                            '&sort_by_endDate=' + this.sort_by_endDate,
+                            
+
+                        responseType: 'blob', // important
+                    }).then((response) => {
+
+                        
+
+                        let repName = new Date();
+
+                        const url = URL.createObjectURL(new Blob([response.data]))
+                        const link = document.createElement('a')
+                        link.href = url
+                        link.setAttribute('download', `${repName}.xlsx`)
+                        document.body.appendChild(link)
+                        link.click()
+
+                        this.exportLoading = false;
+
+                    }).catch(error => {
+                        //stop Loading
+                        this.exportLoading = false
+                        console.log(error)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error !!',
+                            text: 'Somthing going wrong !!'
+                        })
+                    })
+
+
             },
 
 

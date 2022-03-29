@@ -8,7 +8,11 @@ export default new Vuex.Store({
     state : {
         auth  : null,
         roles : null,
-        draft : null,
+        draft: null,
+        CountNotProcess: null,
+        CountProcess: null,
+        CountDeliverable: null,
+        CountService: null,
     },
 
     getters : {
@@ -21,6 +25,23 @@ export default new Vuex.Store({
         },
         getDraft(state){
             return state.draft;
+        },
+
+        // count
+        getCountNotProcess(state){
+            return state.CountNotProcess;
+        },
+
+        getCountProcess(state){
+            return state.CountProcess;
+        },
+
+        getCountDeliverable(state){
+            return state.CountDeliverable;
+        },
+
+        getCountService(state){
+            return state.CountService;
         },
 
     },
@@ -41,6 +62,23 @@ export default new Vuex.Store({
         setDraft(state, data){
             //console.log('store drft', data)
             state.draft = data;
+        },
+
+
+        setCountNotProcess(state, data){
+            state.CountNotProcess = data;
+        },
+
+        setCountProcess(state, data){
+            state.CountProcess = data;
+        },
+
+        setCountDeliverable(state, data){
+            state.CountDeliverable = data;
+        },
+
+        setCountService(state, data){
+            state.CountService = data;
         },
     
     },

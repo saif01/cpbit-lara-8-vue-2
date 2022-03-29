@@ -16,7 +16,7 @@
             </v-card-title>
 
             <v-card-text>
-                <div v-if="allData.data">
+                <div v-if="allData.data" class="table-responsive">
                     <v-row>
                         <v-col cols="2">
                             <!-- Show -->

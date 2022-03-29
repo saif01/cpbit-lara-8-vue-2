@@ -35,6 +35,7 @@ import HOServiceIndex from './../pages/complain/h_o_service/index.vue'
 // Reports
 import ReportIndex from './../pages/reports/index.vue'
 import ReportDamaged from './../pages/reports/damaged.vue'
+import ReportDamagedReplace from './../pages/reports/damaged_replace.vue'
 
 
 const router = new VueRouter({
@@ -209,6 +210,14 @@ const router = new VueRouter({
             path: '/cms/h_admin/damaged_reports', 
             component: ReportDamaged,
             name: 'ReportDamaged',
+            meta:{
+                title: 'Hardware Report Index Admin',
+            },   
+        },
+        { 
+            path: '/cms/h_admin/damaged_replace', 
+            component: ReportDamagedReplace,
+            name: 'ReportDamagedReplace',
             meta:{
                 title: 'Hardware Report Index Admin',
             },   

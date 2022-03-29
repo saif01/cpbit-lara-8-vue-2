@@ -86,7 +86,7 @@
             </div>
 
             <div class="d-flex flex-wrap mt-5 justify-content-around">
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
                     <a href="/pbi" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
@@ -94,12 +94,20 @@
                         <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
                     </a>
                 </div>
-                <div class="col-lg-6 col-6" v-if="isIvca()">
+                <div class="col-lg-4 col-6" v-if="isIvca()">
                     <a href="/ivca" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
                         <div class="logo_div">
                             <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
                         </div>
                         <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVCA</div> 
+                    </a>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <a href="/iaccess" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <div class="logo_div">
+                            <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
+                        </div>
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iAccess</div> 
                     </a>
                 </div>
             </div>

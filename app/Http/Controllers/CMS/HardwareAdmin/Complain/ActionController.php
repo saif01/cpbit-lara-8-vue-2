@@ -130,7 +130,9 @@ class ActionController extends Controller
             $product_id_text = implode(",", $product_id_arr);
         }
 
-        //dd($product_id_arr, $product_id_text, $request->product_id);
+        
+
+        //dd($product_id_arr, $product_id_text, $request->product_id); 
 
 
         $rec_name       = $request->rec_name;
@@ -172,6 +174,11 @@ class ActionController extends Controller
         $damaged_data->created_by      = Auth::user()->id;
         $damaged_data->save();
 
+        // sync damaged replaced product record
+        if($product_id_arr){
+            $damaged_data->replace_product()->sync($product_id_arr);
+        }
+        
         // Complain User 
         $user_data = User::find($complain_data->user_id);
 
@@ -185,6 +192,7 @@ class ActionController extends Controller
             // Update inventory Old Product table 
             $inventory_old_data = new InventoryOldProduct();
             $inventory_old_data->new_pro_id        = $product_id;
+            $inventory_old_data->comp_id           = $request->comp_id; //add complain id
             $inventory_old_data->cat_id            = $inventory_new_data->cat_id;
             $inventory_old_data->subcat_id         = $inventory_new_data->subcat_id;
             $inventory_old_data->name              = $inventory_new_data->name;

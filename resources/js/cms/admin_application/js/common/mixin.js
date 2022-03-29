@@ -45,7 +45,12 @@ export default {
         // Tbl number of data show
         tblItemNumberShow:[5,10,15,25,50,100],
         // v-form
-        valid: false,
+          valid: false,
+        
+
+          // For Report search
+        allZoneOffices:[],
+        allDepartments:[],
       }
     },
 
@@ -90,10 +95,26 @@ export default {
         },
 
 
-
-        testMethod(){
-            return ' Come form common';
+        // get Zone Offices
+        getZoneOffices(){
+            axios.get('/super_admin/user/zoneoffices').then(response=>{
+                // console.log(response.data)
+                this.allZoneOffices = response.data
+            }).catch(error=>{
+                console.log(error)
+            })
         },
+
+        // get Departments
+        getDepartments(){
+            axios.get('/super_admin/user/departments').then(response=>{
+                //console.log(response.data)
+                this.allDepartments = response.data
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
+
 
 
        
