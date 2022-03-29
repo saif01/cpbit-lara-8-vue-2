@@ -111,9 +111,9 @@ trait CommonFunctions {
 
 
     //Today Booked Message Send
-    function DailyBookedLineMsg(){
+    public function DailyBookedLineMsg(){
 
-        $allData = CarpoolBooking::with('bookby', 'car')
+        $allData = CarpoolBooking::with('bookby', 'car', 'driver')
                  ->whereDate('start', Carbon::today())
                  ->where('status', 1)
                  ->get();
@@ -133,14 +133,32 @@ trait CommonFunctions {
             //  $endTime = date("g:i A", strtotime($data->end));
 
             $userName      = $data->bookby->name;
-            $department     = str_replace('&', 'and', $data->bookby->department);
+            $department    = str_replace('&', 'and', $data->bookby->department);
             $purposeLine   = str_replace('&', 'and', $data->purpose);
-            $carName      = $data->car->name;
-            $duration      = $data->duration;
+            $destinationLine    = str_replace('&', 'and', $data->destination);
 
+            if($data->car){
+                $carName      = $data->car->name;
+                $number       = $data->car->number;
+            }else{
+                $carName      = '';
+                $number       = '';
+            }
+
+            if($data->driver){
+                $driverName    = $data->driver->name;
+                $contact       = $data->driver->contact;
+            }else{
+                $driverName    = '';
+                $contact       = '';
+            }
+           
+            
 
             //*************For Sending Line Group Message*******************//
-            $message = "Booked #: $count, %0A Today Date ($today), %0A Booked By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Car: $carName,%0A Start: $startLine,%0A End: $endLine,%0A Duration : $duration. ";
+            $message = "Booked #: $count, %0A Today Date ($today), %0A Booked By: $userName,%0A Department: $department,%0A Destination: $destinationLine,%0A Purpose: $purposeLine,%0A Driver: $driverName ($contact),%0A Car: $number,%0A Start: $startLine,%0A End: $endLine.";
+
+            // $message = "Booked #: $count, %0A Today Date ($today), %0A Booked By: $userName,%0A Department: $department,%0A Purpose: $purposeLine,%0A Car: $carName,%0A Start: $startLine,%0A End: $endLine,%0A Duration : $duration. ";
 
 
             //Send Line Message

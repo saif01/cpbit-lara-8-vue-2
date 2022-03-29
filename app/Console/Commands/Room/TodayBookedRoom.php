@@ -4,14 +4,18 @@ namespace App\Console\Commands\Room;
 
 use Illuminate\Console\Command;
 
+use App\Http\Controllers\Room\CommonFunctions;
+
 class TodayBookedRoom extends Command
 {
+    use CommonFunctions;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'command:TodayBookedRoom';
 
     /**
      * The console command description.
@@ -37,6 +41,7 @@ class TodayBookedRoom extends Command
      */
     public function handle()
     {
+        $this->DailyBookedLineMsg();
         return Command::SUCCESS;
     }
 }

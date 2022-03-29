@@ -4,14 +4,17 @@ namespace App\Console\Commands\Carpool;
 
 use Illuminate\Console\Command;
 
+use App\Http\Controllers\Carpool\CommonFunctions;
+
 class TodayBookedCar extends Command
 {
+    use CommonFunctions;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'command:TodayBookedCar';
 
     /**
      * The console command description.
@@ -37,6 +40,7 @@ class TodayBookedCar extends Command
      */
     public function handle()
     {
+        $this->DailyBookedLineMsg();
         return Command::SUCCESS;
     }
 }

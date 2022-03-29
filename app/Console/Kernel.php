@@ -17,17 +17,22 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->command('command:BI_FARM_AQUA_PURCHASE')
-                    //->everyTenMinutes();
-                    //->everyFiveMinutes();
-                    ->everyMinute();
+        $schedule->command('command:TodayBookedCar')
+            //->dailyAt('08:00');
+            //->everyTenMinutes();
+            //->everyFiveMinutes();
+            ->everyMinute();
 
-        $schedule->command('command:BI_FARM_AQUA_PURCHASE_Daily')
-                    //->everyTenMinutes();
-                    //->everyFiveMinutes();
-                    ->everyMinute();
+        $schedule->command('command:TodayBookedRoom')
+            ->dailyAt('08:01');
+            //->everyTenMinutes();
+            //->everyFiveMinutes();
+            //->everyMinute();
 
+       
 
+    
+                    
 
 
                     

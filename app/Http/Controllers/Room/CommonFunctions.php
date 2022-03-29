@@ -69,7 +69,7 @@ trait CommonFunctions {
 
 
     //Today Booked Message Send
-    function DailyBookedLineMsg(){
+    public function DailyBookedLineMsg(){
 
         // // $today = '2020-11-18';
         //  $today = Carbon::today();
