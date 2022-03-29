@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card>
+        <v-card class="col-8 m-auto">
             <v-card-title>
                 Data store and show
             </v-card-title>
@@ -12,16 +12,42 @@
                     <v-col cols="12" lg="6">
                         <div class="small text-danger" v-if="form.errors.has('start')"
                             v-html="form.errors.get('start')" />
-                        <v-text-field type="date" dense
+                        <v-menu v-model="menu" min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field v-model="form.start" label="Select Start Date"
+                                    prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense>
+                                </v-text-field>
+                            </template>
+                            <v-date-picker v-model="form.start" no-title scrollable>
+                                <v-spacer></v-spacer>
+                                <v-btn text color="primary" @click="menu = false">
+                                    Cancel
+                                </v-btn>
+                            </v-date-picker>
+                        </v-menu>
+                        <!-- <v-text-field type="date" dense
                             v-model="form.start" label="Select Start Date"
-                            :rules="[v => !!v || 'Select start date is required!']" required></v-text-field>
+                            :rules="[v => !!v || 'Select start date is required!']" required></v-text-field> -->
                     </v-col>
                     <v-col cols="12" lg="6">
                         <div class="small text-danger" v-if="form.errors.has('end')"
                             v-html="form.errors.get('end')" />
-                        <v-text-field type="date" dense
+                        <v-menu v-model="menu2" min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field v-model="form.end" label="Select Start Date"
+                                    prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense>
+                                </v-text-field>
+                            </template>
+                            <v-date-picker v-model="form.end" no-title scrollable>
+                                <v-spacer></v-spacer>
+                                <v-btn text color="primary" @click="menu2 = false">
+                                    Cancel
+                                </v-btn>
+                            </v-date-picker>
+                        </v-menu>
+                        <!-- <v-text-field type="date" dense
                             v-model="form.end" label="Select End Date"
-                            :rules="[v => !!v || 'Select end date is required!']" required></v-text-field>
+                            :rules="[v => !!v || 'Select end date is required!']" required></v-text-field> -->
                     </v-col>
 
                   
@@ -102,6 +128,10 @@
 
                 // tblOptions
                 ...tblOptions,
+
+                // datepicker
+                menu: '',
+                menu2: '',
                
             }
         },
