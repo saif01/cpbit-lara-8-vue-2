@@ -39,10 +39,9 @@
                         </v-col>
 
                         <v-col cols="2">
-                            <v-btn @click="pingAll()" color="info" 
-                                    class="float-right">
+                            <v-btn @click="pingAll()" color="info" class="float-right">
                                 <v-icon >mdi-access-point-network</v-icon> Ping All
-                                </v-btn>
+                            </v-btn>
                         </v-col>
                     </v-row>
 

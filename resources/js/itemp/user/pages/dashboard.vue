@@ -2,8 +2,19 @@
     <div>
 
         <div class="h1 text-center pa-5 border_card shadow">
-            We keep a temparature record of all employees !!
-            iTemp of C.P. Bangladesh !!
+            <vue-typer
+                :text='["We keep a temparature record of all employees !!","iTemp of C.P. Bangladesh !!"]'
+                :repeat='Infinity'
+                :shuffle='false'
+                initial-action='typing'
+                :pre-type-delay='70'
+                :type-delay='70'
+                :pre-erase-delay='2000'
+                :erase-delay='250'
+                erase-style='backspace'
+                :erase-on-complete='false'
+                caret-animation='blink'
+                ></vue-typer>
         </div>
         <v-row>
             <v-col cols="12" lg="4" >
@@ -70,11 +81,13 @@
 <script>
 
 import paiChart from './chart/pai.vue'
+import { VueTyper } from 'vue-typer'
 
 export default {
 
     components:{
         paiChart,
+        'vue-typer': VueTyper,
     },
    
     data(){

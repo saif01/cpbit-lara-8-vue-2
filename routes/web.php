@@ -954,13 +954,10 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             //Report section 
             Route::namespace('Reportsection')->prefix('report')->group(function(){
-                Route::get('/index', 'IndexController@index');
-                Route::get('/sort_by_product', 'IndexController@sort_by_product');
-                Route::get('/export_data', 'IndexController@export_data');
-
+               
                 Route::prefix('stock')->group(function(){
                     Route::get('/', 'StockController@index');
-                    Route::get('/export_data', 'IndexController@export_data');
+                    Route::get('/export_data', 'StockController@export_data');
                 });
 
             });
@@ -1079,7 +1076,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             });
 
 
-            
+           
             Route::get('{any?}', 'IndexController@index');
         });
 
@@ -1110,63 +1107,12 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
 
-
-
-    // iaccess Start
-    Route::namespace('iAccess')->prefix('iaccess')->group(function(){
-
-        // user
-        Route::namespace('User')->group(function(){
-
-            Route::namespace('Form')->prefix('form')->group(function(){
-
-                Route::prefix('email')->group(function(){
-                    Route::post('/store', 'IndexController@email_store');
-                    // AllowAnonymous;
-                    Route::get('/email_status/{id}', 'IndexController@email_status');
-                    
-                });
-
-                Route::prefix('account')->group(function(){
-                    Route::post('/store', 'IndexController@account_store');
-                    Route::get('/account_status/{id}', 'IndexController@account_status');
-                });
-
-                Route::prefix('guest')->group(function(){
-                    Route::post('/store', 'IndexController@guest_store');
-                    Route::get('/guest_status/{id}', 'IndexController@guest_status');
-                });
-
-                Route::prefix('webaccess')->group(function(){
-                    Route::post('/store', 'IndexController@webaccess_store');
-                    Route::get('/internet_status/{id}', 'IndexController@internet_status');
-                });
-                
-            });
-
-            Route::namespace('Status')->prefix('status')->group(function(){
-                Route::get('/index', 'IndexController@index');
-            });
-
-
-
-            Route::get('{any?}', 'IndexController@index');
-        });
-
-        
-    });
-    // iaccess End
-
-
-
-
     // network start
     Route::namespace('Network')->prefix('network')->group(function(){
 
-        Route::get('/dashboard_all', 'IndexController@dashboardData');
-
         // Admin
         Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
+            Route::get('/dashboard_all', 'IndexController@dashboardData');
 
             Route::namespace('Allgroup')->prefix('all-group')->group(function(){
                 Route::get('/index', 'IndexController@index');
@@ -1215,6 +1161,53 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         });
     });
     // network end
+
+
+
+    // iaccess Start
+    Route::namespace('iAccess')->prefix('iaccess')->group(function(){
+
+        // user
+        Route::namespace('User')->group(function(){
+
+            Route::namespace('Form')->prefix('form')->group(function(){
+
+                Route::prefix('email')->group(function(){
+                    Route::post('/store', 'IndexController@email_store');
+                    //[AllowAnonymous];
+                    Route::get('/email_status/{id}', 'IndexController@email_status');
+                    
+                });
+
+                Route::prefix('account')->group(function(){
+                    Route::post('/store', 'IndexController@account_store');
+                    Route::get('/account_status/{id}', 'IndexController@account_status');
+                });
+
+                Route::prefix('guest')->group(function(){
+                    Route::post('/store', 'IndexController@guest_store');
+                    Route::get('/guest_status/{id}', 'IndexController@guest_status');
+                });
+
+                Route::prefix('webaccess')->group(function(){
+                    Route::post('/store', 'IndexController@webaccess_store');
+                    Route::get('/internet_status/{id}', 'IndexController@internet_status');
+                });
+                
+            });
+
+            Route::namespace('Status')->prefix('status')->group(function(){
+                Route::get('/index', 'IndexController@index');
+            });
+
+
+
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+        
+    });
+    // iaccess End
 
     
 

@@ -17,8 +17,7 @@
                                     <v-img
                                     class="align-end font-weight-bold bg-info"
                                     contain
-                                    src="https://asset.cpbangladesh.com/documents/email_request_form_20220321032846p4nG6WUJcr.jpg"
-                                    gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+                                    src="/all-assets/common/icon/email_request.png"
                                     height="330px"
                                     >
                                     </v-img>
@@ -47,8 +46,7 @@
                                     <v-img
                                     class="align-end font-weight-bold bg-info"
                                     contain
-                                    src="https://asset.cpbangladesh.com/documents/account_authority_form_20220321033015CW0QxQwCZN.jpg"
-                                    gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+                                    src="/all-assets/common/icon/account_authority.png"
                                     height="330px"
                                     >
                                     </v-img>
@@ -75,8 +73,7 @@
                                     <v-img
                                     class="align-end font-weight-bold bg-info"
                                     contain
-                                    src="https://asset.cpbangladesh.com/documents/web_access_form_20220321032942CvsCg4XcfW.jpg"
-                                    gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+                                    src="/all-assets/common/icon/internet_access.png"
                                     height="330px"
                                     >
                                     </v-img>
@@ -103,8 +100,7 @@
                                     <v-img
                                     class="align-end font-weight-bold bg-info"
                                     contain
-                                    src="https://asset.cpbangladesh.com/documents/guest_user_form_20220321032959Yji3cqBO3r.jpg"
-                                    gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+                                    src="/all-assets/common/icon/guest_request.png"
                                     height="330px"
                                     >
                                     </v-img>

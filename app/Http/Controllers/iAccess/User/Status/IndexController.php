@@ -45,8 +45,6 @@ class IndexController extends Controller
             ->toArray();
 
 
-        $finalData = array_merge($allData, $allData4);
-
-        return response()->json($finalData, 200);
+        return response()->json(['emailRequest'=>$allData, 'internetRequest'=>$allData2, 'accountRequest'=>$allData3, 'guestRequest'=>$allData4, 200]);
     }
 }

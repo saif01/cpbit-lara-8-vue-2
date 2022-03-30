@@ -58,7 +58,7 @@ const app = new Vue({
   data(){
     return{
       // For Preloader
-      preloader:false
+      preloader: false,
     }
   }
   

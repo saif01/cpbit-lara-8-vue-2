@@ -9,7 +9,7 @@
                             Total Main-IP
                             <span>
                                 <v-icon color="white" size="40">mdi-cellphone-message</v-icon>
-                                21
+                                {{totalMainIP}}
                             </span>
                         </div>
                     </v-card-text>
@@ -24,7 +24,7 @@
                             Total Sub-IP
                             <span>
                                 <v-icon color="white" size="40">mdi-cellphone-message</v-icon>
-                                21
+                                {{totalSubIP}}
                             </span>
                         </div>
                     </v-card-text>
@@ -38,7 +38,7 @@
                             Total Main-IP Ping
                             <span>
                                 <v-icon color="white" size="40">mdi-cellphone-message</v-icon>
-                                21
+                                {{totalMainPing}}
                             </span>
                         </div>
                     </v-card-text>
@@ -52,7 +52,7 @@
                             Total Sub-IP Ping
                             <span>
                                 <v-icon color="white" size="40">mdi-cellphone-message</v-icon>
-                                21
+                                {{totalSubPing}}
                             </span>
                         </div>
                     </v-card-text>
@@ -85,6 +85,7 @@ export default {
                 this.totalSubIP = response.data.totalSubIP,
                 this.totalMainPing = response.data.totalMainPing,
                 this.totalSubPing = response.data.totalSubPing
+
             });
         }
         

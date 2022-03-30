@@ -12,9 +12,9 @@
                 Dashboard
             </v-btn>
 
-            <!-- <v-btn text link route :to="{ name: 'status'}" small exact>
+            <v-btn text link route :to="{ name: 'status'}" small exact>
                 Status
-            </v-btn> -->
+            </v-btn>
 
             
 

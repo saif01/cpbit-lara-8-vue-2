@@ -15,32 +15,28 @@ use DB;
 
 class stock implements FromView, ShouldAutoSize, WithEvents
 {
-    public $data, $length;
+    public $data;
 
-    public function __construct($data, $length){
+    public function __construct($data){
         $this->data = $data;
-        $this->length = $length;
     }
 
 
 
     public function view(): View
     {
-        
-
         $product =  $this->data;
-        $length =  $this->length;
-        return view('inventory.admin.reports.stock', compact('product','length'));
+        return view('inventory.admin.reports.stock', compact('product'));
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->getStyle('A:H')
+                $event->sheet->getDelegate()->getStyle('A:L')
                 ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-                $event->sheet->getDelegate()->getStyle('A:H')
+                $event->sheet->getDelegate()->getStyle('A:L')
                 ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
 

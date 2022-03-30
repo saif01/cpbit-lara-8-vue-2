@@ -4,33 +4,37 @@
             <v-card-title class="justify-center">
                 <v-row>
 
-                <v-col cols="6" md="3">
-                    <v-select label="Search By Group Name" v-model="sort_by_name" :items="group_names" item-text="name" item-value="name">
+                <v-col cols="6" lg="3">
+                    <v-select label="Search By Group Name" v-model="sort_by_name" :items="group_names" item-text="name" item-value="name" outlined dense>
                     </v-select>
                 </v-col>
 
-                <v-col cols="6" md="3">
+                <v-col cols="6" lg="3">
                     <v-select
                         :items="reportType"
                         label="Select Type"
                         v-model="sort_by_day"
+                        outlined
+                        dense
                     ></v-select>
                 </v-col>
 
-                <v-col cols="6" md="3">
+                <v-col cols="6" lg="3">
                     <v-menu v-model="menu" min-width="auto" >
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field
                             v-model="sort_by_startDate"
                             label="Start Date"
-                            prepend-icon="mdi-calendar"
+                            prepend-inner-icon="mdi-calendar"
                             readonly
                             v-bind="attrs"
                             v-on="on"
+                            outlined
+                            dense
                             ></v-text-field>
                         </template>
 
-                        <v-date-picker v-model="sort_by_startDate" no-title scrollable >
+                        <v-date-picker v-model="sort_by_startDate" no-title scrollable>
                             <v-spacer></v-spacer>
                             <v-btn text color="primary" @click="menu = false">
                                 Cancel
@@ -39,16 +43,18 @@
                     </v-menu>
                 </v-col>
 
-                <v-col cols="6" md="3">
+                <v-col cols="6" lg="3">
                     <v-menu v-model="menu2" min-width="auto">
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field
                             v-model="sort_by_endDate"
                             label="End Date"
-                            prepend-icon="mdi-calendar"
+                            prepend-inner-icon="mdi-calendar"
                             readonly
                             v-bind="attrs"
                             v-on="on"
+                            outlined
+                            dense
                             ></v-text-field>
                         </template>
 
@@ -61,12 +67,12 @@
                     </v-menu>
                 </v-col>
 
+
+                <v-col cols="12">
+                    All Sub Ip Ping Reports
+                </v-col>
+
             </v-row>
-                <v-row>
-                    <v-col cols="10">
-                        All Sub Ip Ping Reports
-                    </v-col>
-                </v-row>
             </v-card-title>
 
             <v-card-text>

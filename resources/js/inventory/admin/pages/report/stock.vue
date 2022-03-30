@@ -191,17 +191,16 @@
                 sortByProduct: [],
 
                 // deliver details
-                currentData: '',
-                leaveActionKey: 0,
-                currentCategory: '',
-                currentSubcategory: '',
+                // currentData: '',
+                // leaveActionKey: 0,
+                // currentCategory: '',
+                // currentSubcategory: '',
 
 
                 // exportLoading
                 exportLoading: false,
 
-                // sort_by_product
-                sort_by_product: 'Battery-12v',
+                
                 current_category_name: '',
                 current_category_id: '',
                 current_category: '',
@@ -252,13 +251,7 @@
                     .then(response => {
                         console.log(response.data);
                         this.allData = response.data;
-                        //console.log(response.data.from, response.data.to, response.data.current_page);
-                        // this.allData = response.data;
                         this.totalValue = response.data.totalIssue;
-                        // this.dataShowFrom = response.data.from;
-                        // this.dataShowTo = response.data.to;
-                        // this.currentPageNumber = response.data.current_page
-                        // Loading Animation
                         this.dataLoading = false;
 
                     });
@@ -266,70 +259,45 @@
 
 
 
-            getProductName() {
-                axios.get(this.currentUrl + '/sort_by_product').then(response => {
-                    this.sortByProduct = response.data;
-                }).catch(error => {
-                    console.log(error)
-                })
-            },
-
 
 
             exportExcel() {
-                if (this.sort_by_product) {
 
-                    this.exportLoading = true;
+                this.exportLoading = true;
 
-                    axios({
-                        method: 'get',
-                        url: this.currentUrl + '/stock/export_data?search=' + this.search +
-                            '&sort_direction=' + this.sort_direction +
-                            '&sort_field=' + this.sort_field +
-                            '&search_field=' + this.search_field +
-                            '&sort_by_product=' + this.sort_by_product +
-                            '&sort_by_startDate=' + this.sort_by_startDate +
-                            '&sort_by_endDate=' + this.sort_by_endDate,
+                axios({
+                    method: 'get',
+                    url: this.currentUrl + '/stock/export_data?sort_by_startDate=' + this.sort_by_startDate +
+                    '&sort_by_endDate=' + this.sort_by_endDate +
+                    '&sort_by_category=' + this.current_category.id +
+                    '&product_name=' + this.current_category.name,
 
-                        responseType: 'blob', // important
-                    }).then((response) => {
+                    responseType: 'blob', // important
+                }).then((response) => {
 
-                        let repName = this.sort_by_product + ' Stock Report -(' + this.sort_by_startDate +
-                            ' to ' + this.sort_by_endDate + ')';
-                        const url = URL.createObjectURL(new Blob([response.data]))
-                        const link = document.createElement('a')
-                        link.href = url
-                        link.setAttribute('download', `${repName}.xlsx`)
-                        document.body.appendChild(link)
-                        link.click()
+                    let repName = this.current_category.name + ' Stock Report -(' + this.sort_by_startDate +
+                        ' to ' + this.sort_by_endDate + ')';
+                    const url = URL.createObjectURL(new Blob([response.data]))
+                    const link = document.createElement('a')
+                    link.href = url
+                    link.setAttribute('download', `${repName}.xlsx`)
+                    document.body.appendChild(link)
+                    link.click()
 
-                        this.exportLoading = false;
+                    this.exportLoading = false;
 
-                    }).catch(error => {
-                        //stop Loading
-                        this.exportLoading = false
-                        console.log(error)
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error !!',
-                            text: 'Somthing going wrong !!'
-                        })
-                    })
-
-                } else {
-
+                }).catch(error => {
+                    //stop Loading
+                    this.exportLoading = false
+                    console.log(error)
                     Swal.fire({
                         icon: 'error',
                         title: 'Error !!',
-                        text: 'You must have to select product before Export !!'
+                        text: 'Somthing going wrong !!'
                     })
-
-                }
-
+                })
 
             }
-
-
 
         },
 

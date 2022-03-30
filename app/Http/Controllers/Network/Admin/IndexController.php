@@ -29,7 +29,9 @@ class IndexController extends Controller
         $totalMainPing = NetworkMainipPing::get()->count();
         $totalSubPing = NetworkSubipPing::get()->count();
 
-        dd($totalMainIP);
+        //dd($totalMainIP);
+
+        return response()->json(['totalMainIP'=> $totalMainIP, 'totalSubIP'=> $totalSubIP, 'totalMainPing'=> $totalMainPing, 'totalSubPing'=> $totalSubPing, ]);
 
         //return response()->json($allData, 200);
     }
