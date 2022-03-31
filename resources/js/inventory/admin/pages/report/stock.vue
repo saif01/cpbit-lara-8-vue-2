@@ -147,10 +147,11 @@
                         <th>REMAINING</th>
                         <td><span v-if="allData.totalRemaining"> {{ allData.totalRemaining }}</span><span v-else
                                 class="error--text">N/A</span></td>
-                        <td><span v-if="allData.totalRemainingAmmount"> {{ allData.totalRemainingAmmount }}</span><span
-                                v-else class="error--text">N/A</span></td>
                         <td><span v-if="allData.remainingAmmountUnit"> {{ allData.remainingAmmountUnit }}</span><span
                                 v-else class="error--text">N/A</span></td>
+                        <td><span v-if="allData.totalRemainingAmmount"> {{ allData.totalRemainingAmmount }}</span><span
+                                v-else class="error--text">N/A</span></td>
+                       
                     </tr>
                 </table>
 

@@ -144,9 +144,9 @@ class IndexController extends Controller
            $status = $data->damage_st;
            
             if($status == 1){
-                $data->status = null;
+                $data->damage_st = null;
             }else{
-                $data->status = 1;
+                $data->damage_st = 1;
             }
             $success    =  $data->save();
             return response()->json('success', 200);

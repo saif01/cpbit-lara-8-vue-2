@@ -280,6 +280,17 @@ mix.styles([
 // *********End iaccess *********End
 
 
+//mobile_app JS 
+mix.js('resources/js/mobile_app/js/app.js', 'public/js/mobile_app/app.js')
+    .vue();
+//mobile_app CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+    ], 'public/css/mobile_app/app.css');
+
+// *********End mobile_app *********End
+
+
 
 
     

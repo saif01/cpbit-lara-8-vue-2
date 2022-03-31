@@ -1211,6 +1211,56 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
     
 
+    // mobile_app Start
+    Route::namespace('MobileApp')->prefix('mobile_app')->group(function(){
+
+              
+        Route::prefix('guest')->group(function(){
+            Route::post('/store', 'IndexController@guest_store');
+            Route::get('/guest_status/{id}', 'IndexController@guest_status');
+        });
+
+        // User Management
+        Route::namespace('User')->prefix('user')->group(function(){
+            Route::get('/index', 'IndexController@index');
+           
+            Route::post('/status_admin/{id}', 'IndexController@status_admin');
+            Route::post('/status_user/{id}', 'IndexController@status_user');
+
+            Route::get('/roles_data', 'IndexController@roles_data');
+            Route::post('/roles_update', 'IndexController@roles_update');  
+            
+            Route::get('/zoneoffices', 'IndexController@zoneoffices');
+            Route::get('/departments', 'IndexController@departments');
+
+        });
+
+        // Version Management
+        Route::namespace('Version')->prefix('version')->group(function(){
+            Route::get('/index', 'IndexController@index');
+            Route::post('/store', 'IndexController@store');
+            Route::put('/update/{id}', 'IndexController@update');
+            Route::delete('/destroy/{id}', 'IndexController@destroy');
+            Route::post('/status/{id}', 'IndexController@status');
+        });
+
+        // Role 
+        Route::namespace('Role')->prefix('role')->group(function(){
+            Route::get('/index', 'IndexController@index');
+            Route::post('/store', 'IndexController@store');
+            Route::put('/update/{id}', 'IndexController@update');
+            Route::delete('/destroy/{id}', 'IndexController@destroy');
+            Route::post('/status/{id}', 'IndexController@status');
+        });
+
+
+        Route::get('{any?}', 'IndexController@index');
+    });
+    // mobile_app End
+
+
+    
+
     // Email
     Route::namespace('Common\Email')->prefix('email')->group(function(){
         Route::get('/cms_app', 'ScheduleEmailCmsApplication@SEND');

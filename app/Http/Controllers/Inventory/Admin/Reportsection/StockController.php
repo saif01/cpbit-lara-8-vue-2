@@ -236,7 +236,8 @@ class StockController extends Controller
            'totalRemainingAmmount'   => $totalRemainingAmmount,
            'remainingAmmountUnit'    => $remainingAmmountUnit,
 
-           'catagoryName'            => $product_name,
+           'catagoryName'            => '('. $sort_by_startDate .' to '.$sort_by_endDate .') '.$product_name,
+           
 
         ];
 

@@ -109,6 +109,15 @@
                         <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iTemp</div> 
                     </a>
                 </div>
+
+                <div class="col-lg-3 col-6">
+                    <a href="/mobile_app" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
+                        <div class="logo_div">
+                            <div class="network img__logo"><img src="/all-assets/common/icon/network.png" alt="Network" class="img-fluid rotate_icon"></div>
+                        </div>
+                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Mobile App</div> 
+                    </a>
+                </div>
                 
                 <div class="col-lg-3 col-12">
                     <a href="/logout" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">

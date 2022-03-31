@@ -123,6 +123,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Cms\Hardware\HardwareRole', 'hardware_user_role', 'user_id', 'hard_role_id');
     }
 
+    // pbi_roles
     public function pbi_roles(){
         return $this->belongsToMany('App\Models\Pbi\PbiRole', 'pbi_user_role', 'user_id', 'pbi_role_id');
     }
@@ -130,6 +131,22 @@ class User extends Authenticatable
     public function pbi_hasRole($role)
     {
         if($this->pbi_roles()->where('name',$role)->first()){
+            return true;
+        }
+        return false;
+    }
+
+
+    //mobile_app_roles role
+    public function mobile_app_roles()
+    {
+        return $this->belongsToMany('App\Models\MobileApp\MobileAppRole', 'mobile_app_role_user', 'user_id', 'mobile_app_role_id');
+    }
+
+    // Check single roles mobile_app
+    public function mobile_app_hasRole($role)
+    {
+        if($this->mobile_app_roles()->where('name',$role)->first()){
             return true;
         }
         return false;

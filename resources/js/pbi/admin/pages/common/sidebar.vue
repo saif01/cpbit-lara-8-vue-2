@@ -36,7 +36,7 @@
                 <v-list-item-icon>
                     <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
                 </v-list-item-icon>
-                <v-list-item-title>Room Admin</v-list-item-title>
+                <v-list-item-title>PBI Admin</v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
 

@@ -186,17 +186,19 @@
             <td style="background-color: #009688; color:white">0</td>
             @endif
 
+            @if($product->remainingAmmountUnit)
+            <td style="background-color: #009688; color:white">{{ $product->remainingAmmountUnit }}</td>
+            @else
+            <td style="background-color: #009688; color:white">0</td>
+            @endif
+
             @if($product->totalRemainingAmmount)
             <td style="background-color: #009688; color:white">{{ $product->totalRemainingAmmount }}</td>
             @else
             <td style="background-color: #009688; color:white">0</td>
             @endif
 
-            @if($product->remainingAmmountUnit)
-            <td style="background-color: #009688; color:white">{{ $product->remainingAmmountUnit }}</td>
-            @else
-            <td style="background-color: #009688; color:white">0</td>
-            @endif
+            
 
         </tr>
 

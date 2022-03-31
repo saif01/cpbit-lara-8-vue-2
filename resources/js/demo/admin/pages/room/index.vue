@@ -202,11 +202,11 @@
                                 </v-col>
                             </v-row>
 
-                            <v-btn v-show="editmode" type="submit" block depressed :loading="addRoomsLoader"
+                            <v-btn v-show="editmode" type="submit" block depressed :loading="dataModalLoading"
                                 color="primary">
                                 <v-icon>mdi-edit</v-icon> Update
                             </v-btn>
-                            <v-btn v-show="!editmode" type="submit" block depressed :loading="addRoomsLoader"
+                            <v-btn v-show="!editmode" type="submit" block depressed :loading="dataModalLoading"
                                 color="primary">
                                 <v-icon>mdi-save</v-icon> Create
                             </v-btn>

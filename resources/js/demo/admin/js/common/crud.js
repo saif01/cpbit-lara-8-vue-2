@@ -4,13 +4,14 @@ export default{
     async createData() {
         //console.log('Form submited');
         this.$Progress.start()
+        this.dataModalLoading = true
         // request send and get response
         const response = await this.form.post(this.currentUrl +'/store'+ '');
         // Input field make empty
         this.form.reset();
         this.form.errors.clear();
+        this.dataModalLoading = false
         // Hide model
-        //this.$refs['data-modal'].hide();
         this.dataModalDialog = false;
         // Refresh Tbl Data with current page
         this.getResults(this.currentPageNumber);
@@ -35,16 +36,15 @@ export default{
 
     // Update data
     async updateData() {
-        this.addRoomsLoader = true
+        this.dataModalLoading = true
         //console.log('Edit Form submited', this.form.id);
         this.$Progress.start();
         // request send and get response
         const response = await this.form.put(this.currentUrl + '/update/' + this.form.id);
         // Input field make empty
         this.form.reset();
-        this.addRoomsLoader = false
+        this.dataModalLoading = false
         // Hide model
-        //this.$refs['data-modal'].hide();
         this.dataModalDialog = false;
         // Refresh Tbl Data with current page
         this.getResults(this.currentPageNumber);
@@ -234,7 +234,6 @@ export default{
     addDataModel() {
         this.editmode = false;
         this.form.reset();
-        //this.$refs['data-modal'].show();
         this.dataModalDialog = true;
     },
 
@@ -244,7 +243,6 @@ export default{
         this.dataModelTitle = 'Update Data'
         this.form.reset();
         this.form.fill(singleData);
-        //this.$refs['data-modal'].show();
         this.dataModalDialog = true;
     },
 

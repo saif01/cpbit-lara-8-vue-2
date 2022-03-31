@@ -276,3 +276,18 @@ INSERT INTO `cpbit_8`.`pbi_roles`(`id`, `name`, `link`, `created_by`, `created_a
 
 -- pbi_user_role
 INSERT INTO `cpbit_8`.`pbi_user_role`(`id`, `pbi_role_id`, `user_id`, `created_at`, `updated_at`) SELECT `id`, `iservice_powerbi_id`, `user_id`, `created_at`, `updated_at` FROM `cpbit`.`iservice_powerbi_user`
+
+
+
+
+
+-- mobile_app_roles
+INSERT INTO `cpbit_8`.`mobile_app_roles`(`id`, `name`, `status`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `status`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`isales_roles`
+
+-- mobile_app_role_user
+INSERT INTO `cpbit_8`.`mobile_app_role_user`(`id`, `mobile_app_role_id`, `user_id`, `created_at`, `updated_at`) SELECT `id`, `iqscm_role_id`, `user_id`, `created_at`, `updated_at` FROM `cpbit`.`isales_role_user`
+
+-- mobile_app_versions
+INSERT INTO `cpbit_8`.`mobile_app_versions`(`id`, `name`, `version`, `status`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `version`, `status`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`isales_app_versions`
+
+
