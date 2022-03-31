@@ -50,7 +50,7 @@ export default{
     },
 
     isViewAccess(){
-        //console.log(this.userPermission)
+        //console.log(this.userPermission) 
         return this.checkAnyRoleOfArray(['Administrator', 'View']);
     },
     isAddAccess(){
@@ -72,6 +72,15 @@ export default{
     },
     isUserManagement(){
         return this.checkAnyRoleOfArray(['Administrator', 'User-management']);
+    },
+
+
+    // Carpool
+    isCarpoolAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Carpool-admin']);
+    },
+    isCarpool(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Carpool']);
     },
 
 
@@ -99,13 +108,7 @@ export default{
         return this.checkAnyRoleOfArray(['Administrator', 'Ivca']);
     },
 
-    // Carpool
-    isCarpoolAdmin(){
-        return this.checkAnyRoleOfArray(['Administrator', 'Carpool-admin']);
-    },
-    isCarpool(){
-        return this.checkAnyRoleOfArray(['Administrator', 'Carpool']);
-    },
+   
 
 
     // CMS
@@ -126,7 +129,34 @@ export default{
     },
 
 
+    // Inventory
+    isInventory(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Inventory-admin']);
+    },
 
+
+    // PBI
+    isPowerbiAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Powerbi-admin']);
+    },
+    isPowerbi(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Powerbi']);
+    },
+
+
+    // iTemp
+    isItempAdmin(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Itemp-admin']);
+    },
+    isItemp(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Itemp']);
+    },
+
+
+    // Network
+    isNetwork(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Network-monitor']);
+    },
 
 
     

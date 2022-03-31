@@ -38,7 +38,7 @@
                 </a>
             </v-col>
 
-            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+            <v-col cols="6" lg="3" class="text-center" v-if="isPowerbi()">
                 <a href="/itemp" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/powerbi.png" contain></v-img>
@@ -56,16 +56,8 @@
                 </a>
             </v-col>
 
-            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
-                <a href="/iaccess" class="text-decoration-none text-dark">
-                    <v-avatar size="150">
-                        <v-img src="/all-assets/common/icon/iaccess.png"></v-img>
-                    </v-avatar>
-                    <div class="h3 my-3">iAccess</div>
-                </a>
-            </v-col>
-
-            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+        
+            <v-col cols="6" lg="3" class="text-center" v-if="isItemp()">
                 <a href="/itemp" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/itemp.png" contain></v-img>
@@ -73,6 +65,15 @@
                     <div class="h3 my-3">iTemp</div>
                 </a>
             </v-col>
+
+            <!-- <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+                <a href="/iaccess" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/iaccess.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">iAccess</div>
+                </a>
+            </v-col> -->
 
             <v-col cols="6" lg="3" class="text-center">
                 <a href="/logout" class="text-decoration-none text-dark">

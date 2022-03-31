@@ -3,6 +3,16 @@
         <nav-bar headerText="Admin"></nav-bar>
 
         <v-row class="d-flex flex-wrap justify-content-around my-5" style="min-height: 100vh;">
+
+            <v-col cols="6" lg="3" class="text-center" v-if="isSuperAdmin()">
+                <a href="/super_admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/super-admin.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Super Admin</div>
+                </a>
+            </v-col>
+
             <v-col cols="6" lg="3" class="text-center" v-if="isCarpoolAdmin()">
                 <a href="/carpool/admin" class="text-decoration-none text-dark">
                     <v-avatar size="150">
@@ -39,21 +49,12 @@
                 </a>
             </v-col>
 
-            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+            <v-col cols="6" lg="3" class="text-center" v-if="isInventory()">
                 <a href="/inventory/admin" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/inventory.png"></v-img>
                     </v-avatar>
                     <div class="h3 my-3">Inventory</div>
-                </a>
-            </v-col>
-
-            <v-col cols="6" lg="3" class="text-center" v-if="isIvcaAdmin()">
-                <a href="/ivca/admin" class="text-decoration-none text-dark">
-                    <v-avatar size="150">
-                        <v-img src="/all-assets/common/icon/ivca.png"></v-img>
-                    </v-avatar>
-                    <div class="h3 my-3">iVCA</div>
                 </a>
             </v-col>
 
@@ -66,25 +67,7 @@
                 </a>
             </v-col>
 
-            <v-col cols="6" lg="3" class="text-center">
-                <a href="/super_admin" class="text-decoration-none text-dark">
-                    <v-avatar size="150">
-                        <v-img src="/all-assets/common/icon/super-admin.png"></v-img>
-                    </v-avatar>
-                    <div class="h3 my-3">Super Admin</div>
-                </a>
-            </v-col>
-
-            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
-                <a href="/network/admin" class="text-decoration-none text-dark">
-                    <v-avatar size="150">
-                        <v-img src="/all-assets/common/icon/network.png"></v-img>
-                    </v-avatar>
-                    <div class="h3 my-3">Network</div>
-                </a>
-            </v-col>
-
-            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+            <v-col cols="6" lg="3" class="text-center" v-if="isPowerbiAdmin()">
                 <a href="/pbi/admin" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/powerbi.png" contain></v-img>
@@ -93,7 +76,28 @@
                 </a>
             </v-col>
 
-            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+            <v-col cols="6" lg="3" class="text-center" v-if="isIvcaAdmin()">
+                <a href="/ivca/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/ivca.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">iVCA</div>
+                </a>
+            </v-col>
+
+            
+            <v-col cols="6" lg="3" class="text-center" v-if="isNetwork()">
+                <a href="/network/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/network.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Network</div>
+                </a>
+            </v-col>
+
+           
+
+            <v-col cols="6" lg="3" class="text-center" v-if="isItempAdmin()">
                 <a href="/itemp/admin" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/itemp.png" contain></v-img>
@@ -102,7 +106,7 @@
                 </a>
             </v-col>
 
-            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+            <v-col cols="6" lg="3" class="text-center" v-if="isAdministrator()">
                 <a href="/mobile_app" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/mobileapp.png" contain></v-img>

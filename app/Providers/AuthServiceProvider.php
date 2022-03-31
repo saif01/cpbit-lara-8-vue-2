@@ -64,7 +64,7 @@ class AuthServiceProvider extends ServiceProvider
 
 
 
-        //Super Admin Project
+        //Super Admin Project 
         Gate::define('superadmin', function($user){
             return $user->hasAnyRoles(['Administrator', 'Super-admin']);
         });
@@ -83,7 +83,7 @@ class AuthServiceProvider extends ServiceProvider
 
 
 
-        //iHelpDesk Project's Gate
+        //CMS Project's Gate
 
         //Hardware-admin
         Gate::define('hardAdmin', function($user){
@@ -101,6 +101,18 @@ class AuthServiceProvider extends ServiceProvider
         });
 
 
+        //Carpool Booking Project's Gate
+
+        //Carpool User
+        Gate::define('car', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Carpool']);
+        });
+        //Carpool Admin
+        Gate::define('carAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Carpool-admin']);
+        });
+
+
         //Room Booking Project's Gate
 
         //Room User
@@ -113,15 +125,15 @@ class AuthServiceProvider extends ServiceProvider
         });
 
 
-        //Carpool Booking Project's Gate
+        //SMS Project's Gate
 
-        //Carpool User
-        Gate::define('car', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Carpool']);
+        //SMS User
+        Gate::define('SMS', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Sms']);
         });
-        //Carpool Admin
-        Gate::define('carAdmin', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Carpool-admin']);
+        //SMS Admin
+        Gate::define('SMSAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Sms-admin']);
         });
 
 
@@ -141,48 +153,6 @@ class AuthServiceProvider extends ServiceProvider
 
 
 
-        //SMS Project's Gate
-
-        //SMS User
-        Gate::define('SMS', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Sms']);
-        });
-        //SMS Admin
-        Gate::define('SMSAdmin', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Sms-admin']);
-        });
-
-
-
-
-        //Iqscm Project's Gate
-
-        //Iqscm User
-        Gate::define('iqscmUserSection', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Iqscm']);
-        });
-        //Iqscm Admin
-        Gate::define('iqscmAdminSection', function($user){
-            return $user->hasAnyRoles(['Administrator', 'Iqscm-admin']);
-        });
-
-
-        //Iqscm manager
-        Gate::define('iqscmAdmin', function($user){
-            return $user->iqscm_hasRole(['Admin']);
-        });
-
-        //Iqscm manager
-        Gate::define('iqscmManager', function($user){
-            return $user->iqscm_hasAnyRoles(['Admin', 'Manager']);
-        });
-
-        //Iqscm Officer
-        Gate::define('iqscmOfficer', function($user){
-            return $user->iqscm_hasAnyRoles(['Admin', 'Officer']);
-        });
-
-
         //Ivca User
         Gate::define('ivcaUserSection', function($user){
             return $user->hasAnyRoles(['Administrator', 'Ivca']);
@@ -191,6 +161,58 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('ivcaAdminSection', function($user){
             return $user->hasAnyRoles(['Administrator', 'Ivca-admin']);
         });
+
+
+        //Power BI Project's Gate
+
+        //Itemp User
+        Gate::define('itemp', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Itemp']);
+        });
+        //Itemp Admin
+        Gate::define('itempAdmin', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Itemp-admin']);
+        });
+
+
+        //Network Project's Gate
+        Gate::define('networkMonitor', function($user){
+            return $user->hasAnyRoles(['Administrator', 'Network-monitor']);
+        });
+
+
+
+
+
+        //Iqscm Project's Gate
+
+        // //Iqscm User
+        // Gate::define('iqscmUserSection', function($user){
+        //     return $user->hasAnyRoles(['Administrator', 'Iqscm']);
+        // });
+        // //Iqscm Admin
+        // Gate::define('iqscmAdminSection', function($user){
+        //     return $user->hasAnyRoles(['Administrator', 'Iqscm-admin']);
+        // });
+
+
+        // //Iqscm manager
+        // Gate::define('iqscmAdmin', function($user){
+        //     return $user->iqscm_hasRole(['Admin']);
+        // });
+
+        // //Iqscm manager
+        // Gate::define('iqscmManager', function($user){
+        //     return $user->iqscm_hasAnyRoles(['Admin', 'Manager']);
+        // });
+
+        // //Iqscm Officer
+        // Gate::define('iqscmOfficer', function($user){
+        //     return $user->iqscm_hasAnyRoles(['Admin', 'Officer']);
+        // });
+
+
+      
 
     }
 }

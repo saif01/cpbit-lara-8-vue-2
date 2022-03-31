@@ -170,97 +170,97 @@
         transition: .5s;
     }
 
-    /* carpool */
-    .logo_div:hover .carpool {
-        background: #f8c93d;
-        border-radius: 50%;
-    }
+    // /* carpool */
+    // .logo_div:hover .carpool {
+    //     background: #f8c93d;
+    //     border-radius: 50%;
+    // }
 
-    /* help-desk */
-    .logo_div:hover .helpDesk {
-        background: #17a2b8;
-        border-radius: 50%;
-    }
+    // /* help-desk */
+    // .logo_div:hover .helpDesk {
+    //     background: #17a2b8;
+    //     border-radius: 50%;
+    // }
 
-    /* application */
-    .logo_div:hover .application {
-        background: #f8c93d;
-        border-radius: 50%;
-    }
+    // /* application */
+    // .logo_div:hover .application {
+    //     background: #f8c93d;
+    //     border-radius: 50%;
+    // }
 
-    /* hardware */
-    .logo_div:hover .hardware {
-        background: #3898ff;
-        border-radius: 50%;
-    }
+    // /* hardware */
+    // .logo_div:hover .hardware {
+    //     background: #3898ff;
+    //     border-radius: 50%;
+    // }
 
-    /* inventory */
-    .logo_div:hover .inventory {
-        background: #48b361;
-        border-radius: 50%;
-    }
+    // /* inventory */
+    // .logo_div:hover .inventory {
+    //     background: #48b361;
+    //     border-radius: 50%;
+    // }
 
-    /* powerBi */
-    .logo_div:hover .powerBi {
-        background: #33b6ca;
-        border-radius: 50%;
-    }
+    // /* powerBi */
+    // .logo_div:hover .powerBi {
+    //     background: #33b6ca;
+    //     border-radius: 50%;
+    // }
 
-    /* network */
-    .logo_div:hover .network {
-        background: #3898ff;
-        border-radius: 50%;
-    }
+    // /* network */
+    // .logo_div:hover .network {
+    //     background: #3898ff;
+    //     border-radius: 50%;
+    // }
 
-    /* room */
-    .logo_div:hover .room {
-        background: #f8c93d;
-        border-radius: 50%;
-    }
+    // /* room */
+    // .logo_div:hover .room {
+    //     background: #f8c93d;
+    //     border-radius: 50%;
+    // }
 
-    /* audit */
-    .logo_div:hover .audit {
-        background: #33b6ca;
-        border-radius: 50%;
-    }
+    // /* audit */
+    // .logo_div:hover .audit {
+    //     background: #33b6ca;
+    //     border-radius: 50%;
+    // }
 
-    /* sms */
-    .logo_div:hover .sms {
-        background: #48b361;
-        border-radius: 50%;
-    }
+    // /* sms */
+    // .logo_div:hover .sms {
+    //     background: #48b361;
+    //     border-radius: 50%;
+    // }
 
-    // logout
-    .logo_div:hover .logout {
-        background: #cc3f4d;
-        border-radius: 50%;
-    }
+    // // logout
+    // .logo_div:hover .logout {
+    //     background: #cc3f4d;
+    //     border-radius: 50%;
+    // }
 
-    @media all and (max-width:800px) {
-        .responsive_gap {
-            margin-top: 2rem;
-        }
+    // @media all and (max-width:800px) {
+    //     .responsive_gap {
+    //         margin-top: 2rem;
+    //     }
 
-        .nav_text {
-            font-size: 18px;
-        }
-    }
+    //     .nav_text {
+    //         font-size: 18px;
+    //     }
+    // }
 
-    /* footer */
-    .dashboard_footer_bg {
-        background: #141e30;
-        color: white;
-    }
+    // /* footer */
+    // .dashboard_footer_bg {
+    //     background: #141e30;
+    //     color: white;
+    // }
 
-    // dashboard css
-    .logo_div:hover .user_section {
-        background: #556b9c;
-        border-radius: 50%;
-    }
+    // // dashboard css
+    // .logo_div:hover .user_section {
+    //     background: #556b9c;
+    //     border-radius: 50%;
+    // }
 
-    .logo_div:hover .admin_section {
-        background: #3f9971;
-        border-radius: 50%;
-    }
+    // .logo_div:hover .admin_section {
+    //     background: #3f9971;
+    //     border-radius: 50%;
+    // }
 
 </style>
