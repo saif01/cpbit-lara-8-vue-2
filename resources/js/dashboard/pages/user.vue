@@ -126,4 +126,18 @@
         transform: scale(1.2);
     }
 
+    @media all and (max-width:800px) {
+        .v-avatar {
+
+            height: 100px !important;
+            min-width: 100px !important;
+            width: 100px !important;
+
+        }
+        .v-avatar + div{
+            font-size: 1.2rem !important;
+
+        }
+    }
+
 </style>
