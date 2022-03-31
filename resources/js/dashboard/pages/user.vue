@@ -1,124 +1,128 @@
 <template>
     <div class="bg_grad">
         <nav-bar headerText="User"></nav-bar>
-        <div style="min-height: 100vh;">
-            <div class="d-flex flex-wrap justify-content-around">
+        <v-row class="d-flex flex-wrap justify-content-around my-5" style="min-height: 100vh;">
+            <v-col cols="6" lg="3" class="text-center" v-if="isCarpool()">
+                <a href="/carpool" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/car.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Carpool</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6" v-if="isCarpool()">
-                    <a href="/carpool" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="carpool img__logo"><img src="/all-assets/common/icon/car.png" alt="Carpool" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Carpool</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isRoom()">
+                <a href="/room" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/room.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Room</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6" v-if="isRoom()">
-                    <a href="/room" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="room img__logo"><img src="/all-assets/common/icon/room.png" alt="Room" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Room</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isCms()">
+                <a href="/cms" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/cms.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">CMS</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6" v-if="isCms()">
-                    <a href="/cms" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="helpDesk img__logo"><img src="/all-assets/common/icon/application.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">CMS</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+                <a href="/sms" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/sms.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">SMS</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6" v-if="isSms()">
-                    <a href="/sms" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="sms img__logo"><img src="/all-assets/common/icon/sms.png" alt="SMS" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">SMS</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+                <a href="/itemp" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/powerbi.png" contain></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Power BI</div>
+                </a>
+            </v-col>
 
+            <v-col cols="6" lg="3" class="text-center" v-if="isIvca()">
+                <a href="/ivca" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/ivca.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">iVCA</div>
+                </a>
+            </v-col>
 
-                
-               
-                
-            </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+                <a href="/iaccess" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/iaccess.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">iAccess</div>
+                </a>
+            </v-col>
 
-            <div class="d-flex flex-wrap mt-5 justify-content-around">
-                <div class="col-lg-3 col-6">
-                    <a href="/pbi" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
-                    </a>
-                </div>
-                <div class="col-lg-3 col-6" v-if="isIvca()">
-                    <a href="/ivca" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVCA</div> 
-                    </a>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <a href="/iaccess" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iAccess</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+                <a href="/itemp" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/itemp.png" contain></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">iTemp</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6">
-                    <a href="/itemp" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="network img__logo"><img src="/all-assets/common/icon/network.png" alt="Network" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iTemp</div> 
-                    </a>
-                </div>
-            </div>
+            <v-col cols="6" lg="3" class="text-center">
+                <a href="/logout" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/logout.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Logout</div>
+                </a>
+            </v-col>
 
-            <div class="d-flex flex-wrap justify-content-around mt-5 pb-5">
-                <div class="col-lg-6 col-12">
-                    <a href="/logout" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="logout img__logo"><img src="/all-assets/common/icon/logout.png" alt="Logout" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Logout</div> 
-                    </a>
-                </div>
-            </div>
+        </v-row>
 
-        </div>
         <footer-bar></footer-bar>
+
     </div>
 </template>
 
 <script>
-import navbar from "./navbar.vue"
-import footer from "./footer.vue"
-export default {
-    components:{
-        "nav-bar":navbar,
-        "footer-bar":footer
-    },
-    
-    methods:{
-        redirectToHome(){
-            window.location.href = '/';
+    import navbar from "./navbar.vue"
+    import footer from "./footer.vue"
+    export default {
+        components: {
+            "nav-bar": navbar,
+            "footer-bar": footer
+        },
+
+        methods: {
+            redirectToHome() {
+                window.location.href = '/';
+            }
         }
     }
-}
+
 </script>
 
 <style scoped>
-    .bg_grad{
-        background: -webkit-linear-gradient(to right, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .bg_grad {
+        background: linear-gradient(90deg, #eaecc6, #2bc0e4);
         width: 100%;
+        min-height: 100vh;
     }
+
+    .v-avatar {
+        box-shadow: 0px 10px 7px rgb(0 0 0 / 42%);
+        transition: .5s;
+        border: 3px solid black;
+    }
+
+    .v-avatar:hover {
+        transform: scale(1.2);
+    }
+
 </style>

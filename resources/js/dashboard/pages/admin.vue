@@ -1,159 +1,164 @@
 <template>
     <div class="bg_grad">
         <nav-bar headerText="Admin"></nav-bar>
-        <div style="min-height: 100vh;">
-            <div class="d-flex flex-wrap justify-content-around" >
 
-                <!-- Carpool -->
-                <div class="col-lg-3 col-6" v-if="isCarpoolAdmin()">
-                    <a href="/carpool/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="carpool img__logo"><img src="/all-assets/common/icon/car.png" alt="Carpool" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Carpool</div> 
-                    </a>
-                </div>
+        <v-row class="d-flex flex-wrap justify-content-around my-5" style="min-height: 100vh;">
+            <v-col cols="6" lg="3" class="text-center" v-if="isCarpoolAdmin()">
+                <a href="/carpool/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/car.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Carpool</div>
+                </a>
+            </v-col>
 
-                <!-- Room -->
-                <div class="col-lg-3 col-6" v-if="isRoomAdmin()">
-                    <a href="/room/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="room img__logo"><img src="/all-assets/common/icon/room.png" alt="Room" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Room</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isRoomAdmin()">
+                <a href="/room/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/room.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Room</div>
+                </a>
+            </v-col>
 
-                <!-- Application -->
-                <div class="col-lg-3 col-6" v-if="isApplicationAdmin()">
-                    <a href="/cms/a_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="application img__logo"><img src="/all-assets/common/icon/application.png" alt="Application" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Application</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isApplicationAdmin()">
+                <a href="/cms/a_admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/application.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Appliaction</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6" v-if="isHardwareAdmin()">
-                    <a href="/cms/h_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="hardware img__logo"><img src="/all-assets/common/icon/hardware.png" alt="Hardware" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Hardware</div> 
-                    </a>
-                </div>
-            </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+                <a href="/cms/h_admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/hardware.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Hardware</div>
+                </a>
+            </v-col>
 
-         
+            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+                <a href="/inventory/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/inventory.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Inventory</div>
+                </a>
+            </v-col>
 
-            <div class="d-flex flex-wrap mt-5 justify-content-around">
-                <div class="col-lg-3 col-4" v-if="isIvcaAdmin()">
-                    <a href="/inventory/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="audit img__logo"><img src="/all-assets/common/icon/Inventory.png" alt="iVca" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Inventory</div> 
-                    </a>
-                </div>
-                <div class="col-lg-3 col-4" v-if="isIvcaAdmin()">
-                    <a href="/ivca/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="audit img__logo"><img src="/all-assets/common/icon/audit.png" alt="iVca" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iVCA</div> 
-                    </a>
-                </div>
-                <div class="col-lg-3 col-4" v-if="isSmsAdmin()">
-                    <a href="/sms/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="sms img__logo"><img src="/all-assets/common/icon/sms.png" alt="SMS" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">SMS</div> 
-                    </a>
-                </div>
-                <!-- Super Admin -->
-                <div class="col-lg-3 col-4" v-if="isSuperAdmin()">
-                    <a href="/super_admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="helpDesk img__logo"><img src="/all-assets/common/icon/super-admin.png" alt="iHelp Desk" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Super Admin</div> 
-                    </a>
-                </div>
-            </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isIvcaAdmin()">
+                <a href="/ivca/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/ivca.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">iVCA</div>
+                </a>
+            </v-col>
 
-            <div class="d-flex flex-wrap justify-content-around mt-5 pb-5">
-                 
-                <div class="col-lg-3 col-6">
-                    <a href="/network/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="network img__logo"><img src="/all-assets/common/icon/network.png" alt="Network" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Network</div> 
-                    </a>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <a href="/pbi/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="powerBi img__logo"><img src="/all-assets/common/icon/powerbi.png" alt="Power BI" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Power BI</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isSmsAdmin()">
+                <a href="/sms/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/sms.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">SMS</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6">
-                    <a href="/itemp/admin" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="network img__logo"><img src="/all-assets/common/icon/network.png" alt="Network" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">iTemp</div> 
-                    </a>
-                </div>
+            <v-col cols="6" lg="3" class="text-center">
+                <a href="/super_admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/super-admin.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Super Admin</div>
+                </a>
+            </v-col>
 
-                <div class="col-lg-3 col-6">
-                    <a href="/mobile_app" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="network img__logo"><img src="/all-assets/common/icon/network.png" alt="Network" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Mobile App</div> 
-                    </a>
-                </div>
-                
-                <div class="col-lg-3 col-12">
-                    <a href="/logout" class="text-decoration-none text-dark d-flex justify-content-center align-items-center flex-column">
-                        <div class="logo_div">
-                            <div class="logout img__logo"><img src="/all-assets/common/icon/logout.png" alt="Logout" class="img-fluid rotate_icon"></div>
-                        </div>
-                        <div class="h3 mt-3 logo_text_response text-center font-weight-bold">Logout</div> 
-                    </a>
-                </div>
-            </div>
-           
-        </div>
+            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+                <a href="/network/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/network.png"></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Network</div>
+                </a>
+            </v-col>
+
+            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+                <a href="/pbi/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/powerbi.png" contain></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Power BI</div>
+                </a>
+            </v-col>
+
+            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+                <a href="/itemp/admin" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/itemp.png" contain></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">iTemp</div>
+                </a>
+            </v-col>
+
+            <v-col cols="6" lg="3" class="text-center" v-if="isHardwareAdmin()">
+                <a href="/mobile_app" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/mobileapp.png" contain></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Mobile App</div>
+                </a>
+            </v-col>
+
+            <v-col cols="6" lg="3" class="text-center">
+                <a href="/logout" class="text-decoration-none text-dark">
+                    <v-avatar size="150">
+                        <v-img src="/all-assets/common/icon/logout.png" contain></v-img>
+                    </v-avatar>
+                    <div class="h3 my-3">Logout</div>
+                </a>
+            </v-col>
+        </v-row>
+
         <footer-bar></footer-bar>
+
     </div>
 </template>
 
 
 <script>
-import navbar from "./navbar.vue"
-import footer from "./footer.vue"
-export default {
-    components:{
-        "nav-bar":navbar,
-        "footer-bar":footer
-    },    
-    methods:{
-        redirectToHome(){
-            window.location.href = '/';
+    import navbar from "./navbar.vue"
+    import footer from "./footer.vue"
+    export default {
+        components: {
+            "nav-bar": navbar,
+            "footer-bar": footer
+        },
+        methods: {
+            redirectToHome() {
+                window.location.href = '/';
+            }
         }
     }
-}
+
 </script>
 
 <style scoped>
-    .bg_grad{
+    .bg_grad {
         background: linear-gradient(to right, #F0C8BA, #F08D89);
         width: 100%;
+        min-height: 100vh;
     }
+
+    .v-avatar {
+        box-shadow: 0px 10px 7px rgb(0 0 0 / 42%);
+        transition: .5s;
+        border: 3px solid black;
+    }
+
+    .v-avatar:hover {
+        transform: scale(1.2);
+    }
+
 </style>
