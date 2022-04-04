@@ -16,9 +16,11 @@ use DB;
 class allcomplain implements FromView, ShouldAutoSize, WithEvents
 {
     public $data;
+    public $name;
 
-    public function __construct($data){
+    public function __construct($data, $name){
         $this->data = $data;
+        $this->name = $name;
        // dd($this->data);
     }
 
@@ -32,7 +34,8 @@ class allcomplain implements FromView, ShouldAutoSize, WithEvents
         // ]);
 
         $complain =  $this->data;
-        return view('cms.application_admin.report.allcomplain', compact('complain'));
+        $name =  $this->name;
+        return view('cms.application_admin.report.allcomplain', compact('complain', 'name'));
     }
 
     public function registerEvents(): array

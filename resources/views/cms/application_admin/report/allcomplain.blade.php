@@ -2,7 +2,9 @@
     <thead>
         <tr>
             <td colspan="8" rowspan="3">
-                C.P. Bangladesh Co., Ltd. - Head Office <br> Information Technology <br> All Application Complain List
+                C.P. Bangladesh Co., Ltd. - Head Office 
+                <br> Information Technology 
+                <br> {{ $name }}
             </td>
         </tr>
         <tr></tr>
@@ -19,37 +21,37 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($complain as $complain)
+        @foreach($complain as $item)
         <tr>
-            <td>{{ $complain->id }}</td>
-            <td>{{ $complain->process }}</td>
+            <td>{{ $item->id }}</td>
+            <td>{{ $item->process }}</td>
 
-            @if($complain->category)
-            <td>{{ $complain->category->name }}</td>
+            @if($item->category)
+            <td>{{ $item->category->name }}</td>
             @else
             <td style="color:red">N/A</td>
             @endif
 
-            @if($complain->subcategory)
-            <td>{{ $complain->subcategory->name }}</td>
+            @if($item->subcategory)
+            <td>{{ $item->subcategory->name }}</td>
             @else
             <td style="color:red">N/A</td>
             @endif
 
-            @if($complain->makby)
-            <td>{{ $complain->makby->name }}</td>
+            @if($item->makby)
+            <td>{{ $item->makby->name }}</td>
             @else
             <td style="color:red">N/A</td>
             @endif
 
-            @if($complain->makby)
-            <td>{{ $complain->makby->department }}</td>
+            @if($item->makby)
+            <td>{{ $item->makby->department }}</td>
             @else
             <td style="color:red">N/A</td>
             @endif
 
-            <td>{{date("F j, Y, g:i a", strtotime($complain->created_at))}}</td>
-            <td>{{date("F j, Y, g:i a", strtotime($complain->updated_at))}}</td>
+            <td>{{date("F j, Y, g:i a", strtotime($item->created_at))}}</td>
+            <td>{{date("F j, Y, g:i a", strtotime($item->updated_at))}}</td>
 
         </tr>
         @endforeach

@@ -12,7 +12,15 @@
                             <v-icon left color="success">mdi-file-excel</v-icon>
                             Export
                         </v-btn>
+
+                         <a :href="'/inventory/admin/report/stock/export_view?sort_by_startDate=' + sort_by_startDate +
+                    '&sort_by_endDate=' +sort_by_endDate +
+                    '&sort_by_category=' +current_category.id +
+                    '&product_name=' +current_category.name" target="_blank" class="btn" >Export View</a>
                     </v-col>
+
+                    
+
                 </v-row>
             </v-card-title>
 
@@ -106,13 +114,23 @@
                 </div>
                 <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Sorry !! Don't use this month</h1>
 
-                <div>Summary Report:</div>
+                <div class="col-8">Summary Report:
                 <!-- Summary table -->
                 <table class="table table-bordered text-center">
                     <tr>
                         <th colspan="2">TOTAL USEGE</th>
                         <th>Unit Price</th>
                         <th>Amount</th>
+                    </tr> 
+                    <tr class="summary_color">
+                        <th>B/F</th>
+                        <td><span v-if="allData.totalBroughtForward"> {{ allData.totalBroughtForward }}</span><span v-else
+                                class="error--text">N/A</span></td>
+                        <td><span v-if="allData.broughtForwardAmmountUnit"> {{ allData.broughtForwardAmmountUnit }}</span><span
+                                v-else class="error--text">N/A</span></td>
+                        <td><span v-if="allData.totalBroughtForwardAmmount"> {{ allData.totalBroughtForwardAmmount }}</span><span
+                                v-else class="error--text">N/A</span></td>
+                       
                     </tr>
                     <tr>
                         <th>RECEIVED</th>
@@ -143,17 +161,18 @@
                         <td><span v-if="allData.damagedAmmountUnit"> {{ allData.damagedAmmountUnit }}</span><span v-else
                                 class="error--text">N/A</span></td>
                     </tr>
-                    <tr>
-                        <th>REMAINING</th>
+                    <tr class="summary_color">
+                        <th>C/F</th>
                         <td><span v-if="allData.totalRemaining"> {{ allData.totalRemaining }}</span><span v-else
                                 class="error--text">N/A</span></td>
-                        <td><span v-if="allData.remainingAmmountUnit"> {{ allData.remainingAmmountUnit }}</span><span
+                        <td><span v-if="allData.totalRemainingAmmount"> {{ allData.totalRemainingAmmount }}</span><span
                                 v-else class="error--text">N/A</span></td>
                         <td><span v-if="allData.totalRemainingAmmount"> {{ allData.totalRemainingAmmount }}</span><span
                                 v-else class="error--text">N/A</span></td>
                        
                     </tr>
                 </table>
+                </div>
 
             </v-card-text>
         </v-card>
@@ -259,9 +278,6 @@
             },
 
 
-
-
-
             exportExcel() {
 
                 this.exportLoading = true;
@@ -343,3 +359,10 @@
     }
 
 </script>
+
+<style scoped>
+    .summary_color{
+        background-color: #009688; 
+        color:white
+    }
+</style>

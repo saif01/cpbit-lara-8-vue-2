@@ -7,11 +7,10 @@
                         All Destinations Name
                     </v-col>
                     <v-col cols="2">
-                        <v-btn @click="addDataModel()" color="primary" small outlined
+                        <v-btn @click="addDataModel()" color="primary" elevation="10" small outlined
                             class="float-right">
-                            <v-icon left dark>mdi-plus-circle-outline </v-icon> Add
+                            <v-icon small>mdi-card-plus</v-icon> Add
                         </v-btn>
-                        
                     </v-col>
                 </v-row>
             </v-card-title>
@@ -53,10 +52,10 @@
                         
                                 <td class="text-center">
                                     <v-btn @click="editDataModel(singleData)" color="info" depressed small>
-                                        <v-icon small>mdi-pencil-box-multiple-outline</v-icon> Edit
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
                                     </v-btn>
                                     <v-btn @click="deleteDataTemp(singleData.id)" color="error" depressed small>
-                                        <v-icon small>mdi-delete-empty</v-icon> Delete
+                                        <v-icon left>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
                                 </td>
                             </tr>

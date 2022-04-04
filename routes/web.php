@@ -56,6 +56,9 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     // SuperAdmin Start
     Route::middleware(['can:superadmin'])->namespace('SuperAdmin')->prefix('super_admin')->group(function(){
 
+
+        Route::get('/dashboard_data', 'IndexController@dashboard_data');
+
         // User Management
         Route::namespace('User')->prefix('user')->group(function(){
             Route::get('/index', 'IndexController@index');
@@ -187,8 +190,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     // Room End
 
 
-    //CarPool
-    Route::namespace('Carpool')->prefix('carpool')->group(function(){
+     //CarPool
+     Route::namespace('Carpool')->prefix('carpool')->group(function(){
 
         // Admin
         Route::middleware(['can:carAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
@@ -251,6 +254,12 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
                 // car data
                 Route::get('/car-data', 'IndexController@CarData');
+
+                // export_data
+                Route::get('/export_data_all', 'IndexController@export_data_all');
+                Route::get('/export_data_req', 'IndexController@export_data_req');
+                Route::get('/export_data_maint', 'IndexController@export_data_maint');
+                Route::get('/export_data_leave', 'IndexController@export_data_leave');
             });
 
 
@@ -260,7 +269,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
 
         // User
-        Route::middleware(['can:car'])->namespace('User')->group(function(){
+        Route::middleware(['can:room'])->namespace('User')->group(function(){
 
             Route::prefix('booking')->group(function(){
                 Route::get('/data', 'BookingController@data');
@@ -672,6 +681,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::prefix('stock')->group(function(){
                     Route::get('/', 'StockController@index');
                     Route::get('/export_data', 'StockController@export_data');
+                    Route::get('/export_view', 'StockController@export_view');
                 });
 
             });

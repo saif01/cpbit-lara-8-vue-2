@@ -56,51 +56,51 @@
                 </v-list-item>
 
 
-                 <v-list-item v-if="isUserManagement()" link router :to="{ name: 'Users' }">
-                        <v-list-item-icon>
-                            <v-icon>mdi-account-details</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>All User</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
+                <v-list-item v-if="isUserManagement()" link router :to="{ name: 'Users' }">
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-details</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>All User</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
 
-                    <v-list-item v-if="isUserManagement()" link router :to="{ name: 'Registered' }">
-                        <v-list-item-icon>
-                            <v-icon>mdi-account-question-outline </v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>All Registered</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item v-if="isRoleManage()" link router :to="{ name: 'Roles' }">
-                        <v-list-item-icon>
-                            <v-icon>mdi-clipboard-text</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>All Roles</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
+                <v-list-item v-if="isUserManagement()" link router :to="{ name: 'Registered' }">
+                    <v-list-item-icon>
+                        <v-icon>mdi-account-question-outline </v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>All Registered</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="isRoleManage()" link router :to="{ name: 'Roles' }">
+                    <v-list-item-icon>
+                        <v-icon>mdi-clipboard-text</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>All Roles</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
 
 
-              
 
-                 <v-list-item link router :to="{ name: 'Zones' }">
-                        <v-list-item-icon>
-                            <v-icon>mdi-map-clock</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>All Zones</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item link router :to="{ name: 'ZoneOffices' }">
-                        <v-list-item-icon>
-                            <v-icon>mdi-office-building-marker</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>All Zone Offices</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
+
+                <v-list-item link router :to="{ name: 'Zones' }">
+                    <v-list-item-icon>
+                        <v-icon>mdi-map-clock</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>All Zones</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item link router :to="{ name: 'ZoneOffices' }">
+                    <v-list-item-icon>
+                        <v-icon>mdi-office-building-marker</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>All Zone Offices</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
 
 
                 <!-- <v-list-group prepend-icon="mdi-account-group" active-class="dark--text">
@@ -131,7 +131,7 @@
 
 
                 <!-- Sidebar Multi level Item -->
-                <v-list-group prepend-icon="mdi-account-group" active-class="dark--text" no-action>
+                <!-- <v-list-group prepend-icon="mdi-account-group" active-class="dark--text" no-action>
                     <template v-slot:activator>
                         <v-list-item-title>Dropdown</v-list-item-title>
                     </template>
@@ -161,7 +161,7 @@
 
                         </v-list-item>
                     </v-list-group>
-                </v-list-group>
+                </v-list-group> -->
 
 
 

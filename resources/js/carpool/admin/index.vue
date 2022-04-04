@@ -1,16 +1,13 @@
 <template>
     <v-app>
-
-    
+        
         <side-bar></side-bar>
-
         <v-main>
             <div class="ma-3">
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
             </div>
         </v-main>
-
         <page-footer></page-footer>
 
     </v-app>

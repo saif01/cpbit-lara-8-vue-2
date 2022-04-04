@@ -36,8 +36,8 @@ class CreatePbiFeedSalesTable extends Migration
             $table->string('product_breed_type')->nullable();
             $table->string('product_group')->nullable();
             $table->integer('quantity')->nullable();
-            $table->double('weight', 15,2)->nullable();
-            $table->double('amount', 15,2)->nullable();
+            $table->double('weight', 15,4)->nullable();
+            $table->double('amount', 15,4)->nullable();
             $table->timestamps();
         });
     }

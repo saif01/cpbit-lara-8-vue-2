@@ -40,7 +40,7 @@
         >
             <v-list-item class="px-2" link href="/">
                 <v-list-item-icon>
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
+                    <img src="/all-assets/common/icon/car.png" alt="" height="50px" contain>
                 </v-list-item-icon>
                 <v-list-item-title>Carpool Admin</v-list-item-title>
             </v-list-item>

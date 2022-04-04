@@ -1,13 +1,8 @@
 <template>
     <div>
-        <h1>Carpool Admin</h1>
-
-        Current ID: {{ auth.login }}
-
         <div>
             <FullCalendar :options='calendarOptions'></FullCalendar>
         </div>
-
 
 
         <!-- Single Event data Show Modal -->
@@ -77,125 +72,128 @@
 </template>
 
 <script>
-import FullCalendar from '@fullcalendar/vue'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
+    import FullCalendar from '@fullcalendar/vue'
+    import dayGridPlugin from '@fullcalendar/daygrid'
+    import timeGridPlugin from '@fullcalendar/timegrid'
+    import interactionPlugin from '@fullcalendar/interaction'
 
-import { BPopover } from 'bootstrap-vue'
+    import {
+        BPopover
+    } from 'bootstrap-vue'
 
-export default {
-    components: {
-        FullCalendar // make the <FullCalendar> tag available
-    },
-    data(){
-        return{
-            calendarOptions: {
-                plugins: [
-                    dayGridPlugin,
-                    timeGridPlugin,
-                    interactionPlugin // needed for dateClick
-                ],
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    export default {
+        components: {
+            FullCalendar // make the <FullCalendar> tag available
+        },
+        data() {
+            return {
+                calendarOptions: {
+                    plugins: [
+                        dayGridPlugin,
+                        timeGridPlugin,
+                        interactionPlugin // needed for dateClick
+                    ],
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    initialView: 'dayGridMonth',
+                    weekends: true,
+                    select: this.handleDateSelect,
+                    eventClick: this.handleEventClick,
+                    // eventsSet: this.handleEvents,
+                    themeSystem: 'bootstrap',
+                    weekNumbers: true,
+                    eventLongPressDelay: 0,
+                    selectLongPressDelay: 0,
+                    longPressDelay: 0,
+                    events: "",
+                    eventBackgroundColor: "rgb(24, 130, 42)",
+                    eventBorderColor: "red",
+                    displayEventTime: false,
+                    // For Mouse Hover
+                    eventDidMount: this.onEventRender,
+                    height: 550,
+
                 },
-                initialView: 'dayGridMonth',
-                weekends: true,
-                select: this.handleDateSelect,
-                eventClick: this.handleEventClick,
-                // eventsSet: this.handleEvents,
-                themeSystem: 'bootstrap',
-                weekNumbers: true,
-                eventLongPressDelay: 0,
-                selectLongPressDelay: 0,
-                longPressDelay: 0,
-                events: "",
-                eventBackgroundColor: "rgb(24, 130, 42)",
-                eventBorderColor: "red",
-                displayEventTime: false,
-                // For Mouse Hover
-                eventDidMount: this.onEventRender,
-                height: 550,
 
-            },
+                clickCurrentEvetData: '',
+                datePickerHeader: true,
 
-            clickCurrentEvetData: '',
-            datePickerHeader: true,
-
-            //current page url
-            currentUrl: '/carpool/booking',
+                //current page url
+                currentUrl: '/carpool/booking',
 
 
-            eventDetailsModal: false,
-        }
-    },
-
-    methods:{
-
-        // Fetch Data from DB
-        async getDataAsync() {
-            try {
-                const response = await axios.get(this.currentUrl + '/data');
-                // Data assign to calendar
-                this.calendarOptions.events = response.data
-                // console.log(response.data);
-            } catch (error) {
-                console.error(error);
+                eventDetailsModal: false,
             }
         },
 
+        methods: {
 
-        // Mouse hover data
-        onEventRender: function (args) {
-            //console.log(args.event.extendedProps.bookby.name, args.event.start )
-            let titleStr = args.event.title
-            let contentStr = this.$moment(args.event.start).format("MMM Do, h:mm:ss a") + " - " + this.$moment(
-                args.event.start).format("MMM Do, h:mm:ss a");
-
-            new BPopover({
-                propsData: {
-                    title: titleStr,
-                    content: contentStr,
-                    placement: 'auto',
-                    boundary: 'scrollParent',
-                    boundaryPadding: 3,
-                    delay: 50,
-                    offset: 0,
-                    triggers: 'hover',
-                    html: true,
-                    target: args.el,
-                    variant: "info",
-                    customClass: "custom-tooltrip"
+            // Fetch Data from DB
+            async getDataAsync() {
+                try {
+                    const response = await axios.get(this.currentUrl + '/data');
+                    // Data assign to calendar
+                    this.calendarOptions.events = response.data
+                    // console.log(response.data);
+                } catch (error) {
+                    console.error(error);
                 }
-            }).$mount()
+            },
+
+
+            // Mouse hover data
+            onEventRender: function (args) {
+                //console.log(args.event.extendedProps.bookby.name, args.event.start )
+                let titleStr = args.event.title
+                let contentStr = this.$moment(args.event.start).format("MMM Do, h:mm:ss a") + " - " + this.$moment(
+                    args.event.start).format("MMM Do, h:mm:ss a");
+
+                new BPopover({
+                    propsData: {
+                        title: titleStr,
+                        content: contentStr,
+                        placement: 'auto',
+                        boundary: 'scrollParent',
+                        boundaryPadding: 3,
+                        delay: 50,
+                        offset: 0,
+                        triggers: 'hover',
+                        html: true,
+                        target: args.el,
+                        variant: "info",
+                        customClass: "custom-tooltrip"
+                    }
+                }).$mount()
+            },
+
+            // Single Event Data Show
+            handleEventClick(clickInfo) {
+                // Modal Show
+                this.eventDetailsModal = true;
+                // Asign Current event data
+                this.clickCurrentEvetData = clickInfo.event;
+
+            },
+
+            // Single Event Data Show
+            handleEventClick(clickInfo) {
+                // Modal Show
+                this.eventDetailsModal = true;
+                // Asign Current event data
+                this.clickCurrentEvetData = clickInfo.event;
+
+
+            },
         },
 
-        // Single Event Data Show
-        handleEventClick(clickInfo) {
-            // Modal Show
-            this.eventDetailsModal = true;
-            // Asign Current event data
-            this.clickCurrentEvetData = clickInfo.event;
-
-        },
-
-        // Single Event Data Show
-        handleEventClick(clickInfo) {
-            // Modal Show
-            this.eventDetailsModal = true;
-            // Asign Current event data
-            this.clickCurrentEvetData = clickInfo.event;
-
-
-        },
-    },
-
-    created(){
-        this.getDataAsync();
+        created() {
+            this.getDataAsync();
+        }
     }
-}
+
 </script>
 
 <style>

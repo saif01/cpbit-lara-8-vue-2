@@ -290,9 +290,7 @@ import axios from 'axios'
                     responseType: 'blob', // important
                 }).then((response) => {
 
-                    
-
-                    let repName = new Date();
+                    let repName = 'All Application Complain '+ new Date().toLocaleDateString();
 
                     const url = URL.createObjectURL(new Blob([response.data]))
                     const link = document.createElement('a')

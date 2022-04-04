@@ -369,11 +369,11 @@ export default{
         // console.log('status', data.status)
         if(data.admin == 1){
             var text = "Are you want to remove Admin access ?"
-            var btnText = "No Admin"
+            var btnText = "Remove"
            
         }else{
             var text = "Are you want to assign Admin access ?"
-            var btnText = "Admin"
+            var btnText = "Assign"
         }
 
         Swal.fire({
@@ -415,21 +415,21 @@ export default{
     // Change user Status
     statusChangeUser(data){
         // console.log('status', data.status)
-        if(data.admin == 1){
+        if(data.user == 1){
             var text = "Are you want to remove User access ?"
-            var btnText = "No User"
+            var btnText = "Remove"
            
         }else{
             var text = "Are you want to assign User access ?"
-            var btnText = "User"
+            var btnText = "Assign"
         }
 
         Swal.fire({
             title: 'Are you sure?',
             text: text,
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
             confirmButtonText: btnText,
         }).then((result) => {
 

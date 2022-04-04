@@ -28,7 +28,7 @@ class CreatePbiExpenses extends Migration
             $table->string('account_name')->nullable();
             $table->string('expense_type')->nullable();
             $table->string('expense_group')->nullable();
-            $table->double('amount', 15,2)->nullable();
+            $table->double('amount', 15,4)->nullable();
             $table->timestamps();
         });
     }

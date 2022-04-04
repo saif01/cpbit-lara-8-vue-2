@@ -7,10 +7,10 @@
                         Carpool Driver's Table
                     </v-col>
                     <v-col cols="2">
-                        <v-btn @click="addDataModel()" color="primary" small outlined class="float-right">
-                            <v-icon left dark>mdi-plus-circle-outline </v-icon> Add
+                        <v-btn @click="addDataModel()" color="primary" elevation="10" small outlined
+                            class="float-right">
+                            <v-icon small>mdi-card-plus</v-icon> Add
                         </v-btn>
-
                     </v-col>
                 </v-row>
             </v-card-title>
@@ -131,20 +131,20 @@
 
                                     <v-btn v-if="singleData.car.status" @click="statusChange(singleData.car)"
                                         color="success" depressed small class="m-1">
-                                        <v-icon small>mdi-check-circle-outline</v-icon> Active
+                                        <v-icon left>mdi-check-circle-outline</v-icon> Active
                                     </v-btn>
                                     <v-btn v-else @click="statusChange(singleData.car)" color="warning" depressed small
                                         class="m-1">
-                                        <v-icon small>mdi-alert-circle-outline </v-icon> Inactive
+                                        <v-icon left>mdi-alert-circle-outline </v-icon> Inactive
                                     </v-btn>
 
                                     <v-btn @click="editDataModel(singleData)" color="info" depressed small class="m-1">
-                                        <v-icon small>mdi-pencil-box-multiple-outline</v-icon> Edit
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
                                     </v-btn>
 
                                     <v-btn @click="deleteDataTemp(singleData.id)" color="error" depressed small
                                         class="m-1">
-                                        <v-icon small>mdi-delete-empty</v-icon> Delete
+                                        <v-icon left>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
 
                                     <br>
@@ -176,7 +176,7 @@
 
 
         <!-- Driver Add/edit Modal -->
-        <v-dialog persistent  v-model="dataModalDialog" max-width="1100px">
+        <v-dialog persistent v-model="dataModalDialog" max-width="1100px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -270,7 +270,7 @@
 
 
         <!-- driver form Show -->
-        <v-dialog persistent  v-model="driverStatus" max-width="700px">
+        <v-dialog persistent v-model="driverStatus" max-width="700px">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -545,9 +545,9 @@
 
         },
 
-        watch:{
+        watch: {
 
-            allData: function(value){
+            allData: function (value) {
                 this.carData = []
                 this.getCarData();
             }

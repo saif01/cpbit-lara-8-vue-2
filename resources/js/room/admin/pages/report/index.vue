@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card>
-            <v-card-title>Room Bookings Report Table</v-card-title>
+            <v-card-title>Room Bookings Reports</v-card-title>
 
             <v-card-text>
                 <div v-if="allData.data">

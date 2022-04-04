@@ -26,7 +26,7 @@ export default {
 
     components:{
        'nav-bar'        : navBar,
-       'side-bar'        : sideBar,
+       'side-bar'       : sideBar,
        'page-footer'    : pageFooter,
     },
 

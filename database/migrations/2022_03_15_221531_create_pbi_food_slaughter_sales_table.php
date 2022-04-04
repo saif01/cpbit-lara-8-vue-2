@@ -29,9 +29,9 @@ class CreatePbiFoodSlaughterSalesTable extends Migration
             $table->string('product_line')->nullable();
             $table->string('product_type')->nullable();
             $table->string('measurement')->nullable();
-            $table->integer('quantity')->nullable();
-            $table->double('weight', 15,2)->nullable();
-            $table->double('amount', 15,2)->nullable();
+            $table->double('quantity', 15,4)->nullable();
+            $table->double('weight', 15,4)->nullable();
+            $table->double('amount', 15,4)->nullable();
             $table->timestamps();
         });
     }

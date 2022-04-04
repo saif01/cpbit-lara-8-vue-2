@@ -2,7 +2,8 @@
     <thead>
         <tr>
             <td colspan="7" rowspan="3">
-                C.P. Bangladesh Co., Ltd. - Head Office <br> Information Technology <br> {{$product->catagoryName}} Stock Record
+                C.P. Bangladesh Co., Ltd. - Head Office <br> Information Technology <br> {{$product->catagoryName}}
+                Stock Record
             </td>
         </tr>
         <tr></tr>
@@ -21,67 +22,67 @@
         @if($product->totalIssue != 0)
         {
 
-            @foreach($product->data as $singleData)
-            <tr>
-                {{-- date --}}
-                @if($singleData->updated_at)
-                <td>
-                    {{date("F j, Y", strtotime($singleData->updated_at))}}
-                </td>
-                @else
-                <td style="color:red">N/A</td>
-                @endif
+        @foreach($product->data as $singleData)
+        <tr>
+            {{-- date --}}
+            @if($singleData->updated_at)
+            <td>
+                {{date("F j, Y", strtotime($singleData->updated_at))}}
+            </td>
+            @else
+            <td style="color:red">N/A</td>
+            @endif
 
-                {{-- doc no --}}
-                @if($singleData->newold)
-                    <td>
-                        @if ($singleData->newold->new_pro_id)
-                            CMS-{{ $singleData->newold->new_pro_id }}
-                        @else
-                            <span style="color:red">N/A</span>
-                        @endif
-                    </td>
+            {{-- doc no --}}
+            @if($singleData->newold)
+            <td>
+                @if ($singleData->newold->new_pro_id)
+                CMS-{{ $singleData->newold->new_pro_id }}
                 @else
-                <td style="color:red">N/A</td>
+                <span style="color:red">N/A</span>
                 @endif
+            </td>
+            @else
+            <td style="color:red">N/A</td>
+            @endif
 
-                {{-- location --}}
-                @if($singleData->newold)
-                <td>{{ $singleData->newold->business_unit }}</td>
-                @else
-                <td style="color:red">N/A</td>
-                @endif
+            {{-- location --}}
+            @if($singleData->newold)
+            <td>{{ $singleData->newold->business_unit }}</td>
+            @else
+            <td style="color:red">N/A</td>
+            @endif
 
-                {{-- department --}}
-                @if($singleData->newold)
-                <td>{{ $singleData->newold->office }}</td>
-                @else
-                <td style="color:red">N/A</td>
-                @endif
+            {{-- department --}}
+            @if($singleData->newold)
+            <td>{{ $singleData->newold->office }}</td>
+            @else
+            <td style="color:red">N/A</td>
+            @endif
 
-                {{-- product type --}}
-                @if($singleData->category)
-                <td>{{ $singleData->category->name }} - {{ $singleData->subcategory->name }}</td>
-                @else
-                <td style="color:red">N/A</td>
-                @endif
+            {{-- product type --}}
+            @if($singleData->category)
+            <td>{{ $singleData->category->name }} - {{ $singleData->subcategory->name }}</td>
+            @else
+            <td style="color:red">N/A</td>
+            @endif
 
-                {{-- unit_price --}}
-                @if($singleData->unit_price)
-                <td>{{ $singleData->unit_price }}</td>
-                @else
-                <td style="color:red">N/A</td>
-                @endif
+            {{-- unit_price --}}
+            @if($singleData->unit_price)
+            <td>{{ number_format($singleData->unit_price) }}</td>
+            @else
+            <td style="color:red">N/A</td>
+            @endif
 
-                {{-- remark --}}
-                @if($singleData->remarks)
-                <td>{!! $singleData->remarks !!}</td>
-                @else
-                <td style="color:red">N/A</td>
-                @endif
+            {{-- remark --}}
+            @if($singleData->remarks)
+            <td>{!! $singleData->remarks !!}</td>
+            @else
+            <td style="color:red">N/A</td>
+            @endif
 
-            </tr>
-            @endforeach
+        </tr>
+        @endforeach
         }
         @else
         <tr>
@@ -97,16 +98,41 @@
         <tr></tr>
         @endif
         <tr>
-            <td colspan="9"></td>
+            <td colspan="7"></td>
         </tr>
- 
+
         <tr>
             <td colspan="2">TOTAL USAGE</td>
             <td>Unit Price</td>
             <td>AMOUNT</td>
             <td rowspan="5" colspan="3"></td>
         </tr>
-        
+
+        <tr>
+            <td style="background-color: #009688; color:white">B/F</td>
+
+            @if($product->totalBroughtForward)
+            <td style="background-color: #009688; color:white">{{ $product->totalBroughtForward }}</td>
+            @else
+            <td style="background-color: #009688; color:white">0</td>
+            @endif
+
+            @if($product->broughtForwardAmmountUnit)
+            <td style="background-color: #009688; color:white">{{ number_format($product->broughtForwardAmmountUnit) }}
+            </td>
+            @else
+            <td style="background-color: #009688; color:white">0</td>
+            @endif
+
+            @if($product->totalBroughtForwardAmmount)
+            <td style="background-color: #009688; color:white">{{ number_format($product->totalBroughtForwardAmmount) }}
+            </td>
+            @else
+            <td style="background-color: #009688; color:white">0</td>
+            @endif
+
+        </tr>
+
         <tr>
             <td>Received</td>
 
@@ -128,12 +154,12 @@
             <td>0</td>
             @endif
 
-            
+
         </tr>
 
         <tr>
             <td>Issue</td>
-            
+
             @if($product->totalIssue)
             <td>{{ $product->totalIssue }}</td>
             @else
@@ -151,12 +177,12 @@
             @else
             <td>0</td>
             @endif
-            
+
         </tr>
 
         <tr>
             <td>Damage</td>
-            
+
             @if($product->totalDamaged)
             <td>{{ $product->totalDamaged }}</td>
             @else
@@ -178,8 +204,8 @@
         </tr>
 
         <tr>
-            <td style="background-color: #009688; color:white">Remaining</td>
-            
+            <td style="background-color: #009688; color:white">C/F</td>
+
             @if($product->totalRemaining)
             <td style="background-color: #009688; color:white">{{ $product->totalRemaining }}</td>
             @else
@@ -187,18 +213,16 @@
             @endif
 
             @if($product->remainingAmmountUnit)
-            <td style="background-color: #009688; color:white">{{ $product->remainingAmmountUnit }}</td>
+            <td style="background-color: #009688; color:white">{{ number_format($product->remainingAmmountUnit) }}</td>
             @else
             <td style="background-color: #009688; color:white">0</td>
             @endif
 
             @if($product->totalRemainingAmmount)
-            <td style="background-color: #009688; color:white">{{ $product->totalRemainingAmmount }}</td>
+            <td style="background-color: #009688; color:white">{{ number_format($product->totalRemainingAmmount) }}</td>
             @else
             <td style="background-color: #009688; color:white">0</td>
             @endif
-
-            
 
         </tr>
 
@@ -207,13 +231,29 @@
             <td colspan="3"></td>
             <td colspan="1" rowspan="2">
                 .........................................
-                <br> Mr Saiful Islam
+                <br>Reported By
             </td>
             <td colspan="1"></td>
             <td colspan="1" rowspan="2">
                 .........................................
-                <br> Mr Surachai Praneerachlerd</td>
+                <br>Approved By </td>
             <td></td>
         </tr>
+
+        {{-- <tr>
+
+            <td colspan="3"></td>
+
+            <td colspan="1" rowspan="2">
+                .........................................
+                <br>Reported By<br> Mr Saiful Islam
+            </td>
+            <td colspan="1"></td>
+
+            <td colspan="1" rowspan="2">
+                .........................................
+                <br>Approved By<br> Mr Surachai Praneerachlerd</td>
+            <td></td>
+        </tr> --}}
     </tbody>
 </table>

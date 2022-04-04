@@ -29,31 +29,49 @@ class IndexController extends Controller
     // dashboard_data
     public function dashboard_data(){
 
-        $remainProduct = InventoryNewProduct::with('category')
-                ->where('delete_temp', 0)
-                ->where('give_st', 0)
-                ->groupBy('cat_id')
-                ->selectRaw('count(*) as total, cat_id')
-                ->get()
-                ->toArray();
+        $allOperations = InventoryOperation::select('id', 'name')->get();
 
-        $operationWiseProduct = InventoryOldProduct::with('operation')
-                ->where('delete_temp', 0)
-                ->where('operation_id', '!=', 0)
-                ->groupBy('operation_id')
-                ->selectRaw('count(*) as total, operation_id')
-                //->select('*',  DB::raw('count(*) as total'))
-                ->get()
-                ->toArray();
+        $operationWiseProduct = [];
 
-                
-        $chartData = InventoryNewProduct::with('category')
-            ->where('delete_temp', 0)
-            ->select('*',  DB::raw('count(*) as total'))
+        foreach($allOperations as $item){
+
+           
+
+            $name = $item->name;
+            $operation_id  = $item->id;
+
+            $result = InventoryOldProduct::with('category')
+            ->where('operation_id', $operation_id)
+            ->select('cat_id', DB::raw('count(*) as total'))
             ->groupBy('cat_id')
-            ->get();
+            ->get()
+            ->toArray();
 
-        return response()->json(['remainProduct'=> $remainProduct, 'operationWiseProduct'=> $operationWiseProduct, 'chartData'=> $chartData  ],200);
+            $arr2=[
+                'lavel' => $name,
+                'val'   => $result
+            ];
+
+            array_push($operationWiseProduct, $arr2);
+
+        }
+ 
+      
+    
+
+        //dd($arr, $allOperations);
+
+
+        $remainProduct = InventoryNewProduct::with('category')
+        ->where('delete_temp', 0)
+        ->where('give_st', 0)
+        ->groupBy('cat_id')
+        ->selectRaw('count(*) as total, cat_id')
+        ->get();
+
+
+
+        return response()->json(['remainProduct'=> $remainProduct, 'operationWiseProduct'=> $operationWiseProduct  ],200);
 
     }
 
