@@ -9,8 +9,7 @@ import createUpdate from './crud'
 
 import globalRolePermissions from './../../../../role_permissions'
 
-
-
+import {debounce} from './../../../../helpers'
 
 
 export default {
@@ -64,54 +63,7 @@ export default {
         ...createUpdate,
 
 
-
-
     
-        handleResize() {
-            this.window.width = window.innerWidth;
-            this.window.height = window.innerHeight;
-        },
-
-       
-        // Add model show
-        newModal() {
-            this.editmode = false;
-            this.form.reset();
-            $('#addNew').modal('show');
-        },
-
-        // Edit Model show
-        editModal(singleData) {
-            this.editmode = true;
-            this.form.reset();
-            $('#addNew').modal('show');
-            this.form.fill(singleData);
-        },
-
-
-
-        testMethod(){
-            return ' Come form common';
-        },
-
-
-       
-        
-        async callApi(method, url, dataObj) {
-
-            try {
-
-                return await axios({
-                    method: method,
-                    url: url,
-                    data: dataObj
-                })
-
-            } catch (e) {
-                return e.response
-            }
-
-        }
 
         // End Methods
     },
@@ -126,11 +78,11 @@ export default {
         },
 
         //Excuted When make change value 
-        search: function (value) {
+        search: debounce(function () {
             this.$Progress.start();
             this.getResults();
             this.$Progress.finish();
-        },
+        }, 500),
 
         //Excuted When make change value 
         search_field: function (value) {

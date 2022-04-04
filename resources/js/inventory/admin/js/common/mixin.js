@@ -68,27 +68,6 @@ export default {
 
 
     
-        handleResize() {
-            this.window.width = window.innerWidth;
-            this.window.height = window.innerHeight;
-        },
-
-       
-        // Add model show
-        newModal() {
-            this.editmode = false;
-            this.form.reset();
-            $('#addNew').modal('show');
-        },
-
-        // Edit Model show
-        editModal(singleData) {
-            this.editmode = true;
-            this.form.reset();
-            $('#addNew').modal('show');
-            this.form.fill(singleData);
-        },
-
 
 
        
