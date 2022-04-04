@@ -7,8 +7,9 @@
                         New Product List
                     </v-col>
                     <v-col cols="2">
-                        <v-btn @click="addDataModel()" color="primary" elevation="20" small outlined class="float-right">
-                            <v-icon left dark>mdi-plus-circle-outline </v-icon> Add
+                        <v-btn @click="addDataModel()" color="primary" elevation="20" small outlined
+                            class="float-right">
+                            <v-icon left>mdi-card-plus</v-icon> Add
                         </v-btn>
                     </v-col>
                 </v-row>
@@ -25,21 +26,14 @@
 
                         <v-col lg="2" cols="4">
                             <!-- search_field -->
-                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="text"
-                                item-value="value" outlined dense>
+                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields"
+                                item-text="text" item-value="value" outlined dense>
                             </v-select>
                         </v-col>
 
                         <v-col lg="8" cols="4">
-                            <v-text-field
-                                v-model="search"
-                                append-icon="mdi-magnify"
-                                label="Search"
-                                hide-details
-                                class="mb-5"
-                                outlined
-                                dense
-                            ></v-text-field>
+                            <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" hide-details
+                                class="mb-5" outlined dense></v-text-field>
                         </v-col>
                     </v-row>
 
@@ -61,23 +55,27 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td class="text-center">
 
-                                    <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20" small>
+                                    <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20"
+                                        small>
                                         <v-icon left>mdi-circle-edit-outline</v-icon> Edit
                                     </v-btn>
 
-                                    <v-btn class="ma-2" @click="deleteDataTemp(singleData.id)" color="error" elevation="20" small>
+                                    <v-btn class="ma-2" @click="deleteDataTemp(singleData.id)" color="error"
+                                        elevation="20" small>
                                         <v-icon left>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
 
-                                    <v-btn class="ma-2" @click="deliever(singleData)" color="orange" elevation="20" small>
+                                    <v-btn class="ma-2" @click="deliever(singleData)" color="orange" elevation="20"
+                                        small>
                                         <v-icon left>mdi-upload</v-icon> Delivery
                                     </v-btn>
 
-                                    <v-btn v-if="singleData.damage_st === null" @click="damageChange(singleData)" color="success"
-                                        depressed small>
+                                    <v-btn v-if="singleData.damage_st === null" @click="damageChange(singleData)"
+                                        color="success" depressed small>
                                         <v-icon left>mdi-check-circle-outline</v-icon> Running
                                     </v-btn>
-                                    <v-btn v-else @click="damageChange(singleData)" color="warning" depressed small>
+
+                                    <v-btn v-else @click="damageChange(singleData)" color="error" depressed small>
                                         <v-icon left>mdi-alert-circle-outline </v-icon> Damage
                                     </v-btn>
 
@@ -104,20 +102,27 @@
                                         </div>
                                         <div>
                                             <div>
-                                                <b>Category</b> <span v-if="singleData.category">{{ singleData.category.name }}</span>
+                                                <b>Category</b> <span
+                                                    v-if="singleData.category">{{ singleData.category.name }}</span>
                                             </div>
                                             <div>
-                                                <b>Subcategory</b> <span v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
+                                                <b>Subcategory</b> <span
+                                                    v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
                                             </div>
                                             <div>
-                                                <b>Warranty</b> <span v-if="singleData.warranty && singleData.warranty > $moment(new Date()).format('YYYY-MM-DD')"> {{ singleData.warranty | moment("from") }} </span> 
+                                                <b>Warranty</b> <span
+                                                    v-if="singleData.warranty && singleData.warranty > $moment(new Date()).format('YYYY-MM-DD')">
+                                                    {{ singleData.warranty | moment("from") }} </span>
                                                 <span v-else class="error--text">Expired </span>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <v-btn v-if="singleData.document" :href="'/images/inventory/'+singleData.document" color="info" download><v-icon left>mdi-download-network-outline</v-icon> File</v-btn>
+                                    <v-btn v-if="singleData.document" :href="'/images/inventory/'+singleData.document"
+                                        color="info" download>
+                                        <v-icon left>mdi-download-network-outline</v-icon> File
+                                    </v-btn>
                                     <span v-else class="text-danger">Not Attached</span>
                                 </td>
 
@@ -147,7 +152,7 @@
 
 
         <!-- Modal -->
-        <v-dialog persistent v-model="dataModalDialog" >
+        <v-dialog persistent v-model="dataModalDialog">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -163,7 +168,7 @@
                     </v-row>
                 </v-card-title>
                 <v-card-text>
-                    <v-form v-model="valid" ref="form" >
+                    <v-form v-model="valid" ref="form">
                         <form @submit.prevent="editmode ? updateData() : createData()">
 
                             <v-row align-content="center">
@@ -181,7 +186,7 @@
                                         v-html="form.errors.get('subcat_id')" />
                                     <v-autocomplete :items="allSubcategory" v-model="form.subcat_id"
                                         label="Select Subcategory" :rules="[v => !!v || 'Subcategory is required!']"
-                                        dense  required></v-autocomplete>
+                                        dense required></v-autocomplete>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
@@ -189,7 +194,7 @@
                                         v-html="form.errors.get('name')" />
                                     <v-text-field v-model="form.name" label="Product Name or Model"
                                         :rules="[v => !!v || 'Product Name or Model is required!']"
-                                        placeholder="Enter Product Product Name or Model" dense  required>
+                                        placeholder="Enter Product Product Name or Model" dense required>
                                     </v-text-field>
                                 </v-col>
 
@@ -205,14 +210,17 @@
 
                                 <!-- Document -->
                                 <v-col cols="12" lg="4">
-                                    <v-file-input @change="uploadDocByName($event, 'document')" show-size 
-                                        label="Document" accept="image/*, .pdf, .xlsx, .docx" :rules="docRules"  
-                                        dense>
+                                    <v-file-input @change="uploadDocByName($event, 'document')" show-size
+                                        label="Document" accept="image/*, .pdf, .xlsx, .docx" :rules="docRules" dense>
                                         <template slot="append" v-if="editmode">
-                                            <span v-if="form.document" class="text-success"><v-icon color="success">mdi-check-decagram-outline</v-icon> Yes</span>
-                                            <span v-else class="text-danger"><v-icon color="error">mdi-close-octagon</v-icon> No</span>
+                                            <span v-if="form.document" class="text-success">
+                                                <v-icon color="success">mdi-check-decagram-outline</v-icon> Yes
+                                            </span>
+                                            <span v-else class="text-danger">
+                                                <v-icon color="error">mdi-close-octagon</v-icon> No
+                                            </span>
                                         </template>
-                                        </v-file-input>
+                                    </v-file-input>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
@@ -220,14 +228,14 @@
                                         v-html="form.errors.get('purchase')" />
                                     <!-- Date Picker -->
                                     <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
-                                        :return-value.sync="date" offset-y min-width="auto"  dense>
+                                        :return-value.sync="date" offset-y min-width="auto" dense>
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="form.purchase" label="Purchase Bill Date"
                                                 prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" required
-                                                 dense :rules="[v => !!v || 'Purchase Bill Date is required!']">
+                                                dense :rules="[v => !!v || 'Purchase Bill Date is required!']">
                                             </v-text-field>
                                         </template>
-                                        <v-date-picker v-model="form.purchase" scrollable  dense>
+                                        <v-date-picker v-model="form.purchase" scrollable dense>
                                             <v-spacer></v-spacer>
                                             <v-btn text color="primary" @click="menu = false">
                                                 Cancel</v-btn>
@@ -242,7 +250,7 @@
                                         v-html="form.errors.get('serial')" />
                                     <v-text-field v-model="form.serial" label="Serial Number"
                                         :rules="[v => !!v || 'Serial number is required!']"
-                                        placeholder="Enter Product Serial number" dense  required>
+                                        placeholder="Enter Product Serial number" dense required>
                                     </v-text-field>
                                 </v-col>
 
@@ -250,7 +258,7 @@
                                     <div class="small text-danger" v-if="form.errors.has('invoice_num')"
                                         v-html="form.errors.get('invoice_num')" />
                                     <v-text-field v-model="form.invoice_num" label="Invoice Number"
-                                        placeholder="Enter invoice number" dense >
+                                        placeholder="Enter invoice number" dense>
                                     </v-text-field>
                                 </v-col>
 
@@ -261,10 +269,11 @@
                                     <v-menu ref="menu2" v-model="menu2" :close-on-content-click="false"
                                         :return-value.sync="date" offset-y min-width="auto" dense>
                                         <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field v-model="form.bill_submit" label="Bill Submit Date"  prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense >
+                                            <v-text-field v-model="form.bill_submit" label="Bill Submit Date"
+                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense>
                                             </v-text-field>
                                         </template>
-                                        <v-date-picker v-model="form.bill_submit" scrollable  dense>
+                                        <v-date-picker v-model="form.bill_submit" scrollable dense>
                                             <v-spacer></v-spacer>
                                             <v-btn text color="primary" @click="menu2 = false">
                                                 Cancel</v-btn>
@@ -278,7 +287,7 @@
                                     <div class="small text-danger" v-if="form.errors.has('req_payment_num')"
                                         v-html="form.errors.get('req_payment_num')" />
                                     <v-text-field v-model="form.req_payment_num" label="Request Payment Number"
-                                        placeholder="Enter request payment number" dense >
+                                        placeholder="Enter request payment number" dense>
                                     </v-text-field>
                                 </v-col>
 
@@ -295,20 +304,22 @@
                                     <div class="small text-danger" v-if="form.errors.has('unit_price')"
                                         v-html="form.errors.get('unit_price')" />
                                     <v-text-field v-model="form.unit_price" label="Unit Price"
-                                        placeholder="Enter request payment number" dense >
+                                        placeholder="Enter request payment number" dense>
                                     </v-text-field>
                                 </v-col>
 
                                 <v-col cols="12" lg="4" v-if="warranty == 'y'">
                                     <v-row>
                                         <v-col cols="6">
-                                            <v-select v-model="warranty_type" :items="[{text:'Month', value: 'month'}, {text:'Year', value: 'year'}]"
-                                                label="Select Month or Year" dense ></v-select>
+                                            <v-select v-model="warranty_type"
+                                                :items="[{text:'Month', value: 'month'}, {text:'Year', value: 'year'}]"
+                                                label="Select Month or Year" dense></v-select>
                                         </v-col>
                                         <v-col cols="6">
-                                            <v-text-field type="number" v-model="warranty_type_data" label="Number Month or Year"
+                                            <v-text-field type="number" v-model="warranty_type_data"
+                                                label="Number Month or Year"
                                                 :rules="[v => !!v || 'Number is required!']"
-                                                placeholder="Number Month or Year" dense  >
+                                                placeholder="Number Month or Year" dense>
                                             </v-text-field>
                                         </v-col>
                                     </v-row>
@@ -343,10 +354,6 @@
                             </v-row>
 
 
-
-
-
-
                             <v-btn v-show="editmode" type="submit" block depressed :loading="dataModalLoading"
                                 color="primary">
                                 <v-icon left dark>mdi-circle-edit-outline</v-icon> Update
@@ -365,8 +372,9 @@
         </v-dialog>
 
 
-        
-        <delivery-component v-if="currentData" :currentData="currentData" :category="currentCategory" :subcategory="currentSubcategory" :key="leaveActionKey" ></delivery-component>
+
+        <delivery-component v-if="currentData" :currentData="currentData" :category="currentCategory"
+            :subcategory="currentSubcategory" :key="leaveActionKey"></delivery-component>
 
     </div>
 
@@ -389,7 +397,7 @@
 
         components: {
             VueEditor,
-            'delivery-component':deliveryModal,
+            'delivery-component': deliveryModal,
         },
 
         data() {
@@ -426,7 +434,7 @@
                 warranty_type_data: '',
 
                 documentAppend: '',
-               
+
 
                 allCategory: [],
                 allSubcategory: [],
@@ -453,8 +461,7 @@
                 }),
 
 
-                customSrcByFields:[
-                    {
+                customSrcByFields: [{
                         value: 'All',
                         text: 'All'
                     },
@@ -474,17 +481,17 @@
 
                 sortByProduct: [],
 
-                
+
 
 
                 // deliver details
                 currentData: '',
-                leaveActionKey:0,
-                currentCategory:'',
-                currentSubcategory:'',
+                leaveActionKey: 0,
+                currentCategory: '',
+                currentSubcategory: '',
 
 
-               
+
 
             }
 
@@ -543,21 +550,23 @@
                 this.$Progress.start()
 
                 // warranty Data
-                if( this.warranty_type == 'month' ){
-                    if( this.warranty_type_data && this.form.purchase ){
-                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data, 'M').format('YYYY-MM-DD')
-                        console.log('warranty-month: ', this.form.warranty )
+                if (this.warranty_type == 'month') {
+                    if (this.warranty_type_data && this.form.purchase) {
+                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data, 'M').format(
+                            'YYYY-MM-DD')
+                        console.log('warranty-month: ', this.form.warranty)
                     }
                 }
-                if( this.warranty_type == 'year' ){
-                    if( this.warranty_type_data && this.form.purchase ){
-                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data*12, 'M').format('YYYY-MM-DD')
-                        console.log('warranty-year: ', this.form.warranty )
+                if (this.warranty_type == 'year') {
+                    if (this.warranty_type_data && this.form.purchase) {
+                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data * 12, 'M')
+                            .format('YYYY-MM-DD')
+                        console.log('warranty-year: ', this.form.warranty)
                     }
                 }
 
                 // request send and get response
-                this.form.post(this.currentUrl +'/store'+ '').then(response=>{
+                this.form.post(this.currentUrl + '/store' + '').then(response => {
 
                     // Input field make empty
                     this.form.reset();
@@ -575,7 +584,7 @@
                         title: response.data.msg
                     });
 
-                }).catch(error=>{
+                }).catch(error => {
                     this.dataModalLoading = false;
                     Swal.fire({
                         icon: 'error',
@@ -590,22 +599,22 @@
             },
 
             // Edit Data Modal
-            editDataModel(singleData){
-                
-                this.editmode       = true;
+            editDataModel(singleData) {
+
+                this.editmode = true;
                 this.dataModelTitle = 'Update Data'
                 //this.form.reset();
-               
+
                 // Warranty
-                if(singleData.warranty){
-                    this.warranty       = 'y'
-                    this.warranty_type  = 'month'
-                    let start           = this.$moment(singleData.warranty)
+                if (singleData.warranty) {
+                    this.warranty = 'y'
+                    this.warranty_type = 'month'
+                    let start = this.$moment(singleData.warranty)
                     this.warranty_type_data = start.diff(this.$moment(singleData.purchase), 'months')
                     //console.log(this.warranty_type_data, start)
                 }
 
-              
+
                 //console.log('singleData before',  singleData.document)
                 this.form.fill(singleData);
                 //console.log('singleData after',  this.form.document, singleData)
@@ -622,23 +631,25 @@
                 this.$Progress.start();
 
                 // warranty Data
-                if( this.warranty_type == 'month' ){
-                    if( this.warranty_type_data && this.form.purchase ){
-                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data, 'M').format('YYYY-MM-DD')
-                        console.log('warranty-month: ', this.form.warranty )
+                if (this.warranty_type == 'month') {
+                    if (this.warranty_type_data && this.form.purchase) {
+                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data, 'M').format(
+                            'YYYY-MM-DD')
+                        console.log('warranty-month: ', this.form.warranty)
                     }
                 }
-                if( this.warranty_type == 'year' ){
-                    if( this.warranty_type_data && this.form.purchase ){
-                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data*12, 'M').format('YYYY-MM-DD')
-                        console.log('warranty-year: ', this.form.warranty )
+                if (this.warranty_type == 'year') {
+                    if (this.warranty_type_data && this.form.purchase) {
+                        this.form.warranty = this.$moment(this.form.purchase).add(this.warranty_type_data * 12, 'M')
+                            .format('YYYY-MM-DD')
+                        console.log('warranty-year: ', this.form.warranty)
                     }
                 }
 
                 //console.log(this.form);
 
                 // request send and get response
-                this.form.post(this.currentUrl + '/update').then(response=>{
+                this.form.post(this.currentUrl + '/update').then(response => {
 
                     // Input field make empty
                     this.form.reset();
@@ -656,7 +667,7 @@
                         title: response.data.msg
                     });
 
-                }).catch(error=>{
+                }).catch(error => {
                     this.dataModalLoading = false;
                     Swal.fire({
                         icon: 'error',
@@ -670,25 +681,17 @@
 
 
             // deliever
-            deliever(data){
-                if(data.category){
+            deliever(data) {
+                if (data.category) {
                     this.currentCategory = data.category.name
                 }
-                if(data.subcategory){
+                if (data.subcategory) {
                     this.currentSubcategory = data.subcategory.name
                 }
-              
+
                 this.leaveActionKey++
                 this.currentData = data
             },
-
-
-
-
-
-
-
-
 
 
 
@@ -717,6 +720,7 @@
         margin-top: -6px;
         padding-top: 0px;
     }
+
     .v-radio {
         display: inline !important;
     }

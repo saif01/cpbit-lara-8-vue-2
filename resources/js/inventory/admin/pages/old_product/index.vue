@@ -7,8 +7,9 @@
                         Old Product List
                     </v-col>
                     <v-col cols="2">
-                        <v-btn @click="addDataModel()" color="primary" elevation="20" small outlined class="float-right">
-                            <v-icon left dark>mdi-plus-circle-outline </v-icon> Add
+                        <v-btn @click="addDataModel()" color="primary" elevation="20" small outlined
+                            class="float-right">
+                            <v-icon left>mdi-card-plus</v-icon> Add
                         </v-btn>
                     </v-col>
                 </v-row>
@@ -31,28 +32,21 @@
 
                         <v-col lg="2" cols="4">
                             <!-- search_type -->
-                            <v-select v-model="search_type" label="Product type:" :items="search_by_type" item-text="text"
-                                item-value="value" outlined dense>
+                            <v-select v-model="search_type" label="Product type:" :items="search_by_type"
+                                item-text="text" item-value="value" outlined dense>
                             </v-select>
                         </v-col>
 
                         <v-col lg="2" cols="6">
                             <!-- search_field -->
-                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="text"
-                                item-value="value" outlined dense>
+                            <v-select v-model="search_field" label="Search By:" :items="customSrcByFields"
+                                item-text="text" item-value="value" outlined dense>
                             </v-select>
                         </v-col>
 
                         <v-col lg="4" cols="6">
-                            <v-text-field
-                                v-model="search"
-                                append-icon="mdi-magnify"
-                                label="Search"
-                                hide-details
-                                class="mb-5"
-                                outlined
-                                dense
-                            ></v-text-field>
+                            <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" hide-details
+                                class="mb-5" outlined dense></v-text-field>
                         </v-col>
                     </v-row>
 
@@ -71,46 +65,56 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
                                 <td class="text-center">
 
-                                    <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20" small>
-                                        <v-icon small>mdi-circle-edit-outline</v-icon> Edit
+                                    <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20"
+                                        small>
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
                                     </v-btn>
 
-                                    <v-btn class="ma-1" @click="deleteDataTemp(singleData.id)" color="error" elevation="20" small>
-                                        <v-icon small>mdi-delete-empty</v-icon> Delete
+                                    <v-btn class="ma-1" @click="deleteDataTemp(singleData.id)" color="error"
+                                        elevation="20" small>
+                                        <v-icon left>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
 
-                                    <v-btn class="ma-2" @click="view(singleData)" color="teal" elevation="20" small>
-                                        <v-icon small>mdi-eye</v-icon> View
+                                    <v-btn class="ma-2" @click="view(singleData)" color="success" elevation="20" small>
+                                        <v-icon left>mdi-eye</v-icon> View
                                     </v-btn>
                                     <br>
-                                    <span class="text-muted small">Create By-- </span><v-btn x-small dense v-if="singleData.makby" @click="currentUserView(singleData.makby)">{{ singleData.makby.name }}</v-btn>
+                                    <span class="text-muted small">Create By-- </span>
+                                    <v-btn x-small dense v-if="singleData.makby"
+                                        @click="currentUserView(singleData.makby)">{{ singleData.makby.name }}</v-btn>
                                 </td>
                                 <td>
                                     <v-row>
                                         <v-col>
 
                                             <div>
-                                                <b>Product Name or Model: </b> <span v-if="singleData.name">{{ singleData.name }}</span>
+                                                <b>Product Name or Model: </b> <span
+                                                    v-if="singleData.name">{{ singleData.name }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Product Category: </b> <span v-if="singleData.category">{{ singleData.category.name }}</span>
+                                                <b>Product Category: </b> <span
+                                                    v-if="singleData.category">{{ singleData.category.name }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Product Subcategory: </b> <span v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
+                                                <b>Product Subcategory: </b> <span
+                                                    v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Product Serial: </b> <span v-if="singleData.serial">{{ singleData.serial }}</span>
+                                                <b>Product Serial: </b> <span
+                                                    v-if="singleData.serial">{{ singleData.serial }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Invoice Number: </b> <span v-if="singleData.invoice_num">{{ singleData.invoice_num }}</span>
+                                                <b>Invoice Number: </b> <span
+                                                    v-if="singleData.invoice_num">{{ singleData.invoice_num }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Request Payment Number: </b> <span v-if="singleData.req_payment_num">{{ singleData.req_payment_num }}</span>
+                                                <b>Request Payment Number: </b> <span
+                                                    v-if="singleData.req_payment_num">{{ singleData.req_payment_num }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
 
@@ -118,34 +122,40 @@
                                         <v-col>
 
                                             <div>
-                                                <b>Business Unit: </b> <span v-if="singleData.business_unit">{{ singleData.business_unit }}</span>
+                                                <b>Business Unit: </b> <span
+                                                    v-if="singleData.business_unit">{{ singleData.business_unit }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Operation: </b> <span v-if="singleData.operation">{{ singleData.operation.name }}</span>
+                                                <b>Operation: </b> <span
+                                                    v-if="singleData.operation">{{ singleData.operation.name }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Office: </b> <span v-if="singleData.office">{{ singleData.office }}</span>
+                                                <b>Office: </b> <span
+                                                    v-if="singleData.office">{{ singleData.office }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Created Date : </b> <span v-if="singleData.created_at">{{ singleData.created_at | moment("MMM Do YYYY, h:mm a") }}</span>
+                                                <b>Created Date : </b> <span
+                                                    v-if="singleData.created_at">{{ singleData.created_at | moment("MMM Do YYYY, h:mm a") }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
                                             <div>
-                                                <b>Bill Submit Date : </b> <span v-if="singleData.bill_submit">{{ singleData.bill_submit | moment("MMMM Do YYYY") }}</span>
+                                                <b>Bill Submit Date : </b> <span
+                                                    v-if="singleData.bill_submit">{{ singleData.bill_submit | moment("MMMM Do YYYY") }}</span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
 
                                             <div>
-                                                <b>Remarks : </b> <span v-if="singleData.remarks" v-html="singleData.remarks"></span>
+                                                <b>Remarks : </b> <span v-if="singleData.remarks"
+                                                    v-html="singleData.remarks"></span>
                                                 <span v-else class="error--text">N/A</span>
                                             </div>
 
                                         </v-col>
                                     </v-row>
-                                    
+
                                 </td>
 
                             </tr>
@@ -174,7 +184,7 @@
 
 
         <!-- Modal -->
-        <v-dialog persistent v-model="dataModalDialog" >
+        <v-dialog persistent v-model="dataModalDialog">
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -190,7 +200,7 @@
                     </v-row>
                 </v-card-title>
                 <v-card-text>
-                    <v-form v-model="valid" ref="form" >
+                    <v-form v-model="valid" ref="form">
                         <form @submit.prevent="editmode ? updateData() : createData()">
 
                             <v-row align-content="center">
@@ -209,15 +219,15 @@
                                         v-html="form.errors.get('subcategory')" />
                                     <v-autocomplete :items="allSubcategory" v-model="form.subcat_id"
                                         label="Select Subcategory" :rules="[v => !!v || 'Subcategory is required!']"
-                                        dense  required></v-autocomplete>
+                                        dense required></v-autocomplete>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
                                     <div class="small text-danger" v-if="form.errors.has('operation_id')"
                                         v-html="form.errors.get('operation_id')" />
                                     <v-autocomplete :items="operation" v-model="form.operation_id"
-                                        label="Select Operation" :rules="[v => !!v || 'Operation is required!']"
-                                        dense  required></v-autocomplete>
+                                        label="Select Operation" :rules="[v => !!v || 'Operation is required!']" dense
+                                        required></v-autocomplete>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
@@ -225,23 +235,22 @@
                                         v-html="form.errors.get('business_unit')" />
                                     <v-autocomplete :items="business_unit" v-model="form.business_unit"
                                         label="Select Business Unit" :rules="[v => !!v || 'Business Unit is required!']"
-                                        dense  required></v-autocomplete>
+                                        dense required></v-autocomplete>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
                                     <div class="small text-danger" v-if="form.errors.has('office')"
                                         v-html="form.errors.get('office')" />
-                                    <v-autocomplete :items="allOffice" v-model="form.office"
-                                        label="Select Office Name" :rules="[v => !!v || 'Office is required!']"
-                                        dense  required></v-autocomplete>
+                                    <v-autocomplete :items="allOffice" v-model="form.office" label="Select Office Name"
+                                        :rules="[v => !!v || 'Office is required!']" dense required></v-autocomplete>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
                                     <div class="small text-danger" v-if="form.errors.has('type')"
                                         v-html="form.errors.get('type')" />
-                                    <v-autocomplete :items="type" v-model="form.type"
-                                        label="Select Product Type" :rules="[v => !!v || 'Product Type is required!']"
-                                        dense  required></v-autocomplete>
+                                    <v-autocomplete :items="type" v-model="form.type" label="Select Product Type"
+                                        :rules="[v => !!v || 'Product Type is required!']" dense required>
+                                    </v-autocomplete>
                                 </v-col>
 
                                 <v-col cols="12" lg="4">
@@ -249,7 +258,7 @@
                                         v-html="form.errors.get('name')" />
                                     <v-text-field v-model="form.name" label="Product Name or Model"
                                         :rules="[v => !!v || 'Product Name or Model is required!']"
-                                        placeholder="Enter Product Product Name or Model" dense  required>
+                                        placeholder="Enter Product Product Name or Model" dense required>
                                     </v-text-field>
                                 </v-col>
 
@@ -262,11 +271,11 @@
                                     </v-text-field>
                                 </v-col>
 
-                                  <v-col cols="12" lg="4">
+                                <v-col cols="12" lg="4">
                                     <div class="small text-danger" v-if="form.errors.has('invoice_num')"
                                         v-html="form.errors.get('invoice_num')" />
                                     <v-text-field v-model="form.invoice_num" label="Invoice Number"
-                                        placeholder="Enter invoice number" dense >
+                                        placeholder="Enter invoice number" dense>
                                     </v-text-field>
                                 </v-col>
 
@@ -277,10 +286,11 @@
                                     <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
                                         :return-value.sync="date" offset-y min-width="auto" dense>
                                         <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field v-model="form.bill_submit" label="Bill Submit Date"  prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense >
+                                            <v-text-field v-model="form.bill_submit" label="Bill Submit Date"
+                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense>
                                             </v-text-field>
                                         </template>
-                                        <v-date-picker v-model="form.bill_submit" scrollable  dense>
+                                        <v-date-picker v-model="form.bill_submit" scrollable dense>
                                             <v-spacer></v-spacer>
                                             <v-btn text color="primary" @click="menu = false">
                                                 Cancel</v-btn>
@@ -294,7 +304,7 @@
                                     <div class="small text-danger" v-if="form.errors.has('req_payment_num')"
                                         v-html="form.errors.get('req_payment_num')" />
                                     <v-text-field v-model="form.req_payment_num" label="Request Payment Number"
-                                        placeholder="Enter request payment number" dense >
+                                        placeholder="Enter request payment number" dense>
                                     </v-text-field>
                                 </v-col>
 
@@ -350,9 +360,12 @@
 
 
         <!-- view product -->
-        <view-product v-if="currentData" :currentData="currentData" :category="currentCategory" :subcategory="currentSubcategory" :operation="currentOperation" :key="leaveActionKey" ></view-product>
+        <view-product v-if="currentData" :currentData="currentData" :category="currentCategory"
+            :subcategory="currentSubcategory" :operation="currentOperation" :key="leaveActionKey"></view-product>
 
-        
+
+        <!-- user-details -->
+        <user-details v-if="CurrentUserData" :userData="CurrentUserData" :key="userDetailsDialogKey"></user-details>
 
 
     </div>
@@ -385,7 +398,7 @@
 
         components: {
             VueEditor,
-            "view-product":viewProduct,
+            "view-product": viewProduct,
             'user-details': userDetails,
         },
 
@@ -424,18 +437,18 @@
                 documentAppend: '',
 
                 // modal  for view data
-                viewModal:false,
-               
+                viewModal: false,
+
 
                 allCategory: [],
                 allSubcategory: [],
                 allOffice: [],
                 business_unit: [],
                 operation: [],
-                b_unit:[],
+                b_unit: [],
 
 
-                allCatData:'',
+                allCatData: '',
 
 
                 // Form
@@ -459,8 +472,7 @@
 
                 }),
 
-                customSrcByFields:[
-                    {
+                customSrcByFields: [{
                         value: 'All',
                         text: 'All'
                     },
@@ -516,14 +528,13 @@
                         value: 'rec_position',
                         text: 'Receiver Position'
                     },
-                    
+
                 ],
 
 
 
                 // type
-                type: [
-                    {
+                type: [{
                         value: 'Running',
                         text: 'Running Product'
                     },
@@ -535,8 +546,7 @@
 
 
                 // search_by_type
-                search_by_type: [
-                    {
+                search_by_type: [{
                         value: 'All',
                         text: 'All'
                     },
@@ -553,10 +563,10 @@
 
                 // view details
                 currentData: '',
-                leaveActionKey:0,
-                currentCategory:'',
-                currentSubcategory:'',
-                currentOperation:'',
+                leaveActionKey: 0,
+                currentCategory: '',
+                currentSubcategory: '',
+                currentOperation: '',
 
 
 
@@ -572,7 +582,7 @@
                 // search_type
                 search_type: '',
 
-                
+
 
             }
 
@@ -629,7 +639,7 @@
 
             // getOffice
             getOffice() {
-                axios.get(this.currentUrl+'/office').then(response => {
+                axios.get(this.currentUrl + '/office').then(response => {
                     console.log(response.data);
                     // business_unit
                     response.data.office.forEach(element => {
@@ -645,7 +655,7 @@
                         this.business_unit.push({
                             value: element.business_unit,
                             text: element.business_unit
-                        }) ;
+                        });
                         //console.log('business_unit',  this.allOffice, element);
                     });
 
@@ -654,7 +664,7 @@
                         this.operation.push({
                             value: element.id,
                             text: element.name
-                        }) ;
+                        });
                         //console.log('operation',  this.allOffice, element);
                     });
 
@@ -666,14 +676,14 @@
 
             // getBusinessUnitOldProductTable
             getBunit() {
-                axios.get(this.currentUrl+'/business_unit').then(response => {
-                    
+                axios.get(this.currentUrl + '/business_unit').then(response => {
+
                     // business_unit
                     response.data.forEach(element => {
                         this.b_unit.push({
                             value: element.business_unit,
                             text: element.business_unit
-                        }) ;
+                        });
                         //console.log('business_unit',  this.allOffice, element);
                     });
 
@@ -683,13 +693,13 @@
             },
 
             // Edit Data Modal
-            editDataModel(singleData){
-                
-                this.editmode       = true;
+            editDataModel(singleData) {
+
+                this.editmode = true;
                 this.dataModelTitle = 'Update Data'
                 this.form.fill(singleData);
 
-                if(singleData.remarks === null){
+                if (singleData.remarks === null) {
                     this.form.remarks = '';
                 }
                 // Subcategory
@@ -698,17 +708,17 @@
             },
 
             // view
-            view(data){
-                if(data.category){
+            view(data) {
+                if (data.category) {
                     this.currentCategory = data.category.name
                 }
-                if(data.subcategory){
+                if (data.subcategory) {
                     this.currentSubcategory = data.subcategory.name
                 }
-                if(data.operation){
+                if (data.operation) {
                     this.currentOperation = data.operation.name
                 }
-                
+
                 this.leaveActionKey++
                 this.currentData = data
             },
@@ -716,7 +726,7 @@
             // Get table data
             getResults(page = 1) {
                 this.dataLoading = true;
-                axios.get(this.currentUrl+'/index?page=' + page +
+                axios.get(this.currentUrl + '/index?page=' + page +
                         '&paginate=' + this.paginate +
                         '&search=' + this.search +
                         '&sort_direction=' + this.sort_direction +
@@ -732,7 +742,7 @@
                         this.totalValue = response.data.total;
                         this.dataShowFrom = response.data.from;
                         this.dataShowTo = response.data.to;
-                        this.currentPageNumber  = response.data.current_page
+                        this.currentPageNumber = response.data.current_page
                         // Loading Animation
                         this.dataLoading = false;
 
@@ -749,7 +759,7 @@
         },
 
 
-        watch:{
+        watch: {
             //Excuted When make change value 
             businessUnit: function (value) {
                 this.$Progress.start();
@@ -765,7 +775,7 @@
             },
         },
 
-        mounted(){
+        mounted() {
             this.getOffice();
             this.getAllCategory();
             this.getBunit();
@@ -791,6 +801,7 @@
         margin-top: -6px;
         padding-top: 0px;
     }
+
     .v-radio {
         display: inline !important;
     }

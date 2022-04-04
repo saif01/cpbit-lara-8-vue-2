@@ -242,16 +242,16 @@ export default{
             var btnText = "Damage"
            
         }else{
-            var text = "Are you want to mark this as Good ?"
-            var btnText = "Good"
+            var text = "Are you want to mark this as Running ?"
+            var btnText = "Running"
         }
 
         Swal.fire({
             title: 'Are you sure?',
             text: text,
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
             confirmButtonText: btnText,
         }).then((result) => {
 
@@ -263,7 +263,7 @@ export default{
                     //console.log(response);
                     Swal.fire(
                         'Changed!',
-                        'Product has been Changed.',
+                        'Product status has been changed.',
                         'success'
                     );
                     // Refresh Tbl Data with current page

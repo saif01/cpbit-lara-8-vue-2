@@ -13,10 +13,11 @@
                             Export
                         </v-btn>
 
-                         <a :href="'/inventory/admin/report/stock/export_view?sort_by_startDate=' + sort_by_startDate +
+                         <!-- <a :href="'/inventory/admin/report/stock/export_view?sort_by_startDate=' + sort_by_startDate +
                     '&sort_by_endDate=' +sort_by_endDate +
                     '&sort_by_category=' +current_category.id +
-                    '&product_name=' +current_category.name" target="_blank" class="btn" >Export View</a>
+                    '&product_name=' +current_category.name" target="_blank" class="btn" >Export View</a> -->
+
                     </v-col>
 
                     
