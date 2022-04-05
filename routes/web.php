@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Auth
+// Auth 
 Route::namespace('App\Http\Controllers\Auth')->group(function(){
 
     // Route::get('/login', 'IndexController@login')->name('login');
