@@ -14,7 +14,7 @@ use File;
 
 use App\Models\iVca\ivcaAuditMroManufacturer; 
 
-use App\Http\Controllers\User\iVCA\Common\CommonFunctions;
+use App\Http\Controllers\iVCA\User\Common\CommonFunctions; 
 
 class ManufacturerController extends Controller
 {

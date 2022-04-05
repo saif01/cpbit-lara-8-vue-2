@@ -3,7 +3,7 @@
         <v-app-bar app flat dense dark class="nav-color">
 
             <v-app-bar-nav-icon href="/">
-                <v-img  src="/all-assets/common/logo/cpb/cpbit.png" alt="room" max-height="40" max-width="40" contain class="nav-logo-bg"></v-img>
+                <v-img  src="/all-assets/common/icon/sms.png" alt="room" max-height="40" max-width="40" contain class="nav-logo-bg"></v-img>
             </v-app-bar-nav-icon>
 
             <v-spacer></v-spacer>

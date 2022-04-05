@@ -83,7 +83,7 @@ export default {
                    
                     // Check Auditor
                     if(response.data.allData.schedule){
-                        if(response.data.allData.schedule.user_id == this.user.id){
+                        if(response.data.allData.schedule.user_id == this.auth.id){
                             this.iamgeUploadAccess = true
                         }
                     }

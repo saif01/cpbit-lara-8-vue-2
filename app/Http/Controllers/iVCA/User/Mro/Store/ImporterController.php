@@ -14,7 +14,7 @@ use File;
 
 use App\Models\iVca\ivcaAuditMroImporter; 
 
-use App\Http\Controllers\User\iVCA\Common\CommonFunctions;
+use App\Http\Controllers\iVCA\User\Common\CommonFunctions;
 
 class ImporterController extends Controller
 {

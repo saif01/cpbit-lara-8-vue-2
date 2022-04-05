@@ -484,6 +484,11 @@
             </v-form>
 
         </div>
+
+
+        <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
         
 
         
@@ -501,6 +506,8 @@
             return {
 
                 valid:false,
+                // overlay
+                overlay: false,
 
                 mroImporterRules: [v => !!v || 'This Field is required!'],
 
@@ -704,9 +711,11 @@
             storageDataUpdate() {
                 // Start loading
                 this.storage_loading =true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/importer/storage_store/' + this.token + '/' + this.userType)
                     .then(response => {
                         this.storage_loading =false
+                        this.overlay = false
                         //console.log(response.data)
                         // this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -719,6 +728,7 @@
 
                     }).catch(error => {
                         this.storage_loading =false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -734,9 +744,11 @@
             productionQsDataUpdate() {
                 // Start loading
                 this.production_qs_loading =true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/importer/production_qs_store/' + this.token + '/' + this
                     .userType).then(response => {
                     this.production_qs_loading =false
+                    this.overlay = false
                     //console.log(response.data)
                     //this.form.fill(response.data.allData)
                     this.auditDataRefresh();
@@ -749,6 +761,7 @@
 
                 }).catch(error => {
                     this.production_qs_loading =false
+                    this.overlay = false
                     // Error
                     Swal.fire({
                         icon: 'error',
@@ -764,9 +777,11 @@
             safetyDataUpdate() {
                 // Start loading
                 this.safety_loading =true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/importer/safety_store/' + this.token + '/' + this.userType).then(
                     response => {
                         this.safety_loading =false
+                        this.overlay = false
                         //console.log(response.data)
                         // this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -778,6 +793,7 @@
 
                     }).catch(error => {
                         this.safety_loading =false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -793,9 +809,11 @@
             envSurConDataUpdate() {
                 // Start loading
                 this.env_sur_con_loading =true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/importer/env_sur_con_store/' + this.token + '/' + this.userType)
                     .then(response => {
                         this.env_sur_con_loading =false
+                        this.overlay = false
                         //console.log(response.data)
                         // this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -807,6 +825,7 @@
 
                     }).catch(error => {
                         this.env_sur_con_loading =false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -823,9 +842,11 @@
             cooperateDataUpdate() {
                 // Start loading
                 this.cooperate_loading =true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/importer/cooperate_store/' + this.token + '/' + this.userType)
                     .then(response => {
                         this.cooperate_loading =false
+                        this.overlay = false
                         //console.log(response.data)
                         //this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -838,6 +859,7 @@
 
                     }).catch(error => {
                         this.cooperate_loading =false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -853,9 +875,11 @@
             finalDataUpdate() {
                 // Start loading
                 this.final_loading =true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/importer/final_store/' + this.token + '/' + this.userType)
                     .then(response => {
                         this.final_loading =false
+                        this.overlay = false
                         //console.log(response.data)
                         //this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -870,6 +894,7 @@
 
                     }).catch(error => {
                         this.final_loading =false
+                        this.overlay = true
                         // Error
                         Swal.fire({
                             icon: 'error',

@@ -20,7 +20,7 @@
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
             <v-list-item href="/" class="px-2">
                 <v-list-item-avatar>
-                    <v-img src="/all-assets/common/icon/audit.png" alt="" height="40px"></v-img>
+                    <v-img src="/all-assets/common/icon/ivca.png" alt="" height="50px"></v-img> 
                 </v-list-item-avatar>
                 <v-list-item-title>iVCA Admin</v-list-item-title>
             </v-list-item>

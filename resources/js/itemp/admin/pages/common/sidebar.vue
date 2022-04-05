@@ -33,9 +33,9 @@
         <!-- sidebar -->
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
             <v-list-item class="px-2" link href="/">
-                <!-- <v-list-item-avatar>
-                    <img src="/all-assets/common/icon/sms.png" alt="" height="40px" contain>
-                </v-list-item-avatar> -->
+                <v-list-item-avatar>
+                    <img src="/all-assets/common/icon/itemp.png" alt="" height="40px" contain>
+                </v-list-item-avatar>
                 <v-list-item-title>iTemp Admin</v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>

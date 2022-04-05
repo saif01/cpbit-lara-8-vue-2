@@ -70,7 +70,7 @@
 
                                     <v-btn @click="deleteData(singleData.id)" small color="error" elevation="10"
                                         class="mb-1">
-                                        <v-icon left>mdi-close-octagon</v-icon> Delete
+                                        <v-icon left>mdi-delete-empty</v-icon> Delete
                                     </v-btn>
 
                                     <br>

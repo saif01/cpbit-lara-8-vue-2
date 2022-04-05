@@ -39,7 +39,7 @@
                             </v-select>
                         </v-col>
 
-                        <v-col cols="2">
+                        <v-col cols="3">
                             <!-- search_field -->
                             <v-select v-model="search_field" label="Search By:" :items="searchByFields" item-text="name"
                                 item-value="value" small>

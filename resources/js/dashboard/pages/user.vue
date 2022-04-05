@@ -39,7 +39,7 @@
             </v-col>
 
             <v-col cols="6" lg="3" class="text-center" v-if="isPowerbi()">
-                <a href="/itemp" class="text-decoration-none text-dark">
+                <a href="/pbi" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/powerbi.png" contain></v-img>
                     </v-avatar>

@@ -3,7 +3,7 @@
         <v-toolbar flat dense dark class="nav-color" >
 
             <v-app-bar-nav-icon href="/">
-                <v-img src="/all-assets/common/logo/cpb/cpbit.png" alt="room" max-height="40" max-width="40" contain
+                <v-img src="/all-assets/common/icon/itemp.png" alt="room" max-height="40" max-width="40" contain
                     class="nav-logo-bg"></v-img>
             </v-app-bar-nav-icon>
 

@@ -2,566 +2,625 @@
     <div>
 
         <p class="h3 text-center">The survey report of the supplier Manufacturer</p>
-      
-        <v-alert color="success" class="text-center h3" v-if="auditComplete" show><b>Successfully Audit Completed</b></v-alert>
+
+        <v-alert color="success" class="text-center h3" v-if="auditComplete" show><b>Successfully Audit Completed</b>
+        </v-alert>
 
 
         <!-- Place of production / storage location -->
-                <div>
-                    <v-card :class="{ 'submit-complete': storage_complete }">
-                        
-                        <v-card-title>Place of production / storage location</v-card-title>
-                        <v-form v-model="valid">
-                            <form @submit.prevent="storageDataUpdate()">
+        <div>
+            <v-card :class="{ 'submit-complete': storage_complete }">
 
-                                <v-card-text class="ml-2">
-                                    {{ templateData.storage_1 }}
-                                    
-                                        <v-select v-model="form.storage_1" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('storage_1') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_1')"
-                                            v-html="form.errors.get('storage_1')" />
-                                        <v-textarea rows="1" outlined v-model="form.storage_1_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_1_remarks')"
-                                            v-html="form.errors.get('storage_1_remarks')" />
-                                    
-                                </v-card-text>
+                <v-card-title>Place of production / storage location</v-card-title>
+                <v-form v-model="valid">
+                    <form @submit.prevent="storageDataUpdate()">
 
-                                <v-card-text class="ml-2">
-                                    {{ templateData.storage_2 }}
-                                    
-                                        <v-select v-model="form.storage_2" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('storage_2') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_1')"
-                                            v-html="form.errors.get('storage_2')" />
-                                        <v-textarea rows="1" outlined v-model="form.storage_2_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_2_remarks')"
-                                            v-html="form.errors.get('storage_2_remarks')" />
-                                    
-                                </v-card-text>
+                        <v-card-text class="ml-2">
+                            {{ templateData.storage_1 }}
 
-                                <v-card-text class="ml-2">
-                                    {{ templateData.storage_3 }}
-                                    
-                                        <v-select v-model="form.storage_3" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('storage_3') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_1')"
-                                            v-html="form.errors.get('storage_3')" />
-                                        <v-textarea rows="1" outlined v-model="form.storage_3_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_3_remarks')"
-                                            v-html="form.errors.get('storage_3_remarks')" />
-                                    
-                                </v-card-text>
+                            <v-select v-model="form.storage_1" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('storage_1') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('storage_1')"
+                                v-html="form.errors.get('storage_1')" />
+                            <v-textarea rows="1" outlined v-model="form.storage_1_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('storage_1_remarks')"
+                                v-html="form.errors.get('storage_1_remarks')" />
 
-                                <v-card-text class="ml-2">
-                                    {{ templateData.storage_4 }}
-                                    
-                                        <v-select v-model="form.storage_4" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('storage_4') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_1')"
-                                            v-html="form.errors.get('storage_4')" />
-                                        <v-textarea rows="1" outlined v-model="form.storage_4_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('storage_4_remarks')"
-                                            v-html="form.errors.get('storage_4_remarks')" />
-                                    
-                                </v-card-text>
+                        </v-card-text>
 
-                                <div v-if="iamgeUploadAccess" class="col-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'storage_image')"
-                                                label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
-                                            </v-file-input>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <img :src="showImageByName('storage_image')" class="rounded mx-auto d-block image-thum-size" />
-                                        </div>
-                                    </div>
-                                </div>
+                        <v-card-text class="ml-2">
+                            {{ templateData.storage_2 }}
 
+                            <v-select v-model="form.storage_2" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('storage_2') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('storage_1')"
+                                v-html="form.errors.get('storage_2')" />
+                            <v-textarea rows="1" outlined v-model="form.storage_2_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('storage_2_remarks')"
+                                v-html="form.errors.get('storage_2_remarks')" />
 
-                                <div class="col-12">
-                                    <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed :loading="storage_loading"><v-icon>mdi-pencil-outline</v-icon> Update</v-btn>
-                                </div>
+                        </v-card-text>
 
-                            </form>
-                        </v-form>
+                        <v-card-text class="ml-2">
+                            {{ templateData.storage_3 }}
 
-                    </v-card>
-                </div>
+                            <v-select v-model="form.storage_3" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('storage_3') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('storage_1')"
+                                v-html="form.errors.get('storage_3')" />
+                            <v-textarea rows="1" outlined v-model="form.storage_3_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('storage_3_remarks')"
+                                v-html="form.errors.get('storage_3_remarks')" />
 
-                <!-- Production planning / control product quality and service -->
-                <div class="mt-5">
-                    <v-card title="Production planning / control product quality and service" :class="{ 'submit-complete': production_qs_complete }">
+                        </v-card-text>
 
-                        <v-form v-model="valid">
-                            <form @submit.prevent="productionQsDataUpdate()">
+                        <v-card-text class="ml-2">
+                            {{ templateData.storage_4 }}
 
-                                <v-card-text class="ml-2">
-                                    {{ templateData.production_qs_1 }}
-                                    
-                                        <v-select v-model="form.production_qs_1" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('production_qs_1') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_1')"
-                                            v-html="form.errors.get('production_qs_1')" />
-                                        <v-textarea rows="1" outlined v-model="form.production_qs_1_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_1_remarks')"
-                                            v-html="form.errors.get('production_qs_1_remarks')" />
-                                    
-                                </v-card-text>
+                            <v-select v-model="form.storage_4" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('storage_4') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('storage_1')"
+                                v-html="form.errors.get('storage_4')" />
+                            <v-textarea rows="1" outlined v-model="form.storage_4_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('storage_4_remarks')"
+                                v-html="form.errors.get('storage_4_remarks')" />
 
-                                <v-card-text class="ml-2">
-                                    {{ templateData.production_qs_2 }}
-                                    
-                                        <v-select v-model="form.production_qs_2" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('production_qs_2') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_2')"
-                                            v-html="form.errors.get('production_qs_2')" />
-                                        <v-textarea rows="1" outlined v-model="form.production_qs_2_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_2_remarks')"
-                                            v-html="form.errors.get('production_qs_2_remarks')" />
-                                    
-                                </v-card-text>
+                        </v-card-text>
 
-                                <v-card-text class="ml-2">
-                                    {{ templateData.production_qs_3 }}
-                                    
-                                        <v-select v-model="form.production_qs_3" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('production_qs_3') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_3')"
-                                            v-html="form.errors.get('production_qs_3')" />
-                                        <v-textarea rows="1" outlined v-model="form.production_qs_3_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_3_remarks')"
-                                            v-html="form.errors.get('production_qs_3_remarks')" />
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.production_qs_4 }}
-                                    
-                                        <v-select v-model="form.production_qs_4" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('production_qs_4') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_4')"
-                                            v-html="form.errors.get('production_qs_4')" />
-                                        <v-textarea rows="1" outlined v-model="form.production_qs_4_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('production_qs_4_remarks')"
-                                            v-html="form.errors.get('production_qs_4_remarks')" />
-                                    
-                                </v-card-text>
-                                
-                                <v-card-text>
-                                    <div v-if="iamgeUploadAccess" class="col-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'production_qs_image')"
-                                                    label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
-                                                </v-file-input>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <img :src="showImageByName('production_qs_image')" class="rounded mx-auto d-block image-thum-size" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
-                                
-
-                                <div class="col-12">
-                                    <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed :loading="production_qs_loading"><v-icon>mdi-pencil-outline</v-icon> Update</v-btn>
-                                </div>
-
-                            </form>
-                        </v-form>
-
-                    </v-card>
-                </div>
-
-        <!-- Safety -->
-                <div class="mt-5">
-                    <v-card title="Safety" :class="{ 'submit-complete': safety_complete }">
-                        
-                        <v-form v-model="valid">
-                            <form @submit.prevent="safetyDataUpdate()">
-                                <v-card-text class="ml-2">
-                                    {{ templateData.safety_1 }}
-                                    
-                                        <v-select v-model="form.safety_1" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('safety_1') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('safety_1')"
-                                            v-html="form.errors.get('safety_1')" />
-                                        <v-textarea rows="1" outlined v-model="form.safety_1_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.safety_2 }}
-                                    
-                                        <v-select v-model="form.safety_2" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('safety_2') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('safety_2')"
-                                            v-html="form.errors.get('safety_2')" />
-                                        <v-textarea rows="1" outlined v-model="form.safety_2_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.safety_3 }}
-                                    
-                                        <v-select v-model="form.safety_3" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('safety_3') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('safety_3')"
-                                            v-html="form.errors.get('safety_3')" />
-                                        <v-textarea rows="1" outlined v-model="form.safety_3_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.safety_4 }}
-                                    
-                                    <v-select v-model="form.safety_4" :items="options"  
-                                        :class="{ 'is-invalid': form.errors.has('safety_4') }" :rules="mroManufactureRules" required>
-                                    </v-select>
-                                    <div class="small text-danger" v-if="form.errors.has('safety_4')"
-                                        v-html="form.errors.get('safety_4')" />
-                                    <v-textarea rows="1" outlined v-model="form.safety_4_remarks" 
-                                        label="Enter Audit Remarks">
-                                    </v-textarea>
-                                    
-                                </v-card-text>
-
-
-                                <v-card-text>
-                                    <div v-if="iamgeUploadAccess" class="col-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'safety_image')"
-                                                    label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
-                                                </v-file-input>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <img :src="showImageByName('safety_image')" class="rounded mx-auto d-block image-thum-size" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
-
-                                <div class="col-12">
-                                    <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed :loading="safety_loading"><v-icon>mdi-pencil-outline</v-icon> Update</v-btn>
-                                </div>
-
-                            </form>
-                        </v-form>
-
-                    </v-card>
-                </div>
-
-        <!-- Environment and Surrounding condition -->
-                <div class="mt-5">
-                    <v-card title="Environment and Surrounding condition" :class="{ 'submit-complete': env_sur_con_complete }">
-                        <v-form v-model="valid">
-                            <form @submit.prevent="envSurConDataUpdate()">
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.env_sur_con_1 }}
-                                    
-                                        <v-select v-model="form.env_sur_con_1" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('env_sur_con_1') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('env_sur_con_1')"
-                                            v-html="form.errors.get('env_sur_con_1')" />
-                                        <v-textarea rows="1" outlined v-model="form.env_sur_con_1_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.env_sur_con_2 }}
-                                    
-                                        <v-select v-model="form.env_sur_con_2" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('env_sur_con_2') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('env_sur_con_2')"
-                                            v-html="form.errors.get('env_sur_con_2')" />
-                                        <v-textarea rows="1" outlined v-model="form.env_sur_con_2_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.env_sur_con_3 }}
-                                    
-                                        <v-select v-model="form.env_sur_con_3" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('env_sur_con_3') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('env_sur_con_3')"
-                                            v-html="form.errors.get('env_sur_con_3')" />
-                                        <v-textarea rows="1" outlined v-model="form.env_sur_con_3_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.env_sur_con_4 }}
-                                    
-                                        <v-select v-model="form.env_sur_con_4" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('env_sur_con_4') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('env_sur_con_4')"
-                                            v-html="form.errors.get('env_sur_con_4')" />
-                                        <v-textarea rows="1" outlined v-model="form.env_sur_con_4_remarks" 
-                                            label="Enter Audit Remarks"></v-textarea>
-                                    
-                                </v-card-text>
-                                
-                                <v-card-text>
-                                    <div v-if="iamgeUploadAccess" class="col-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'env_sur_con_image')"
-                                                    label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
-                                                </v-file-input>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <img :src="showImageByName('env_sur_con_image')" class="rounded mx-auto d-block image-thum-size" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
-
-                                <div class="col-12">
-                                    <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed :loading="env_sur_con_loading"><v-icon>mdi-pencil-outline</v-icon> Update</v-btn>
-                                </div>
-
-                            </form>
-                        </v-form>
-
-                    </v-card>
-                </div>
-
-        <!-- Machinery equipment -->
-                <div class="mt-5">
-                    <v-card title="Machinery equipment" :class="{ 'submit-complete': equipment_complete }">
-                        <v-form v-model="valid">
-                            <form @submit.prevent="equipmentDataUpdate()">
-                                <v-card-text class="ml-2">
-                                    {{ templateData.equipment_1 }}
-                                    
-                                        <v-select v-model="form.equipment_1" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('equipment_1') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('equipment_1')"
-                                            v-html="form.errors.get('equipment_1')" />
-                                        <v-textarea rows="1" outlined v-model="form.equipment_1_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('equipment_1_remarks')"
-                                            v-html="form.errors.get('equipment_1_remarks')" />
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.equipment_2 }}
-                                    
-                                        <v-select v-model="form.equipment_2" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('equipment_2') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('equipment_2')"
-                                            v-html="form.errors.get('equipment_2')" />
-                                        <v-textarea rows="1" outlined v-model="form.equipment_2_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('equipment_2_remarks')"
-                                            v-html="form.errors.get('equipment_2_remarks')" />
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.equipment_3 }}
-                                    
-                                        <v-select v-model="form.equipment_3" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('equipment_3') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('equipment_3')"
-                                            v-html="form.errors.get('equipment_3')" />
-                                        <v-textarea rows="1" outlined v-model="form.equipment_3_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('equipment_3_remarks')"
-                                            v-html="form.errors.get('equipment_3_remarks')" />
-                                    
-                                </v-card-text>
-
-                                <v-card-text>
-                                    <div v-if="iamgeUploadAccess" class="col-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'equipment_image')"
-                                                    label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
-                                                </v-file-input>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <img :src="showImageByName('equipment_image')" class="rounded mx-auto d-block image-thum-size" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
-                            
-
-                                <div class="col-12">
-                                    <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed :loading="equipment_loading"><v-icon>mdi-pencil-outline</v-icon> Update</v-btn>
-                                </div>
-
-                            </form>
-                        </v-form>
-
-                    </v-card>
-                </div>
-
-        <!-- To cooperate with the company -->
-                <div class="mt-5">
-                    <v-card title="To cooperate with the company" :class="{ 'submit-complete': cooperate_complete }">
-                        <v-form v-model="valid">
-                            <form @submit.prevent="cooperateDataUpdate()">
-                                <v-card-text class="ml-2">
-                                    {{ templateData.cooperate_1 }}
-                                    
-                                        <v-select v-model="form.cooperate_1" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('cooperate_1') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('cooperate_1')"
-                                            v-html="form.errors.get('cooperate_1')" />
-                                        <v-textarea rows="1" outlined v-model="form.cooperate_1_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('cooperate_1_remarks')"
-                                            v-html="form.errors.get('cooperate_1_remarks')" />
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.cooperate_2 }}
-                                    
-                                        <v-select v-model="form.cooperate_2" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('cooperate_2') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('cooperate_2')"
-                                            v-html="form.errors.get('cooperate_2')" />
-                                        <v-textarea rows="1" outlined v-model="form.cooperate_2_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('cooperate_2_remarks')"
-                                            v-html="form.errors.get('cooperate_2_remarks')" />
-                                    
-                                </v-card-text>
-
-                                <v-card-text class="ml-2">
-                                    {{ templateData.cooperate_3 }}
-                                    
-                                        <v-select v-model="form.cooperate_3" :items="options"  
-                                            :class="{ 'is-invalid': form.errors.has('cooperate_3') }" :rules="mroManufactureRules" required>
-                                        </v-select>
-                                        <div class="small text-danger" v-if="form.errors.has('cooperate_3')"
-                                            v-html="form.errors.get('cooperate_3')" />
-                                        <v-textarea rows="1" outlined v-model="form.cooperate_3_remarks" 
-                                            label="Enter Audit Remarks">
-                                        </v-textarea>
-                                        <div class="small text-danger" v-if="form.errors.has('cooperate_3_remarks')"
-                                            v-html="form.errors.get('cooperate_3_remarks')" />
-                                        
-                                </v-card-text>
-
-                                <v-card-text>
-                                    <div v-if="iamgeUploadAccess" class="col-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'cooperate_image')"
-                                                    label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
-                                                </v-file-input>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <img :src="showImageByName('cooperate_image')" class="rounded mx-auto d-block image-thum-size" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
-                                
-
-                                <div class="col-12">
-                                    <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed :loading="cooperate_loading"><v-icon>mdi-pencil-outline</v-icon> Update</v-btn>
-                                </div>
-
-                            </form>
-                        </v-form>
-
-                    </v-card>
-                </div>
-
-        <!-- Final Submit -->
-                <div class="my-4 p-3 card">
-                    <form @submit.prevent="finalDataUpdate()">
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div label="Group Image:" v-if="iamgeUploadAccess">
-                                    <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'group_image')"
-                                        label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
+                        <div v-if="iamgeUploadAccess" class="col-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <v-file-input prepend-icon="mdi-camera"
+                                        @change="uploadImageByName($event, 'storage_image')"
+                                        label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
                                     </v-file-input>
-                                    <div class="small text-danger" v-if="form.errors.has('group_image')"
-                                            v-html="form.errors.get('group_image')" />
-                                    <div class="mt-1">
-                                        <img :src="showImageByName('group_image')" class="rounded mx-auto d-block image-thum-size" />
-                                    </div>
                                 </div>
-                            </div>
-                            
-                        
-                        
-                            <div class="col-md-6">
-                                <div v-if="iamgeUploadAccess" class="col-12">
-                                    <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'vendor_image')"
-                                        label="Choose or drop Image here..."  accept=".jpg, .png, .jpeg">
-                                    </v-file-input>
-                                    <div class="small text-danger" v-if="form.errors.has('vendor_image')"
-                                            v-html="form.errors.get('vendor_image')" />
-                                    <div class="mt-1">
-                                        <img :src="showImageByName('vendor_image')" class="rounded mx-auto d-block image-thum-size" />
-                                    </div>
-                                
-                                </div>     
+                                <div class="col-md-6">
+                                    <img :src="showImageByName('storage_image')"
+                                        class="rounded mx-auto d-block image-thum-size" />
+                                </div>
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="col-12">
-                            <v-btn v-if="!auditComplete" type="submit" block depressed :loading="final_loading" color="error"><v-icon>mdi-check-circle-outline </v-icon> Final Submit</v-btn>
+                            <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed
+                                :loading="storage_loading">
+                                <v-icon>mdi-pencil-outline</v-icon> Update
+                            </v-btn>
                         </div>
 
                     </form>
+                </v-form>
 
+            </v-card>
+        </div>
+
+        <!-- Production planning / control product quality and service -->
+        <div class="mt-5">
+            <v-card title="Production planning / control product quality and service"
+                :class="{ 'submit-complete': production_qs_complete }">
+
+                <v-form v-model="valid">
+                    <form @submit.prevent="productionQsDataUpdate()">
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.production_qs_1 }}
+
+                            <v-select v-model="form.production_qs_1" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('production_qs_1') }"
+                                :rules="mroManufactureRules" required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_1')"
+                                v-html="form.errors.get('production_qs_1')" />
+                            <v-textarea rows="1" outlined v-model="form.production_qs_1_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_1_remarks')"
+                                v-html="form.errors.get('production_qs_1_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.production_qs_2 }}
+
+                            <v-select v-model="form.production_qs_2" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('production_qs_2') }"
+                                :rules="mroManufactureRules" required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_2')"
+                                v-html="form.errors.get('production_qs_2')" />
+                            <v-textarea rows="1" outlined v-model="form.production_qs_2_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_2_remarks')"
+                                v-html="form.errors.get('production_qs_2_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.production_qs_3 }}
+
+                            <v-select v-model="form.production_qs_3" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('production_qs_3') }"
+                                :rules="mroManufactureRules" required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_3')"
+                                v-html="form.errors.get('production_qs_3')" />
+                            <v-textarea rows="1" outlined v-model="form.production_qs_3_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_3_remarks')"
+                                v-html="form.errors.get('production_qs_3_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.production_qs_4 }}
+
+                            <v-select v-model="form.production_qs_4" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('production_qs_4') }"
+                                :rules="mroManufactureRules" required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_4')"
+                                v-html="form.errors.get('production_qs_4')" />
+                            <v-textarea rows="1" outlined v-model="form.production_qs_4_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('production_qs_4_remarks')"
+                                v-html="form.errors.get('production_qs_4_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text>
+                            <div v-if="iamgeUploadAccess" class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <v-file-input prepend-icon="mdi-camera"
+                                            @change="uploadImageByName($event, 'production_qs_image')"
+                                            label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
+                                        </v-file-input>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img :src="showImageByName('production_qs_image')"
+                                            class="rounded mx-auto d-block image-thum-size" />
+                                    </div>
+                                </div>
+                            </div>
+                        </v-card-text>
+
+
+                        <div class="col-12">
+                            <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed
+                                :loading="production_qs_loading">
+                                <v-icon>mdi-pencil-outline</v-icon> Update
+                            </v-btn>
+                        </div>
+
+                    </form>
+                </v-form>
+
+            </v-card>
+        </div>
+
+        <!-- Safety -->
+        <div class="mt-5">
+            <v-card title="Safety" :class="{ 'submit-complete': safety_complete }">
+
+                <v-form v-model="valid">
+                    <form @submit.prevent="safetyDataUpdate()">
+                        <v-card-text class="ml-2">
+                            {{ templateData.safety_1 }}
+
+                            <v-select v-model="form.safety_1" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('safety_1') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('safety_1')"
+                                v-html="form.errors.get('safety_1')" />
+                            <v-textarea rows="1" outlined v-model="form.safety_1_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.safety_2 }}
+
+                            <v-select v-model="form.safety_2" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('safety_2') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('safety_2')"
+                                v-html="form.errors.get('safety_2')" />
+                            <v-textarea rows="1" outlined v-model="form.safety_2_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.safety_3 }}
+
+                            <v-select v-model="form.safety_3" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('safety_3') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('safety_3')"
+                                v-html="form.errors.get('safety_3')" />
+                            <v-textarea rows="1" outlined v-model="form.safety_3_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.safety_4 }}
+
+                            <v-select v-model="form.safety_4" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('safety_4') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('safety_4')"
+                                v-html="form.errors.get('safety_4')" />
+                            <v-textarea rows="1" outlined v-model="form.safety_4_remarks" label="Enter Audit Remarks">
+                            </v-textarea>
+
+                        </v-card-text>
+
+
+                        <v-card-text>
+                            <div v-if="iamgeUploadAccess" class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <v-file-input prepend-icon="mdi-camera"
+                                            @change="uploadImageByName($event, 'safety_image')"
+                                            label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
+                                        </v-file-input>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img :src="showImageByName('safety_image')"
+                                            class="rounded mx-auto d-block image-thum-size" />
+                                    </div>
+                                </div>
+                            </div>
+                        </v-card-text>
+
+                        <div class="col-12">
+                            <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed
+                                :loading="safety_loading">
+                                <v-icon>mdi-pencil-outline</v-icon> Update
+                            </v-btn>
+                        </div>
+
+                    </form>
+                </v-form>
+
+            </v-card>
+        </div>
+
+        <!-- Environment and Surrounding condition -->
+        <div class="mt-5">
+            <v-card title="Environment and Surrounding condition" :class="{ 'submit-complete': env_sur_con_complete }">
+                <v-form v-model="valid">
+                    <form @submit.prevent="envSurConDataUpdate()">
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.env_sur_con_1 }}
+
+                            <v-select v-model="form.env_sur_con_1" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('env_sur_con_1') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('env_sur_con_1')"
+                                v-html="form.errors.get('env_sur_con_1')" />
+                            <v-textarea rows="1" outlined v-model="form.env_sur_con_1_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.env_sur_con_2 }}
+
+                            <v-select v-model="form.env_sur_con_2" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('env_sur_con_2') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('env_sur_con_2')"
+                                v-html="form.errors.get('env_sur_con_2')" />
+                            <v-textarea rows="1" outlined v-model="form.env_sur_con_2_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.env_sur_con_3 }}
+
+                            <v-select v-model="form.env_sur_con_3" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('env_sur_con_3') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('env_sur_con_3')"
+                                v-html="form.errors.get('env_sur_con_3')" />
+                            <v-textarea rows="1" outlined v-model="form.env_sur_con_3_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.env_sur_con_4 }}
+
+                            <v-select v-model="form.env_sur_con_4" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('env_sur_con_4') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('env_sur_con_4')"
+                                v-html="form.errors.get('env_sur_con_4')" />
+                            <v-textarea rows="1" outlined v-model="form.env_sur_con_4_remarks"
+                                label="Enter Audit Remarks"></v-textarea>
+
+                        </v-card-text>
+
+                        <v-card-text>
+                            <div v-if="iamgeUploadAccess" class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <v-file-input prepend-icon="mdi-camera"
+                                            @change="uploadImageByName($event, 'env_sur_con_image')"
+                                            label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
+                                        </v-file-input>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img :src="showImageByName('env_sur_con_image')"
+                                            class="rounded mx-auto d-block image-thum-size" />
+                                    </div>
+                                </div>
+                            </div>
+                        </v-card-text>
+
+                        <div class="col-12">
+                            <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed
+                                :loading="env_sur_con_loading">
+                                <v-icon>mdi-pencil-outline</v-icon> Update
+                            </v-btn>
+                        </div>
+
+                    </form>
+                </v-form>
+
+            </v-card>
+        </div>
+
+        <!-- Machinery equipment -->
+        <div class="mt-5">
+            <v-card title="Machinery equipment" :class="{ 'submit-complete': equipment_complete }">
+                <v-form v-model="valid">
+                    <form @submit.prevent="equipmentDataUpdate()">
+                        <v-card-text class="ml-2">
+                            {{ templateData.equipment_1 }}
+
+                            <v-select v-model="form.equipment_1" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('equipment_1') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('equipment_1')"
+                                v-html="form.errors.get('equipment_1')" />
+                            <v-textarea rows="1" outlined v-model="form.equipment_1_remarks"
+                                label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('equipment_1_remarks')"
+                                v-html="form.errors.get('equipment_1_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.equipment_2 }}
+
+                            <v-select v-model="form.equipment_2" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('equipment_2') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('equipment_2')"
+                                v-html="form.errors.get('equipment_2')" />
+                            <v-textarea rows="1" outlined v-model="form.equipment_2_remarks"
+                                label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('equipment_2_remarks')"
+                                v-html="form.errors.get('equipment_2_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.equipment_3 }}
+
+                            <v-select v-model="form.equipment_3" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('equipment_3') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('equipment_3')"
+                                v-html="form.errors.get('equipment_3')" />
+                            <v-textarea rows="1" outlined v-model="form.equipment_3_remarks"
+                                label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('equipment_3_remarks')"
+                                v-html="form.errors.get('equipment_3_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text>
+                            <div v-if="iamgeUploadAccess" class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <v-file-input prepend-icon="mdi-camera"
+                                            @change="uploadImageByName($event, 'equipment_image')"
+                                            label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
+                                        </v-file-input>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img :src="showImageByName('equipment_image')"
+                                            class="rounded mx-auto d-block image-thum-size" />
+                                    </div>
+                                </div>
+                            </div>
+                        </v-card-text>
+
+
+                        <div class="col-12">
+                            <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed
+                                :loading="equipment_loading">
+                                <v-icon>mdi-pencil-outline</v-icon> Update
+                            </v-btn>
+                        </div>
+
+                    </form>
+                </v-form>
+
+            </v-card>
+        </div>
+
+        <!-- To cooperate with the company -->
+        <div class="mt-5">
+            <v-card title="To cooperate with the company" :class="{ 'submit-complete': cooperate_complete }">
+                <v-form v-model="valid">
+                    <form @submit.prevent="cooperateDataUpdate()">
+                        <v-card-text class="ml-2">
+                            {{ templateData.cooperate_1 }}
+
+                            <v-select v-model="form.cooperate_1" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('cooperate_1') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('cooperate_1')"
+                                v-html="form.errors.get('cooperate_1')" />
+                            <v-textarea rows="1" outlined v-model="form.cooperate_1_remarks"
+                                label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('cooperate_1_remarks')"
+                                v-html="form.errors.get('cooperate_1_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.cooperate_2 }}
+
+                            <v-select v-model="form.cooperate_2" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('cooperate_2') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('cooperate_2')"
+                                v-html="form.errors.get('cooperate_2')" />
+                            <v-textarea rows="1" outlined v-model="form.cooperate_2_remarks"
+                                label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('cooperate_2_remarks')"
+                                v-html="form.errors.get('cooperate_2_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text class="ml-2">
+                            {{ templateData.cooperate_3 }}
+
+                            <v-select v-model="form.cooperate_3" :items="options"
+                                :class="{ 'is-invalid': form.errors.has('cooperate_3') }" :rules="mroManufactureRules"
+                                required>
+                            </v-select>
+                            <div class="small text-danger" v-if="form.errors.has('cooperate_3')"
+                                v-html="form.errors.get('cooperate_3')" />
+                            <v-textarea rows="1" outlined v-model="form.cooperate_3_remarks"
+                                label="Enter Audit Remarks">
+                            </v-textarea>
+                            <div class="small text-danger" v-if="form.errors.has('cooperate_3_remarks')"
+                                v-html="form.errors.get('cooperate_3_remarks')" />
+
+                        </v-card-text>
+
+                        <v-card-text>
+                            <div v-if="iamgeUploadAccess" class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <v-file-input prepend-icon="mdi-camera"
+                                            @change="uploadImageByName($event, 'cooperate_image')"
+                                            label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
+                                        </v-file-input>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img :src="showImageByName('cooperate_image')"
+                                            class="rounded mx-auto d-block image-thum-size" />
+                                    </div>
+                                </div>
+                            </div>
+                        </v-card-text>
+
+
+                        <div class="col-12">
+                            <v-btn v-if="!auditComplete" type="submit" color="primary" block depressed
+                                :loading="cooperate_loading">
+                                <v-icon>mdi-pencil-outline</v-icon> Update
+                            </v-btn>
+                        </div>
+
+                    </form>
+                </v-form>
+
+            </v-card>
+        </div>
+
+        <!-- Final Submit -->
+        <div class="my-4 p-3 card">
+            <form @submit.prevent="finalDataUpdate()">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div label="Group Image:" v-if="iamgeUploadAccess">
+                            <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'group_image')"
+                                label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
+                            </v-file-input>
+                            <div class="small text-danger" v-if="form.errors.has('group_image')"
+                                v-html="form.errors.get('group_image')" />
+                            <div class="mt-1">
+                                <img :src="showImageByName('group_image')"
+                                    class="rounded mx-auto d-block image-thum-size" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                        <div v-if="iamgeUploadAccess" class="col-12">
+                            <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'vendor_image')"
+                                label="Choose or drop Image here..." accept=".jpg, .png, .jpeg">
+                            </v-file-input>
+                            <div class="small text-danger" v-if="form.errors.has('vendor_image')"
+                                v-html="form.errors.get('vendor_image')" />
+                            <div class="mt-1">
+                                <img :src="showImageByName('vendor_image')"
+                                    class="rounded mx-auto d-block image-thum-size" />
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+
+
+                <div class="col-12">
+                    <v-btn v-if="!auditComplete" type="submit" block depressed :loading="final_loading" color="error">
+                        <v-icon>mdi-check-circle-outline </v-icon> Final Submit
+                    </v-btn>
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
 
 
 
@@ -576,7 +635,9 @@
         props: ['token', 'iamgeUploadAccess'],
         data() {
             return {
-                valid:false,
+                valid: false,
+                // overlay
+                overlay: false,
 
                 mroManufactureRules: [v => !!v || 'This Field is required!'],
 
@@ -593,22 +654,22 @@
                 imagePathSm: '/images/ivca/small/',
 
                 // Section Complete Status
-                storage_complete : false,
-                production_qs_complete : false,
-                safety_complete : false,
-                env_sur_con_complete : false,
-                equipment_complete : false,
-                cooperate_complete : false,
+                storage_complete: false,
+                production_qs_complete: false,
+                safety_complete: false,
+                env_sur_con_complete: false,
+                equipment_complete: false,
+                cooperate_complete: false,
 
                 // Loading Indecator
-                storage_loading : false,
-                production_qs_loading : false,
-                safety_loading : false,
-                env_sur_con_loading : false,
-                equipment_loading : false,
-                cooperate_loading : false,
-                final_loading:false,
-              
+                storage_loading: false,
+                production_qs_loading: false,
+                safety_loading: false,
+                env_sur_con_loading: false,
+                equipment_loading: false,
+                cooperate_loading: false,
+                final_loading: false,
+
 
 
                 options: [{
@@ -711,7 +772,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Error !!',
-                        text: 'Sorry! Somthing going wrong',  
+                        text: 'Sorry! Somthing going wrong',
                     })
                     console.log(error)
                 })
@@ -771,7 +832,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Error !!',
-                        text: 'Sorry! Somthing going wrong',  
+                        text: 'Sorry! Somthing going wrong',
                     })
                     console.log(error)
                 })
@@ -781,7 +842,7 @@
             currentRoleCheck() {
                 if (this.iamgeUploadAccess) {
                     this.userType = 'Auditor'
-                }else{
+                } else {
                     this.userType = 'User'
                 }
             },
@@ -791,10 +852,12 @@
             // storageDataUpdate
             storageDataUpdate() {
                 // Start loading
-                this.storage_loading =true
+                this.storage_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/manufacturer/storage_store/' + this.token + '/' + this.userType)
                     .then(response => {
-                        this.storage_loading =false
+                        this.storage_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         //this.form.fill(response.data.allData)
 
@@ -807,12 +870,13 @@
                         })
 
                     }).catch(error => {
-                        this.storage_loading =false
+                        this.storage_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error !!',
-                            text: 'Sorry! Somthing going wrong',  
+                            text: 'Sorry! Somthing going wrong',
                         })
                         console.log(error)
                     })
@@ -822,9 +886,12 @@
             // productionQsDataUpdate
             productionQsDataUpdate() {
                 // Start loading
-                this.production_qs_loading =true
-                this.form.post(this.currentUrl + '/manufacturer/production_qs_store/' + this.token + '/' + this.userType).then(response => {
-                    this.production_qs_loading =false
+                this.production_qs_loading = true
+                this.overlay = true
+                this.form.post(this.currentUrl + '/manufacturer/production_qs_store/' + this.token + '/' + this
+                    .userType).then(response => {
+                    this.production_qs_loading = false
+                    this.overlay = false
                     //console.log(response.data)
                     //this.form.fill(response.data.allData)
                     this.auditDataRefresh();
@@ -836,12 +903,13 @@
                     })
 
                 }).catch(error => {
-                    this.production_qs_loading =false
+                    this.production_qs_loading = false
+                    this.overlay = false
                     // Error
                     Swal.fire({
                         icon: 'error',
                         title: 'Error !!',
-                        text: 'Sorry! Somthing going wrong',  
+                        text: 'Sorry! Somthing going wrong',
                     })
                     console.log(error)
                 })
@@ -851,10 +919,12 @@
             // safetyDataUpdate
             safetyDataUpdate() {
                 // Start loading
-                this.safety_loading =true
+                this.safety_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/manufacturer/safety_store/' + this.token + '/' + this.userType).then(
                     response => {
-                        this.safety_loading =false
+                        this.safety_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         // this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -865,25 +935,28 @@
                         })
 
                     }).catch(error => {
-                        this.safety_loading =false
-                        // Error
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error !!',
-                            text: 'Sorry! Somthing going wrong',  
-                        })
-                        console.log(error)
+                    this.safety_loading = false
+                    this.overlay = false
+                    // Error
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Sorry! Somthing going wrong',
                     })
+                    console.log(error)
+                })
             },
 
 
             // envSurConDataUpdate
             envSurConDataUpdate() {
                 // Start loading
-                this.env_sur_con_loading =true
+                this.env_sur_con_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/manufacturer/env_sur_con_store/' + this.token + '/' + this.userType)
                     .then(response => {
-                        this.env_sur_con_loading =false
+                        this.env_sur_con_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         // this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -894,12 +967,13 @@
                         })
 
                     }).catch(error => {
-                        this.env_sur_con_loading =false
+                        this.env_sur_con_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error !!',
-                            text: 'Sorry! Somthing going wrong',  
+                            text: 'Sorry! Somthing going wrong',
                         })
                         console.log(error)
                     })
@@ -909,10 +983,12 @@
             // equipmentDataUpdate
             equipmentDataUpdate() {
                 // Start loading
-                this.equipment_loading =true
+                this.equipment_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/manufacturer/equipment_store/' + this.token + '/' + this.userType)
                     .then(response => {
-                        this.equipment_loading =false
+                        this.equipment_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         //this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -923,12 +999,13 @@
                         })
 
                     }).catch(error => {
-                        this.equipment_loading =false
+                        this.equipment_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error !!',
-                            text: 'Sorry! Somthing going wrong',  
+                            text: 'Sorry! Somthing going wrong',
                         })
                         console.log(error)
                     })
@@ -938,10 +1015,12 @@
             // cooperateDataUpdate
             cooperateDataUpdate() {
                 // Start loading
-                this.cooperate_loading =true
+                this.cooperate_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/manufacturer/cooperate_store/' + this.token + '/' + this.userType)
                     .then(response => {
-                        this.cooperate_loading =false
+                        this.cooperate_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         //this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -953,12 +1032,13 @@
                         })
 
                     }).catch(error => {
-                        this.cooperate_loading =false
+                        this.cooperate_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error !!',
-                            text: 'Sorry! Somthing going wrong',  
+                            text: 'Sorry! Somthing going wrong',
                         })
                         console.log(error)
                     })
@@ -968,10 +1048,12 @@
             // finalDataUpdate
             finalDataUpdate() {
                 // Start loading
-                this.final_loading =true
+                this.final_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/manufacturer/final_store/' + this.token + '/' + this.userType)
                     .then(response => {
-                        this.final_loading =false
+                        this.final_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         //this.form.fill(response.data.allData)
                         this.auditDataRefresh();
@@ -979,18 +1061,21 @@
                             icon: response.data.icon,
                             title: response.data.status,
                             text: response.data.msg,
-                        }).then(()=>{
+                        }).then(() => {
                             // Redirect route
-                            this.$router.push({ name:'ivca_mro_schedule' })
+                            this.$router.push({
+                                name: 'ivca_mro_schedule'
+                            })
                         })
 
                     }).catch(error => {
-                        this.final_loading =false
+                        this.final_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error !!',
-                            text: 'Sorry! Somthing going wrong',  
+                            text: 'Sorry! Somthing going wrong',
                         })
                         console.log(error)
                     })
@@ -1051,12 +1136,13 @@
         z-index: 1;
     }
 
-    .image-thum-size{
+    .image-thum-size {
         height: 50px;
-        width: 100px;    
+        width: 100px;
     }
-    .submit-complete{
-        background:rgb(123, 243, 123);
+
+    .submit-complete {
+        background: rgb(123, 243, 123);
     }
 
 </style>

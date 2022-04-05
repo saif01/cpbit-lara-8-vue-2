@@ -17,7 +17,7 @@
                     <span v-if="auth" class="m-1">{{ auth.name }}</span>
                     <v-avatar v-bind="attrs" v-on="on" contain>
                         <img v-if="auth.image" :src="'/images/users/small/'+auth.image" alt="image">
-                        <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image">
+                        <img v-else src="https://www.w3schools.com/howto/img_avatar.png" alt="image"> 
                     </v-avatar>
                 </template>
 
@@ -34,7 +34,7 @@
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
             <v-list-item class="px-2" link href="/">
                 <v-list-item-icon>
-                    <img src="/all-assets/common/logo/cpb/cpbit.png" alt="" height="40px" contain>
+                    <img src="/all-assets/common/icon/mobileapp.png" alt="" height="50px" contain>
                 </v-list-item-icon>
                 <v-list-item-title>Mobile App Admin</v-list-item-title>
             </v-list-item>

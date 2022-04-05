@@ -14,7 +14,7 @@ use App\Models\iVca\ivcaTemplateFood;
 use App\Models\iVca\ivcaAuditFoodToken;
 use App\Models\iVca\ivcaAuditFood;
 
-use App\Http\Controllers\User\iVCA\Common\CommonFunctions;
+use App\Http\Controllers\iVCA\User\Common\CommonFunctions;
 
 class AuditController extends Controller
 {
