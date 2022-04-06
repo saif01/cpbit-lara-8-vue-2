@@ -18,10 +18,10 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->command('command:TodayBookedCar')
-            //->dailyAt('08:00');
+            ->dailyAt('08:00');
             //->everyTenMinutes();
             //->everyFiveMinutes();
-            ->everyMinute();
+            //->everyMinute();
 
         $schedule->command('command:TodayBookedRoom')
             ->dailyAt('08:01');
@@ -30,7 +30,10 @@ class Kernel extends ConsoleKernel
             //->everyMinute();
 
        
-
+        $schedule->command('command:MainIpPing')
+            ->everyTenMinutes();
+            //->everyFiveMinutes();
+            //->everyMinute();
     
                     
 

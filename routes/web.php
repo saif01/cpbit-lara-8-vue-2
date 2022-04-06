@@ -24,34 +24,7 @@ Route::namespace('App\Http\Controllers\Auth')->group(function(){
 // Auth Route Start
 Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
-    // // Demo Start
-    // Route::namespace('Room')->prefix('room')->group(function(){
-
-    //     // Admin
-    //     Route::middleware(['can:roomAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
-
-    //         //Room 
-    //         Route::namespace('Room')->prefix('room')->group(function(){
-    //             Route::get('/index', 'IndexController@index');
-    //             Route::post('/store', 'IndexController@store');
-    //             Route::put('/update/{id}', 'IndexController@update');
-    //             Route::delete('/destroy_temp/{id}', 'IndexController@destroy_temp');
-    //             Route::delete('/destroy/{id}', 'IndexController@destroy');
-    //             Route::post('/status/{id}', 'IndexController@status');
-    //         });
-
-           
-    //         Route::get('{any?}', 'IndexController@index');
-    //     });
-
-    //     // User
-    //     Route::middleware(['can:room'])->namespace('User')->group(function(){
-
-
-    //         Route::get('{any?}', 'IndexController@index');
-    //     });
-    // });
-    // // Demo End
+   
 
     // SuperAdmin Start
     Route::middleware(['can:superadmin'])->namespace('SuperAdmin')->prefix('super_admin')->group(function(){

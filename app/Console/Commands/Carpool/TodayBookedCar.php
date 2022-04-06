@@ -41,6 +41,7 @@ class TodayBookedCar extends Command
     public function handle()
     {
         $this->DailyBookedLineMsg();
+        \Log::info("Cron Daily Booked Line Msg Done");
         return Command::SUCCESS;
     }
 }

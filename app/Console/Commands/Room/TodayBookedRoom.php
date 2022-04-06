@@ -42,6 +42,7 @@ class TodayBookedRoom extends Command
     public function handle()
     {
         $this->DailyBookedLineMsg();
+        \Log::info("Cron Daily Room Booked Line Msg Done");
         return Command::SUCCESS;
     }
 }
