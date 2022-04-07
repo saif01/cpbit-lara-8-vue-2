@@ -3,10 +3,10 @@
         <nav-bar></nav-bar>
 
         <v-main>
-            <v-container fluid>
+            <div class="ma-3">
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
-            </v-container>
+            </div>
         </v-main>
 
         <page-footer></page-footer>
