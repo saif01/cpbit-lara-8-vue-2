@@ -11,7 +11,7 @@ use Auth;
 
 class IndexController extends Controller
 {
-    use CommonFunctions;
+    use CommonFunctions; 
 
 
     public function index(){
