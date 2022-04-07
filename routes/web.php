@@ -549,6 +549,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/category', 'HardwareController@category');
                 Route::get('/history', 'HardwareController@history');
                 Route::get('/damage_apply', 'HardwareController@damage_apply');
+                Route::post('/complain_cancel', 'HardwareController@complain_cancel');
 
             });
 

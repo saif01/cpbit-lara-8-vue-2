@@ -69,7 +69,7 @@
                             <tr>
                                 <th>Action</th>
                                 <th>
-                                    <a href="#" @click.prevent="change_sort('id')">Num.</a>
+                                    <a href="#" @click.prevent="change_sort('id')">Number</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'id'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'id'">&darr;</span>
                                 </th>
@@ -92,27 +92,45 @@
                             <tr v-for="singleData in allData.data" :key="singleData.id">
 
                                 <td class="text-center">
-                                    <v-btn @click="remarksDetailsShow(singleData)" color="success" depressed
-                                        small elevation="20">
-                                        <v-icon small>mdi-eye-arrow-left </v-icon> View
+                                    <span v-if="singleData.process == 'Not Process'">
+                                        <v-btn v-if="singleData.process == 'Not Process' && singleData.status == 1" @click="complainCancel(singleData.id)" color="error" depressed
+                                        elevation="20">
+                                        <v-icon left>mdi-close-octagon-outline</v-icon> Cancel
                                     </v-btn>
+                                    <span v-else class="error--text">Canceled</span>
+                                    </span>
+                                   
+                                    
+                                    <v-btn v-else  @click="remarksDetailsShow(singleData)" color="success" depressed small
+                                        elevation="20">
+                                        <v-icon left>mdi-eye-arrow-left </v-icon> View
+                                    </v-btn>
+
+                                    
+
+
                                     <!-- Damaged Replace -->
                                     <span v-if="singleData.dam_apply && singleData.dam_apply.apply_by">
-                                        <div class="m-1 pa-1 success rounded-pill h6 text-white text-center">
+                                        <div class="m-1 info rounded-pill h6 text-white text-center">
                                             Replace Applied <br>
-
                                             <span class="small text-warning"
                                                 v-if="singleData.dam_apply.apply_at">{{ singleData.dam_apply.apply_at | moment("MMMM Do YYYY") }}</span>
-
                                         </div>
                                     </span>
                                     <span v-else>
-                                        <v-btn v-if="singleData.dam_apply && (singleData.dam_apply.applicable_type == 'Applicable')"
-                                            @click="damagedReplace(singleData.dam_apply.id)" color="error" depressed small
-                                            elevation="20">
+                                        <v-btn
+                                            v-if="singleData.dam_apply && (singleData.dam_apply.applicable_type == 'Applicable')"
+                                            @click="damagedReplace(singleData.dam_apply.id)" success depressed
+                                            small elevation="20">
                                             <v-icon small>mdi-file-replace </v-icon> Replace Apply
                                         </v-btn>
                                     </span>
+
+                                    <!-- Damaged Quation -->
+                                    <div v-if="singleData.dam_apply && singleData.dam_apply.apply_quotation"
+                                        class="text-center">
+                                        <v-btn @click="damagedQuationMethod(singleData.dam_apply)" color="success" small ><v-icon left>mdi-eye-arrow-left </v-icon> Damaged Quotation</v-btn>
+                                    </div>
 
 
                                 </td>
@@ -129,6 +147,11 @@
 
                                     <div v-else class="pa-1 info rounded-pill h6 text-white text-center">
                                         {{ singleData.process }}
+                                    </div>
+                                    <!-- damagedReplace -->
+                                    <div v-if="singleData.dam_apply && singleData.dam_apply.rec_name"
+                                        class="text-center">
+                                        <v-btn @click="damagedReplaceMethod(singleData.dam_apply)" color="success" x-small><v-icon left>mdi-eye-arrow-left </v-icon> Damaged Replaced</v-btn>
                                     </div>
 
                                 </td>
@@ -168,7 +191,7 @@
         </v-card>
 
 
-        <!-- remarks infomation modal -->
+        <!-- Remarks infomation -->
         <v-dialog v-if="allRemarks" v-model="remarksDialog">
             <v-card>
                 <v-card-title class="justify-center">
@@ -199,14 +222,15 @@
 
                                 <td class="text-center">
                                     {{ item.process }}
-                                    
-                                    <div v-if="item.process == 'Damaged Quotation' " >
-                                        <hr>
-                                        <v-btn @click="damQuotationModal = true " outlined color="indigo">View Delivery Details</v-btn>
-                                    </div>
+
+                                    <v-btn v-if="item.process == 'Closed' && item.dam_apply"
+                                        @click="damQuotationModal = true " outlined color="indigo">View Delivery Details
+                                    </v-btn>
+
                                 </td>
 
-                                <td v-if="item.process == 'Damaged Quotation' " v-html="item.details" class="text-success font-weight-bold"></td>
+                                <td v-if="item.process == 'Damaged Quotation' " v-html="item.details"
+                                    class="text-success font-weight-bold"></td>
                                 <td v-else v-html="item.details"></td>
 
                                 <!-- <div v-if="item.process == 'Damaged Quotation' ">
@@ -285,6 +309,101 @@
             </v-card>
         </v-dialog>
 
+        <!-- Damage Replace Receiver details -->
+        <v-dialog max-width="700px" v-model="damagedReplaceDialog">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            Replace Receiver Details
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="damagedReplaceDialog = false" color="red lighten-1 white--text" small
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+
+                    <table class="table">
+                    <tr>
+                        <th>Receiver Name</th><td> <span
+                            v-if="currentDamagedReplaceData.rec_name">{{currentDamagedReplaceData.rec_name}}</span>
+                        <span v-else class="error--text">N/A</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Receiver Contact</th><td> <span
+                            v-if="currentDamagedReplaceData.rec_contact">{{currentDamagedReplaceData.rec_contact}}</span>
+                        <span v-else class="error--text">N/A</span></td>
+                    </tr>
+                    <tr>
+                        <th>Receiver Position</th><td> <span
+                            v-if="currentDamagedReplaceData.rec_position">{{currentDamagedReplaceData.rec_position}}</span>
+                        <span v-else class="error--text">N/A</span></td>
+                    </tr>
+                    <tr>
+                        <th>Delivery By</th><td> <span
+                            v-if="currentDamagedReplaceData.makby">{{currentDamagedReplaceData.makby.name  }}</span>
+                        <span v-else class="error--text">N/A</span></td>
+                    </tr>
+                    <tr>
+                        <th>Receiver Date</th><td> <span
+                            v-if="currentDamagedReplaceData.created_at">{{currentDamagedReplaceData.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")  }}</span>
+                        <span v-else class="error--text">N/A</span></td>
+                    </tr>
+
+                     </table>
+
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
+
+        <!-- Damage Quation details -->
+        <v-dialog v-model="damagedQuotationDialog">
+            <v-card>
+                <v-card-title class="justify-center">
+                    <v-row>
+                        <v-col cols="10">
+                            Quotation Details
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn @click="damagedQuotationDialog = false" color="red lighten-1 white--text" small
+                                class="float-right">
+                                <v-icon left dark>mdi-close-octagon</v-icon> Close
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+
+                    <table class="table">
+                    <tr>
+                        <th>Quotation</th><td> <span
+                            v-if="currentDamagedReplaceData.apply_quotation" v-html="currentDamagedReplaceData.apply_quotation"></span>
+                        <span v-else class="error--text">N/A</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Document</th><td> <span
+                            v-if="currentDamagedReplaceData.document">
+                            <a v-if="currentDamagedReplaceData.document" :href="docPath+currentDamagedReplaceData.document"
+                                            class="btn btn-info btn-sm text-white" download>
+                                            <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
+                                        </a>
+                            </span>
+                        <span v-else class="error--text">N/A</span></td>
+                    </tr>
+                   
+                    </table>
+
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
 
     </div>
 
@@ -292,6 +411,7 @@
 
 
 <script>
+import axios from 'axios';
     export default {
 
         data() {
@@ -358,9 +478,14 @@
                 remarksDialog: false,
                 allRemarks: [],
                 docPath: '/images/hardware/',
-                
+
                 // damQuotationModal
                 damQuotationModal: false,
+
+                damagedReplaceDialog: false,
+                currentDamagedReplaceData: '',
+                damagedQuotationDialog: false,
+
             }
 
 
@@ -442,6 +567,66 @@
             },
 
 
+            // damagedReplaceMethod
+            damagedReplaceMethod(val) {
+                this.currentDamagedReplaceData = val
+                this.damagedReplaceDialog = true
+            },
+
+            // damagedQuationMethod
+            damagedQuationMethod(val){
+                this.currentDamagedReplaceData = val
+                this.damagedQuotationDialog = true
+            },
+
+            // complainCancel
+            complainCancel(val){
+
+                // axios.post(this.currentUrl + '/complain_cancel', {id:val}).then(response=>{
+                //     console.log(response.data)
+                // }).catch(error=>{
+                //     console.log(error)
+                // })
+
+                 // console.log('status', data.status)
+       
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You want to cancel this complain !',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes!',
+        }).then((result) => {
+
+            // Send request to the server
+            if (result.value) {
+                //console.log(id);
+                this.$Progress.start();
+                axios.post(this.currentUrl + '/complain_cancel', {id:val}).then((response) => {
+                    //console.log(response);
+                    Swal.fire(
+                        'Changed!',
+                        'Status has been Changed.',
+                        'success'
+                    );
+                    // Refresh Tbl Data with current page
+                    this.getResults(this.currentPageNumber);
+                    this.$Progress.finish();
+
+                }).catch((data) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Somthing Going Wrong<br>'+data.message,
+                        customClass: 'text-danger'
+                    });
+                    // Swal.fire("Failed!", data.message, "warning");
+                });
+            }
+        })
+
+            },
 
 
         },

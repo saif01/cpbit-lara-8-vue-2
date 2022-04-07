@@ -1,5 +1,5 @@
 <template>
-    <div class='container py-5'>
+    <div class='py-5'>
 
         <div>
             <FullCalendar :options='calendarOptions'></FullCalendar>
@@ -8,7 +8,7 @@
 
 
         <!-- Single Event data Show Modal -->
-        <v-dialog persistent v-model="eventDetailsModal" max-width="800px" scrollable>
+        <v-dialog persistent v-model="eventDetailsModal" scrollable>
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -297,7 +297,7 @@
 
 
         <!-- Car and driver Details for Booking -->
-        <v-dialog persistent v-model="carStatusShow" scrollable max-width="1000px">
+        <v-dialog persistent v-model="carStatusShow" scrollable >
             <v-card>
                 <!-- Dialog Title -->
                 <v-card-title class="justify-center">
