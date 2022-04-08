@@ -91,6 +91,8 @@ class BookingController extends Controller
     // store
     public function store(Request $request){
 
+       // dd($request->all());
+
         //Validate
         $this->validate($request,[
             'destination'    =>  'required',

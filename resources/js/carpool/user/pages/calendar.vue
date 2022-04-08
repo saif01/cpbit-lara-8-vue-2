@@ -345,40 +345,42 @@
 
                     <div v-if="freeCars.length > 0">
                         <v-row>
-                            <v-col v-for="singleData in freeCars" :key="singleData.id" cols="12" lg="6">
-                                <v-card dark :img="imagePathSm + singleData.image">
+                            <v-col v-for="item in freeCars" :key="item.id" cols="12" lg="6">
+                                <v-card dark :img="imagePathSm + item.image">
                                     <div class="d-sm-flex  justify-space-between">
                                         <v-card-text>
                                             <div class="card_text_bg py-2 pl-2">
-                                                <div v-if="singleData.driver" class="mb-2">
-                                                    <div>Driver Name: <b>{{ singleData.driver.name }}</b></div>
-                                                    <div>Driver Number: <b><a :href="'tel:'+singleData.driver.contact">{{ singleData.driver.contact }} </a></b></div>
+                                                <div v-if="item.driver" class="mb-2">
+                                                    <div>Driver Name: <b>{{ item.driver.name }}</b></div>
+                                                    <div>Driver Number: <b><a
+                                                                :href="'tel:'+item.driver.contact">{{ item.driver.contact }}
+                                                            </a></b></div>
                                                 </div>
 
                                                 <div>
-                                                    <div>Car Name: {{ singleData.name }} </div>
-                                                    <div>Car Number: {{ singleData.number }} </div>
-                                                    <div>Capacity: {{ singleData.capacity }}</div>
+                                                    <div>Car Name: {{ item.name }} </div>
+                                                    <div>Car Number: {{ item.number }} </div>
+                                                    <div>Capacity: {{ item.capacity }}</div>
                                                 </div>
-                                                <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
+                                                <div v-for="leave in item.car_leave" :key="leave.id"
+                                                    class="text-center">
                                                     <v-badge :content="leaveVal(leave)" inline></v-badge>
                                                 </div>
                                             </div>
-                    
+
                                         </v-card-text>
 
                                         <!-- <v-avatar class="ma-3" size="150">
-                                            <v-img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt=""></v-img>
+                                            <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image" alt=""></v-img>
                                         </v-avatar> -->
                                         <div class="ma-3">
-                                            <v-img v-if="singleData.driver"
-                                                :src="imagePathSmDriver + singleData.driver.image" alt="IMG"
-                                               class="size_avatar mx-auto"></v-img>
+                                            <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image"
+                                                alt="IMG" class="size_avatar mx-auto"></v-img>
                                         </div>
-                                        
+
                                     </div>
                                     <v-card-actions>
-                                        <v-btn @click="bookingModal(singleData)" color="teal white--text" block rounded small>
+                                        <v-btn @click="bookingModal(item)" color="teal white--text" block rounded small>
                                             <v-icon left>mdi-plus-circle-outline</v-icon>
                                             Book
                                         </v-btn>
@@ -387,18 +389,18 @@
                                 </v-card>
                             </v-col>
                         </v-row>
-                        <!-- <v-card v-for="singleData in freeCars" :key="singleData.id" class="mb-5">
+                        <!-- <v-card v-for="item in freeCars" :key="item.id" class="mb-5">
                             <v-card-text>
                                 <v-row class="align-items-center">
                                     <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
                                         <v-col lg="11">
-                                            <v-img v-if="singleData.image" :src="imagePathSm + singleData.image"
+                                            <v-img v-if="item.image" :src="imagePathSm + item.image"
                                                 max-width="400" class="rounded-lg"></v-img>
                                         </v-col>
 
                                         <div class="driver_image_position">
-                                            <img v-if="singleData.driver"
-                                                :src="imagePathSmDriver + singleData.driver.image" alt=""
+                                            <img v-if="item.driver"
+                                                :src="imagePathSmDriver + item.driver.image" alt=""
                                                 class="size_avatar">
                                         </div>
                                     </v-col>
@@ -407,26 +409,26 @@
                                     <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
                                         <div class="d-flex justify-content-around">
 
-                                            <div v-if="singleData.driver">
-                                                <div>Driver Name: {{ singleData.driver.name }}</div>
-                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            <div v-if="item.driver">
+                                                <div>Driver Name: {{ item.driver.name }}</div>
+                                                <div>Driver Number: {{ item.driver.contact }} </div>
                                             </div>
 
                                             <div class="line"></div>
 
                                             <div>
-                                                <div>Car Name: {{ singleData.name }} </div>
-                                                <div>Car Number: {{ singleData.number }} </div>
-                                                <div>Capacity: {{ singleData.capacity }}</div>
+                                                <div>Car Name: {{ item.name }} </div>
+                                                <div>Car Number: {{ item.number }} </div>
+                                                <div>Capacity: {{ item.capacity }}</div>
                                             </div>
 
                                         </div>
 
-                                        <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
+                                        <div v-for="leave in item.car_leave" :key="leave.id" class="text-center">
                                             <v-badge :content="leaveVal(leave)" inline></v-badge>
                                         </div>
 
-                                        <v-btn @click="bookingModal(singleData)" color="teal white--text" class="mt-8"
+                                        <v-btn @click="bookingModal(item)" color="teal white--text" class="mt-8"
                                             block>
                                             <v-icon left>mdi-plus-circle-outline</v-icon>
                                             Book
@@ -440,46 +442,50 @@
 
                     <!-- All Partial Free cars -->
                     <div v-if="bookings.length > 0">
-                        <div class="orange--text pa-4 text-center font-weight-black text-overline"> Partially Available
-                            Cars </div>
-
-
+                        <div class="orange--text pa-4 text-center font-weight-black text-overline"> Partially Available Cars </div>
                         <v-row>
-                            <v-col v-for="singleData in bookings" :key="singleData.id" cols="12" lg="6">
-                                <v-card dark :img="imagePathSm + singleData.car.image">
+                            <v-col v-for="item in bookings" :key="item.id" cols="12" lg="6">
+                                <v-card dark :img="imagePathSm + item.car.image">
                                     <div class="d-sm-flex flex-no-wrap justify-space-between">
                                         <v-card-text>
                                             <div class="card_text_bg py-2 pl-2">
-                                                 <div v-if="singleData.driver" class="mb-2">
-                                                    <div>Driver Name: <b>{{ singleData.driver.name }}</b></div>
-                                                    <div>Driver Number: <b><a :href="'tel:'+singleData.driver.contact">{{ singleData.driver.contact }} </a></b></div>
-                                                </div>
 
-                                                <div v-if="singleData.car">
-                                                    <div>Car Name: {{ singleData.car.name }} </div>
-                                                    <div>Car Number: {{ singleData.car.number }} </div>
-                                                    <div>Capacity: {{ singleData.car.capacity }}</div>
+
+                                                <div v-if="item.driver">Driver: <b>{{ item.driver.name }} || <a
+                                                            :href="'tel:'+item.driver.contact">{{ item.driver.contact }}
+                                                        </a></b></div>
+                                                <div v-if="item.car">Car: {{ item.car.name }} || {{ item.car.number }}
                                                 </div>
-                                                <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
+                                                <div>Start: {{ item.start | moment("MMM Do YYYY, h:mm a") }}</div>
+                                                <div>End: {{ item.end | moment("MMM Do YYYY, h:mm a") }}</div>
+                                                <div>Destination: {{ item.destination }} <span v-if="item.bookby"> --By
+                                                        ( {{ item.bookby.name }} )</span></div>
+                                                <div>Purpose: {{ item.purpose }}</div>
+
+
+                                                <div v-for="leave in item.car_leave" :key="leave.id"
+                                                    class="text-center">
                                                     <v-badge :content="leaveVal(leave)" inline></v-badge>
                                                 </div>
                                             </div>
-                    
+
+
+
                                         </v-card-text>
 
                                         <!-- <v-avatar class="ma-3" size="150">
-                                            <v-img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt=""></v-img>
+                                            <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image" alt=""></v-img>
                                         </v-avatar> -->
 
                                         <div class="ma-3">
-                                             <v-img v-if="singleData.driver"
-                                                :src="imagePathSmDriver + singleData.driver.image" alt="IMG"
-                                               class="size_avatar mx-auto"></v-img>
+                                            <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image"
+                                                alt="IMG" class="size_avatar mx-auto"></v-img>
                                         </div>
-                                        
+
                                     </div>
                                     <v-card-actions>
-                                        <v-btn @click="bookingModal(singleData)" color="orange white--text" block rounded small>
+                                        <v-btn @click="bookingModal(item.car)" color="orange white--text" block rounded
+                                            small>
                                             <v-icon left>mdi-plus-circle-outline</v-icon>
                                             Book
                                         </v-btn>
@@ -489,18 +495,18 @@
                         </v-row>
 
 
-                        <!-- <v-card v-for="singleData in bookings" :key="singleData.id">
+                        <!-- <v-card v-for="item in bookings" :key="item.id">
                             <v-card-text>
                                 <v-row class="align-items-center">
                                     <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
                                         <v-col lg="11">
-                                            <v-img v-if="singleData.car.image" :src="imagePathSm + singleData.car.image"
+                                            <v-img v-if="item.car.image" :src="imagePathSm + item.car.image"
                                                 max-width="400" class="rounded-lg"></v-img>
                                         </v-col>
 
                                         <div class="driver_image_position">
-                                            <img v-if="singleData.driver"
-                                                :src="imagePathSmDriver + singleData.driver.image" alt=""
+                                            <img v-if="item.driver"
+                                                :src="imagePathSmDriver + item.driver.image" alt=""
                                                 class="size_avatar">
                                         </div>
                                     </v-col>
@@ -509,29 +515,29 @@
                                     <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
                                         <div class="d-flex justify-content-around">
 
-                                            <div v-if="singleData.driver">
-                                                <div>Driver Name: {{ singleData.driver.name }}</div>
-                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            <div v-if="item.driver">
+                                                <div>Driver Name: {{ item.driver.name }}</div>
+                                                <div>Driver Number: {{ item.driver.contact }} </div>
                                             </div>
 
                                             <div class="line"></div>
 
                                             <div>
-                                                <div>Car Name: {{ singleData.car.name }} </div>
-                                                <div>Car Number: {{ singleData.car.number }} </div>
-                                                <div>Capacity: {{ singleData.car.capacity }}</div>
+                                                <div>Car Name: {{ item.car.name }} </div>
+                                                <div>Car Number: {{ item.car.number }} </div>
+                                                <div>Capacity: {{ item.car.capacity }}</div>
                                             </div>
 
                                         </div>
 
                                         <div class="mt-3 text-center">
                                             <v-badge
-                                                :content="`Booked: ` + singleBookedTimeShow(singleData.start, singleData.end) "
+                                                :content="`Booked: ` + singleBookedTimeShow(item.start, item.end) "
                                                 inline color="orange"></v-badge>
                                         </div>
 
 
-                                        <v-btn @click="bookingModal(singleData.car)" color="orange white--text"
+                                        <v-btn @click="bookingModal(item.car)" color="orange white--text"
                                             class="mt-8" block>
                                             <v-icon left>mdi-plus-circle-outline</v-icon>
                                             Book
@@ -551,42 +557,45 @@
                         </div>
 
                         <v-row>
-                            <v-col v-for="singleData in temporaryCars" :key="singleData.id" cols="12" lg="6">
-                                <v-card dark :img="imagePathSm + singleData.image">
+                            <v-col v-for="item in temporaryCars" :key="item.id" cols="12" lg="6">
+                                <v-card dark :img="imagePathSm + item.image">
                                     <div class="d-sm-flex flex-no-wrap justify-space-between">
                                         <v-card-text>
                                             <div class="card_text_bg py-2 pl-2">
-                                              
-                                                <div v-if="singleData.driver" class="mb-2">
-                                                    <div>Driver Name: <b>{{ singleData.driver.name }}</b></div>
-                                                    <div >Driver Number: <b><a :href="'tel:'+singleData.driver.contact">{{ singleData.driver.contact }} </a></b></div>
+
+                                                <div v-if="item.driver" class="mb-2">
+                                                    <div>Driver Name: <b>{{ item.driver.name }}</b></div>
+                                                    <div>Driver Number: <b><a
+                                                                :href="'tel:'+item.driver.contact">{{ item.driver.contact }}
+                                                            </a></b></div>
                                                 </div>
-                                               
+
                                                 <div>
-                                                    <div>Car Name: {{ singleData.name }} </div>
-                                                    <div>Car Number: {{ singleData.number }} </div>
-                                                    <div>Capacity: {{ singleData.capacity }}</div>
+                                                    <div>Car Name: {{ item.name }} </div>
+                                                    <div>Car Number: {{ item.number }} </div>
+                                                    <div>Capacity: {{ item.capacity }}</div>
                                                 </div>
-                                                <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
+                                                <div v-for="leave in item.car_leave" :key="leave.id"
+                                                    class="text-center">
                                                     <v-badge :content="leaveVal(leave)" inline></v-badge>
                                                 </div>
                                             </div>
-                    
+
                                         </v-card-text>
 
                                         <!-- <v-avatar class="ma-3" size="150"> 
-                                            <v-img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt=""></v-img>
+                                            <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image" alt=""></v-img>
                                         </v-avatar> -->
 
                                         <div class="ma-3">
-                                            <v-img v-if="singleData.driver"
-                                                :src="imagePathSmDriver + singleData.driver.image" alt="IMG"
-                                               class="size_avatar mx-auto"></v-img>
+                                            <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image"
+                                                alt="IMG" class="size_avatar mx-auto"></v-img>
                                         </div>
-                                        
+
                                     </div>
                                     <v-card-actions>
-                                        <v-btn @click="bookingModal(singleData)" color="indigo white--text" block rounded small>
+                                        <v-btn @click="bookingModal(item)" color="indigo white--text" block rounded
+                                            small>
                                             <v-icon left>mdi-plus-circle-outline</v-icon>
                                             Book
                                         </v-btn>
@@ -596,18 +605,18 @@
                         </v-row>
 
 
-                        <!-- <v-card v-for="singleData in temporaryCars" :key="singleData.id" class="mb-5">
+                        <!-- <v-card v-for="item in temporaryCars" :key="item.id" class="mb-5">
                             <v-card-text>
                                 <v-row class="align-items-center">
                                     <v-col cols="12" lg="6" md="6" class="border-right-success position-relative">
                                         <v-col lg="11">
-                                            <v-img v-if="singleData.image" :src="imagePathSm + singleData.image"
+                                            <v-img v-if="item.image" :src="imagePathSm + item.image"
                                                 max-width="400" class="rounded-lg"></v-img>
                                         </v-col>
 
                                         <div class="driver_image_position">
-                                            <img v-if="singleData.driver"
-                                                :src="imagePathSmDriver + singleData.driver.image" alt=""
+                                            <img v-if="item.driver"
+                                                :src="imagePathSmDriver + item.driver.image" alt=""
                                                 class="size_avatar">
                                         </div>
                                     </v-col>
@@ -616,27 +625,27 @@
                                     <v-col cols="12" lg="6" md="6" class="detail_space_in_mobile">
                                         <div class="d-flex justify-content-around">
 
-                                            <div v-if="singleData.driver">
-                                                <div>Driver Name: {{ singleData.driver.name }}</div>
-                                                <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            <div v-if="item.driver">
+                                                <div>Driver Name: {{ item.driver.name }}</div>
+                                                <div>Driver Number: {{ item.driver.contact }} </div>
                                             </div>
 
                                             <div class="line"></div>
 
                                             <div>
-                                                <div>Car Name: {{ singleData.name }} </div>
-                                                <div>Car Number: {{ singleData.number }} </div>
-                                                <div>Capacity: {{ singleData.capacity }}</div>
+                                                <div>Car Name: {{ item.name }} </div>
+                                                <div>Car Number: {{ item.number }} </div>
+                                                <div>Capacity: {{ item.capacity }}</div>
                                             </div>
 
                                         </div>
 =
-                                        <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
+                                        <div v-for="leave in item.car_leave" :key="leave.id" class="text-center">
                                             <v-badge :content="leaveVal(leave)" inline></v-badge>
                                         </div>
 
 
-                                        <v-btn @click="bookingModal(singleData),temporaryCarTime()"
+                                        <v-btn @click="bookingModal(item),temporaryCarTime()"
                                             color="indigo white--text" class="mt-8" block>
                                             <v-icon left>mdi-plus-circle-outline</v-icon>
                                             Book
@@ -1202,7 +1211,7 @@
         }
     }
 
-    .card_text_bg{
+    .card_text_bg {
         background-color: rgba(0, 0, 10, .6);
         border-radius: 5px;
     }

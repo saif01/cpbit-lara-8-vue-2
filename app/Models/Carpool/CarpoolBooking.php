@@ -15,13 +15,12 @@ class CarpoolBooking extends Model
     //Modify New appends field
     public function getTitleAttribute()
     {
-        if ($this->car && $this->bookby) {
-            return "{$this->car->name} {$this->purpose}" ." ( ". $this->bookby->name ." )";
+        if ($this->driver && $this->bookby) {
+            return "{$this->driver->name} " ." ( ". $this->bookby->name ." ) {$this->purpose}";
         } else {
             return "{$this->purpose}" ;
         }
         
-
         //return "{$this->car->name} {$this->purpose}" ." ( ". $this->bookby->name ." )";
        // return "asdfsdgsdgsdfgdf";
     }
