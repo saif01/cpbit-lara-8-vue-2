@@ -390,6 +390,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
         //Hardware Admin 
         Route::middleware(['can:hardAdmin'])->namespace('HardwareAdmin')->prefix('h_admin')->group(function(){
 
+            Route::get('/dashboard_data', 'IndexController@dashboard_data');
             Route::get('/zone_access', 'Complain\ComplainController@zone_access');
 
             // index
