@@ -347,12 +347,12 @@
                         <v-row>
                             <v-col v-for="singleData in freeCars" :key="singleData.id" cols="12" lg="6">
                                 <v-card dark :img="imagePathSm + singleData.image">
-                                    <div class="d-flex flex-no-wrap justify-space-between">
+                                    <div class="d-sm-flex  justify-space-between">
                                         <v-card-text>
-                                            <div style="background-color:rgba(0, 0, 10, 0.5)" class="py-2 pl-2">
-                                                <div v-if="singleData.driver">
-                                                    <div>Driver Name: {{ singleData.driver.name }}</div>
-                                                    <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            <div class="card_text_bg py-2 pl-2">
+                                                <div v-if="singleData.driver" class="mb-2">
+                                                    <div>Driver Name: <b>{{ singleData.driver.name }}</b></div>
+                                                    <div>Driver Number: <b><a :href="'tel:'+singleData.driver.contact">{{ singleData.driver.contact }} </a></b></div>
                                                 </div>
 
                                                 <div>
@@ -367,9 +367,14 @@
                     
                                         </v-card-text>
 
-                                        <v-avatar class="ma-3" size="150">
+                                        <!-- <v-avatar class="ma-3" size="150">
                                             <v-img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt=""></v-img>
-                                        </v-avatar>
+                                        </v-avatar> -->
+                                        <div class="ma-3">
+                                            <v-img v-if="singleData.driver"
+                                                :src="imagePathSmDriver + singleData.driver.image" alt="IMG"
+                                               class="size_avatar mx-auto"></v-img>
+                                        </div>
                                         
                                     </div>
                                     <v-card-actions>
@@ -441,19 +446,19 @@
 
                         <v-row>
                             <v-col v-for="singleData in bookings" :key="singleData.id" cols="12" lg="6">
-                                <v-card dark :img="imagePathSm + singleData.image">
-                                    <div class="d-flex flex-no-wrap justify-space-between">
+                                <v-card dark :img="imagePathSm + singleData.car.image">
+                                    <div class="d-sm-flex flex-no-wrap justify-space-between">
                                         <v-card-text>
-                                            <div style="background-color:rgba(0, 0, 10, 0.5)" class="py-2 pl-2">
-                                                <div v-if="singleData.driver">
-                                                    <div>Driver Name: {{ singleData.driver.name }}</div>
-                                                    <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            <div class="card_text_bg py-2 pl-2">
+                                                 <div v-if="singleData.driver" class="mb-2">
+                                                    <div>Driver Name: <b>{{ singleData.driver.name }}</b></div>
+                                                    <div>Driver Number: <b><a :href="'tel:'+singleData.driver.contact">{{ singleData.driver.contact }} </a></b></div>
                                                 </div>
 
-                                                <div>
-                                                    <div>Car Name: {{ singleData.name }} </div>
-                                                    <div>Car Number: {{ singleData.number }} </div>
-                                                    <div>Capacity: {{ singleData.capacity }}</div>
+                                                <div v-if="singleData.car">
+                                                    <div>Car Name: {{ singleData.car.name }} </div>
+                                                    <div>Car Number: {{ singleData.car.number }} </div>
+                                                    <div>Capacity: {{ singleData.car.capacity }}</div>
                                                 </div>
                                                 <div v-for="leave in singleData.car_leave" :key="leave.id" class="text-center">
                                                     <v-badge :content="leaveVal(leave)" inline></v-badge>
@@ -462,9 +467,15 @@
                     
                                         </v-card-text>
 
-                                        <v-avatar class="ma-3" size="150">
+                                        <!-- <v-avatar class="ma-3" size="150">
                                             <v-img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt=""></v-img>
-                                        </v-avatar>
+                                        </v-avatar> -->
+
+                                        <div class="ma-3">
+                                             <v-img v-if="singleData.driver"
+                                                :src="imagePathSmDriver + singleData.driver.image" alt="IMG"
+                                               class="size_avatar mx-auto"></v-img>
+                                        </div>
                                         
                                     </div>
                                     <v-card-actions>
@@ -542,14 +553,15 @@
                         <v-row>
                             <v-col v-for="singleData in temporaryCars" :key="singleData.id" cols="12" lg="6">
                                 <v-card dark :img="imagePathSm + singleData.image">
-                                    <div class="d-flex flex-no-wrap justify-space-between">
+                                    <div class="d-sm-flex flex-no-wrap justify-space-between">
                                         <v-card-text>
-                                            <div style="background-color:rgba(0, 0, 10, 0.5)" class="py-2 pl-2">
-                                                <div v-if="singleData.driver">
-                                                    <div>Driver Name: {{ singleData.driver.name }}</div>
-                                                    <div>Driver Number: {{ singleData.driver.contact }} </div>
+                                            <div class="card_text_bg py-2 pl-2">
+                                              
+                                                <div v-if="singleData.driver" class="mb-2">
+                                                    <div>Driver Name: <b>{{ singleData.driver.name }}</b></div>
+                                                    <div >Driver Number: <b><a :href="'tel:'+singleData.driver.contact">{{ singleData.driver.contact }} </a></b></div>
                                                 </div>
-
+                                               
                                                 <div>
                                                     <div>Car Name: {{ singleData.name }} </div>
                                                     <div>Car Number: {{ singleData.number }} </div>
@@ -562,9 +574,15 @@
                     
                                         </v-card-text>
 
-                                        <v-avatar class="ma-3" size="150">
+                                        <!-- <v-avatar class="ma-3" size="150"> 
                                             <v-img v-if="singleData.driver" :src="imagePathSmDriver + singleData.driver.image" alt=""></v-img>
-                                        </v-avatar>
+                                        </v-avatar> -->
+
+                                        <div class="ma-3">
+                                            <v-img v-if="singleData.driver"
+                                                :src="imagePathSmDriver + singleData.driver.image" alt="IMG"
+                                               class="size_avatar mx-auto"></v-img>
+                                        </div>
                                         
                                     </div>
                                     <v-card-actions>
@@ -1182,6 +1200,11 @@
         .detail_space_in_mobile {
             margin-top: 2rem;
         }
+    }
+
+    .card_text_bg{
+        background-color: rgba(0, 0, 10, .6);
+        border-radius: 5px;
     }
 
 </style>

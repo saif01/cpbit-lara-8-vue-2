@@ -12,6 +12,8 @@
                                 <v-card-subtitle class="text-h5 text-white">Booking Details</v-card-subtitle>
                                 <div class="d-flex flex-no-wrap justify-space-between">
 
+
+
                                     <v-card-text>
                                         <div>
                                             <table>
@@ -194,6 +196,11 @@
 <style scoped>
     .bg_card {
         background: linear-gradient(120deg, rgba(182, 29, 32, 255) 60%, rgba(58, 58, 60, 255) 40%);
+    }
+
+    .card_text_bg{
+        background-color: rgba(0, 0, 10, .6);
+        border-radius: 5px;
     }
 
 </style>

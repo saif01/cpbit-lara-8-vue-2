@@ -2,73 +2,61 @@
     <div>
 
         <div v-if="allData">
-            
 
-            <div v-if="allData.length > 0">
-                <!-- card -->
-                <v-card v-for="item in allData" :key="item.id" class="bg_card my-5">
-                    <v-row class="text-white">
-                        <v-col cols="12" md="6" class="py-0">
-                            <v-img v-if="item.car.image" :src="imagePath+item.car.image" alt="Image"
-                                max-height="245px" class="rounded-lg"></v-img>
-                            <v-img v-else src="/all-assets/common/img/no-image.png" 
-                                alt="Image" max-height="220px" class="rounded-lg"></v-img>
-                        </v-col>
+            <v-row v-if="allData.length > 0">
+                <v-col v-for="item in allData" :key="item.id" cols="12" lg="6">
+                    <v-card dark :img="imagePathSm + item.car.image">
+                        <div class="d-sm-flex flex-no-wrap justify-space-between">
+                            <v-card-text>
+                                <div class="card_text_bg py-2 pl-2">
 
-                        <v-col cols="12" md="6">
-                            <div class="d-flex justify-content-between">
-                                <div class="h3">
-                                    Booking Details
+                                   
+                                        <div v-if="item.driver">Driver: <b>{{ item.driver.name }} || <a
+                                                    :href="'tel:'+item.driver.contact">{{ item.driver.contact }}
+                                                </a></b></div>
+                                        <div  v-if="item.car">Car: {{ item.car.name }} || {{ item.car.number }}</div>
+                                        <div>Destination: {{ item.destination }}</div>
+                                        <div>Purpose: {{ item.purpose }}</div>
+                                        <div>Booked: {{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
+                                        {{ item.end | moment("MMM Do YYYY, h:mm a") }}</div>
+                                    
+                                   
                                 </div>
 
-                                <v-badge :content="`Booking Duration `+ durationCal(item.start, item.end)+ ` Hours`" inline color="indigo"></v-badge>
-                                <!-- <div class="indigo--text">
-                                    Booking Duration: {{ item.duration }}
-                                </div> -->
+                            </v-card-text>
+
+                            <!-- <v-avatar class="ma-3" size="150"> 
+                                            <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image" alt=""></v-img>
+                                        </v-avatar> -->
+
+                            <div class="ma-3">
+                                <v-img v-if="item.driver" :src="imagePathSmDriver + item.driver.image"
+                                    alt="IMG" class="size_avatar mx-auto"></v-img>
                             </div>
-                            <table>
-                                <tr>
-                                    <th>Car Details:</th>
-                                    <td class="py-1"><span v-if="item.car">{{ item.car.name }} || {{ item.car.number }}</span></td>
-                                </tr>
-                                <tr>
-                                    <th>Driver Details:&nbsp;</th>
-                                    <td class="pb-1"><span v-if="item.driver">{{ item.driver.name }} || {{ item.driver.contact }}</span></td>
-                                </tr>
-                                <tr>
-                                    <th>Destination:</th>
-                                    <td class="pb-1">{{ item.destination }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Purpose:</th>
-                                    <td class="pb-1">{{ item.purpose }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Booked:</th>
-                                    <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
-                                        {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
-                                </tr>
-                            </table>
 
-
-                            <div class="float-right m-2">
-                                <v-btn v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)"
-                                    color="error" rounded class="px-4">
+                        </div>
+                        <v-card-actions>
+                            <!-- <v-btn @click="bookingModal(item)" color="indigo white--text" block rounded small>
+                                <v-icon left>mdi-plus-circle-outline</v-icon>
+                                Book
+                            </v-btn> -->
+                            <v-btn v-if="cancelBtnShow(item.start)" @click="cancelBooking(item.id)"
+                                    color="error" rounded class="px-4 mx-auto">
                                     <v-icon>mdi-delete-empty</v-icon>
                                     Cancel
                                 </v-btn>
-                                <v-btn @click="modifyBooking(item)" color="orange" rounded class="px-4">
+                                <v-btn @click="modifyBooking(item)" color="orange" rounded class="px-4 mx-auto">
                                     <v-icon>mdi-fountain-pen-tip</v-icon>
                                     Modify
                                 </v-btn>
-                            </div>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
 
-                        </v-col>
-                    </v-row>
-                </v-card>
 
-            </div>
-            
+
+
             <div v-else>
                 <div class="p-5 my-5">
                     <p class="text-center text-info h1">Sorry !! You have no current booking. </p>
@@ -77,10 +65,11 @@
 
 
         </div>
-        
+
         <div v-else>
             <div v-if="dataLoading" class="p-5 my-5">
-                <p class="text-center h1">Loading.. <v-icon color="success" size="100">mdi mdi-loading mdi-spin</v-icon></p>
+                <p class="text-center h1">Loading.. <v-icon color="success" size="100">mdi mdi-loading mdi-spin</v-icon>
+                </p>
             </div>
         </div>
 
@@ -118,7 +107,8 @@
                         <v-expansion-panels>
                             <v-expansion-panel>
                                 <v-expansion-panel-header>
-                                    <span v-if="selectedForModify.car">{{ selectedForModify.car.name }}</span> Related Bookings <v-icon>mdi-eye-check </v-icon>
+                                    <span v-if="selectedForModify.car">{{ selectedForModify.car.name }}</span> Related
+                                    Bookings <v-icon>mdi-eye-check </v-icon>
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
                                     <v-card>
@@ -130,14 +120,15 @@
                                                         <td>{{ item.purpose }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Booked: ( <span v-if="item.bookby">{{ item.bookby.name }}</span> )</th>
+                                                        <th>Booked: ( <span
+                                                                v-if="item.bookby">{{ item.bookby.name }}</span> )</th>
                                                         <td>{{ item.start | moment("MMM Do YYYY, h:mm a") }} - To -
                                                             {{ item.end | moment("MMM Do YYYY, h:mm a") }}</td>
                                                     </tr>
                                                 </table>
                                             </v-card-text>
                                         </div>
-                                       
+
                                     </v-card>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
@@ -150,8 +141,11 @@
 
                             <v-row>
                                 <v-col cols="12">
-                                    <div class="small text-danger" v-if="form.errors.has('destination')" v-html="form.errors.get('destination')" />
-                                    <v-autocomplete dense solo :items="allDestinations" v-model="form.destination" label="Select a destination" :rules="[v => !!v || 'Destination  is required!']" required></v-autocomplete>
+                                    <div class="small text-danger" v-if="form.errors.has('destination')"
+                                        v-html="form.errors.get('destination')" />
+                                    <v-autocomplete dense solo :items="allDestinations" v-model="form.destination"
+                                        label="Select a destination" :rules="[v => !!v || 'Destination  is required!']"
+                                        required></v-autocomplete>
                                 </v-col>
                             </v-row>
 
@@ -190,7 +184,7 @@
                                         <v-date-picker v-model="form.end_date" no-title scrollable>
                                             <v-spacer></v-spacer>
                                             <v-btn text color="primary" @click="menu2 = false"> Cancel</v-btn>
-                                            <v-btn text color="success">  Set Today </v-btn>
+                                            <v-btn text color="success"> Set Today </v-btn>
                                         </v-date-picker>
                                     </v-menu>
                                 </v-col>
@@ -202,9 +196,10 @@
                                         :return-value.sync="time" max-width="290px" min-width="290px">
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="form.start_time" label="Start Time"
-                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"
-                                                id="Start_Time" :class="{ 'is-invalid': form.errors.has('start_time') }"
-                                                required></v-text-field>
+                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs"
+                                                v-on="on" id="Start_Time"
+                                                :class="{ 'is-invalid': form.errors.has('start_time') }" required>
+                                            </v-text-field>
                                             <div class="small text-danger" v-if="form.errors.has('start_time')"
                                                 v-html="form.errors.get('start_time')" />
                                         </template>
@@ -218,7 +213,8 @@
                                         :return-value.sync="time" max-width="290px" min-width="290px">
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="form.end_time" label="End Time"
-                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on" required></v-text-field>
+                                                prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs"
+                                                v-on="on" required></v-text-field>
                                             <div class="small text-danger" v-if="form.errors.has('end_time')"
                                                 v-html="form.errors.get('end_time')" />
                                         </template>
@@ -227,16 +223,19 @@
                                     </v-menu>
                                 </v-col>
 
-                            
+
 
                                 <!-- purpose -->
                                 <v-col cols="12">
-                                    <div class="small text-danger" v-if="form.errors.has('purpose')" v-html="form.errors.get('purpose')" />
+                                    <div class="small text-danger" v-if="form.errors.has('purpose')"
+                                        v-html="form.errors.get('purpose')" />
                                     <v-textarea label="Booking Purpose" rows="2" outlined v-model="form.purpose"
-                                        placeholder="Enter booking purpose in details" :rules="remRules" counter="500" required></v-textarea>
+                                        placeholder="Enter booking purpose in details" :rules="remRules" counter="500"
+                                        required></v-textarea>
                                 </v-col>
 
-                                <v-btn type="submit" block color="teal" class="white--text" :loading="loadingdataStoreShow">
+                                <v-btn type="submit" block color="teal" class="white--text"
+                                    :loading="loadingdataStoreShow">
                                     <v-icon>mdi-fountain-pen-tip</v-icon> Modify
                                 </v-btn>
                             </v-row>
@@ -262,7 +261,7 @@
             return {
 
                 // time and date picker
-                menu:  false,
+                menu: false,
                 menu2: false,
                 menu3: false,
                 menu4: false,
@@ -274,9 +273,12 @@
                 imagePath: '/images/carpool/car/',
                 imagePathSm: '/images/carpool/car/small/',
 
+                imagePathDriver: '/images/carpool/driver/',
+                imagePathSmDriver: '/images/carpool/driver/small/',
+
                 eventDataStoreModal: false,
                 datePickerHeader: true,
-               
+
                 selectedForModify: '',
 
 
@@ -302,10 +304,10 @@
                 }),
 
 
-                allDestinations:[],
-                remRules:[
-                    v => (v || '' ).length <= 500 || 'Purpose must be 500 characters or less',
-                    v => (v || '' ).length >= 5 || '5 characters minimum or more',
+                allDestinations: [],
+                remRules: [
+                    v => (v || '').length <= 500 || 'Purpose must be 500 characters or less',
+                    v => (v || '').length >= 5 || '5 characters minimum or more',
                 ],
 
 
@@ -330,14 +332,17 @@
             },
 
             // getDastination
-            getDastination(){
-                axios.get( '/carpool/booked/destinations').then(response=>{
+            getDastination() {
+                axios.get('/carpool/booked/destinations').then(response => {
                     // console.log(response.data)
-                    for ( let i = 0; i < response.data.length; i++ ) {
+                    for (let i = 0; i < response.data.length; i++) {
                         this.allDestinations.push(response.data[i]);
-                        this.allDestinations[i] = { value: response.data[i].name, text: response.data[i].name  };
+                        this.allDestinations[i] = {
+                            value: response.data[i].name,
+                            text: response.data[i].name
+                        };
                     }
-                }).catch(error=>{
+                }).catch(error => {
                     console.log(error)
                 })
             },
@@ -546,17 +551,18 @@
 
 
             // duration cal
-            durationCal(time1, time2){
-                let now  = time1;
+            durationCal(time1, time2) {
+                let now = time1;
                 let then = time2;
 
-                let duration = this.$moment.utc(this.$moment(now,"YYYY/MM/DD HH:mm:ss").diff(this.$moment(then,"YYYY/MM/DD HH:mm:ss"))).format("HH") ;
+                let duration = this.$moment.utc(this.$moment(now, "YYYY/MM/DD HH:mm:ss").diff(this.$moment(then,
+                    "YYYY/MM/DD HH:mm:ss"))).format("HH");
 
                 return duration
 
             },
 
-            resetForm(){
+            resetForm() {
 
                 this.form.reset()
                 this.$refs.form.resetValidation()
@@ -590,8 +596,8 @@
         gap: 20px;
     }
 
-    .bg_card{
-        background: linear-gradient(120deg, rgba(70,185,108,255) 60%, rgba(58,58,60,255) 40%);
+    .bg_card {
+        background: linear-gradient(120deg, rgba(70, 185, 108, 255) 60%, rgba(58, 58, 60, 255) 40%);
     }
 
 </style>
