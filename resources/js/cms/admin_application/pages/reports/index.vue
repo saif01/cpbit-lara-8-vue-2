@@ -18,20 +18,46 @@
             <v-card-text class="table-responsive pt-3">
                 <div v-if="allData.data">
                     <v-row>
-                        <v-col lg="2" cols="4">
+                        <v-col lg="3" cols="4">
                             <!-- Show -->
                             <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" outlined dense>
                             </v-select>
                         </v-col>
 
                         <v-col lg="3" cols="4">
-                            <v-text-field prepend-inner-icon="mdi-calendar-cursor" label="Start:" type="date" v-model="start_date" outlined dense></v-text-field>
+                            <!-- <v-text-field prepend-icon="mdi-calendar-cursor" label="Start:" type="date" v-model="start_date" ></v-text-field> -->
+                            <v-menu v-model="menu" min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="start_date" label="Start" prepend-inner-icon="mdi-calendar"
+                                        readonly v-bind="attrs" v-on="on" outlined dense></v-text-field>
+                                </template>
+
+                                <v-date-picker v-model="start_date" no-title scrollable>
+                                    <v-spacer></v-spacer>
+                                    <v-btn text color="primary" @click="menu = false">
+                                        Cancel
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-menu>
                         </v-col>
                         <v-col lg="3" cols="4">
-                            <v-text-field prepend-inner-icon="mdi-calendar-cursor" label="End:" type="date" v-model="end_date" outlined dense></v-text-field>
+                            <!-- <v-text-field prepend-icon="mdi-calendar-cursor" label="End:" type="date" v-model="end_date" ></v-text-field> -->
+                            <v-menu v-model="menu2" min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="end_date" label="Start" prepend-inner-icon="mdi-calendar"
+                                        readonly v-bind="attrs" v-on="on" outlined dense></v-text-field>
+                                </template>
+
+                                <v-date-picker v-model="end_date" no-title scrollable>
+                                    <v-spacer></v-spacer>
+                                    <v-btn text color="primary" @click="menu2 = false">
+                                        Cancel
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-menu>
                         </v-col>
 
-                        <v-col lg="2" cols="6">
+                        <v-col lg="3" cols="6">
                             <!-- {{ zone_office }} -->
                             <v-select v-model="zone_office" label="Zones:" :items="allZoneOffices" item-text="name"
                                 item-value="offices" outlined dense>
@@ -39,21 +65,21 @@
                         </v-col>
 
 
-                        <v-col lg="2" cols="6">
+                        <v-col lg="4" cols="6">
                             <!-- Departments -->
                             <v-select v-model="department" label="Departments:" :items="allDepartments"
                                 item-text="department" item-value="department" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col lg="6" cols="6">
+                        <v-col lg="4" cols="6">
                             <!-- search_field -->
                             <v-select v-model="search_field" label="Search By:" :items="customSrcByFields" item-text="text"
                                 item-value="value" outlined dense>
                             </v-select>
                         </v-col>
 
-                        <v-col lg="6" cols="6">
+                        <v-col lg="4" cols="6">
                             <v-text-field prepend-inner-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
                                 placeholder="Search Input..." outlined dense></v-text-field>
                         </v-col>
@@ -222,6 +248,10 @@ import axios from 'axios'
 
                 zone_office:'',
                 department: '',
+
+                // datepicker
+                menu: '',
+                menu2: '',
             }
         },
 
@@ -290,7 +320,9 @@ import axios from 'axios'
                     responseType: 'blob', // important
                 }).then((response) => {
 
-                    let repName = 'All Application Complain '+ new Date().toLocaleDateString();
+                    
+
+                    let repName = new Date();
 
                     const url = URL.createObjectURL(new Blob([response.data]))
                     const link = document.createElement('a')

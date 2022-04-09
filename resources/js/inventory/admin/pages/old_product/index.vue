@@ -696,7 +696,7 @@
             editDataModel(singleData) {
 
                 this.editmode = true;
-                this.dataModelTitle = 'Update Data'
+                this.dataModelTitle = 'Update Product'
                 this.form.fill(singleData);
 
                 if (singleData.remarks === null) {

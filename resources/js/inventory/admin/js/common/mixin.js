@@ -35,7 +35,7 @@ export default {
         dataModalLoading: false,
 
         editmode: false,
-        dataModelTitle: 'Store Data',
+        dataModelTitle: 'Add Product',
         // Loading Animation
         dataLoading: false,
 

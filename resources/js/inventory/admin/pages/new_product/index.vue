@@ -602,7 +602,7 @@
             editDataModel(singleData) {
 
                 this.editmode = true;
-                this.dataModelTitle = 'Update Data'
+                this.dataModelTitle = 'Update Product'
                 //this.form.reset();
 
                 // Warranty

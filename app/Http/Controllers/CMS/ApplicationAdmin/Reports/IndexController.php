@@ -10,8 +10,8 @@ use App\Models\Cms\Application\ApplicationSubcategory;
 use App\Models\Cms\Application\ApplicationCategory;
 use Auth;
 
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\h_application\allcomplain;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IndexController extends Controller
 {
@@ -27,6 +27,9 @@ class IndexController extends Controller
 
         $start    = Request('start', '');
         $end     = Request('end', '');
+
+        $zone_office    = Request('zone_office', '');
+        $department     = Request('department', '');
         
 
         // Query
@@ -40,11 +43,57 @@ class IndexController extends Controller
             $allDataQuery->whereBetween('created_at', [$start, $end]);
         }
 
+        // user Zone Selected
+        if( !empty($zone_office) && $zone_office != 'All'){
+            $allDataQuery->whereHas('makby', function($q) use($zone_office){
+                //dd($department);
+                $q->whereIn('zone_office', explode(",",$zone_office));
+                //$q->whereIn('zone_office', ['Chittagong Feedmill', "Chittagong 1 Farm", "Chittagong 2 Farm", "Chittagong 4 Farm"]);
+            });
+        }
+
+        // user department Selected
+        if( !empty($department) ){
+            $allDataQuery->whereHas('makby', function($q) use($department){
+                $q->where('department', $department);
+            });
+        }
+
         // Search
-        if(!empty($search_field) && $search_field != 'All'){
+
+        if(!empty($search_field) && $search_field != 'All' && $search_field != 'cat_id' && $search_field != 'subcat_id' && $search_field != 'department'){
+
             $val = trim(preg_replace('/\s+/' ,' ', $search));
             $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
-        }else{
+
+        }elseif($search_field == 'cat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'category', function($query) use($val){
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        elseif($search_field == 'subcat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'subcategory', function($query) use($val){
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        elseif($search_field == 'department'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'makby', function($query) use($val){
+                $query->where('department', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        else{
             $allDataQuery->search( trim(preg_replace('/\s+/' ,' ', $search)) );
         }
             
@@ -52,7 +101,7 @@ class IndexController extends Controller
         $allData =  $allDataQuery->orderBy($sort_field, $sort_direction)
                     ->paginate($paginate);
 
-        return response()->json($allData, 200);
+        return response()->json($allData);
 
     }
 
@@ -67,6 +116,9 @@ class IndexController extends Controller
 
         $start    = Request('start', '');
         $end     = Request('end', '');
+
+        $zone_office    = Request('zone_office', '');
+        $department     = Request('department', '');
         
 
         // Query
@@ -79,13 +131,62 @@ class IndexController extends Controller
             $allDataQuery->whereBetween('created_at', [$start, $end]);
         }
 
-        // Search
-        if(!empty($search_field) && $search_field != 'All'){
+
+        // user Zone Selected
+        if( !empty($zone_office) && $zone_office != 'All'){
+            $allDataQuery->whereHas('makby', function($q) use($zone_office){
+                //dd($department);
+                $q->whereIn('zone_office', explode(",",$zone_office));
+                //$q->whereIn('zone_office', ['Chittagong Feedmill', "Chittagong 1 Farm", "Chittagong 2 Farm", "Chittagong 4 Farm"]);
+            });
+        }
+
+        // user department Selected
+        if( !empty($department) ){
+            $allDataQuery->whereHas('makby', function($q) use($department){
+                //dd($department);
+                $q->where('department', $department);
+            });
+        }
+
+        
+        // search
+        if(!empty($search_field) && $search_field != 'All' && $search_field != 'cat_id' && $search_field != 'subcat_id' && $search_field != 'department'){
+
             $val = trim(preg_replace('/\s+/' ,' ', $search));
             $allDataQuery->where($search_field, 'LIKE', '%'.$val.'%');
-        }else{
+
+        }elseif($search_field == 'cat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'category', function($query) use($val){
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        elseif($search_field == 'subcat_id'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'subcategory', function($query) use($val){
+                $query->where('name', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        elseif($search_field == 'department'){
+
+            $val = trim(preg_replace('/\s+/' ,' ', $search));
+
+            $allDataQuery->whereHas( 'makby', function($query) use($val){
+                $query->where('department', 'LIKE', '%'.$val.'%');
+            });
+
+        }
+        else{
             $allDataQuery->search( trim(preg_replace('/\s+/' ,' ', $search)) );
         }
+
             
         // Final Data
         $allData =  $allDataQuery->orderBy($sort_field, $sort_direction)
@@ -96,7 +197,7 @@ class IndexController extends Controller
     }
 
 
-    
+
     public function export_data(Request $request) 
     {
         $search         = Request('search', '');
@@ -179,12 +280,13 @@ class IndexController extends Controller
         // Final Data
         $allData =  $allDataQuery->orderBy($sort_field, $sort_direction)->get();
 
-        
+        //dd($allData);
+
+        // return response()->json($allData, 200);
+
         //return (new allcomplain($allData))->download('complain.xlsx');
 
-        $name = 'All Application Complain List';
-
-        return Excel::download(new allcomplain($allData, $name), 'complain.xlsx');
+        return Excel::download(new allcomplain($allData), 'complain-' . time() . '.xlsx');
     }
 
 
@@ -275,11 +377,8 @@ class IndexController extends Controller
 
         //return (new allcomplain($allData))->download('complain.xlsx');
 
-        $name = 'All Canceled Application Complain List';
-
-        return Excel::download(new allcomplain($allData, $name), 'complain.xlsx');
+        return Excel::download(new allcomplain($allData), 'complain-' . time() . '.xlsx');
     }
-
 
 
 
