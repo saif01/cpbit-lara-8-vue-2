@@ -5,7 +5,6 @@ namespace App\Http\Controllers\CMS\HardwareAdmin\Complain;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\Common\Email\ScheduleEmailCmsHardware;
 use App\Http\Controllers\CMS\Email\Hardware\EmailSend;
 
 use Auth;

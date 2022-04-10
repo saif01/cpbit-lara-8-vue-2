@@ -44,11 +44,14 @@ export default {
 
         // Tbl number of data show
         tblItemNumberShow:[5,10,15,25,50,100],
-        // v-form
-          valid: false,
-        
 
-          // For Report search
+        // v-form
+        valid: false,
+        
+        // overlay
+        overlay:false,
+
+        // For Report search
         allZoneOffices:[],
         allDepartments:[],
       }

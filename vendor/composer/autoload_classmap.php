@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\CMS\\ApplicationMail' => $baseDir . '/app/Console/Commands/CMS/ApplicationMail.php',
+    'App\\Console\\Commands\\CMS\\HardwareMail' => $baseDir . '/app/Console/Commands/CMS/HardwareMail.php',
     'App\\Console\\Commands\\Carpool\\TodayBookedCar' => $baseDir . '/app/Console/Commands/Carpool/TodayBookedCar.php',
     'App\\Console\\Commands\\Network\\MainIpPing' => $baseDir . '/app/Console/Commands/Network/MainIpPing.php',
     'App\\Console\\Commands\\PBI\\BI_EXPENSE' => $baseDir . '/app/Console/Commands/PBI/BI_EXPENSE.php',
@@ -64,6 +66,10 @@ return array(
     'App\\Http\\Controllers\\CMS\\ApplicationAdmin\\IndexController' => $baseDir . '/app/Http/Controllers/CMS/ApplicationAdmin/IndexController.php',
     'App\\Http\\Controllers\\CMS\\ApplicationAdmin\\Reports\\IndexController' => $baseDir . '/app/Http/Controllers/CMS/ApplicationAdmin/Reports/IndexController.php',
     'App\\Http\\Controllers\\CMS\\ApplicationAdmin\\Subcategory\\IndexController' => $baseDir . '/app/Http/Controllers/CMS/ApplicationAdmin/Subcategory/IndexController.php',
+    'App\\Http\\Controllers\\CMS\\Email\\Application\\EmailSend' => $baseDir . '/app/Http/Controllers/CMS/Email/Application/EmailSend.php',
+    'App\\Http\\Controllers\\CMS\\Email\\Application\\EmailStore' => $baseDir . '/app/Http/Controllers/CMS/Email/Application/EmailStore.php',
+    'App\\Http\\Controllers\\CMS\\Email\\Hardware\\EmailSend' => $baseDir . '/app/Http/Controllers/CMS/Email/Hardware/EmailSend.php',
+    'App\\Http\\Controllers\\CMS\\Email\\Hardware\\EmailStore' => $baseDir . '/app/Http/Controllers/CMS/Email/Hardware/EmailStore.php',
     'App\\Http\\Controllers\\CMS\\HardwareAdmin\\Category\\IndexController' => $baseDir . '/app/Http/Controllers/CMS/HardwareAdmin/Category/IndexController.php',
     'App\\Http\\Controllers\\CMS\\HardwareAdmin\\CommonController' => $baseDir . '/app/Http/Controllers/CMS/HardwareAdmin/CommonController.php',
     'App\\Http\\Controllers\\CMS\\HardwareAdmin\\CommonFunctions' => $baseDir . '/app/Http/Controllers/CMS/HardwareAdmin/CommonFunctions.php',
@@ -99,7 +105,6 @@ return array(
     'App\\Http\\Controllers\\Carpool\\User\\HistoryController' => $baseDir . '/app/Http/Controllers/Carpool/User/HistoryController.php',
     'App\\Http\\Controllers\\Carpool\\User\\IndexController' => $baseDir . '/app/Http/Controllers/Carpool/User/IndexController.php',
     'App\\Http\\Controllers\\Common\\Email\\ScheduleEmailCmsApplication' => $baseDir . '/app/Http/Controllers/Common/Email/ScheduleEmailCmsApplication.php',
-    'App\\Http\\Controllers\\Common\\Email\\ScheduleEmailCmsHardware' => $baseDir . '/app/Http/Controllers/Common/Email/ScheduleEmailCmsHardware.php',
     'App\\Http\\Controllers\\Common\\ImageUpload' => $baseDir . '/app/Http/Controllers/Common/ImageUpload.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Dashboard\\IndexController' => $baseDir . '/app/Http/Controllers/Dashboard/IndexController.php',
@@ -234,8 +239,7 @@ return array(
     'App\\Models\\Cms\\Hardware\\HardwareReplayDraft' => $baseDir . '/app/Models/Cms/Hardware/HardwareReplayDraft.php',
     'App\\Models\\Cms\\Hardware\\HardwareRole' => $baseDir . '/app/Models/Cms/Hardware/HardwareRole.php',
     'App\\Models\\Cms\\Hardware\\HardwareSubcategory' => $baseDir . '/app/Models/Cms/Hardware/HardwareSubcategory.php',
-    'App\\Models\\Email\\ScheduleEmailCmsApp' => $baseDir . '/app/Models/Email/ScheduleEmailCmsApp.php',
-    'App\\Models\\Email\\ScheduleEmailCmsHard' => $baseDir . '/app/Models/Email/ScheduleEmailCmsHard.php',
+    'App\\Models\\Email\\ScheduleEmailCmsApplication' => $baseDir . '/app/Models/Email/ScheduleEmailCmsApplication.php',
     'App\\Models\\Email\\ScheduleEmailCmsHardware' => $baseDir . '/app/Models/Email/ScheduleEmailCmsHardware.php',
     'App\\Models\\Inventory\\InventoryNewProduct' => $baseDir . '/app/Models/Inventory/InventoryNewProduct.php',
     'App\\Models\\Inventory\\InventoryOldProduct' => $baseDir . '/app/Models/Inventory/InventoryOldProduct.php',

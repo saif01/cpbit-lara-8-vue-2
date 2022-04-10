@@ -256,7 +256,7 @@
                                     <span v-if="item.document">
                                         <a v-if="item.document" :href="docPath+item.document"
                                             class="btn btn-info btn-sm text-white" download>
-                                            <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
+                                            <v-icon color="white" small>mdi-paperclip</v-icon> Document
                                         </a>
                                     </span>
                                     <span v-else class="text-danger">No Document's Send</span>
@@ -392,7 +392,7 @@
                             v-if="currentDamagedReplaceData.document">
                             <a v-if="currentDamagedReplaceData.document" :href="docPath+currentDamagedReplaceData.document"
                                             class="btn btn-info btn-sm text-white" download>
-                                            <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
+                                            <v-icon color="white" small>mdi-paperclip</v-icon> Document
                                         </a>
                             </span>
                         <span v-else class="error--text">N/A</span></td>

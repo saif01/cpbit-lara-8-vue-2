@@ -12,7 +12,7 @@ use DB;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Email\ScheduleEmailCmsHardware;
 use App\Models\User;
-use App\Models\Cms\Hardware\HardwareComplain;
+
 
 class EmailSend extends Controller
 {

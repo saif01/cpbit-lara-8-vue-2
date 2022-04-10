@@ -10,6 +10,7 @@ use App\Models\Cms\Application\ApplicationCategory;
 use App\Models\Cms\Application\ApplicationComplain;
 use App\Http\Controllers\Common\ImageUpload;
 use Auth;
+use App\Http\Controllers\CMS\Email\Application\EmailStore;
 
 class ApplicationController extends Controller
 {
@@ -78,6 +79,9 @@ class ApplicationController extends Controller
         $data->process      = 'Not Process';
 
         $success = $data->save();
+
+        // Email
+        EmailStore::StorMailUserComplain($data->id);
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);

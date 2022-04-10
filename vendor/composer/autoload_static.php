@@ -606,6 +606,8 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\CMS\\ApplicationMail' => __DIR__ . '/../..' . '/app/Console/Commands/CMS/ApplicationMail.php',
+        'App\\Console\\Commands\\CMS\\HardwareMail' => __DIR__ . '/../..' . '/app/Console/Commands/CMS/HardwareMail.php',
         'App\\Console\\Commands\\Carpool\\TodayBookedCar' => __DIR__ . '/../..' . '/app/Console/Commands/Carpool/TodayBookedCar.php',
         'App\\Console\\Commands\\Network\\MainIpPing' => __DIR__ . '/../..' . '/app/Console/Commands/Network/MainIpPing.php',
         'App\\Console\\Commands\\PBI\\BI_EXPENSE' => __DIR__ . '/../..' . '/app/Console/Commands/PBI/BI_EXPENSE.php',
@@ -664,6 +666,10 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
         'App\\Http\\Controllers\\CMS\\ApplicationAdmin\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/ApplicationAdmin/IndexController.php',
         'App\\Http\\Controllers\\CMS\\ApplicationAdmin\\Reports\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/ApplicationAdmin/Reports/IndexController.php',
         'App\\Http\\Controllers\\CMS\\ApplicationAdmin\\Subcategory\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/ApplicationAdmin/Subcategory/IndexController.php',
+        'App\\Http\\Controllers\\CMS\\Email\\Application\\EmailSend' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/Email/Application/EmailSend.php',
+        'App\\Http\\Controllers\\CMS\\Email\\Application\\EmailStore' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/Email/Application/EmailStore.php',
+        'App\\Http\\Controllers\\CMS\\Email\\Hardware\\EmailSend' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/Email/Hardware/EmailSend.php',
+        'App\\Http\\Controllers\\CMS\\Email\\Hardware\\EmailStore' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/Email/Hardware/EmailStore.php',
         'App\\Http\\Controllers\\CMS\\HardwareAdmin\\Category\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/HardwareAdmin/Category/IndexController.php',
         'App\\Http\\Controllers\\CMS\\HardwareAdmin\\CommonController' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/HardwareAdmin/CommonController.php',
         'App\\Http\\Controllers\\CMS\\HardwareAdmin\\CommonFunctions' => __DIR__ . '/../..' . '/app/Http/Controllers/CMS/HardwareAdmin/CommonFunctions.php',
@@ -699,7 +705,6 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
         'App\\Http\\Controllers\\Carpool\\User\\HistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Carpool/User/HistoryController.php',
         'App\\Http\\Controllers\\Carpool\\User\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Carpool/User/IndexController.php',
         'App\\Http\\Controllers\\Common\\Email\\ScheduleEmailCmsApplication' => __DIR__ . '/../..' . '/app/Http/Controllers/Common/Email/ScheduleEmailCmsApplication.php',
-        'App\\Http\\Controllers\\Common\\Email\\ScheduleEmailCmsHardware' => __DIR__ . '/../..' . '/app/Http/Controllers/Common/Email/ScheduleEmailCmsHardware.php',
         'App\\Http\\Controllers\\Common\\ImageUpload' => __DIR__ . '/../..' . '/app/Http/Controllers/Common/ImageUpload.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Dashboard\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/IndexController.php',
@@ -834,8 +839,7 @@ class ComposerStaticInite90cabc568209e3b57875875df3f0473
         'App\\Models\\Cms\\Hardware\\HardwareReplayDraft' => __DIR__ . '/../..' . '/app/Models/Cms/Hardware/HardwareReplayDraft.php',
         'App\\Models\\Cms\\Hardware\\HardwareRole' => __DIR__ . '/../..' . '/app/Models/Cms/Hardware/HardwareRole.php',
         'App\\Models\\Cms\\Hardware\\HardwareSubcategory' => __DIR__ . '/../..' . '/app/Models/Cms/Hardware/HardwareSubcategory.php',
-        'App\\Models\\Email\\ScheduleEmailCmsApp' => __DIR__ . '/../..' . '/app/Models/Email/ScheduleEmailCmsApp.php',
-        'App\\Models\\Email\\ScheduleEmailCmsHard' => __DIR__ . '/../..' . '/app/Models/Email/ScheduleEmailCmsHard.php',
+        'App\\Models\\Email\\ScheduleEmailCmsApplication' => __DIR__ . '/../..' . '/app/Models/Email/ScheduleEmailCmsApplication.php',
         'App\\Models\\Email\\ScheduleEmailCmsHardware' => __DIR__ . '/../..' . '/app/Models/Email/ScheduleEmailCmsHardware.php',
         'App\\Models\\Inventory\\InventoryNewProduct' => __DIR__ . '/../..' . '/app/Models/Inventory/InventoryNewProduct.php',
         'App\\Models\\Inventory\\InventoryOldProduct' => __DIR__ . '/../..' . '/app/Models/Inventory/InventoryOldProduct.php',

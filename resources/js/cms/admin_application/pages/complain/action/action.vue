@@ -48,25 +48,25 @@
                         <td>
                             <a v-if="complainDeta.document" :href="docPath+complainDeta.document"
                                 class="btn btn-info btn-sm text-white" download>
-                                <v-icon color="white">mdi-download-network-outline</v-icon> Doc-1
+                                <v-icon color="white"> mdi-paperclip</v-icon> Doc-1
                             </a>
                         </td>
                         <td>
                             <a v-if="complainDeta.document2" :href="docPath+complainDeta.document2"
                                 class="btn btn-info btn-sm text-white" download>
-                                <v-icon color="white">mdi-download-network-outline</v-icon> Doc-2
+                                <v-icon color="white"> mdi-paperclip</v-icon> Doc-2
                             </a>
                         </td>
                         <td>
                             <a v-if="complainDeta.document3" :href="docPath+complainDeta.document3"
                                 class="btn btn-info btn-sm text-white" download>
-                                <v-icon color="white">mdi-download-network-outline</v-icon> Doc-3
+                                <v-icon color="white"> mdi-paperclip</v-icon> Doc-3
                             </a>
                         </td>
                         <td>
                             <a v-if="complainDeta.document4" :href="docPath+complainDeta.document4"
                                 class="btn btn-info btn-sm text-white" download>
-                                <v-icon color="white">mdi-download-network-outline</v-icon> Doc-4
+                                <v-icon color="white"> mdi-paperclip</v-icon> Doc-4
                             </a>
                         </td>
                     </tr>
@@ -100,7 +100,7 @@
                                     <span v-if="item.document">
                                         <a v-if="item.document" :href="docPath+item.document"
                                             class="btn btn-info btn-sm text-white" download>
-                                            <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
+                                            <v-icon color="white" small> mdi-paperclip</v-icon> Document
                                         </a>
                                     </span>
                                     <span v-else class="text-warning">No Document's Send</span>
@@ -122,6 +122,23 @@
                                         v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                 </td>
                             </tr>
+                            <!-- End Email send  -->
+                            <tr v-if="item.mail">
+                                <th>E-Mail:</th>
+                                <td>  
+                                    <span v-if="item.mail.status" >Successfully Sent</span>
+                                    <span v-else class="text-warning">Sending</span>
+                                    <v-btn @click="mailSendManual(item.mail.id)" small class="float-right" elevation="20">
+                                        <v-icon>mdi-email-send</v-icon> 
+                                    </v-btn>
+                                </td>
+                                <th>Send At:</th>
+                                <td><span
+                                        v-if="item.mail.status">{{ item.mail.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                    <span v-else class="text-warning">Sending</span>
+                                </td>
+                            </tr>
+                            <!-- End Email send  -->
 
                         </table>
                         <table class="table mb-1 bg-secondary text-white rounded border-bottom  border-danger">
@@ -153,6 +170,10 @@
             </v-card-text>
 
         </v-card>
+
+        <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
 
         <!-- user-details -->
         <user-details v-if="CurrentUserData" :userData="CurrentUserData" :key="userDetailsDialogKey"></user-details>
@@ -232,7 +253,26 @@
 
                 this.comActionsDialogKey++
                 this.CurrentComData = this.complainDeta
-            }
+            },
+
+            // mailSendManual
+            mailSendManual(val) {
+                this.overlay = true
+                axios.get(this.currentUrl + '/send_rem_email?id=' + val)
+                    .then(response => {
+                        //console.log(response.data);
+                        this.getComplainData();
+                        Swal.fire({
+                            icon: response.data.icon,
+                            title: response.data.msg,
+                        })
+                        this.overlay = false
+                    }).catch(error => {
+                        this.overlay = false
+                        console.log(error);
+                    });
+
+            },
 
         },
 

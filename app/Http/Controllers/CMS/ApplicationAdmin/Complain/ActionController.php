@@ -9,7 +9,7 @@ use App\Models\Cms\Application\ApplicationComplain;
 use App\Models\Cms\Application\ApplicationRemarks;
 use App\Http\Controllers\Common\ImageUpload;
 use Auth;
-use App\Http\Controllers\Common\Email\ScheduleEmailCmsApplication;
+use App\Http\Controllers\CMS\Email\Application\EmailStore;
 
 
 class ActionController extends Controller
@@ -18,7 +18,7 @@ class ActionController extends Controller
 
     //action
     public function action($id){
-        $allData = ApplicationComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby')->where('id', $id)
+        $allData = ApplicationComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby', 'remarks.mail')->where('id', $id)
                 ->first();
 
         return response()->json($allData);
@@ -38,33 +38,35 @@ class ActionController extends Controller
 
         $com_id = $request->comp_id;
 
-        $data = new ApplicationRemarks();
+        $remark_data = new ApplicationRemarks();
 
         // Store in Application Complain tbl
-        $data2 = ApplicationComplain::find($com_id);
-        $data2->process      = $request->process;
+        $comp_data = ApplicationComplain::find($com_id);
+        $comp_data->process      = $request->process;
 
         $documentPath = 'images/application/';
         $document     = $request->file('document');
         // Direct any file store
         if ($document) {
             $document_full_name =  $this->documentUpload($document, $documentPath);
-            $data->document     = $document_full_name;
+            $remark_data->document     = $document_full_name;
         }
 
-        $data->comp_id      = $com_id;
-        $data->process      = $request->process;
-        $data->details      = $request->details;
-        $data->created_by   = Auth::user()->id;
+        $remark_data->comp_id      = $com_id;
+        $remark_data->process      = $request->process;
+        $remark_data->details      = $request->details;
+        $remark_data->created_by   = Auth::user()->id;
        
-        $success = $data->save();
+        $success = $remark_data->save();
         // Store in Application Complain tbl 
-        $success2 = $data2->save();
+        $success2 = $comp_data->save();
 
         
-
-        // For email
-        ScheduleEmailCmsApplication::STORE($data2, $data);
+        if( $request->process == 'Closed' ){
+            // For email
+            EmailStore::StorMailAdminAction($com_id, $remark_data->id);
+        }
+       
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);

@@ -372,6 +372,9 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
                 Route::get('/action/{id}', 'ActionController@action');
                 Route::post('/action_remarks', 'ActionController@action_remarks');
+
+                // Send mail
+                Route::get('/send_rem_email', 'IndexController@send_rem_email');
             });
 
             //Reports 

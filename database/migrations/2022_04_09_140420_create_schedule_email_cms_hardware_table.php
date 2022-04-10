@@ -22,6 +22,7 @@ class CreateScheduleEmailCmsHardwareTable extends Migration
             $table->string('document')->nullable();
             $table->integer('rem_id')->nullable();
             $table->integer('dmj_id')->nullable();
+            $table->integer('deliver_id')->nullable();
             $table->integer('comp_id')->nullable();
             $table->integer('status')->nullable();
             $table->integer('created_by')->nullable();

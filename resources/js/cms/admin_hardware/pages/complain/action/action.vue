@@ -68,7 +68,7 @@
                         <td>
                             <a v-if="complainDeta.document" :href="docPath+complainDeta.document"
                                 class="btn btn-info btn-sm text-white" download>
-                                <v-icon color="white">mdi-download-network-outline</v-icon> Doc-1
+                                <v-icon color="white">mdi-paperclip</v-icon> Doc-1
                             </a>
                             <span v-else class="text-danger">Not Attached</span>
                         </td>
@@ -116,7 +116,7 @@
                                     <span v-if="item.document">
                                         <a v-if="item.document" :href="docPath+item.document"
                                             class="btn btn-info btn-sm text-white" download>
-                                            <v-icon color="white" small>mdi-download-network-outline</v-icon> Document
+                                            <v-icon color="white" small>mdi-paperclip</v-icon> Document
                                         </a>
                                     </span>
                                     <span v-else class="text-warning">No Document's Send</span>
@@ -199,7 +199,7 @@
                                             <span v-if="item.document">
                                                 <a v-if="item.document" :href="docPath+item.document"
                                                     class="btn btn-info btn-sm text-white" download>
-                                                    <v-icon color="white" small>mdi-download-network-outline</v-icon>
+                                                    <v-icon color="white" small>mdi-paperclip</v-icon>
                                                     Document
                                                 </a>
                                             </span>
@@ -308,7 +308,7 @@
                             <span v-else class="text-warning">Sending</span>
                         </td>
                     </tr>
-                            <!-- End Email send  -->
+                    <!-- End Email send  -->
                     <tr>
                         <th>Receiver Name:</th>
                         <td> {{ complainDeta.delivery.rec_name }} </td>

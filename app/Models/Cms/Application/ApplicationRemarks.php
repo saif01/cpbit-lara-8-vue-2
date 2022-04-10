@@ -17,6 +17,12 @@ class ApplicationRemarks extends Model
         return $this->belongsTo('App\Models\Cms\Application\ApplicationCategory', 'cat_id', 'id');
     }
 
+    public function mail(){
+        //return $this->belongsTo('App\Models\Email\ScheduleEmailCmsHard', 'id', 'rem_id')->select(['id']);
+        return $this->hasOne('App\Models\Email\ScheduleEmailCmsApplication', 'rem_id', 'id');
+        
+    }
+
 
     public function scopeSearch($query, $val='')
     {
