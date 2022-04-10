@@ -67,5 +67,28 @@ class EmailSend extends Controller
             
         }
  
-     }
+    }
+
+
+
+    // By Schedule
+    public static function SendBySchedule(){
+
+        $allData = ScheduleEmailCmsHardware::whereNull('status')->get();
+        
+        foreach($allData as $item){
+            if( $item ){
+                // Send mail
+                self::SendMail($item);
+    
+                $item->status = 1;
+                $item->save();
+            }
+        }
+        \Log::info("Cron is working for hardware email send");
+        return true; 
+    }
+
+
+
 }

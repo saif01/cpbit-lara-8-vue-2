@@ -34,6 +34,11 @@ class Kernel extends ConsoleKernel
             ->everyTenMinutes();
             //->everyFiveMinutes();
             //->everyMinute();
+
+        $schedule->command('command:HardwareMail')
+            //->everyTenMinutes();
+            ->everyFiveMinutes();
+            //->everyMinute();
     
                     
 
