@@ -5,7 +5,7 @@ namespace App\Models\Email;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ScheduleEmailCmsHard extends Model
+class ScheduleEmailCmsHardware extends Model
 {
-    use HasFactory;
+    use HasFactory; 
 }

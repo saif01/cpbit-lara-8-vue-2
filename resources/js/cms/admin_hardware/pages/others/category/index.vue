@@ -43,7 +43,7 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'label'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'label'">&darr;</span>
                                 </th>
-                                <th>Acsosoris</th>
+                                <th>Accessories</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

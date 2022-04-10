@@ -4,7 +4,7 @@
             <v-card-title class="justify-center">
                 <v-row>
                     <v-col cols="10">
-                        All Acsosoris List
+                        All Accessories List
                     </v-col>
                     <v-col cols="2">
                         <v-btn @click="addDataModel()" color="primary" small outlined class="float-right">

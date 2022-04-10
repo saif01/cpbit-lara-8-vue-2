@@ -17,6 +17,7 @@ use App\Models\Inventory\InventoryOperation;
 use App\Models\Inventory\InventoryOldProduct;
 use App\Models\User;
 use Auth;
+use App\Http\Controllers\CMS\Email\Hardware\EmailStore;
 
 class ActionController extends Controller
 {
@@ -24,7 +25,7 @@ class ActionController extends Controller
 
     //action
     public function action($id){
-        $allData = HardwareComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby', 'remarks.mail', 'dam_apply', 'ho_remarks', 'ho_remarks.makby', 'ho_remarks.mail', 'delivery', 'delivery.mail')  
+        $allData = HardwareComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby', 'remarks.mail', 'damage', 'ho_remarks', 'ho_remarks.makby', 'ho_remarks.mail', 'delivery', 'delivery.mail')  
         ->where('id', $id)
         ->first();
 
@@ -91,10 +92,10 @@ class ActionController extends Controller
 
         // For email
         if($process == 'Damaged' || $process == 'Partial Damaged' || $process == 'Closed' || $process == 'Deliverable'){
-            ScheduleEmailCmsHardware::STORE($complain_data, $remarks_data);
+            //ScheduleEmailCmsHardware::STORE($complain_data, $remarks_data);
+            EmailStore::StorMailAdminAction($comp_id, $remarks_data->id, $damaged_data->id ?? null);
         }
 
-        
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);
@@ -207,11 +208,11 @@ class ActionController extends Controller
             $inventory_old_data->rec_position      = $rec_position;
             
             $inventory_old_data->created_by = Auth::user()->id;
-            $inventory_old_data->save();
+            //$inventory_old_data->save();
         }
 
         
-
+        EmailStore::StorMailAdminAction($comp_id, $remarks_data->id, $damaged_data->id ?? null);
 
         // For email
         //ScheduleEmailCmsHardware::STORE_DAMAGED_REPLACE($complain_data, $remarks_data, $damaged_data);
@@ -265,7 +266,7 @@ class ActionController extends Controller
         $success = $data2->save();
 
         // For email
-        ScheduleEmailCmsHardware::STORE_QUOTATION($comp_id, $remarks_data);
+        EmailStore::DamageQuotationAdminAction($comp_id, $remarks_data->id, $damaged_data->id ?? null);
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);
@@ -306,7 +307,6 @@ class ActionController extends Controller
         // Direct any file store
         if ($document) {
             $document_full_name = $this->documentUpload($document, $documentPath);
-            $remarks_data->document     = $document_full_name;
             // For Damaged Tbl
             $delivery_data->document     = $document_full_name;
         }
@@ -324,7 +324,7 @@ class ActionController extends Controller
         $success = $complain_data->save();
 
         // For email
-        ScheduleEmailCmsHardware::STORE_DELIVERY($complain_data, $delivery_data);
+        EmailStore::DeliveryAdminAction($comp_id, $delivery_data->id, $damaged_data->id ?? null);
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);

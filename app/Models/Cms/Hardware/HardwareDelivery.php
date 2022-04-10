@@ -11,6 +11,6 @@ class HardwareDelivery extends Model
 
     public function mail(){
         //return $this->belongsTo('App\Models\Email\ScheduleEmailCmsHard', 'id', 'rem_id')->select(['id']);
-        return $this->hasOne('App\Models\Email\ScheduleEmailCmsHard', 'delv_id', 'id');
+        return $this->hasOne('App\Models\Email\ScheduleEmailCmsHardware', 'deliver_id', 'id');
     }
 }

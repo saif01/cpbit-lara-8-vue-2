@@ -151,31 +151,26 @@
                                                             <div>
                                                                 <div style="margin: auto;padding: 1.4rem;background-color: white;border-radius: 8px;">
 
-                                                                    <h1>Hello, {{ $item->name }}</h1>
-                                                                    <h2>Complain Number: <span style="color: #a0522d">{{ $item->comp_id }}</span></h2>
-                                                                    <h2>Status: <span style="color: #a0522d">{{ $item->process }}</span></h2>
-                                                                   
-                                                                    @if($item->delivery)
-                                                                    <div style="margin: auto;padding: 1.4rem;background-color: white;border-radius: 8px;">
-                                                                        <div style="color: #a0522d">
-                                                                            <h4 style="margin-bottom:1rem">Receiver Name: {{ $item->rec_name }}</h4>
-                                                                            <h4 style="margin-bottom:1rem">Receiver Contact: {{ $item->rec_contact }}</h4>
-                                                                            <h4 style="margin-bottom:1rem">Receiver Position: {{ $item->rec_position }}</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    @endif
                                                                     
-                                                                    <h2>Reamrks:</h2>
-                                                                    <div>{!! $item->remarks !!} </div>
-
+                                                                    <h2>{{ $item->subject }}</h2>
+                                                                    <div>
+                                                                        {!! $item->body !!}
+                                                                    </div>
+                                                                    <hr>
                                                                     <div style="color: #a0522d">
-                                                                        <h4 style="margin-bottom:1rem">Support Team</h4>
+                                                                        <h4 style="margin-bottom:1rem">Head Office Support Team</h4>
                                                                         <div>
-                                                                            <h3>Md. Moniruzzaman   <span style="margin-left: 1rem"> Contact: 01787 692 529 </span></h3>
+                                                                            Baharul Islam   <span style="margin-left: 5rem"> Contact: 01324 254 055 </span><br>
+                                                                            Md. Polash Mahamud   <span style="margin-left: 2rem"> Contact: 01787 692 530 </span><br>
+                                                                            Md. Moniruzzaman   <span style="margin-left: 3rem"> Contact: 01787 692 529 </span>
+                                                                            
                                                                         </div>
+
+                                                                        <h4 style="margin-bottom:1rem">Chittagong Zone Support Team</h4>
                                                                         <div>
-                                                                            <h3>Md. Polash Mahamud   <span style="margin-left: 1rem"> Contact: 01787 692 530 </span></h3>
+                                                                            Jilluer Rahaman   <span style="margin-left: 4rem"> Contact: 01787 692 529 </span>
                                                                         </div>
+                                                                       
                                                                     </div>
 
                                                                 </div>

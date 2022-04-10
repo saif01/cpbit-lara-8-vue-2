@@ -37,6 +37,14 @@ class HardwareComplain extends Model
         return $this->hasMany('App\Models\Cms\Hardware\HardwareHORemark', 'comp_id', 'id');
     }
 
+    public function damage(){
+        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamaged', 'comp_id', 'id');
+    }
+
+    public function mail(){
+        return $this->hasOne('App\Models\Cms\Hardware\HardwareDamaged', 'comp_id', 'id');
+    }
+
 
 
     public function scopeSearch($query, $val='')

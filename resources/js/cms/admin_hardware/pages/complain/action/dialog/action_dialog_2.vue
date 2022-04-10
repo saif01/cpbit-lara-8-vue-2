@@ -230,7 +230,7 @@
                                     value: 'Processing'
                                 },
                                 {
-                                    text: 'Send Service',
+                                    text: 'Send Service Center',
                                     value: 'Send Service'
                                 },
                                 {
@@ -247,14 +247,19 @@
                                 },
                             ]
                         } else if (crpro == 'Send Service' || crpro == 'Back Service' || crpro ==
-                            'Again Send Service') {
+                            'Again Send Service' || crpro ==
+                            'Service Quotation') {
 
                             this.stepOptions = [{
-                                    text: 'Back Service',
+                                    text: 'Service Quotation',
+                                    value: 'Service Quotation'
+                                },
+                                {
+                                    text: 'Back Service Center',
                                     value: 'Back Service'
                                 },
                                 {
-                                    text: 'Again Send Service',
+                                    text: 'Again Send Service Center',
                                     value: 'Again Send Service'
                                 },
                                 {

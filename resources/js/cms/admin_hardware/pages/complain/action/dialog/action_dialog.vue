@@ -158,17 +158,17 @@
 
 
                 stepOptions: [{
-                        text: 'Not Processing',
-                        value: 'Not Processing'
+                        text: 'Not Process',
+                        value: 'Not Process'
                     },
                     {
                         text: 'Processing',
                         value: 'Processing'
                     },
-                    {
-                        text: 'Closed',
-                        value: 'Closed'
-                    },
+                    // {
+                    //     text: 'Closed',
+                    //     value: 'Closed'
+                    // },
                 ],
 
                 dataModalLoading: false,

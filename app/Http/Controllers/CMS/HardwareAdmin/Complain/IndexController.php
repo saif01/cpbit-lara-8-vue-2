@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Common\Email\ScheduleEmailCmsHardware;
+use App\Http\Controllers\CMS\Email\Hardware\EmailSend;
+
 use Auth;
 use App\Models\User;
 
@@ -16,7 +18,7 @@ class IndexController extends Controller
         //dd( Request('id') );
         $id = Request('id');
         if( !empty($id) ){
-           $success = ScheduleEmailCmsHardware::SendById($id);
+           $success = EmailSend::SendById($id);
 
             if($success){
                 return response()->json(['msg'=>'Email Send Successfully &#128513;', 'icon'=>'success'], 200);

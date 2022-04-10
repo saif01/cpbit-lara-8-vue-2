@@ -14,6 +14,8 @@ use App\Models\Cms\Hardware\HardwareDamaged;
 use Carbon\Carbon;
 use Auth;
 
+use App\Http\Controllers\CMS\Email\Hardware\EmailStore;
+
 
 class HardwareController extends Controller
 {
@@ -64,6 +66,9 @@ class HardwareController extends Controller
         }
 
         $success = $data->save();
+
+        // Save for Email
+        EmailStore::StorMailUserComplain($data->id);
 
         if($success){
             return response()->json(['msg'=>'Submited Successfully &#128513;', 'icon'=>'success'], 200);

@@ -6,7 +6,7 @@
             </v-card-title>
             <v-card-text v-if="complainDeta" class="table-responsive">
 
-                <!-- Complain and user Details -->
+                <!-- Start Complain and user Details -->
                 <table class="table mb-0">
                     <tr>
                         <th>Complain No:</th>
@@ -72,8 +72,6 @@
                             </a>
                             <span v-else class="text-danger">Not Attached</span>
                         </td>
-
-
                     </tr>
                 </table>
 
@@ -88,6 +86,15 @@
                         <td>{{ complainDeta.details }}</td>
                     </tr>
                 </table>
+                <!-- End Complain and user Details -->
+
+
+
+
+
+
+
+
 
                 <!-- All Remarks -->
                 <div v-if="complainDeta.remarks" class="mb-2">
@@ -96,7 +103,7 @@
                         <table class="table mb-1 bg-secondary text-white rounded border-bottom border-danger">
                             <!-- remarks -->
                             <tr>
-                                <th>Process: ({{ index+1 }})</th>
+                                <th>Process: ({{ index + 1 }})</th>
                                 <td>
                                     <span v-if="(item.process == 'Damaged')"
                                         class="text-danger bg-white rounded">Damaged</span>
@@ -132,15 +139,15 @@
                                 </td>
                             </tr>
 
-                            <!-- dam_apply -->
-                            <!-- {{ complainDeta.dam_apply }} -->
-                            <tr v-if="(item.process == 'Damaged') && complainDeta.dam_apply && complainDeta.dam_apply.apply_by"
+                            <!-- Damage Apply by User -->
+                            <!-- {{ complainDeta.damage }} -->
+                            <tr v-if="(item.process == 'Damaged' ||  item.process == 'Partial Damaged') && complainDeta.damage && complainDeta.damage.apply_by"
                                 class="bg-info">
                                 <th>Damage Apply:</th>
                                 <td>Successfully </td>
                                 <th>Apply At:</th>
-                                <td><span v-if="complainDeta.dam_apply.apply_at"
-                                        class="text-warning">{{ complainDeta.dam_apply.apply_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                <td><span v-if="complainDeta.damage.apply_at"
+                                        class="text-warning">{{ complainDeta.damage.apply_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                 </td>
                             </tr>
                             <!-- Start Email send  -->
@@ -168,6 +175,9 @@
 
                         </table>
                         <!--End remarks -->
+
+
+
 
                         <!--Start ho_remarks -->
                         <div v-if="(item.process == 'HO Service')">
@@ -237,31 +247,38 @@
                             </div>
                         </div>
                         <!--End ho_remarks -->
+
                     </div>
                 </div>
 
+
+
+
+
                 <!-- Start Damaged Replaced received -->
                 <table class="table mb-1 bg-secondary text-white rounded border-bottom border-danger"
-                    v-if="complainDeta.dam_apply && complainDeta.dam_apply.rep_pro_id ">
-                    <!-- {{ complainDeta.dam_apply }} -->
+                    v-if="complainDeta.damage && complainDeta.damage.rep_pro_id ">
+                    <!-- {{ complainDeta.damage }} -->
 
                     <tr>
                         <td colspan="8" class="text-center h3 text-success">Damaged Replaced</td>
                     </tr>
                     <tr class="bg-info">
                         <th>Receiver Name:</th>
-                        <td> {{ complainDeta.dam_apply.rec_name }} </td>
+                        <td> {{ complainDeta.damage.rec_name }} </td>
                         <th>Receiver Contact:</th>
-                        <td> {{ complainDeta.dam_apply.rec_contact }} </td>
+                        <td> {{ complainDeta.damage.rec_contact }} </td>
                         <th>Receiver Position:</th>
-                        <td> {{ complainDeta.dam_apply.rec_position }} </td>
+                        <td> {{ complainDeta.damage.rec_position }} </td>
                         <th>Received At:</th>
-                        <td><span v-if="complainDeta.dam_apply.updated_at"
-                                class="text-warning">{{ complainDeta.dam_apply.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                        <td><span v-if="complainDeta.damage.updated_at"
+                                class="text-warning">{{ complainDeta.damage.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                         </td>
                     </tr>
                 </table>
                 <!-- Start Damaged Replaced received -->
+
+
 
 
 
@@ -274,7 +291,8 @@
                     <tr>
                         <td colspan="8" class="text-center h3">----- Delivered -----</td>
                     </tr>
-                    <!-- Start Email send  -->
+                    
+                    <!-- End Email send  -->
                     <tr v-if="complainDeta.delivery.mail">
                         <th>E-Mail:</th>
                         <td colspan="3">  
@@ -527,12 +545,13 @@
 
                 if (currPro == 'Not Process') {
                     this.actionVal = true
-                    // this.actionVal2 = false
+                    //this.actionVal2 = false
                 }
 
                 // Processing
                 if (currPro == 'Processing' || currPro == 'Send Service' || currPro == 'Back Service' || currPro ==
-                    'Again Send Service') {
+                    'Again Send Service' || currPro ==
+                    'Service Quotation') {
                     // this.actionVal = false
                     this.actionVal2 = true
                 }
@@ -546,7 +565,7 @@
 
                 // Damaged
                 if (currPro == 'Damaged' || currPro == 'Partial Damaged') {
-                    let damagedData = this.complainDeta.dam_apply
+                    let damagedData = this.complainDeta.damage
                     // Check Applicable
                     if (damagedData.applicable_type == 'Applicable' && !damagedData.apply_quotation) {
                         // Check user applied

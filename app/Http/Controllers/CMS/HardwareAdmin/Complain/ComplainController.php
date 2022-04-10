@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use App\Models\Cms\Hardware\HardwareComplain;
 use App\Models\SuperAdmin\ZoneOffice;
 use Auth;
+// Form email
+use App\Http\Controllers\CMS\Email\Hardware\EmailStore;
 use App\Http\Controllers\CMS\HardwareAdmin\CommonController;
+
 
 class ComplainController extends Controller
 {
@@ -123,7 +126,7 @@ class ComplainController extends Controller
                 //dd($accessZoneOffices);
                 $q->whereIn('zone_office', $accessZoneOffices);
             })
-            ->whereIn('process', ['Send Service', 'Back Service', 'Again Send Service'])
+            ->whereIn('process', ['Send Service', 'Back Service', 'Again Send Service', 'Service Quotation'])
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
