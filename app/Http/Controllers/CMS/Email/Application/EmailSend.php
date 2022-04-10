@@ -83,7 +83,7 @@ class EmailSend extends Controller
                 $item->save();
             }
         }
-        \Log::info("Cron is working for hardware email send");
+        \Log::info("Cron is working for application email send");
         return true; 
     }
 

@@ -18,12 +18,14 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->command('command:TodayBookedCar')
+            ->withoutOverlapping()
             ->dailyAt('08:00');
             //->everyTenMinutes();
             //->everyFiveMinutes();
             //->everyMinute();
 
         $schedule->command('command:TodayBookedRoom')
+            ->withoutOverlapping()
             ->dailyAt('08:01');
             //->everyTenMinutes();
             //->everyFiveMinutes();
@@ -31,14 +33,22 @@ class Kernel extends ConsoleKernel
 
        
         $schedule->command('command:MainIpPing')
+            ->withoutOverlapping()
             ->everyTenMinutes();
             //->everyFiveMinutes();
             //->everyMinute();
 
         $schedule->command('command:HardwareMail')
+            ->withoutOverlapping()
             //->everyTenMinutes();
             ->everyFiveMinutes();
             //->everyMinute();
+
+        $schedule->command('command:ApplicationMail')
+            ->withoutOverlapping()
+            //->everyTenMinutes();
+            //->everyFiveMinutes();
+            ->everyMinute();
     
                     
 

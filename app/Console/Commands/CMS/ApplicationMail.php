@@ -4,6 +4,8 @@ namespace App\Console\Commands\CMS;
 
 use Illuminate\Console\Command;
 
+use App\Http\Controllers\CMS\Email\Application\EmailSend;
+
 class ApplicationMail extends Command
 {
     /**
@@ -11,7 +13,7 @@ class ApplicationMail extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'command:ApplicationMail';
 
     /**
      * The console command description.
@@ -37,6 +39,7 @@ class ApplicationMail extends Command
      */
     public function handle()
     {
+        EmailSend::SendBySchedule();
         return Command::SUCCESS;
     }
 }
