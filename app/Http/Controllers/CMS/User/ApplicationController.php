@@ -134,4 +134,24 @@ class ApplicationController extends Controller
         return response()->json($allData, 200);
 
     }
+
+
+    // complain_cancel
+    public function complain_cancel(){
+        //dd(Request('id'));
+
+        $id = Request('id');
+
+        if($id){
+            $data = ApplicationComplain::find($id);
+            if($data){
+                if($data->status == 1){
+                    $data->status = 0;
+                    $data->save();
+                }
+            }
+        }
+
+        return response()->json('Status Changed', 200);
+    }
 }

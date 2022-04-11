@@ -67,7 +67,6 @@
                     <table class="table table-bordered">
                         <thead class="text-center">
                             <tr>
-                                <th>Action</th>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('id')">Num.</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'id'">&uarr;</span>
@@ -85,18 +84,11 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'created_at'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'created_at'">&darr;</span>
                                 </th>
-
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-
-                                <td class="text-center">
-                                    <v-btn @click="remarksDetailsShow(singleData)" color="success" depressed
-                                        small elevation="20">
-                                        <v-icon small>mdi-eye-arrow-left </v-icon> View
-                                    </v-btn>
-                                </td>
 
                                 <td>
                                     <div class="pa-1 info rounded-pill h4 text-white text-center">
@@ -117,7 +109,26 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <span v-if="singleData.created_at">{{ singleData.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                    <span
+                                        v-if="singleData.created_at">{{ singleData.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <!-- <v-btn @click="remarksDetailsShow(singleData)" color="success" depressed small
+                                        elevation="20">
+                                        <v-icon small>mdi-eye-arrow-left </v-icon> View
+                                    </v-btn> -->
+                                    <span v-if="singleData.process == 'Not Process'">
+                                        <v-btn v-if="singleData.process == 'Not Process' && singleData.status == 1"
+                                            @click="complainCancel(singleData.id)" color="error" depressed
+                                            elevation="20">
+                                            <v-icon left>mdi-close-octagon-outline</v-icon> Cancel
+                                        </v-btn>
+                                        <span v-else class="error--text">Canceled</span>
+                                    </span>
+                                    <v-btn v-else @click="remarksDetailsShow(singleData)" color="success" depressed
+                                        small elevation="20">
+                                        <v-icon left>mdi-eye-arrow-left </v-icon> View
+                                    </v-btn>
                                 </td>
 
                             </tr>
@@ -278,7 +289,7 @@
                 remarksDialog: false,
                 allRemarks: [],
                 docPath: '/images/application/',
-                
+
             }
 
 
@@ -320,6 +331,48 @@
                 this.allRemarks = []
                 this.allRemarks = val
                 this.remarksDialog = true
+            },
+
+
+            // complainCancel
+            complainCancel(val) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You want to cancel this complain !',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes!',
+                }).then((result) => {
+
+                    // Send request to the server
+                    if (result.value) {
+                        //console.log(id);
+                        this.$Progress.start();
+                        axios.post(this.currentUrl + '/complain_cancel', {
+                            id: val
+                        }).then((response) => {
+                            //console.log(response);
+                            Swal.fire(
+                                'Changed!',
+                                'Status has been Changed.',
+                                'success'
+                            );
+                            // Refresh Tbl Data with current page
+                            this.getResults(this.currentPageNumber);
+                            this.$Progress.finish();
+
+                        }).catch((data) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Somthing Going Wrong<br>' + data.message,
+                                customClass: 'text-danger'
+                            });
+                            // Swal.fire("Failed!", data.message, "warning");
+                        });
+                    }
+                })
+
             },
 
 

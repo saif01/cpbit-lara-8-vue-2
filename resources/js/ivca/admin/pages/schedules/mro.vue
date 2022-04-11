@@ -67,7 +67,7 @@
                                     </v-btn>
                                     <v-btn v-else @click="statusChange(singleData)" small color="warning"
                                         elevation="10" class="mb-1">
-                                        <v-icon left>mdi-close-octagon</v-icon> Not Approved
+                                        <v-icon left>mdi-close-octagon</v-icon> Approve
                                     </v-btn>
                                     </div>
                                      <v-btn @click="editDataModel(singleData)" small color="info" elevation="10" class="mb-1">

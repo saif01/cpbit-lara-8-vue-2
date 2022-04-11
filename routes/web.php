@@ -543,6 +543,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::post('/complain', 'ApplicationController@complain');
                 Route::get('/category', 'ApplicationController@category');
                 Route::get('/history', 'ApplicationController@history');
+                Route::post('/complain_cancel', 'ApplicationController@complain_cancel');
                 
             });
 

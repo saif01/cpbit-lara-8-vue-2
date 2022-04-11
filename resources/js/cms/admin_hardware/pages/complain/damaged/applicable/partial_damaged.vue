@@ -30,7 +30,6 @@
                     <table class="table table-bordered">
                         <thead class="text-center">
                             <tr>
-                                <th>Action</th>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('id')">Num.</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'id'">&uarr;</span>
@@ -41,20 +40,21 @@
                                     <span v-if="sort_direction == 'desc' && sort_field == 'process'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'process'">&darr;</span>
                                 </th>
+                                <th>
+                                    <a href="#" @click.prevent="change_sort('apply_at')">Applied</a>
+                                    <span v-if="sort_direction == 'desc' && sort_field == 'apply_at'">&uarr;</span>
+                                    <span v-if="sort_direction == 'asc' && sort_field == 'apply_at'">&darr;</span>
+                                </th>
                                 <th>Category</th>
                                 <th>Subcategory</th>
                                 <th>User</th>
                                 <th>Department</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
 
-                                <td class="text-center">
-                                    <v-btn @click="action(singleData.id)" color="error" depressed small elevation="20">
-                                        <v-icon small>mdi-arch</v-icon> Action
-                                    </v-btn>
-                                </td>
                                 <td>
                                     <div class="pa-1 info rounded-pill h4 text-white text-center">
                                         {{ singleData.id }}
@@ -64,6 +64,11 @@
                                     <div class="pa-1 info rounded-pill h6 text-white text-center">
                                         {{ singleData.process }}
                                     </div>
+                                </td>
+                                <td>
+                                    <span
+                                        v-if="singleData.dam_apply && singleData.dam_apply.apply_at">{{ singleData.dam_apply.apply_at | moment("MMMM Do YYYY") }}</span>
+                                    <span v-else class="text-danger">N/A</span>
                                 </td>
                                 <td>
                                     <span v-if="singleData.category">{{ singleData.category.name }}</span>
@@ -86,7 +91,11 @@
                                 <td>
                                     <span v-if="singleData.makby">{{ singleData.makby.department }}</span>
                                 </td>
-
+                                <td class="text-center">
+                                    <v-btn @click="action(singleData.id)" color="error" depressed small elevation="20">
+                                        <v-icon small>mdi-arch</v-icon> Action
+                                    </v-btn>
+                                </td>
 
                             </tr>
                         </tbody>
@@ -137,7 +146,7 @@
             return {
                 //current page url
                 currentUrl: '/cms/h_admin/complain/damaged',
-               
+
 
                 // Current User Show By Dilog
                 ...userDetailsData,

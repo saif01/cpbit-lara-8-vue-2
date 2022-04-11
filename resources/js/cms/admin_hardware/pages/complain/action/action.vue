@@ -143,7 +143,7 @@
                             <!-- {{ complainDeta.damage }} -->
                             <tr v-if="(item.process == 'Damaged' ||  item.process == 'Partial Damaged') && complainDeta.damage && complainDeta.damage.apply_by"
                                 class="bg-info">
-                                <th>Damage Apply:</th>
+                                <th>Replace Applied:</th>
                                 <td>Successfully </td>
                                 <th>Apply At:</th>
                                 <td><span v-if="complainDeta.damage.apply_at"

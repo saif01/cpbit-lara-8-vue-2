@@ -108,8 +108,8 @@
 
                 // Form
                 form: new Form({
-                    login: 'syful.isl',
-                    password: 'Saif5683@5'
+                    login: '',
+                    password: ''
                 }),
             }
         },

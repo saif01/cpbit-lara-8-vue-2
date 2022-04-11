@@ -30,7 +30,6 @@
                     <table class="table table-bordered">
                         <thead class="text-center">
                             <tr>
-                                <th>Action</th>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('id')">Num.</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'id'">&uarr;</span>
@@ -40,20 +39,13 @@
                                 <th>Subcategory</th>
                                 <th>User</th>
                                 <th>Department</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-
-                                <td class="text-center">
-                                    <v-btn @click="action(singleData.id)" color="error" depressed small elevation="20">
-                                        <v-icon small>mdi-arch</v-icon> Action
-                                    </v-btn>
-                                </td>
                                 <td>
-                                    <div class="pa-1 info rounded-pill h4 text-white text-center">
-                                        {{ singleData.id }}
-                                    </div>
+                                    <div class="pa-1 info rounded-pill h4 text-white text-center"> {{ singleData.id }}</div>
                                 </td>
                                 <td>
                                     <span v-if="singleData.category">{{ singleData.category.name }}</span>
@@ -63,7 +55,6 @@
                                 </td>
 
                                 <td class="text-center">
-
                                     <button class="btn btn-secondary btn-sm" v-if="singleData.makby"
                                         @click="currentUserView(singleData.makby)">
                                         <v-avatar size="20" @click="currentUserView(singleData.makby)">
@@ -71,12 +62,15 @@
                                                 :src="'/images/users/small/' + singleData.makby.image" alt="image">
                                         </v-avatar> {{ singleData.makby.name }}
                                     </button>
-
                                 </td>
                                 <td>
                                     <span v-if="singleData.makby">{{ singleData.makby.department }}</span>
                                 </td>
-
+                                <td class="text-center">
+                                    <v-btn @click="action(singleData.id)" color="error" depressed small elevation="20">
+                                        <v-icon small>mdi-arch</v-icon> Action
+                                    </v-btn>
+                                </td>
 
                             </tr>
                         </tbody>
