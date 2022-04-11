@@ -466,6 +466,9 @@
                 //console.log('child') // someValue
                 // refresh data
                 this.getComplainData();
+
+                // For sidebar counter
+                this.countAll();
             },
 
             // CurrentUserData

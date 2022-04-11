@@ -94,7 +94,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Not Process
-                            <!-- <v-badge v-if="notprocess" color="error ml-2" :content="notprocess"></v-badge> -->
+                            <v-badge v-if="notprocess" color="error ml-2" :content="notprocess"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -105,7 +105,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Processing
-                            <!-- <v-badge v-if="process" color="error ml-2" :content="process"></v-badge> -->
+                            <v-badge v-if="process" color="error ml-2" :content="process"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
