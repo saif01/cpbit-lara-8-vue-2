@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Email\ScheduleEmailCmsApplication;
 use App\Models\Cms\Application\ApplicationComplain;
 use Auth;
+use App\Models\User;
 
 class EmailStore extends Controller
 {
