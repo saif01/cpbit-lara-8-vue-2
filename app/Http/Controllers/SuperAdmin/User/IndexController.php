@@ -59,6 +59,14 @@ class IndexController extends Controller
 
     }
 
+    // full_list
+    public function full_list(){
+        $allData = User::select('id', 'name')
+            ->where('delete_temp', '!=', '1')
+            ->get();
+        return response()->json($allData, 200);
+    }
+
     // zoneoffices
     public function zoneoffices(){
 

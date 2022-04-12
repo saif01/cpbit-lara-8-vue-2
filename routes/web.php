@@ -40,6 +40,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::delete('/destroy/{id}', 'IndexController@destroy');
             Route::post('/status/{id}', 'IndexController@status');
 
+            Route::get('/full_list', 'IndexController@full_list');
+
             Route::post('/status_admin/{id}', 'IndexController@status_admin');
             Route::post('/status_user/{id}', 'IndexController@status_user');
 
@@ -435,8 +437,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             });
 
-            // User
-            Route::namespace('User')->prefix('user')->group(function(){
+            // User 
+            Route::middleware(['can:superadmin'])->namespace('User')->prefix('user')->group(function(){
                 Route::get('/index', 'IndexController@index');
                 Route::post('/roles_update', 'IndexController@roles_update');
             

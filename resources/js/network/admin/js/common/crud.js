@@ -247,7 +247,12 @@ export default{
 
 
     clipboard(data) {
-        navigator.clipboard.writeText(data.ip);
+        //navigator.clipboard.writeText(data.ip);
+        var selectedIp = data.ip
+        selectedIp.select();
+        document.execCommand("copy");
         this.checkID = data.id;
+
+      
     }
 }

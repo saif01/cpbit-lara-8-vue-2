@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default{
 
     // Get table data
@@ -27,18 +29,25 @@ export default{
             });
     },
 
+    // getFullList
+    getFullList(){
+        axios.get(this.currentUrl+'/full_list').then(response=>{
+            this.fullUserList = response.data
+        }).catch(error=>{
+            console.log(error)
+        })
+    },
+
     
     // Manager Data array show by manager ID array
     manegerData(newValue) {
 
         let fianlArray = [];
-
-               
         if(newValue){
-            var allDataArr = this.allData.data;
+            var allDataArr = this.fullUserList;
             // Text split in array
             var managerId = newValue.split(',')
-            //console.log(managerId, myarr, singleData.manager_id);
+            //console.log(managerId, newValue, allDataArr);
             
             // Manager ID check in all Data
             for (var key in allDataArr) {
@@ -48,10 +57,9 @@ export default{
                     var value2 = managerId[key2];
                     // Single value check
                     if(value2 == value.id){
-                       // console.log('value found', value.id, value.name)
+                        //console.log('value found', value.id, value.name)
                         // Name push in array
 
-                        
                         //fianlArray['id'].push(value.id)
                         fianlArray.push(value)
                         //fianlArray['all'].push(value) 
@@ -65,7 +73,7 @@ export default{
                 }
             }
         }
-
+        //console.log('fianlArray -- ', fianlArray);
         return fianlArray;
         
        

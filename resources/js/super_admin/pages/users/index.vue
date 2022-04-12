@@ -554,6 +554,7 @@
                 // Current User Show By Dilog
                 ...userDetailsData,
                
+                fullUserList:'',
 
             }
 
@@ -608,6 +609,7 @@
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
+            this.getFullList();
             this.$Progress.finish();
         }
 
