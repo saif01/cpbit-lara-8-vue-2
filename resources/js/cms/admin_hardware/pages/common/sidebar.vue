@@ -61,7 +61,7 @@
                 </v-list-item> -->
 
                 <!-- Sidebar Multi level Item -->
-                <v-list-group prepend-icon="mdi-account-supervisor" active-class="indigo lighten-3 white--text"
+                <v-list-group v-if="isSuperAdmin()" prepend-icon="mdi-account-supervisor" active-class="indigo lighten-3 white--text"
                     no-action>
                     <template v-slot:activator>
                         <v-list-item-title>User Manage</v-list-item-title>
