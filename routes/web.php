@@ -1156,6 +1156,24 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
     // iaccess Start
     Route::namespace('iAccess')->prefix('iaccess')->group(function(){
 
+        // Admin
+        Route::middleware(['can:itempAdmin'])->namespace('Admin')->prefix('admin')->group(function(){
+
+            Route::get('/dashboard_data', 'IndexController@dashboard_data');
+
+
+            Route::namespace('Allcheckpoint')->prefix('all-checkpoints')->group(function(){
+                Route::get('/index', 'IndexController@index');
+                Route::post('/store', 'IndexController@store');
+                Route::put('/update', 'IndexController@update');
+                Route::delete('/destroy/{id}', 'IndexController@deleteDataDirict');
+            });
+
+           
+            Route::get('{any?}', 'IndexController@index');
+        });
+
+
         // user
         Route::namespace('User')->group(function(){
 

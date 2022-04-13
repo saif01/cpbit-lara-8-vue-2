@@ -21,6 +21,7 @@
     "/js/itemp/user/app.js": "/js/itemp/user/app.js",
     "/js/network/admin/app.js": "/js/network/admin/app.js",
     "/js/iaccess/user/app.js": "/js/iaccess/user/app.js",
+    "/js/iaccess/admin/app.js": "/js/iaccess/admin/app.js",
     "/js/mobile_app/app.js": "/js/mobile_app/app.js",
     "/css/app.css": "/css/app.css",
     "/css/auth/app.css": "/css/auth/app.css",
@@ -44,5 +45,6 @@
     "/css/itemp/user/app.css": "/css/itemp/user/app.css",
     "/css/network/admin/app.css": "/css/network/admin/app.css",
     "/css/iaccess/user/app.css": "/css/iaccess/user/app.css",
+    "/css/iaccess/admin/app.css": "/css/iaccess/admin/app.css",
     "/css/mobile_app/app.css": "/css/mobile_app/app.css"
 }

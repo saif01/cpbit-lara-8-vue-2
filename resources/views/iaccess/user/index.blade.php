@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('common.cpbd-icon')
-    <title>CPB-IT SMS</title>
+    <title>CPB-IT iAccess</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/iaccess/user/app.css') }}">
 </head>

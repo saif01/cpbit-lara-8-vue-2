@@ -145,7 +145,7 @@
 
                             <v-col cols="12">
                                 <v-input hide-details>Accessories :</v-input>
-                                <div class="d-flex align-center">
+                                <div class="d-flex flex-wrap align-center">
                                     <div v-for="(item, index) in allAcsosoris" :key="index">
                                         <v-checkbox class="mr-5" :value="item.id" :label="item.name"
                                             v-model="currentAcsosoris" color="indigo" hide-details></v-checkbox>

@@ -27,7 +27,9 @@ class CreateIaccessInternetRequestsTable extends Migration
             $table->string('internet_id')->nullable();
             $table->string('web_url')->nullable();
             $table->string('purpose')->nullable();
-
+            $table->string('document')->nullable();
+            $table->string('document2')->nullable();
+            
             // user
             $table->string('signature')->nullable();
             $table->dateTime('date')->nullable();
@@ -46,7 +48,6 @@ class CreateIaccessInternetRequestsTable extends Migration
             $table->string('it_name')->nullable();
             $table->string('it_signature')->nullable();
             $table->dateTime('it_date')->nullable();
-
             $table->integer('created_by')->nullable();
             $table->timestamps();
         });

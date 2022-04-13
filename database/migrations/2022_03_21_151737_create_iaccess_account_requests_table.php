@@ -27,6 +27,8 @@ class CreateIaccessAccountRequestsTable extends Migration
             $table->string('access_for')->nullable();
             $table->string('modules')->nullable();
             $table->string('purpose')->nullable();
+            $table->string('document')->nullable();
+            $table->string('document2')->nullable();
 
             // user
             $table->string('signature')->nullable();

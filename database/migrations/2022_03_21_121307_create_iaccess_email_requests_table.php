@@ -26,6 +26,8 @@ class CreateIaccessEmailRequestsTable extends Migration
             $table->string('request_for')->nullable();
             $table->string('requested_email')->nullable();
             $table->string('purpose')->nullable();
+            $table->string('document')->nullable();
+            $table->string('document2')->nullable();
 
             // user
             $table->string('signature')->nullable();

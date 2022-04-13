@@ -155,7 +155,7 @@ import Form from 'vform';
         data() {
             return {
 
-                int_id: '',
+                int_id: '', 
 
                 valid: false,
 

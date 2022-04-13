@@ -27,6 +27,8 @@ class CreateIaccessGuestRequestsTable extends Migration
             $table->integer('guest_duration')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->string('document')->nullable();
+            $table->string('document2')->nullable();
 
             // user
             $table->string('signature')->nullable();

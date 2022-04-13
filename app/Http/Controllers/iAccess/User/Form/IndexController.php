@@ -19,6 +19,9 @@ use App\Http\Controllers\Common\Email\ScheduleEmailIaccessInternetRequest;
 use App\Http\Controllers\Common\Email\ScheduleEmailIaccessAccountRequest;
 use App\Http\Controllers\Common\Email\ScheduleEmailIaccessGuestRequest;
 
+use App\Http\Controllers\iAccess\CommonController;
+
+
 class IndexController extends Controller
 {
     use ImageUpload;
@@ -174,7 +177,6 @@ class IndexController extends Controller
         ]);
 
         $data = new iaccessInternetRequest();
-
     
         $data->name              = $request->name;
         $data->branch            = $request->branch;
@@ -196,7 +198,11 @@ class IndexController extends Controller
         $success            = $data->save();
 
 
-        $this->pdfInternetGenerate($data->id);
+        CommonController::MailSendInternet($data);
+
+
+
+        //$this->pdfInternetGenerate($data->id);
 
         if($success){
             return response()->json(['msg'=>'Application Submitted Successfully &#128513;', 'icon'=>'success'], 200);

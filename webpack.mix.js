@@ -277,6 +277,16 @@ mix.styles([
         'resources/css/common/preloader.css',
     ], 'public/css/iaccess/user/app.css');
 
+
+//iaccess admin JS 
+mix.js('resources/js/iaccess/admin/js/app.js', 'public/js/iaccess/admin/app.js')
+    .vue();
+    
+//iaccess admin CSS 
+mix.styles([
+        'resources/css/common/preloader.css',
+], 'public/css/iaccess/admin/app.css');
+
 // *********End iaccess *********End
 
 
