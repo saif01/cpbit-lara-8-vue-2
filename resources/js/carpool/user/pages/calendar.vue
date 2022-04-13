@@ -8,7 +8,7 @@
 
 
         <!-- Single Event data Show Modal -->
-        <v-dialog persistent v-model="eventDetailsModal" max-width="800px" scrollable>
+        <v-dialog persistent v-model="eventDetailsModal" max-width="800px" >
             <v-card>
                 <v-card-title class="justify-center">
                     <v-row>
@@ -227,7 +227,7 @@
                                                 v-html="form.errors.get('start_date')" />
                                         </template>
 
-                                        <v-date-picker v-model="form.start_date" no-title scrollable>
+                                        <v-date-picker v-model="form.start_date" no-title >
                                             <v-spacer></v-spacer>
                                             <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
                                             <v-btn text color="success"> Set Today</v-btn>
@@ -245,7 +245,7 @@
                                             <div class="small text-danger" v-if="form.errors.has('end_date')"
                                                 v-html="form.errors.get('end_date')" />
                                         </template>
-                                        <v-date-picker v-model="form.end_date" no-title scrollable>
+                                        <v-date-picker v-model="form.end_date" no-title >
                                             <v-spacer></v-spacer>
                                             <v-btn text color="primary" @click="menu2 = false"> Cancel</v-btn>
                                             <v-btn text color="success">Set Today</v-btn>
@@ -266,7 +266,7 @@
                                                 v-html="form.errors.get('start_time')" />
                                         </template>
                                         <v-time-picker v-if="menu3" v-model="form.start_time" full-width
-                                            @click:minute="$refs.menu3.save(time)" ampm-in-title scrollable
+                                            @click:minute="$refs.menu3.save(time)" ampm-in-title 
                                             :min="minTime1" :max="maxTime1"></v-time-picker>
                                     </v-menu>
                                 </v-col>
@@ -284,7 +284,7 @@
                                                 v-html="form.errors.get('end_time')" />
                                         </template>
                                         <v-time-picker v-if="menu4" v-model="form.end_time" full-width
-                                            @click:minute="$refs.menu4.save(time)" ampm-in-title scrollable
+                                            @click:minute="$refs.menu4.save(time)" ampm-in-title 
                                             :min="minTime2" :max="maxTime2"></v-time-picker>
                                     </v-menu>
                                 </v-col>

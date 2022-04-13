@@ -66,14 +66,14 @@
                 </a>
             </v-col>
 
-            <!-- <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
+            <v-col cols="6" lg="3" class="text-center" v-if="isSms()">
                 <a href="/iaccess" class="text-decoration-none text-dark">
                     <v-avatar size="150">
                         <v-img src="/all-assets/common/icon/iaccess.png"></v-img>
                     </v-avatar>
                     <div class="h3 my-3">iAccess</div>
                 </a>
-            </v-col> -->
+            </v-col>
 
             <v-col cols="6" lg="3" class="text-center">
                 <a href="/logout" class="text-decoration-none text-dark">

@@ -9,7 +9,7 @@
             <v-card-text>
 
                 <v-row>
-                    <v-col lg="3" cols="6">
+                    <v-col lg="6" cols="6">
                         <v-hover>
                             <template v-slot:default="{ hover }">
                                 <v-card @click="emailModal = true, emailActionKey++;">
@@ -18,7 +18,7 @@
                                     class="align-end font-weight-bold bg-info"
                                     contain
                                     src="/all-assets/common/icon/email_request.png"
-                                    height="330px"
+                                    :height="bgImgHeight"
                                     >
                                     </v-img>
 
@@ -38,7 +38,7 @@
                         </v-hover>
                     </v-col>
 
-                    <v-col lg="3" cols="6">
+                    <v-col lg="6" cols="6">
                         <v-hover>
                             <template v-slot:default="{ hover }">
                                 <v-card @click="accountModal = true, accountActionKey++ ">
@@ -47,7 +47,7 @@
                                     class="align-end font-weight-bold bg-info"
                                     contain
                                     src="/all-assets/common/icon/account_authority.png"
-                                    height="330px"
+                                    :height="bgImgHeight"
                                     >
                                     </v-img>
 
@@ -65,7 +65,7 @@
                         </v-hover>
                     </v-col>
 
-                    <v-col lg="3" cols="6">
+                    <v-col lg="6" cols="6">
                         <v-hover>
                             <template v-slot:default="{ hover }">
                                 <v-card @click="internetModal = true, internetActionKey++ ">
@@ -74,7 +74,7 @@
                                     class="align-end font-weight-bold bg-info"
                                     contain
                                     src="/all-assets/common/icon/internet_access.png"
-                                    height="330px"
+                                    :height="bgImgHeight"
                                     >
                                     </v-img>
 
@@ -92,7 +92,7 @@
                         </v-hover>
                     </v-col>
 
-                    <v-col lg="3" cols="6">
+                    <v-col lg="6" cols="6">
                         <v-hover>
                             <template v-slot:default="{ hover }">
                                 <v-card @click="guestModal = true, guestActionKey++ ">
@@ -101,7 +101,7 @@
                                     class="align-end font-weight-bold bg-info"
                                     contain
                                     src="/all-assets/common/icon/guest_request.png"
-                                    height="330px"
+                                    :height="bgImgHeight"
                                     >
                                     </v-img>
 
@@ -158,6 +158,8 @@ export default {
     data() {
 
         return {
+
+            bgImgHeight: 200,
 
             options:[
                 {
