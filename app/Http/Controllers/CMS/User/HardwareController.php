@@ -160,7 +160,7 @@ class HardwareController extends Controller
         if($id){
             $data = HardwareComplain::find($id);
             if($data){
-                if($data->status == 1){
+                if($data->status == 1 && $data->process == 'Not Process'){
                     $data->status = 0;
                     $data->save();
                 }

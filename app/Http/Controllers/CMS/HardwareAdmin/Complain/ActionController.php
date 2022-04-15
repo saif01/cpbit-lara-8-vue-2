@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\Cms\Hardware\HardwareComplain;
 use App\Models\Cms\Hardware\HardwareRemarks;
 use App\Http\Controllers\Common\ImageUpload;
-use App\Http\Controllers\Common\Email\ScheduleEmailCmsHardware;
 use App\Models\Cms\Hardware\HardwareDamaged;
 use App\Models\Cms\Hardware\HardwareDelivery;
 
@@ -72,7 +71,7 @@ class ActionController extends Controller
         $remarks_data->created_by   = Auth::user()->id;
        
         $success = $remarks_data->save();
-        // Store in Application Complain tbl 
+        // Store in Application Complain tbl  
         $success2 = $complain_data->save();
 
 

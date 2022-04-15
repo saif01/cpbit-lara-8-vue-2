@@ -15,7 +15,7 @@ use App\Http\Controllers\CMS\HardwareAdmin\CommonController;
 
 class ComplainController extends Controller
 {
-    //not_process
+    //not_process 
     public function not_process(){
 
         // Check access offices
@@ -29,6 +29,7 @@ class ComplainController extends Controller
         $sort_field     = Request('sort_field', 'id');
 
         $allData = HardwareComplain::with('makby', 'category', 'subcategory')
+            ->where('status', 1)
             ->whereHas('makby', function($q) use($accessZoneOffices){
                 //dd($accessZoneOffices[0]);
                 $q->whereIn('zone_office', $accessZoneOffices);
@@ -58,6 +59,7 @@ class ComplainController extends Controller
         $sort_field     = Request('sort_field', 'id');
 
         $allData = HardwareComplain::with('makby', 'category', 'subcategory')
+            ->where('status', 1)
             ->whereHas('makby', function($q) use($accessZoneOffices){
                 //dd($accessZoneOffices);
                 $q->whereIn('zone_office', $accessZoneOffices);
@@ -80,6 +82,7 @@ class ComplainController extends Controller
         $sort_field     = Request('sort_field', 'id');
 
         $allData = HardwareComplain::with('makby', 'category', 'subcategory')
+            ->where('status', 1)
             ->where('process', 'Closed')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
@@ -99,6 +102,7 @@ class ComplainController extends Controller
         $sort_field     = Request('sort_field', 'id');
 
         $allData = HardwareComplain::with('makby', 'category', 'subcategory')
+            ->where('status', 1)
             ->where('process', 'Deliverable')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
@@ -109,7 +113,7 @@ class ComplainController extends Controller
 
 
     // service
-    public function service(){
+    public function service(){ 
 
         // Check access offices
         $accessZoneOffices = CommonController::ZoneOfficesByAuth();
@@ -122,6 +126,7 @@ class ComplainController extends Controller
         $sort_field     = Request('sort_field', 'id');
 
         $allData = HardwareComplain::with('makby', 'category', 'subcategory')
+            ->where('status', 1)
             ->whereHas('makby', function($q) use($accessZoneOffices){
                 //dd($accessZoneOffices);
                 $q->whereIn('zone_office', $accessZoneOffices);

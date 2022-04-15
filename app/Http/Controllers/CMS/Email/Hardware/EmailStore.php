@@ -305,4 +305,96 @@ class EmailStore extends Controller
     }
 
 
+    // Admin H O Action 
+    public static function StorMailAdminHOAction($com_id, $ho_rem_id, $dmj_id){
+        $data = new ScheduleEmailCmsHardware();
+        $emaildata = HardwareComplain::with('category', 'subcategory', 'makby', 'remarks', 'remarks.makby', 'damage')->where('id', $com_id)->first();
+        if(empty($emaildata->makby)){
+            // user not found return back
+            return true;
+        }
+
+        if( !empty($emaildata->makby->office_email) ){
+            $to = $emaildata->makby->office_email;
+        }else{
+            $to = $emaildata->makby->personal_email;
+        }
+
+        $managerId      = $emaildata->makby->manager_id;
+        if( !empty($managerId) )
+        {
+            $managerId      = explode(',', $managerId);
+            $managerMail    = User::whereIn( 'id', $managerId )->pluck('office_email')->toArray();
+            if( !empty($managerMail) ){
+                $managerMail    = implode(", ", array_filter($managerMail));
+            }else{ $managerMail = null; }
+        }
+        elseif( !empty($emaildata->makby->manager_emails) ){
+            $managerMail =  $emaildata->makby->manager_emails;
+        }
+        else{ $managerMail    = null; }
+        
+
+        $subject = $emaildata->id.' : Hardware Complain Update';
+
+        $category    = $emaildata->category->name ?? 'N/A';
+        $subcategory = $emaildata->subcategory->name ?? 'N/A';
+        $user_name   = $emaildata->makby->name ?? 'N/A';
+        $body = 'Dear, '. $user_name .'<hr> You have complain about <b>'. $category .'</b> of <b>'. $subcategory .'</b>.<hr> Your Product Current status is : <b>'. $emaildata->process .'</b><br><br>';
+
+        // Start Remarks
+        // Document Array
+        $docArray = [];
+        $body .='<hr>Remarks: <br>';
+        $counter = 1;
+        foreach($emaildata->remarks as $item){
+            $name = $item->makby->name ?? 'N/A';
+            $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            if($item->document){
+                $docArray[] = $item->document;
+                // dd($docArray, $item->document);
+            } 
+            $counter++;
+        }
+        //End Remarks
+
+        // Start Damaged
+        if($emaildata->damage){
+           
+            // document
+            if($emaildata->damage->document){
+                $docArray[] = $emaildata->damage->document;
+            }
+
+            if( !empty($emaildata->damage->rep_pro_id) ){
+                // Damaged Replaced Receiver 
+                $body .= '<br>Damaged Replaced: <hr>Receiver Name:'. $emaildata->damage->rec_name .'<br>Receiver Contact:'. $emaildata->damage->rec_contact .'<br>Receiver Position:'. $emaildata->damage->rec_position .'<br> Action At: '. date('Y-m-d H:i:s', strtotime($emaildata->damage->created_at)).'<br><br>';
+            }
+            
+        }
+        // End Damaged
+
+        //dd($docArray, $data);
+        if(!empty($docArray)){
+            $data->document =  implode(",", $docArray);
+        }
+        //dd($docArray, $data);
+
+       
+        $data->to       = $to;
+        $data->ho_rem_id   = $ho_rem_id;
+        $data->dmj_id   = $dmj_id;
+        $data->cc       = $managerMail;
+        $data->subject  = $subject;
+        $data->body     = $body;
+        $data->comp_id  = $emaildata->id;
+        $data->created_by = $emaildata->user_id;
+
+        //dd($data);
+        $data->save();
+
+        return false;
+    }
+
+
 }

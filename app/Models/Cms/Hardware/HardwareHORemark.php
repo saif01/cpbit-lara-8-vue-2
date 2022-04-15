@@ -18,8 +18,7 @@ class HardwareHORemark extends Model
     }
 
     public function mail(){
-        //return $this->belongsTo('App\Models\Email\ScheduleEmailCmsHard', 'id', 'rem_id')->select(['id']);
-        return $this->hasOne('App\Models\Email\ScheduleEmailCmsHard', 'ho_id', 'id');
+        return $this->hasOne('App\Models\Email\ScheduleEmailCmsHardware', 'ho_rem_id', 'id'); 
     }
 
     public function dam_apply(){

@@ -15,7 +15,7 @@ use App\Models\Cms\Hardware\HardwareDamaged;
 
 use App\Http\Controllers\Common\ImageUpload;
 use App\Http\Controllers\CMS\HardwareAdmin\CommonController;
-use App\Http\Controllers\Common\Email\ScheduleEmailCmsHardware;
+use App\Http\Controllers\CMS\Email\Hardware\EmailStore;
 
 
 class HoController extends Controller
@@ -136,9 +136,7 @@ class HoController extends Controller
             $complain_data           = HardwareComplain::find($comp_id);
             $complain_data->process  = $process;
             $complain_data->save();
-
-            // For email
-            ScheduleEmailCmsHardware::STORE_DAMAGED_HO($complain_data, $remarks_data);
+            
         }
 
 
@@ -153,6 +151,12 @@ class HoController extends Controller
             $damaged_data->created_by      = Auth::user()->id;
             $damaged_data->save();
 
+        }
+
+        // For email
+        if($process == 'Damaged' || $process == 'Partial Damaged' || $process == 'Closed' || $process == 'Deliverable'){
+            //ScheduleEmailCmsHardware::STORE($complain_data, $remarks_data);
+            EmailStore::StorMailAdminHOAction($comp_id, $remarks_data->id, $damaged_data->id ?? null);
         }
 
 
