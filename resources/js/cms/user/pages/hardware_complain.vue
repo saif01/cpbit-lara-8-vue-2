@@ -55,9 +55,31 @@
                             <v-col cols="12">
                                 <div class="small text-danger" v-if="form.errors.has('details')"
                                     v-html="form.errors.get('details')" />
-                                <v-textarea outlined label="Details" v-model="form.details"
-                                    placeholder="Please, Mention your problem in details" :counter="20000"
-                                    :rules="remRules" required></v-textarea>
+
+                                <vue-editor
+                                    :class="{ error_bg: (form.details && ( form.details.length <= 10 || form.details.length >= 20000 )) }"
+                                    v-model="form.details" :editorToolbar="customToolbar"></vue-editor>
+                                <v-row>
+                                    <v-col cols="10">
+                                        <span v-if="(form.details && form.details.length <= 10)"
+                                            class="small text-danger">10 chars minimum or more.</span>
+                                        <span v-if="(form.details && form.details.length >= 20000)"
+                                            class="small text-danger">Description must be 20,000 characters or
+                                            less.</span>
+                                    </v-col>
+                                    <v-col cols="2">
+                                        <span class="float-right">{{ form.details.length }}/ 20,000</span>
+                                    </v-col>
+                                </v-row>
+                                <!-- <v-textarea
+                                    outlined
+                                    label="Details"
+                                    v-model="form.details"
+                                    placeholder="Please, Mention your problem in details"
+                                    :counter="20000"
+                                    :rules="remRules"
+                                    required
+                                    ></v-textarea> -->
                             </v-col>
 
                             <!-- document -->
@@ -92,7 +114,16 @@
     // vform
     import Form from 'vform';
 
+    import {
+        VueEditor
+    } from "vue2-editor";
+    import vue2EditorToolbar from "../js/vue2_editor_toolbar"
+
     export default {
+        components: {
+            VueEditor
+        },
+
 
         data() {
             return {
@@ -132,6 +163,9 @@
                     computer_name: '',
                     accessories: '',
                 }),
+
+                // vue2EditorToolbar
+                ...vue2EditorToolbar
             }
         },
 

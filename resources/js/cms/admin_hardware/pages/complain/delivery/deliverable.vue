@@ -111,9 +111,10 @@
 
 <script>
     // User Details Show By Dialog
-    import userDetails from './../../../../super_admin/pages/users/details/user_details.vue'
-    import userDetailsData from './../../../../super_admin/pages/users/details/js/data'
-    import userDetailsMethods from './../../../../super_admin/pages/users/details/js/methods'
+    import userDetails from './../../../../../super_admin/pages/users/details/user_details.vue'
+    import userDetailsData from './../../../../../super_admin/pages/users/details/js/data'
+    import userDetailsMethods from './../../../../../super_admin/pages/users/details/js/methods'
+
 
     export default {
 

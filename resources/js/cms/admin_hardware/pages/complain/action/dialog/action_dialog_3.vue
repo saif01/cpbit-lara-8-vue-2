@@ -218,14 +218,19 @@
                 // console.log('Dhaka Zone found', element.name)
                 if (val == 'Send Service' || val == 'Again Send Service') {
 
-                    this.stepOptions = [{
+                    this.stepOptions = [
+                        {
+                            text: 'Service Quotation',
+                            value: 'Service Quotation'
+                        },
+                        {
                             text: 'Back Service',
                             value: 'Back Service'
                         },
-                        {
-                            text: 'Again Send Service',
-                            value: 'Again Send Service'
-                        },
+                        // {
+                        //     text: 'Again Send Service',
+                        //     value: 'Again Send Service'
+                        // },
                         {
                             text: 'Damaged',
                             value: 'Damaged'
@@ -239,7 +244,34 @@
                             value: 'Closed'
                         },
                     ]
-                } else {
+                } 
+
+                else if (val == 'Service Quotation' ) {
+
+                    this.stepOptions = [
+                       
+                        {
+                            text: 'Back Service',
+                            value: 'Back Service'
+                        },
+                        
+                        {
+                            text: 'Damaged',
+                            value: 'Damaged'
+                        },
+                        {
+                            text: 'Partial Damaged',
+                            value: 'Partial Damaged'
+                        },
+                        {
+                            text: 'Closed',
+                            value: 'Closed'
+                        },
+                    ]
+                } 
+                
+                
+                else {
                     this.stepOptions = [{
                             text: 'Processing',
                             value: 'Processing'

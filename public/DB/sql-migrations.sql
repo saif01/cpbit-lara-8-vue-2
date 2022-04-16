@@ -291,3 +291,21 @@ INSERT INTO `cpbit_8`.`mobile_app_role_user`(`id`, `mobile_app_role_id`, `user_i
 INSERT INTO `cpbit_8`.`mobile_app_versions`(`id`, `name`, `version`, `status`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `version`, `status`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`isales_app_versions`
 
 
+
+
+-- Room Booking
+INSERT INTO `cpbit_8`.`rooms`(`id`, `name`, `capacity`, `projector`, `image`, `image2`, `image3`, `remarks`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `capacity`, `projector`, `image`, `image2`, `image3`, `remarks`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at` FROM `cpbit`.`rooms`
+
+
+UPDATE `rooms` SET `image`=REPLACE(`image`, 'images/room/original/', ''),
+`image2`=REPLACE(`image2`, 'images/room/original/', ''),
+`image3`=REPLACE(`image3`, 'images/room/original/', '');
+
+
+UPDATE `rooms` SET `projector`= 1  where `id` = 7;
+UPDATE `rooms` SET `projector`= 1  where `id` = 8;
+UPDATE `rooms` SET `projector`= 1  where `id` = 13;
+
+-- room_bookings
+INSERT INTO `cpbit_8`.`room_bookings`(`id`, `user_id`, `room_id`, `start`, `end`, `duration`, `purpose`, `status`, `created_at`, `updated_at`) SELECT `id`, `user_id`, `room_id`, `start`, `end`, `hours`, `purpose`, `status`, `created_at`, `updated_at` FROM `cpbit`.`room_bookings`
+

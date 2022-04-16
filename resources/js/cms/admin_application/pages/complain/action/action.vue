@@ -83,7 +83,7 @@
                     </tr>
                     <tr>
                         <th>Details:</th>
-                        <td>{{ complainDeta.details }}</td>
+                        <td v-html="complainDeta.details"></td>
                     </tr>
                 </table>
 

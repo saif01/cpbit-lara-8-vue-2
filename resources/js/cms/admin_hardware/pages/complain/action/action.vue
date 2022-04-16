@@ -16,14 +16,16 @@
                         </td>
                         <th>Category:</th>
                         <td>
-                            <v-btn v-if="complainDeta.category" @click="modifyDialogShow()" color="info" small elevation="20">
+                            <v-btn v-if="complainDeta.category" @click="modifyDialogShow()" color="info" small
+                                elevation="20">
                                 <v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.category.name }}
                             </v-btn>
                             <v-btn @click="modifyDialogShow()" v-else class="error">N/A</v-btn>
                         </td>
                         <th>Subcategory:</th>
                         <td>
-                            <v-btn v-if="complainDeta.subcategory" @click="modifyDialogShow()" color="info" small elevation="20">
+                            <v-btn v-if="complainDeta.subcategory" @click="modifyDialogShow()" color="info" small
+                                elevation="20">
                                 <v-icon left>mdi-playlist-edit</v-icon> {{ complainDeta.subcategory.name }}
                             </v-btn>
                             <v-btn @click="modifyDialogShow()" v-else class="error">N/A</v-btn>
@@ -83,7 +85,7 @@
                     </tr>
                     <tr>
                         <th>Details:</th>
-                        <td>{{ complainDeta.details }}</td>
+                        <td v-html="complainDeta.details"></td>
                     </tr>
                 </table>
                 <!-- End Complain and user Details -->
@@ -156,8 +158,9 @@
                                 <td>
                                     <span v-if="item.mail.status" class="text-success">Successfully Sent</span>
                                     <span v-else class="text-warning">Sending</span>
-                                    <v-btn @click="mailSendManual(item.mail.id)" small class="float-right" elevation="20">
-                                        <v-icon>mdi-email-send</v-icon> 
+                                    <v-btn @click="mailSendManual(item.mail.id)" small class="float-right"
+                                        elevation="20">
+                                        <v-icon>mdi-email-send</v-icon>
                                     </v-btn>
                                 </td>
                                 <th>Send At:</th>
@@ -222,14 +225,15 @@
                                                 v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                         </td>
                                     </tr>
-                                     <!-- Email send  -->
+                                    <!-- Email send  -->
                                     <tr v-if="item.mail">
                                         <th>E-Mail:</th>
                                         <td colspan="1">
                                             <span v-if="item.mail.status">Successfully Sent</span>
                                             <span v-else class="text-warning">Sending</span>
-                                            <v-btn @click="mailSendManual(item.mail.id)" small class="float-right" elevation="20">
-                                                <v-icon>mdi-email-send</v-icon> 
+                                            <v-btn @click="mailSendManual(item.mail.id)" small class="float-right"
+                                                elevation="20">
+                                                <v-icon>mdi-email-send</v-icon>
                                             </v-btn>
                                         </td>
                                         <th>Send At:</th>
@@ -243,7 +247,7 @@
                                         <td colspan="3" v-html="item.details"></td>
                                     </tr>
                                 </table>
-                                
+
                             </div>
                         </div>
                         <!--End ho_remarks -->
@@ -262,6 +266,22 @@
 
                     <tr>
                         <td colspan="8" class="text-center h3 text-success">Damaged Replaced</td>
+                    </tr>
+                    <tr>
+                        <th>By:</th>
+                        <td colspan="3">
+                            <button class="btn btn-secondary btn-sm" v-if="complainDeta.damage.makby"
+                                @click="currentUserView(complainDeta.damage.makby)">
+                                <v-avatar size="20">
+                                    <img v-if="complainDeta.damage.makby.image"
+                                        :src="'/images/users/small/' + complainDeta.damage.makby.image" alt="image">
+                                </v-avatar> {{ complainDeta.damage.makby.name }}
+                            </button>
+                        </td>
+                        <th>Action At:</th>
+                        <td colspan="3"><span
+                                v-if="complainDeta.damage.created_at">{{ complainDeta.damage.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                        </td>
                     </tr>
                     <tr class="bg-info">
                         <th>Receiver Name:</th>
@@ -291,15 +311,32 @@
                     <tr>
                         <td colspan="8" class="text-center h3">----- Delivered -----</td>
                     </tr>
-                    
+                    <tr>
+                        <th>By:</th>
+                        <td colspan="3">
+                            <button class="btn btn-secondary btn-sm" v-if="complainDeta.delivery.makby"
+                                @click="currentUserView(complainDeta.delivery.makby)">
+                                <v-avatar size="20">
+                                    <img v-if="complainDeta.delivery.makby.image"
+                                        :src="'/images/users/small/' + complainDeta.delivery.makby.image" alt="image">
+                                </v-avatar> {{ complainDeta.delivery.makby.name }}
+                            </button>
+                        </td>
+                        <th>Action At:</th>
+                        <td colspan="3"><span
+                                v-if="complainDeta.delivery.created_at">{{ complainDeta.delivery.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                        </td>
+                    </tr>
+
                     <!-- End Email send  -->
                     <tr v-if="complainDeta.delivery.mail">
                         <th>E-Mail:</th>
-                        <td colspan="3">  
-                            <span v-if="complainDeta.delivery.mail.status" >Successfully Sent</span>
+                        <td colspan="3">
+                            <span v-if="complainDeta.delivery.mail.status">Successfully Sent</span>
                             <span v-else class="text-warning">Sending</span>
-                            <v-btn @click="mailSendManual(complainDeta.delivery.mail.id)" small class="float-right" elevation="20">
-                                <v-icon>mdi-email-send</v-icon> 
+                            <v-btn @click="mailSendManual(complainDeta.delivery.mail.id)" small class="float-right"
+                                elevation="20">
+                                <v-icon>mdi-email-send</v-icon>
                             </v-btn>
                         </td>
                         <th>Send At:</th>
@@ -539,7 +576,7 @@
 
                 //console.log('Process ', val)
                 let currPro = this.complainDeta.process
-                this.actionVal  = false
+                this.actionVal = false
                 this.actionVal2 = false
                 this.actionVal3 = false
                 this.actionVal4 = false

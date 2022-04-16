@@ -207,70 +207,186 @@
                     </v-row>
                 </v-card-title>
                 <v-card-text>
-                    <table class="table table-bordered mt-5">
-                        <thead class="text-center">
-                            <tr>
-                                <th>Process</th>
-                                <th>Details</th>
-                                <th>Document</th>
-                                <th>Action By</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in allRemarks.remarks" :key="index">
 
-                                <td class="text-center">
-                                    {{ item.process }}
+                    <!-- All Remarks -->
+                    <div v-if="allRemarks.remarks" class="mb-2">
+                        <div v-for="(item, index) in  allRemarks.remarks" :key="index">
+                            <!--Start remarks -->
+                            <table class="table mb-1 bg-secondary text-white rounded border-bottom border-danger">
+                                <!-- remarks -->
+                                <tr>
+                                    <th>Process: ({{ index + 1 }})</th>
+                                    <td>
+                                        <span v-if="(item.process == 'Damaged')"
+                                            class="text-danger bg-white rounded">Damaged</span>
+                                        <span v-else-if="(item.process == 'Closed')"
+                                            class="text-danger bg-white rounded">Closed</span>
+                                        <span v-else>{{ item.process }}</span>
+                                    </td>
+                                    <th>Document:</th>
+                                    <td>
+                                        <span v-if="item.document">
+                                            <a v-if="item.document" :href="docPath+item.document"
+                                                class="btn btn-info btn-sm text-white" download>
+                                                <v-icon color="white" small>mdi-paperclip</v-icon> Document
+                                            </a>
+                                        </span>
+                                        <span v-else class="text-warning">No Document's Send</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>By:</th>
+                                    <td>
+                                        {{ item.makby.name }}
 
-                                    <v-btn v-if="item.process == 'Closed' && item.dam_apply"
-                                        @click="damQuotationModal = true " outlined color="indigo">View Delivery Details
-                                    </v-btn>
+                                    </td>
+                                    <th>Action At:</th>
+                                    <td><span
+                                            v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                    </td>
+                                </tr>
 
-                                </td>
+                                <tr>
+                                    <th>Remarks:</th>
+                                    <td colspan="3" v-html="item.details"></td>
+                                </tr>
 
-                                <td v-if="item.process == 'Damaged Quotation' " v-html="item.details"
-                                    class="text-success font-weight-bold"></td>
-                                <td v-else v-html="item.details"></td>
 
-                                <!-- <div v-if="item.process == 'Damaged Quotation' ">
-                                    <div v-if="allRemarks.dam_apply && allRemarks.dam_apply.rep_pro_id">
+                            </table>
+                            <!--End remarks -->
 
-                                        <div >Damage Replace</div>
 
-                                        <div>
-                                            <div>
-                                                <b>Receiver Name</b> {{allRemarks.dam_apply.rec_name}}
-                                            </div>
-                                            <div>
-                                                <b>Receiver Contact</b> {{allRemarks.dam_apply.rec_contact}}
-                                            </div>
-                                            <div>
-                                                <b>Receiver Position</b> {{allRemarks.dam_apply.rec_position}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
 
-                                <td class="text-center">
-                                    <span v-if="item.document">
-                                        <a v-if="item.document" :href="docPath+item.document"
-                                            class="btn btn-info btn-sm text-white" download>
-                                            <v-icon color="white" small>mdi-paperclip</v-icon> Document
-                                        </a>
-                                    </span>
-                                    <span v-else class="text-danger">No Document's Send</span>
-                                </td>
 
-                                <td class="text-center">
-                                    <span
-                                        v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span><br>
-                                    <span v-if="item.makby" class="text-muted small">--{{ item.makby.name }}</span>
-                                </td>
+                            <!--Start ho_remarks -->
+                            <div v-if="(item.process == 'HO Service')">
+                                <div v-for="(item, index) in  allRemarks.ho_remarks" :key="index">
+                                    <table class="table mb-0 bg-info text-white rounded">
 
-                            </tr>
+                                        <tr>
 
-                        </tbody>
+                                            <th>HO Process: ({{ index+1 }})</th>
+                                            <td>
+                                                <span v-if="(item.process == 'Damaged')"
+                                                    class="text-danger bg-white rounded">Damaged</span>
+                                                <span v-else-if="(item.process == 'Closed')"
+                                                    class="text-danger bg-white rounded">Closed</span>
+                                                <span v-else>{{ item.process }}</span>
+                                            </td>
+                                            <th>Document:</th>
+                                            <td>
+                                                <span v-if="item.document">
+                                                    <a v-if="item.document" :href="docPath+item.document"
+                                                        class="btn btn-info btn-sm text-white" download>
+                                                        <v-icon color="white" small>mdi-paperclip</v-icon>
+                                                        Document
+                                                    </a>
+                                                </span>
+                                                <span v-else class="text-warning">No Document's Send</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>By:</th>
+                                            <td>
+                                                <button class="btn btn-secondary btn-sm" v-if="item.makby"
+                                                    @click="currentUserView(item.makby)">
+                                                    <v-avatar size="20">
+                                                        <img v-if="item.makby.image"
+                                                            :src="'/images/users/small/' + item.makby.image"
+                                                            alt="image">
+                                                    </v-avatar> {{ item.makby.name }}
+                                                </button>
+                                            </td>
+                                            <th>Action At:</th>
+                                            <td><span
+                                                    v-if="item.created_at">{{ item.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Remarks:</th>
+                                            <td colspan="3" v-html="item.details"></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <!--End ho_remarks -->
+                        </div>
+                    </div>
+
+
+                    <!-- Start Damaged Replaced received -->
+                    <table class="table mb-1 bg-secondary text-white rounded border-bottom border-danger"
+                        v-if="allRemarks.damage && allRemarks.damage.rep_pro_id ">
+                        <!-- {{ allRemarks.damage }} -->
+
+                        <tr>
+                            <td colspan="8" class="text-center h3 text-success">Damaged Replaced</td>
+                        </tr>
+                        <tr>
+                            <th>By:</th>
+                            <td colspan="3"> {{ allRemarks.damage.makby.name }} </td>
+                            <th>Action At:</th>
+                            <td colspan="3"><span
+                                    v-if="allRemarks.damage.created_at">{{ allRemarks.damage.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                            </td>
+                        </tr>
+                        <tr class="bg-info">
+                            <th>Receiver Name:</th>
+                            <td> {{ allRemarks.damage.rec_name }} </td>
+                            <th>Receiver Contact:</th>
+                            <td> {{ allRemarks.damage.rec_contact }} </td>
+                            <th>Receiver Position:</th>
+                            <td> {{ allRemarks.damage.rec_position }} </td>
+                            <th>Received At:</th>
+                            <td><span v-if="allRemarks.damage.updated_at"
+                                    class="text-warning">{{ allRemarks.damage.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                            </td>
+                        </tr>
                     </table>
+                    <!-- Start Damaged Replaced received -->
+
+
+
+                    <!-- Start Delivered -->
+                    <table class="table mb-1 bg-success text-white rounded border-bottom border-danger"
+                        v-if="allRemarks.delivery">
+                        <!-- {{ allRemarks.delivery }} -->
+
+                        <tr>
+                            <td colspan="8" class="text-center h3">----- Delivered -----</td>
+                        </tr>
+                        <tr>
+                            <th>By:</th>
+                            <td colspan="3"> {{ allRemarks.delivery.makby.name }} </td>
+                            <th>Action At:</th>
+                            <td colspan="3"><span
+                                    v-if="allRemarks.delivery.created_at">{{ allRemarks.delivery.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>Receiver Name:</th>
+                            <td> {{ allRemarks.delivery.rec_name }} </td>
+                            <th>Receiver Contact:</th>
+                            <td> {{ allRemarks.delivery.rec_contact }} </td>
+                            <th>Receiver Position:</th>
+                            <td> {{ allRemarks.delivery.rec_position }} </td>
+                            <th>Received At:</th>
+                            <td><span v-if="allRemarks.delivery.updated_at"
+                                    class="text-warning">{{ allRemarks.delivery.updated_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Remarks:</th>
+                            <td colspan="7" v-html="allRemarks.delivery.details"> </td>
+                        </tr>
+                    </table>
+                    <!-- Start Delivered -->
+
+
 
                 </v-card-text>
             </v-card>
@@ -533,6 +649,7 @@
                 this.allRemarks = []
                 this.allRemarks = val
                 this.remarksDialog = true
+                console.log('remarksDetail', val.remarks, val.ho_remarks)
             },
 
             // damagedReplace

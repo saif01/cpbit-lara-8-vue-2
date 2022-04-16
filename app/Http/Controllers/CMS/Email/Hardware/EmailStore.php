@@ -101,7 +101,8 @@ class EmailStore extends Controller
         $counter = 1;
         foreach($emaildata->remarks as $item){
             $name = $item->makby->name ?? 'N/A';
-            $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            // $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            $body .= '('.$counter .')'. $item->details.'<br><div style="color: #999999;text-align:center;"><i> Action By: '. $name . '<br> Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br></i></div>';
             if($item->document){
                 $docArray[] = $item->document;
                 // dd($docArray, $item->document);
@@ -120,7 +121,7 @@ class EmailStore extends Controller
 
             if( !empty($emaildata->damage->rep_pro_id) ){
                 // Damaged Replaced Receiver 
-                $body .= '<br>Damaged Replaced: <hr>Receiver Name:'. $emaildata->damage->rec_name .'<br>Receiver Contact:'. $emaildata->damage->rec_contact .'<br>Receiver Position:'. $emaildata->damage->rec_position .'<br> Action At: '. date('Y-m-d H:i:s', strtotime($emaildata->damage->created_at)).'<br><br>';
+                $body .= '<br>Damaged Replaced: <hr>Receiver Name:'. $emaildata->damage->rec_name .'<br>Receiver Contact:'. $emaildata->damage->rec_contact .'<br>Receiver Position:'. $emaildata->damage->rec_position .'<br> Action At: '. date('Y-m-d h:i A', strtotime($emaildata->damage->created_at)).'<br><br>';
             }
             
         }
@@ -258,7 +259,8 @@ class EmailStore extends Controller
         $counter = 1;
         foreach($emaildata->remarks as $item){
             $name = $item->makby->name ?? 'N/A';
-            $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            // $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            $body .= '<i>('.$counter .')</i>'. $item->details.'<br><div style="color: #999999;text-align:center;"><i> Action By: '. $name . '<br> Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br></i></div>';
             if($item->document){
                 $docArray[] = $item->document;
                 // dd($docArray, $item->document);
@@ -277,7 +279,7 @@ class EmailStore extends Controller
 
             if( !empty($emaildata->delivery) ){
                 // delivery Replaced Receiver 
-                $body .= '<br>Product delivered: <hr>Receiver Name:'. $emaildata->delivery->rec_name .'<br>Receiver Contact:'. $emaildata->delivery->rec_contact .'<br>Receiver Position:'. $emaildata->delivery->rec_position .'<br>Details:'. $emaildata->delivery->details .'<br> Action At: '. date('Y-m-d H:i:s', strtotime($emaildata->delivery->created_at)).'<br><br>';
+                $body .= '<br>Product delivered: <hr>Receiver Name:'. $emaildata->delivery->rec_name .'<br>Receiver Contact:'. $emaildata->delivery->rec_contact .'<br>Receiver Position:'. $emaildata->delivery->rec_position .'<br>Details:'. $emaildata->delivery->details .'<br> Action At: '. date('Y-m-d h:i A', strtotime($emaildata->delivery->created_at)).'<br><br>';
             }
             
         }
@@ -349,7 +351,8 @@ class EmailStore extends Controller
         $counter = 1;
         foreach($emaildata->remarks as $item){
             $name = $item->makby->name ?? 'N/A';
-            $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            // $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            $body .= '<i>('.$counter .')</i>'. $item->details.'<br><div style="color: #999999;text-align:center;"><i> Action By: '. $name . '<br> Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br></i></div>';
             if($item->document){
                 $docArray[] = $item->document;
                 // dd($docArray, $item->document);
@@ -368,7 +371,7 @@ class EmailStore extends Controller
 
             if( !empty($emaildata->damage->rep_pro_id) ){
                 // Damaged Replaced Receiver 
-                $body .= '<br>Damaged Replaced: <hr>Receiver Name:'. $emaildata->damage->rec_name .'<br>Receiver Contact:'. $emaildata->damage->rec_contact .'<br>Receiver Position:'. $emaildata->damage->rec_position .'<br> Action At: '. date('Y-m-d H:i:s', strtotime($emaildata->damage->created_at)).'<br><br>';
+                $body .= '<br>Damaged Replaced: <hr>Receiver Name:'. $emaildata->damage->rec_name .'<br>Receiver Contact:'. $emaildata->damage->rec_contact .'<br>Receiver Position:'. $emaildata->damage->rec_position .'<br> Action At: '. date('Y-m-d h:i A', strtotime($emaildata->damage->created_at)).'<br><br>';
             }
             
         }

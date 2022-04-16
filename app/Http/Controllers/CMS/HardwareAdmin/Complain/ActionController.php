@@ -24,7 +24,7 @@ class ActionController extends Controller
 
     //action
     public function action($id){
-        $allData = HardwareComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby', 'remarks.mail', 'damage', 'ho_remarks', 'ho_remarks.makby', 'ho_remarks.mail', 'delivery', 'delivery.mail')  
+        $allData = HardwareComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby', 'remarks.mail', 'damage', 'damage.makby', 'ho_remarks', 'ho_remarks.makby', 'ho_remarks.mail', 'delivery', 'delivery.mail', 'delivery.makby')  
         ->where('id', $id)
         ->first();
 
@@ -278,8 +278,8 @@ class ActionController extends Controller
     }
 
 
-   // action_delivery
-   public function action_delivery(Request $request){
+    // action_delivery
+    public function action_delivery(Request $request){
 
         //dd($request->all());
 

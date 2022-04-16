@@ -348,6 +348,12 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
             Route::get('/dashboard_data', 'IndexController@dashboard_data');
 
+            // index
+            Route::prefix('count')->group(function(){
+                Route::get('/sidebar_count_data', 'IndexController@sidebar_count_data');
+            });
+
+
             //Category 
             Route::namespace('Category')->prefix('category')->group(function(){
                 Route::get('/index', 'IndexController@index');
@@ -460,8 +466,14 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/not_process', 'ComplainController@not_process');
                 Route::get('/processing', 'ComplainController@processing');
                 Route::get('/closed', 'ComplainController@closed');
-                Route::get('/deliverable', 'ComplainController@deliverable');
+                
                 Route::get('/service', 'ComplainController@service');
+
+                // delivery
+                Route::get('/deliverable', 'ComplainController@deliverable');
+                Route::get('/delivered', 'ComplainController@delivered');
+
+               
 
                 // Damaged
                 Route::prefix('damaged')->group(function(){

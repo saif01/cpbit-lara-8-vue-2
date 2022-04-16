@@ -7,7 +7,9 @@ export default new Vuex.Store({
 
     state : {
         auth  : null,
-        roles : null,
+        roles : null, 
+        CountNotProcess: null,
+        CountProcess: null,
     },
 
     getters : {
@@ -17,6 +19,15 @@ export default new Vuex.Store({
         },
         getRoles(state){
             return state.roles;
+        },
+
+        // count
+        getCountNotProcess(state){
+            return state.CountNotProcess;
+        },
+
+        getCountProcess(state){
+            return state.CountProcess;
         },
     
  
@@ -32,6 +43,15 @@ export default new Vuex.Store({
         // Roles User
         setRoles(state, data){
             state.roles = data;
+        },
+
+        // count process
+        setCountNotProcess(state, data){
+            state.CountNotProcess = data;
+        },
+
+        setCountProcess(state, data){
+            state.CountProcess = data;
         },
     
     },

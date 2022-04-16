@@ -130,7 +130,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'Deliverable'}">
+                <!-- <v-list-item link router :to="{name: 'Deliverable'}">
                     <v-list-item-icon>
                         <v-icon>mdi-truck-delivery-outline</v-icon>
                     </v-list-item-icon>
@@ -139,7 +139,32 @@
                             <v-badge v-if="deliverable" color="error ml-2" :content="deliverable"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>
+                </v-list-item> -->
+
+                <!-- Sidebar Multi level Item -->
+                <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text"
+                    no-action>
+                    <template v-slot:activator>
+                        <v-list-item-title>Delivery</v-list-item-title>
+                    </template>
+
+                    <v-list-item link router :to="{name: 'Deliverable'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-truck-delivery-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Deliverable</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item link router :to="{name: 'Delivered'}">
+                        <v-list-item-icon>
+                            <v-icon>mdi-truck-delivery-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Delivered</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-group>
 
 
 

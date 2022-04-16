@@ -6,6 +6,10 @@
                 <v-img  src="/all-assets/common/icon/cms.png" alt="room" max-height="40" max-width="40" contain class="nav-logo-bg"></v-img>
             </v-app-bar-nav-icon>
 
+           
+
+            <v-spacer></v-spacer>
+               <span v-if="auth" class="m-1">{{ auth.name }} ({{ auth.login }})</span>
             <v-spacer></v-spacer>
 
             <v-toolbar-items class="hidden-sm-and-down">

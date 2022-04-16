@@ -26,7 +26,12 @@ export default {
     components:{
        'side-bar'        : sideBar,
        'page-footer'    : pageFooter,
-    },   
+    }, 
+    
+    mounted(){
+        // sidebar counter
+        this.countAll();
+    }, 
 
     created(){
 

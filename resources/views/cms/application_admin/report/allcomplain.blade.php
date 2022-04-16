@@ -4,7 +4,7 @@
             <td colspan="8" rowspan="3">
                 C.P. Bangladesh Co., Ltd. - Head Office 
                 <br> Information Technology 
-                <br> {{ $name }}
+                {{-- <br> {{ $name }} --}}
             </td>
         </tr>
         <tr></tr>

@@ -51,12 +51,15 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link router :to="{name: 'NotProcess'}">
+                 <v-list-item link router :to="{name: 'NotProcess'}">
                     <v-list-item-icon>
                         <v-icon color="pink lighten-3">mdi-car-brake-hold</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>Not Process</v-list-item-title>
+                        <v-list-item-title>Not Process
+                            <v-badge v-if="sidebar_notprocess_counter" color="error ml-2" :content="sidebar_notprocess_counter"></v-badge>
+                        </v-list-item-title>
+                        
                     </v-list-item-content>
                 </v-list-item>
 
@@ -65,7 +68,9 @@
                         <v-icon color="yellow lighten-2">mdi-run-fast</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>Processing</v-list-item-title>
+                        <v-list-item-title>Processing
+                            <v-badge v-if="sidebar_process_counter" color="error ml-2" :content="sidebar_process_counter"></v-badge>
+                        </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 

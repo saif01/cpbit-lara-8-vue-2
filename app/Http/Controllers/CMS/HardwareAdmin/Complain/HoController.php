@@ -110,6 +110,9 @@ class HoController extends Controller
 
         $comp_id = $request->comp_id;
         $process = $request->process;
+        if($request->delivery == 'Deliverable'){
+            $process = 'Deliverable';
+        }
 
         $remarks_data = new HardwareHORemark();
 
@@ -131,7 +134,7 @@ class HoController extends Controller
        
 
         // Main Complain tbl data update 
-        if($process == 'Damaged' || $process == 'Partial Damaged' || $process == 'Closed'){
+        if($process == 'Damaged' || $process == 'Partial Damaged' || $process == 'Closed' || $process == 'Deliverable' ){
 
             $complain_data           = HardwareComplain::find($comp_id);
             $complain_data->process  = $process;
@@ -154,7 +157,7 @@ class HoController extends Controller
         }
 
         // For email
-        if($process == 'Damaged' || $process == 'Partial Damaged' || $process == 'Closed' || $process == 'Deliverable'){
+        if($process == 'Damaged' || $process == 'Partial Damaged' || $process == 'Closed' || $process == 'Deliverable' || $process == 'Service Quotation'){
             //ScheduleEmailCmsHardware::STORE($complain_data, $remarks_data);
             EmailStore::StorMailAdminHOAction($comp_id, $remarks_data->id, $damaged_data->id ?? null);
         }

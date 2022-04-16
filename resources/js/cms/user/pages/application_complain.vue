@@ -31,9 +31,26 @@
                                     v-model="form.subcat_id" label="Select Software Module" :rules="[v => !!v || 'Software Module is required!']" outlined required></v-autocomplete>
                                 </v-col>
 
-                                <v-col cols="12">
-                                    <div class="small text-danger" v-if="form.errors.has('details')" v-html="form.errors.get('details')" />
-                                    <v-textarea
+                                  <v-col cols="12">
+                                <div class="small text-danger" v-if="form.errors.has('details')"
+                                    v-html="form.errors.get('details')" />
+
+                                <vue-editor
+                                    :class="{ error_bg: (form.details && ( form.details.length <= 10 || form.details.length >= 20000 )) }"
+                                    v-model="form.details" :editorToolbar="customToolbar"></vue-editor>
+                                <v-row>
+                                    <v-col cols="10">
+                                        <span v-if="(form.details && form.details.length <= 10)"
+                                            class="small text-danger">10 chars minimum or more.</span>
+                                        <span v-if="(form.details && form.details.length >= 20000)"
+                                            class="small text-danger">Description must be 20,000 characters or
+                                            less.</span>
+                                    </v-col>
+                                    <v-col cols="2">
+                                        <span class="float-right">{{ form.details.length }}/ 20,000</span>
+                                    </v-col>
+                                </v-row>
+                                <!-- <v-textarea
                                     outlined
                                     label="Details"
                                     v-model="form.details"
@@ -41,8 +58,8 @@
                                     :counter="20000"
                                     :rules="remRules"
                                     required
-                                    ></v-textarea>
-                                </v-col>
+                                    ></v-textarea> -->
+                            </v-col>
                                
                           
                                 <v-col lg="3" md="6" cols="12">
@@ -106,8 +123,17 @@
 <script>
     // vform
     import Form from 'vform';
+    
+    import {
+        VueEditor
+    } from "vue2-editor";
+    import vue2EditorToolbar from "../js/vue2_editor_toolbar"
 
-    export default{
+    export default {
+        components: {
+            VueEditor
+        },
+
 
         data(){
             return{
@@ -145,6 +171,11 @@
                     document3:'',
                     document4:'',
                 }),
+
+                // vue2EditorToolbar
+                ...vue2EditorToolbar
+
+
             }
         },
 

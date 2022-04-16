@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from './../store'
 import { mapGetters } from 'vuex'
 
 
@@ -120,7 +121,21 @@ export default {
 
 
 
-       
+        // countNotProcess
+        countAll() {
+
+            axios.get('/cms/a_admin/count/sidebar_count_data').then(response=>{
+                //console.log(response.data)
+
+                store.commit('setCountNotProcess', response.data.notprocess)
+                store.commit('setCountProcess', response.data.process)
+            }).
+            catch(error=>{
+                console.log(error)
+            })
+            
+        },
+
         
      
 
@@ -175,6 +190,8 @@ export default {
         ...mapGetters({
             'auth'      : 'getAuth',
             'roles'     : 'getRoles',
+            'sidebar_notprocess_counter'  : 'getCountNotProcess',
+            'sidebar_process_counter'     : 'getCountProcess',
         }),
 
     },

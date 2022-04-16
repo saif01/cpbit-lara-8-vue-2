@@ -39,7 +39,7 @@ class IndexController extends Controller
 
         // Department Selected
         if( !empty($start) && !empty($end) ){
-            $allDataQuery->whereBetween('created_at', [$start, $end]);
+            $allDataQuery->whereBetween('created_at' ,[$start ." 00:00:00", $end." 23:59:59"]);
         }
 
         // user Zone Selected
@@ -264,7 +264,7 @@ class IndexController extends Controller
 
         // Department Selected
         if( !empty($start) && !empty($end) ){
-            $allDataQuery->whereBetween('created_at', [$start, $end]);
+            $allDataQuery->whereBetween('created_at' ,[$start ." 00:00:00", $end." 23:59:59"]);
         }
 
         // user Zone Selected

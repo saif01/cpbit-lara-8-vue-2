@@ -17,9 +17,12 @@ import Draft from './../pages/draft/index.vue'
 import NotProcess from './../pages/complain/not_process.vue'
 import Processing from './../pages/complain/processing.vue'
 import Closed from './../pages/complain/closed.vue'
-import Deliverable from './../pages/complain/deliverable.vue'
 import Action from './../pages/complain/action/action.vue'
 import Service from './../pages/complain/service.vue'
+
+// delivery
+import Deliverable from './../pages/complain/delivery/deliverable.vue'
+import Delivered from './../pages/complain/delivery/delidered.vue'
 
 
 // Damaged
@@ -114,6 +117,8 @@ const router = new VueRouter({
                 title: 'Hardware Closed Admin',
             },   
         },
+
+
         { 
             path: '/cms/h_admin/deliverable', 
             component: Deliverable,
@@ -122,6 +127,15 @@ const router = new VueRouter({
                 title: 'Hardware Deliverable Admin',
             },   
         },
+        { 
+            path: '/cms/h_admin/delivered', 
+            component: Delivered,
+            name: 'Delivered',
+            meta:{
+                title: 'Hardware Delivered Admin',
+            },   
+        },
+
         { 
             path: '/cms/h_admin/action', 
             component: Action,

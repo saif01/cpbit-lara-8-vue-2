@@ -109,7 +109,7 @@ class EmailStore extends Controller
         $category    = $emaildata->category->name ?? 'N/A';
         $subcategory = $emaildata->subcategory->name ?? 'N/A';
         $user_name   = $emaildata->makby->name ?? 'N/A';
-        $body = 'Dear, '. $user_name .'<hr> You have complain about <b>'. $category .'</b> of <b>'. $subcategory .'</b>.<hr> Your Complain Current status is : <b>'. $emaildata->process .'</b><br><br>';
+        $body = 'Dear, '. $user_name .'<hr> You have complain about <b>'. $subcategory .'</b> of <b>'. $category .'</b>.<hr> Your Complain Current status is : <b>'. $emaildata->process .'</b><br><br>';
 
         // Start Remarks
         // Document Array
@@ -118,7 +118,7 @@ class EmailStore extends Controller
         $counter = 1;
         foreach($emaildata->remarks as $item){
             $name = $item->makby->name ?? 'N/A';
-            $body .= '('.$counter .')'. $item->details.'<br> Action By: '. $name . ', Action At: '. date('d-m-Y H:i ', strtotime($item->created_at)).'<br>';
+            $body .= '<i>('.$counter .')</i>'. $item->details.'<br><div style="color: #999999;text-align:center;"><i> Action By: '. $name . '<br> Action At: '. date('d-m-Y h:i A ', strtotime($item->created_at)).'<br></i></div>';
             if($item->document){
                 $docArray[] = $item->document;
                 // dd($docArray, $item->document);

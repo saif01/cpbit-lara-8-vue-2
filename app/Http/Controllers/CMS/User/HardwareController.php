@@ -94,7 +94,7 @@ class HardwareController extends Controller
         $sort_by_startDate    = Request('sort_by_startDate', '');
         $sort_by_endDate    = Request('sort_by_endDate', '');
 
-        $allQuery =  HardwareComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby', 'dam_apply', 'dam_apply.makby' )
+        $allQuery =  HardwareComplain::with('makby', 'category', 'subcategory', 'remarks', 'remarks.makby', 'dam_apply', 'dam_apply.makby', 'ho_remarks', 'ho_remarks.makby', 'damage', 'damage.makby',  'delivery', 'delivery.makby' )
         ->where('user_id', Auth::user()->id);
 
         

@@ -11,6 +11,7 @@ use Auth;
 // Form email
 use App\Http\Controllers\CMS\Email\Hardware\EmailStore;
 use App\Http\Controllers\CMS\HardwareAdmin\CommonController;
+use App\Models\Cms\Hardware\HardwareDelivery;
 
 
 class ComplainController extends Controller
@@ -93,7 +94,7 @@ class ComplainController extends Controller
     } 
 
 
-    // deliverable
+    // deliverable complain list
     public function deliverable(){
 
         $paginate       = Request('paginate', 10);
@@ -106,6 +107,53 @@ class ComplainController extends Controller
             ->where('process', 'Deliverable')
             ->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
+            ->paginate($paginate);
+
+        return response()->json($allData, 200);
+    }
+
+    // delivered complain list
+    public function delivered(){
+
+        $paginate       = Request('paginate', 10);
+        $search         = Request('search', '');
+        $sort_direction = Request('sort_direction', 'desc');
+        $sort_field     = Request('sort_field', 'id');
+        $search_field   = Request('search_field', '');
+
+        $start          = Request('start', '');
+        $end            = Request('end', '');
+        $zone_office    = Request('zone_office', '');
+        $department     = Request('department', '');
+
+        $allDataQuery = HardwareDelivery::with('makby', 'complain', 'complain.category', 'complain.subcategory', 'complain.makby')
+            ->orderBy($sort_field, $sort_direction);
+
+
+         // Department Selected
+         if( !empty($start) && !empty($end) ){
+            $allDataQuery->whereBetween('created_at' ,[$start ." 00:00:00", $end." 23:59:59"]);
+        }
+
+        // user Zone Selected
+        if( !empty($zone_office) && $zone_office != 'All'){
+            $allDataQuery->whereHas('complain.makby', function($q) use($zone_office){
+                //dd($department);
+                $q->whereIn('zone_office', explode(",",$zone_office));
+                //$q->whereIn('zone_office', ['Chittagong Feedmill', "Chittagong 1 Farm", "Chittagong 2 Farm", "Chittagong 4 Farm"]);
+            });
+        }
+
+        // user department Selected
+        if( !empty($department) && $department != 'All'){
+            $allDataQuery->whereHas('complain.makby', function($q) use($department){
+                //dd($department);
+                $q->where('department', $department);
+            });
+        }
+
+
+        $allData = $allDataQuery->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
 
         return response()->json($allData, 200);

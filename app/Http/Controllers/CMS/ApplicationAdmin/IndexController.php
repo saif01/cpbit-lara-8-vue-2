@@ -70,4 +70,23 @@ class IndexController extends Controller
 
         
     }
+
+
+    // sidebar count
+    public function sidebar_count_data(){
+
+        $notprocess = ApplicationComplain::with('makby', 'category', 'subcategory')
+            ->where('process', 'Not Process')
+            ->count();
+
+        // process
+        $process = ApplicationComplain::with('makby', 'category', 'subcategory')
+        ->where('process', 'Processing')
+        ->count();
+
+        return response()->json(['notprocess'=>$notprocess,'process'=>$process]);
+
+    }
+
+
 }
