@@ -29,7 +29,7 @@
             </v-menu>
         </v-app-bar>
 
-
+ 
         <!-- sidebar -->
         <v-navigation-drawer app dark v-model="drawer" class="bg_gradient">
             <v-list-item class="px-2" link href="/">

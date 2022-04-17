@@ -94,7 +94,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Not Process
-                            <v-badge v-if="notprocess" color="error ml-2" :content="notprocess"></v-badge>
+                            <v-badge v-if="CountNotprocess" color="error ml-2" :content="CountNotprocess"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -105,7 +105,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Processing
-                            <v-badge v-if="process" color="error ml-2" :content="process"></v-badge>
+                            <v-badge v-if="CountProcess" color="error ml-2" :content="CountProcess"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -125,7 +125,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Service
-                            <v-badge v-if="service" color="error ml-2" :content="service"></v-badge>
+                            <v-badge v-if="CountService" color="error ml-2" :content="CountService"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -153,7 +153,9 @@
                             <v-icon>mdi-truck-delivery-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content>
-                            <v-list-item-title>Deliverable</v-list-item-title>
+                            <v-list-item-title>Deliverable
+                                <v-badge v-if="CountDeliverable" color="error ml-2" :content="CountDeliverable"></v-badge>
+                            </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item link router :to="{name: 'Delivered'}">
@@ -233,7 +235,7 @@
 
 
                 <!-- Sidebar Multi level Item -->
-                <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text"
+                <!-- <v-list-group prepend-icon="mdi-format-list-group" active-class="indigo lighten-3 white--text"
                     no-action>
                     <template v-slot:activator>
                         <v-list-item-title>H.O. Service</v-list-item-title>
@@ -247,8 +249,18 @@
                             <v-list-item-title>All</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
+                </v-list-group> -->
 
-                </v-list-group>
+                <v-list-item link router :to="{name: 'HOServiceIndex'}">
+                    <v-list-item-icon>
+                        <v-icon>mdi-format-list-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>H.O. Service
+                            <v-badge v-if="CountHOService" color="error ml-2" :content="CountHOService"></v-badge>
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
 
                 <v-list-item link router :to="{name: 'Draft'}">
                     <v-list-item-icon>

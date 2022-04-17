@@ -45,7 +45,7 @@ class IndexController extends Controller
         ->where('process', 'Processing')
         ->count();
 
-        // deliverable
+        // deliverable 
         $deliverable = HardwareComplain::with('makby', 'category', 'subcategory')
         ->whereHas('makby', function($q) use($accessZoneOffices){
             $q->whereIn('zone_office', $accessZoneOffices);
@@ -61,7 +61,15 @@ class IndexController extends Controller
         ->where('process', ['Send Service', 'Back Service', 'Again Send Service'])
         ->count();
 
-        return response()->json(['notprocess'=>$notprocess,'process'=>$process, 'deliverable'=>$deliverable, 'service'=>$service]);
+        // HO Service 
+        $hoService = HardwareComplain::with('makby', 'category', 'subcategory')
+        ->whereHas('makby', function($q) use($accessZoneOffices){
+            $q->whereIn('zone_office', $accessZoneOffices);
+        })
+        ->where('process', 'HO Service')
+        ->count();
+
+        return response()->json(['notprocess'=>$notprocess,'process'=>$process, 'deliverable'=>$deliverable, 'service'=>$service, 'hoService'=>$hoService]);
 
     }
 

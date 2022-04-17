@@ -120,7 +120,7 @@ export default {
             })
         },
 
-        // countNotProcess
+        // countNotProcess 
         countAll() {
 
             axios.get('/cms/h_admin/count/sidebar_count_data').then(response=>{
@@ -130,6 +130,7 @@ export default {
                 store.commit('setCountProcess', response.data.process)
                 store.commit('setCountDeliverable', response.data.deliverable)
                 store.commit('setCountService', response.data.service )
+                store.commit('setConuntHOService', response.data.hoService )
             }).
             catch(error=>{
                 console.log(error)
@@ -231,10 +232,11 @@ export default {
             'auth'        : 'getAuth',
             'roles'       : 'getRoles',
             'drafts'      : 'getDraft',
-            'notprocess'  : 'getCountNotProcess',
-            'process'     : 'getCountProcess',
-            'deliverable' : 'getCountDeliverable',
-            'service'     : 'getCountService',
+            'CountNotprocess'  : 'getCountNotProcess',
+            'CountProcess'     : 'getCountProcess',
+            'CountDeliverable' : 'getCountDeliverable',
+            'CountService'     : 'getCountService',
+            'CountHOService'     : 'getConuntHOService',
         }),
 
     },
