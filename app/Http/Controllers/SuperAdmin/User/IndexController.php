@@ -88,6 +88,7 @@ class IndexController extends Controller
 
         $allData = User::where('status', 1)
             ->whereNotNull('department')
+            ->Where('department','<>','')
             ->select('department')
             ->orderBy('department')
             ->distinct()

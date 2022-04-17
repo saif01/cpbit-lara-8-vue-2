@@ -14,6 +14,11 @@ class Zone extends Model
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
 
+    public function zonoffice(){
+        // return $this->belongsTo(User::class, 'foreign_key', 'owner_key');
+        return $this->hasOne('App\Models\SuperAdmin\ZoneOffice', 'name', 'name');
+    }
+
     public function scopeSearch($query, $val='')
     {
         return $query

@@ -4,7 +4,7 @@
             <v-card-title class="justify-center">
                 <v-row>
                     <v-col cols="10">
-                        <span class="teal--text">{{ selected_zone }}</span> H.O. Service Complain List
+                         H.O. Service Complain List
                     </v-col>
                     <v-col cols="2">
 
@@ -20,8 +20,15 @@
                             </v-select>
                         </v-col>
                         <v-col cols="4" >
-                            <!-- selected_zone --> 
-                            <v-select v-if="isHardwareHoService()" v-model="selected_zone" 
+                            <!-- zone_office --> 
+                            <v-select v-model="zone_office" 
+                            label="Zones:"
+                            :items="allZoneOfficesAssign"
+                            item-text="name"
+                                item-value="offices"
+                             >
+                            </v-select>
+                            <!-- <v-select v-if="isHardwareHoService()" v-model="selected_zone" 
                             label="Zones:"
                             :items="allZons"
                             item-text="name"
@@ -34,7 +41,7 @@
                             item-text="name"
                             item-value="name"
                              >
-                            </v-select>
+                            </v-select> -->
                         </v-col>
 
                         <v-col cols="6">
@@ -167,7 +174,7 @@
                         '&sort_direction=' + this.sort_direction +
                         '&sort_field=' + this.sort_field +
                         '&search_field=' + this.search_field +
-                        '&selected_zone=' + this.selected_zone
+                        '&zone_office=' + this.zone_office
                     )
                     .then(response => {
                         //console.log(response.data.data);
@@ -184,14 +191,14 @@
             },
 
              // Get all Zone
-            getZons() {
-                axios.get(this.currentUrl + '/zone_data').then(response => {
-                    //console.log(response.data)
-                    this.allZons = response.data
-                }).catch(error => {
-                    console.log(error)
-                })
-            },
+            // getZons() {
+            //     axios.get(this.currentUrl + '/zone_data').then(response => {
+            //         //console.log(response.data)
+            //         this.allZons = response.data
+            //     }).catch(error => {
+            //         console.log(error)
+            //     })
+            // },
 
 
             // action
@@ -220,7 +227,8 @@
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
-            this.getZons();
+            //this.getZons();
+            this.getZoneOfficesAssign();
             this.$Progress.finish();
         },
 

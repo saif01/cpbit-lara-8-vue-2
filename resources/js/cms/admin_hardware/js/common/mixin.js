@@ -58,6 +58,8 @@ export default {
         // For Report search
         allZoneOffices:[],
         allDepartments:[],
+        allZoneOfficesAssign:[],
+
         
         department:'',
         start_date:'',
@@ -105,6 +107,16 @@ export default {
             axios.get('/super_admin/user/zoneoffices').then(response=>{
                 // console.log(response.data)
                 this.allZoneOffices = response.data
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
+
+        // get Zone Offices
+        getZoneOfficesAssign(){
+            axios.get('/cms/h_admin/complain/get_user_assign_zone_offices').then(response=>{
+                 console.log(response.data)
+                this.allZoneOfficesAssign = response.data
             }).catch(error=>{
                 console.log(error)
             })

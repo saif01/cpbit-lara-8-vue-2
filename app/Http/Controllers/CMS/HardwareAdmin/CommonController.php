@@ -42,7 +42,7 @@ class CommonController extends Controller
     }
 
 
-    // UserZoneAccessName
+    // UserZoneAccessName 
     public static function UserZoneAccessName(){
 
         $data = User::with('zons')->where('id', Auth::user()->id)->get()->pluck('zons')->toArray();

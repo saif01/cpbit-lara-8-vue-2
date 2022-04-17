@@ -7,7 +7,8 @@
                         All Complain Reports
                     </v-col>
                     <v-col cols="2">
-                        <v-btn outlined elevation="5" class="float-right" small @click="exportExcel()" :loading="exportLoading">
+                        <v-btn outlined elevation="5" class="float-right" small @click="exportExcel()"
+                            :loading="exportLoading">
                             <v-icon left color="success">mdi-file-excel</v-icon>
                             Export
                         </v-btn>
@@ -20,12 +21,12 @@
                     <v-row>
                         <v-col cols="2">
                             <!-- Show -->
-                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" outlined dense>
+                            <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" dense>
                             </v-select>
                         </v-col>
-                         <v-col cols="2">
+                        <v-col cols="2">
                             <!-- {{ zone_office }} -->
-                            <v-select v-model="zone_office" label="Zones:" :items="allZoneOffices" item-text="name"
+                            <v-select v-model="zone_office" label="Zones:" :items="allZoneOfficesAssign" item-text="name"
                                 item-value="offices" dense>
                             </v-select>
                         </v-col>
@@ -42,8 +43,9 @@
                             <!-- <v-text-field prepend-icon="mdi-calendar-cursor" label="Start:" type="date" v-model="start_date" ></v-text-field> -->
                             <v-menu v-model="menu" min-width="auto">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="start_date" label="Start date" prepend-inner-icon="mdi-calendar"
-                                        readonly v-bind="attrs" v-on="on" dense clearable></v-text-field>
+                                    <v-text-field v-model="start_date" label="Start date"
+                                        prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense
+                                        clearable></v-text-field>
                                 </template>
 
                                 <v-date-picker v-model="start_date" no-title scrollable>
@@ -72,8 +74,8 @@
                         </v-col>
 
                         <v-col cols="2">
-                            <v-text-field prepend-inner-icon="mdi-clipboard-text-search" v-model="search" label="Search:"
-                                placeholder="Search Input..." dense></v-text-field>
+                            <v-text-field prepend-inner-icon="mdi-clipboard-text-search" v-model="search"
+                                label="Search:" placeholder="Search Input..." dense></v-text-field>
                         </v-col>
                     </v-row>
 
@@ -143,9 +145,11 @@
                                 <td>
                                     <span v-if="singleData.makby">{{ singleData.makby.department }}</span>
                                 </td>
-                                <td><span v-if="singleData.created_at">{{ singleData.created_at | moment("MMM Do YYYY, h:mm a") }}</span>
+                                <td><span
+                                        v-if="singleData.created_at">{{ singleData.created_at | moment("MMM Do YYYY, h:mm a") }}</span>
                                 </td>
-                                <td><span v-if="singleData.updated_at">{{ singleData.updated_at | moment("MMM Do YYYY, h:mm a") }}</span>
+                                <td><span
+                                        v-if="singleData.updated_at">{{ singleData.updated_at | moment("MMM Do YYYY, h:mm a") }}</span>
                                 </td>
 
                             </tr>
@@ -209,7 +213,7 @@
                 menu: '',
                 menu2: '',
 
-                
+
             }
         },
 
@@ -222,16 +226,16 @@
             // Get table data
             getResults(page = 1) {
                 this.dataLoading = true;
-                axios.get(this.currentUrl+'/index?page=' + page +
+                axios.get(this.currentUrl + '/index?page=' + page +
                         '&paginate=' + this.paginate +
                         '&search=' + this.search +
                         '&sort_direction=' + this.sort_direction +
                         '&sort_field=' + this.sort_field +
-                        '&search_field=' + this.search_field + 
-                        '&start='+ this.start_date +
-                        '&end='+ this.end_date+
-                        '&zone_office='+ this.zone_office+
-                        '&department='+ this.department
+                        '&search_field=' + this.search_field +
+                        '&start=' + this.start_date +
+                        '&end=' + this.end_date +
+                        '&zone_office=' + this.zone_office +
+                        '&department=' + this.department
 
                     )
                     .then(response => {
@@ -241,7 +245,7 @@
                         this.totalValue = response.data.total;
                         this.dataShowFrom = response.data.from;
                         this.dataShowTo = response.data.to;
-                        this.currentPageNumber  = response.data.current_page
+                        this.currentPageNumber = response.data.current_page
                         // Loading Animation
                         this.dataLoading = false;
 
@@ -261,24 +265,24 @@
 
 
             // exportExcel
-            exportExcel(){
+            exportExcel() {
                 this.exportLoading = true;
 
                 axios({
                     method: 'get',
-                    url: this.currentUrl+'/export_data?search=' + this.search +
+                    url: this.currentUrl + '/export_data?search=' + this.search +
                         '&sort_direction=' + this.sort_direction +
                         '&sort_field=' + this.sort_field +
-                        '&search_field=' + this.search_field + 
-                        '&start='+ this.start_date +
-                        '&end='+ this.end_date +
-                        '&zone_office='+ this.zone_office+
-                        '&department='+ this.department,
+                        '&search_field=' + this.search_field +
+                        '&start=' + this.start_date +
+                        '&end=' + this.end_date +
+                        '&zone_office=' + this.zone_office +
+                        '&department=' + this.department,
 
                     responseType: 'blob', // important
                 }).then((response) => {
 
-                    
+
 
                     let repName = new Date();
 
@@ -307,10 +311,11 @@
 
         },
 
-     
 
-        mounted(){
-            this.getZoneOffices();
+
+        mounted() {
+            //this.getZoneOffices();
+            this.getZoneOfficesAssign();
             this.getDepartments();
         },
 

@@ -31,7 +31,7 @@ class HoController extends Controller
         // All Zone Access Name 
         //$userZoneAccessName = CommonController::UserZoneAccessName();
 
-        $HOServiceAccess = CommonController::HOServiceUserAccess();
+        //$HOServiceAccess = CommonController::HOServiceUserAccess();
 
         //dd($HOServiceAccess);
 
@@ -41,43 +41,57 @@ class HoController extends Controller
         $search         = Request('search', '');
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id'); 
-        $selected_zone  = Request('selected_zone', 'All');
+        $zone_office    = Request('zone_office', 'All');
 
 
 
         $allDataQuery = HardwareComplain::with('makby', 'category', 'subcategory');
 
-        if($selected_zone == 'All'){
-
-            if( ! $HOServiceAccess ){
-                // Dhaka Zone Access Not have
-                $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
-                    //dd($accessZoneOffices);
-                    $q->whereIn('zone_office', $accessZoneOffices);
-                });
-            }
-
+        // user Zone Selected
+        if( !empty($zone_office) && $zone_office != 'All'){
+            $allDataQuery->whereHas('makby', function($q) use($zone_office){
+                //dd($department);
+                $q->whereIn('zone_office', explode(",",$zone_office));
+                //$q->whereIn('zone_office', ['Chittagong Feedmill', "Chittagong 1 Farm", "Chittagong 2 Farm", "Chittagong 4 Farm"]);
+            });
         }else{
-
-            // Check access offices
-            $accessZoneOfficesQuery = ZoneOffice::where('name', $selected_zone)->select('offices')->first();
-           
-            if(!empty($accessZoneOfficesQuery)){
-                $offices = $accessZoneOfficesQuery->offices;
-                // string to array
-                $accessZoneOffices = explode(',', $offices);
-            }else{
-                $accessZoneOffices = [];
-            }
-           
-
-            //dd($selected_zone,  $accessZoneOffices,  $accessZoneOfficesQuery);
             $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
                 //dd($accessZoneOffices);
                 $q->whereIn('zone_office', $accessZoneOffices);
-            }); 
-
+            });
         }
+
+        // if($selected_zone == 'All'){
+
+        //     // if( ! $HOServiceAccess ){
+        //         // Dhaka Zone Access Not have
+        //         $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
+        //             //dd($accessZoneOffices);
+        //             $q->whereIn('zone_office', $accessZoneOffices);
+        //         });
+        //     // }
+
+        // }else{
+
+        //     // Check access offices
+        //     $accessZoneOfficesQuery = ZoneOffice::where('name', $selected_zone)->select('offices')->first();
+           
+        //     if(!empty($accessZoneOfficesQuery)){
+        //         $offices = $accessZoneOfficesQuery->offices;
+        //         // string to array
+        //         $accessZoneOffices = explode(',', $offices);
+        //     }else{
+        //         $accessZoneOffices = [];
+        //     }
+           
+
+        //     //dd($selected_zone,  $accessZoneOffices,  $accessZoneOfficesQuery);
+        //     $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
+        //         //dd($accessZoneOffices);
+        //         $q->whereIn('zone_office', $accessZoneOffices);
+        //     }); 
+
+        // }
            
 
 

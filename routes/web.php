@@ -448,7 +448,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/index', 'IndexController@index');
                 Route::post('/roles_update', 'IndexController@roles_update');
             
-                Route::get('/zone_data', 'IndexController@zone_data');
+                Route::get('/allZoneOfficesAssign', 'IndexController@allZoneOfficesAssign');
 
                 //Draft 
                 Route::prefix('role')->group(function(){
@@ -493,7 +493,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 // HO Controller
                 Route::prefix('ho_service')->group(function(){
                     Route::get('/index', 'HoController@index');
-                    Route::get('/zone_data', 'HoController@zone_data');
+                    Route::get('/allZoneOfficesAssign', 'HoController@allZoneOfficesAssign');
                     // action_remarks
                     Route::post('/action_remarks', 'HoController@action_remarks');
                     Route::get('/action_remarks_data/{id}', 'HoController@action_remarks_data');
@@ -514,7 +514,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 // Send mail
                 Route::get('/send_rem_email', 'IndexController@send_rem_email');
                 // get_user_zone
-                Route::get('/get_user_zone', 'IndexController@get_user_zone');
+                Route::get('/get_user_assign_zone_offices', 'IndexController@get_user_assign_zone_offices');
                 Route::get('/get_user_zone_name', 'IndexController@get_user_zone_name');
             });
 
@@ -717,7 +717,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::get('/index', 'IndexController@index');
                 Route::post('/roles_update', 'IndexController@roles_update');
              
-                Route::get('/zone_data', 'IndexController@zone_data');
+                Route::get('/allZoneOfficesAssign', 'IndexController@allZoneOfficesAssign');
 
                 //Draft 
                 Route::prefix('role')->group(function(){

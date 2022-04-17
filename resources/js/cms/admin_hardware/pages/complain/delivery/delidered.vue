@@ -23,7 +23,7 @@
 
                         <v-col cols="2">
                             <!-- {{ zone_office }} -->
-                            <v-select v-model="zone_office" label="Zones:" :items="allZoneOffices" item-text="name"
+                            <v-select v-model="zone_office" label="Zones:" :items="allZoneOfficesAssign" item-text="name"
                                 item-value="offices" dense>
                             </v-select>
                         </v-col>
@@ -253,7 +253,7 @@
         },
 
         mounted(){
-            this.getZoneOffices();
+            this.getZoneOfficesAssign();
             this.getDepartments();
         },
 
