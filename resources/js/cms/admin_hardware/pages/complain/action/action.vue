@@ -647,8 +647,22 @@
                 //console.log('Process ', val)
                 let currPro = this.complainDeta.process
                 // For Action BTN
-                if (currPro == 'HO Service' && !this.isHardwareHoService()) {
-                    this.actionBtnText = 'Sorry! You have no access'
+
+                // HO access
+                if ( !this.isHardwareHoService() && currPro == 'HO Service' ) {
+                    this.actionBtnText = 'Sorry! You have no HO access'
+                    this.actionBtnColor = 'error'
+                }
+
+                // Delivery access
+                if ( !this.isHardwareDelivery() && currPro == 'Deliverable' ) {
+                    this.actionBtnText = 'Sorry! You have no Delivery access'
+                    this.actionBtnColor = 'error'
+                }
+
+                // Damaged access
+                if ( !this.isHardwareDamaged() &&  (currPro == 'Damaged' || currPro == 'Partial Damaged') ) {
+                    this.actionBtnText = 'Sorry! You have no Damage access'
                     this.actionBtnColor = 'error'
                 }
 

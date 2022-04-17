@@ -127,6 +127,9 @@ export default{
     isHardwareDamaged(){
         return this.checkAnyRoleOfArray(['Administrator', 'Damaged']);
     },
+    isHardwareDelivery(){
+        return this.checkAnyRoleOfArray(['Administrator', 'Delivery']);
+    },
 
 
     // Inventory

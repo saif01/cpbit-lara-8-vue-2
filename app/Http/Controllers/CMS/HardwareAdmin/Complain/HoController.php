@@ -28,6 +28,13 @@ class HoController extends Controller
         // Check access offices
         $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
+        // All Zone Access Name 
+        //$userZoneAccessName = CommonController::UserZoneAccessName();
+
+        $HOServiceAccess = CommonController::HOServiceUserAccess();
+
+        //dd($HOServiceAccess);
+
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess ); 
 
         $paginate       = Request('paginate', 10);
@@ -42,10 +49,13 @@ class HoController extends Controller
 
         if($selected_zone == 'All'){
 
-            $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
-                //dd($accessZoneOffices);
-                $q->whereIn('zone_office', $accessZoneOffices);
-            });
+            if( ! $HOServiceAccess ){
+                // Dhaka Zone Access Not have
+                $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
+                    //dd($accessZoneOffices);
+                    $q->whereIn('zone_office', $accessZoneOffices);
+                });
+            }
 
         }else{
 

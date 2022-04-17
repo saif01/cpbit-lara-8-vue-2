@@ -39,4 +39,21 @@ class IndexController extends Controller
     }
 
 
+    // get_user_zone_name
+    public function get_user_zone_name(){
+
+        $data = User::with('zons')->where('id', Auth::user()->id)->get()->pluck('zons')->toArray();
+        //$data = User::with('zons')->where('id', Auth::user()->id)->get();
+
+        $zoneName = [];
+        // Zone Name
+        foreach($data[0] as $item){
+            $zoneName[] = $item['name'];
+        }
+
+        //dd($zoneName, $data, $data[0]);
+        return response()->json($zoneName, 200);
+    }
+
+
 }

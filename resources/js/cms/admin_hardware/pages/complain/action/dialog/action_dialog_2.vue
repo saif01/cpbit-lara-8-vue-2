@@ -208,6 +208,9 @@
 
                 showDamagedReson: false,
 
+                // Zone Access
+                dhkZoneAccess: false,
+                
             }
         },
 
@@ -219,86 +222,77 @@
                 let crpro = this.comData.process
                 this.stepOptions = []
 
-                this.assignedZone.forEach(element => {
-                    //console.log('set', element, element.name)
+               
 
-                    if (element.name == 'Dhaka') {
-                        // console.log('Dhaka Zone found', element.name)
-                        if (crpro == 'Processing') {
-                            this.stepOptions = [{
-                                    text: 'Processing',
-                                    value: 'Processing'
-                                },
-                                {
-                                    text: 'Send Service Center',
-                                    value: 'Send Service'
-                                },
-                                {
-                                    text: 'Damaged',
-                                    value: 'Damaged'
-                                },
-                                {
-                                    text: 'Partial Damaged',
-                                    value: 'Partial Damaged'
-                                },
-                                {
-                                    text: 'Closed',
-                                    value: 'Closed'
-                                },
-                            ]
-                        } else if (crpro == 'Send Service' || crpro == 'Back Service' || crpro ==
-                            'Again Send Service' || crpro ==
-                            'Service Quotation') {
+                   
+                // console.log('Dhaka Zone found', element.name)
+                if (crpro == 'Processing' &&  this.dhkZoneAccess) {
+                    this.stepOptions = [{
+                            text: 'Processing',
+                            value: 'Processing'
+                        },
+                        {
+                            text: 'Send Service Center',
+                            value: 'Send Service'
+                        },
+                        {
+                            text: 'Damaged',
+                            value: 'Damaged'
+                        },
+                        {
+                            text: 'Partial Damaged',
+                            value: 'Partial Damaged'
+                        },
+                        {
+                            text: 'Closed',
+                            value: 'Closed'
+                        },
+                    ]
+                } else if ( (crpro == 'Send Service' || crpro == 'Back Service' || crpro ==
+                    'Again Send Service' || crpro ==
+                    'Service Quotation') &&  this.dhkZoneAccess) {
 
-                            this.stepOptions = [{
-                                    text: 'Service Quotation',
-                                    value: 'Service Quotation'
-                                },
-                                {
-                                    text: 'Back Service Center',
-                                    value: 'Back Service'
-                                },
-                                {
-                                    text: 'Again Send Service Center',
-                                    value: 'Again Send Service'
-                                },
-                                {
-                                    text: 'Damaged',
-                                    value: 'Damaged'
-                                },
-                                {
-                                    text: 'Partial Damaged',
-                                    value: 'Partial Damaged'
-                                },
-                                {
-                                    text: 'Closed',
-                                    value: 'Closed'
-                                },
-                            ]
-                        }
-
-                    } else {
-                        if (crpro == 'Processing') {
-                            this.stepOptions = [{
-                                    text: 'Processing',
-                                    value: 'Processing'
-                                },
-                                {
-                                    text: 'HO Service',
-                                    value: 'HO Service'
-                                },
-                                {
-                                    text: 'Closed',
-                                    value: 'Closed'
-                                },
-                            ]
-                        }
-
-                    }
-                })
-
-
-
+                    this.stepOptions = [{
+                            text: 'Service Quotation',
+                            value: 'Service Quotation'
+                        },
+                        {
+                            text: 'Back Service Center',
+                            value: 'Back Service'
+                        },
+                        {
+                            text: 'Again Send Service Center',
+                            value: 'Again Send Service'
+                        },
+                        {
+                            text: 'Damaged',
+                            value: 'Damaged'
+                        },
+                        {
+                            text: 'Partial Damaged',
+                            value: 'Partial Damaged'
+                        },
+                        {
+                            text: 'Closed',
+                            value: 'Closed'
+                        },
+                    ]
+                }
+                else if (crpro == 'Processing' && ! this.dhkZoneAccess) {
+                    this.stepOptions = [{
+                            text: 'Processing',
+                            value: 'Processing'
+                        },
+                        {
+                            text: 'HO Service',
+                            value: 'HO Service'
+                        },
+                        {
+                            text: 'Closed',
+                            value: 'Closed'
+                        },
+                    ]
+                }
 
 
             },
@@ -342,11 +336,16 @@
 
             },
 
-            // get_user_zone
+            // get_user_zone_name
             getUserZone() {
-                axios.get(this.currentUrl + '/get_user_zone').then(response => {
-                    //console.log(response.data)
+                axios.get(this.currentUrl + '/get_user_zone_name').then(response => {
+                    
                     this.assignedZone = response.data
+                    
+                    // Dhk Zone Access Check
+                    this.dhkZoneAccess = this.assignedZone.includes('Dhaka')
+
+                    console.log(this.assignedZone, this.dhkZoneAccess )
                     this.setProcessOptions()
                 }).catch(error => {
                     console.log(error)

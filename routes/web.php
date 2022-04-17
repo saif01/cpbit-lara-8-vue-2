@@ -513,7 +513,9 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
 
                 // Send mail
                 Route::get('/send_rem_email', 'IndexController@send_rem_email');
+                // get_user_zone
                 Route::get('/get_user_zone', 'IndexController@get_user_zone');
+                Route::get('/get_user_zone_name', 'IndexController@get_user_zone_name');
             });
 
             //Draft 

@@ -97,15 +97,25 @@ class ComplainController extends Controller
     // deliverable complain list
     public function deliverable(){
 
+        // Check access offices
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
+
         $paginate       = Request('paginate', 10);
         $search         = Request('search', '');
         $sort_direction = Request('sort_direction', 'desc');
         $sort_field     = Request('sort_field', 'id');
 
-        $allData = HardwareComplain::with('makby', 'category', 'subcategory')
+        $allDataQuery = HardwareComplain::with('makby', 'category', 'subcategory')
             ->where('status', 1)
-            ->where('process', 'Deliverable')
-            ->orderBy($sort_field, $sort_direction)
+            ->where('process', 'Deliverable');
+
+        // Check Zone Access
+        $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
+            //dd($accessZoneOffices);
+            $q->whereIn('zone_office', $accessZoneOffices);
+        });
+
+        $allData = $allDataQuery->orderBy($sort_field, $sort_direction)
             ->search( trim(preg_replace('/\s+/' ,' ', $search)) )
             ->paginate($paginate);
 
@@ -114,6 +124,9 @@ class ComplainController extends Controller
 
     // delivered complain list
     public function delivered(){
+
+        // Check access offices
+        $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         $paginate       = Request('paginate', 10);
         $search         = Request('search', '');
@@ -128,6 +141,12 @@ class ComplainController extends Controller
 
         $allDataQuery = HardwareDelivery::with('makby', 'complain', 'complain.category', 'complain.subcategory', 'complain.makby')
             ->orderBy($sort_field, $sort_direction);
+
+        // Check Zone Access
+        $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
+            //dd($accessZoneOffices);
+            $q->whereIn('zone_office', $accessZoneOffices);
+        });
 
 
          // Department Selected

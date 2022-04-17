@@ -19,14 +19,21 @@
                             <v-select v-model="paginate" label="Show:" :items="tblItemNumberShow" small>
                             </v-select>
                         </v-col>
-                        <v-col cols="4">
+                        <v-col cols="4" >
                             <!-- selected_zone --> 
-                            <v-select v-model="selected_zone" 
+                            <v-select v-if="isHardwareHoService()" v-model="selected_zone" 
                             label="Zones:"
                             :items="allZons"
                             item-text="name"
                             item-value="name"
-                            small>
+                             >
+                            </v-select>
+                            <v-select v-else disabled v-model="selected_zone" 
+                            label="Zones:"
+                            :items="allZons"
+                            item-text="name"
+                            item-value="name"
+                             >
                             </v-select>
                         </v-col>
 
