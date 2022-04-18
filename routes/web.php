@@ -449,6 +449,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                 Route::post('/roles_update', 'IndexController@roles_update');
             
                 Route::get('/allZoneOfficesAssign', 'IndexController@allZoneOfficesAssign');
+                Route::get('/zone_data', 'IndexController@zone_data');
 
                 //Draft 
                 Route::prefix('role')->group(function(){

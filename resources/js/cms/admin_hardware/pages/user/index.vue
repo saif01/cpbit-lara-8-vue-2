@@ -233,7 +233,7 @@
 
             return {
 
-                //current page url
+                //current page url 
                 currentUrl: '/cms/h_admin/user',
             
                
