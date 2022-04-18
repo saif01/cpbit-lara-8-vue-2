@@ -21,27 +21,27 @@
                         </v-col>
                         <v-col cols="4" >
                             <!-- zone_office --> 
-                            <v-select v-model="zone_office" 
+                            <!-- <v-select v-model="zone_office" 
                             label="Zones:"
                             :items="allZoneOfficesAssign"
                             item-text="name"
                                 item-value="offices"
                              >
-                            </v-select>
-                            <!-- <v-select v-if="isHardwareHoService()" v-model="selected_zone" 
-                            label="Zones:"
-                            :items="allZons"
-                            item-text="name"
-                            item-value="name"
-                             >
-                            </v-select>
-                            <v-select v-else disabled v-model="selected_zone" 
-                            label="Zones:"
-                            :items="allZons"
-                            item-text="name"
-                            item-value="name"
-                             >
                             </v-select> -->
+                            <v-select v-if="isHardwareHoService()" v-model="zone_office_custom" 
+                            label="Zones:"
+                            :items="allZoneOffices"
+                            item-text="name"
+                            item-value="name"
+                             >
+                            </v-select>
+                            <v-select v-else disabled v-model="zone_office_custom" 
+                            label="Zones:"
+                            :items="allZoneOffices"
+                            item-text="name"
+                            item-value="name"
+                             >
+                            </v-select>
                         </v-col>
 
                         <v-col cols="6">
@@ -155,8 +155,10 @@
                 // Current User Show By Dilog 
                 ...userDetailsData,
 
-                allZons:[],
-                selected_zone:'All'
+                // allZons:[],
+                // selected_zone:'All',
+
+                zone_office_custom: 'All',
             }
         },
 
@@ -174,7 +176,7 @@
                         '&sort_direction=' + this.sort_direction +
                         '&sort_field=' + this.sort_field +
                         '&search_field=' + this.search_field +
-                        '&zone_office=' + this.zone_office
+                        '&zone_office=' + this.zone_office_custom
                     )
                     .then(response => {
                         //console.log(response.data.data);
@@ -191,14 +193,14 @@
             },
 
              // Get all Zone
-            // getZons() {
-            //     axios.get(this.currentUrl + '/zone_data').then(response => {
-            //         //console.log(response.data)
-            //         this.allZons = response.data
-            //     }).catch(error => {
-            //         console.log(error)
-            //     })
-            // },
+            getZons() {
+                axios.get(this.currentUrl + '/zone_data').then(response => {
+                    //console.log(response.data)
+                    this.allZons = response.data
+                }).catch(error => {
+                    console.log(error)
+                })
+            },
 
 
             // action
@@ -215,7 +217,7 @@
 
 
         watch:{
-            selected_zone:function(){
+            zone_office_custom:function(){
                 this.$Progress.start();
                 this.getResults();
                 this.$Progress.finish();
@@ -227,8 +229,8 @@
             this.$Progress.start();
             // Fetch initial results
             this.getResults();
-            //this.getZons();
-            this.getZoneOfficesAssign();
+            this.getZoneOffices();
+            //this.getZoneOfficesAssign();
             this.$Progress.finish();
         },
 

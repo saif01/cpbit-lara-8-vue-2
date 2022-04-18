@@ -89,7 +89,7 @@
                             </v-col>
 
                             <v-col lg="6" md="6" cols="12" v-if="computerNameLavel">
-                                <v-text-field :label="computerNameLavel" placeholder="Enter correct name" v-model="form.computer_name"  outlined ></v-text-field>
+                                <v-text-field :label="computerNameLavel" placeholder="Enter correct name" v-model="form.computer_name"  outlined required></v-text-field>
                             </v-col>
 
                         </v-row>

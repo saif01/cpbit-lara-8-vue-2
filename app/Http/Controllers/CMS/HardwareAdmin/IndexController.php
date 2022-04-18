@@ -62,6 +62,10 @@ class IndexController extends Controller
         ->count();
 
         // HO Service 
+        $hoServiceAccess = HardwareComplain::with('makby', 'category', 'subcategory')
+        ->where('process', 'HO Service')
+        ->count();
+
         $hoService = HardwareComplain::with('makby', 'category', 'subcategory')
         ->whereHas('makby', function($q) use($accessZoneOffices){
             $q->whereIn('zone_office', $accessZoneOffices);
@@ -69,7 +73,7 @@ class IndexController extends Controller
         ->where('process', 'HO Service')
         ->count();
 
-        return response()->json(['notprocess'=>$notprocess,'process'=>$process, 'deliverable'=>$deliverable, 'service'=>$service, 'hoService'=>$hoService]);
+        return response()->json(['notprocess'=>$notprocess,'process'=>$process, 'deliverable'=>$deliverable, 'service'=>$service, 'hoService'=>$hoService, 'hoServiceAccess'=>$hoServiceAccess]);
 
     }
 

@@ -256,8 +256,9 @@
                         <v-icon>mdi-format-list-group</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>H.O. Service
-                            <v-badge v-if="CountHOService" color="error ml-2" :content="CountHOService"></v-badge>
+                        <v-list-item-title>H.O. Service 
+                            <v-badge v-if="CountHOServiceAccess && isHardwareHoService()" color="error ml-2" :content="CountHOServiceAccess"></v-badge>
+                            <v-badge v-if="CountHOService && !isHardwareHoService()" color="error ml-2" :content="CountHOService"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>

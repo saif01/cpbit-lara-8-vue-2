@@ -143,6 +143,8 @@ export default {
                 store.commit('setCountDeliverable', response.data.deliverable)
                 store.commit('setCountService', response.data.service )
                 store.commit('setConuntHOService', response.data.hoService )
+                store.commit('setConuntHOServiceAccess', response.data.hoServiceAccess )
+                
             }).
             catch(error=>{
                 console.log(error)
@@ -249,6 +251,7 @@ export default {
             'CountDeliverable' : 'getCountDeliverable',
             'CountService'     : 'getCountService',
             'CountHOService'     : 'getConuntHOService',
+            'CountHOServiceAccess'     : 'getConuntHOServiceAccess',
         }),
 
     },

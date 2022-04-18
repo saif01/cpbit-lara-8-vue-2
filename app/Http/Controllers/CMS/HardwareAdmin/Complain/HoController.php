@@ -31,7 +31,7 @@ class HoController extends Controller
         // All Zone Access Name 
         //$userZoneAccessName = CommonController::UserZoneAccessName();
 
-        //$HOServiceAccess = CommonController::HOServiceUserAccess();
+        $HOServiceAccess = CommonController::HOServiceUserAccess();
 
         //dd($HOServiceAccess);
 
@@ -48,50 +48,50 @@ class HoController extends Controller
         $allDataQuery = HardwareComplain::with('makby', 'category', 'subcategory');
 
         // user Zone Selected
-        if( !empty($zone_office) && $zone_office != 'All'){
-            $allDataQuery->whereHas('makby', function($q) use($zone_office){
-                //dd($department);
-                $q->whereIn('zone_office', explode(",",$zone_office));
-                //$q->whereIn('zone_office', ['Chittagong Feedmill', "Chittagong 1 Farm", "Chittagong 2 Farm", "Chittagong 4 Farm"]);
-            });
-        }else{
-            $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
-                //dd($accessZoneOffices);
-                $q->whereIn('zone_office', $accessZoneOffices);
-            });
-        }
-
-        // if($selected_zone == 'All'){
-
-        //     // if( ! $HOServiceAccess ){
-        //         // Dhaka Zone Access Not have
-        //         $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
-        //             //dd($accessZoneOffices);
-        //             $q->whereIn('zone_office', $accessZoneOffices);
-        //         });
-        //     // }
-
+        // if( !empty($zone_office) && $zone_office != 'All'){
+        //     $allDataQuery->whereHas('makby', function($q) use($zone_office){
+        //         //dd($department);
+        //         $q->whereIn('zone_office', explode(",",$zone_office));
+        //         //$q->whereIn('zone_office', ['Chittagong Feedmill', "Chittagong 1 Farm", "Chittagong 2 Farm", "Chittagong 4 Farm"]);
+        //     });
         // }else{
-
-        //     // Check access offices
-        //     $accessZoneOfficesQuery = ZoneOffice::where('name', $selected_zone)->select('offices')->first();
-           
-        //     if(!empty($accessZoneOfficesQuery)){
-        //         $offices = $accessZoneOfficesQuery->offices;
-        //         // string to array
-        //         $accessZoneOffices = explode(',', $offices);
-        //     }else{
-        //         $accessZoneOffices = [];
-        //     }
-           
-
-        //     //dd($selected_zone,  $accessZoneOffices,  $accessZoneOfficesQuery);
         //     $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
         //         //dd($accessZoneOffices);
         //         $q->whereIn('zone_office', $accessZoneOffices);
-        //     }); 
-
+        //     });
         // }
+
+        if($zone_office == 'All'){
+
+             if( ! $HOServiceAccess ){
+                // Dhaka Zone Access Not have
+                $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
+                    //dd($accessZoneOffices);
+                    $q->whereIn('zone_office', $accessZoneOffices);
+                });
+             }
+
+        }else{
+
+            // Check access offices
+            $accessZoneOfficesQuery = ZoneOffice::where('name', $zone_office)->select('offices')->first();
+           
+            if(!empty($accessZoneOfficesQuery)){
+                $offices = $accessZoneOfficesQuery->offices;
+                // string to array
+                $accessZoneOffices = explode(',', $offices);
+            }else{
+                $accessZoneOffices = [];
+            }
+           
+
+            //dd($zone_office,  $accessZoneOffices,  $accessZoneOfficesQuery);
+            $allDataQuery->whereHas('makby', function($q) use($accessZoneOffices){
+                //dd($accessZoneOffices);
+                $q->whereIn('zone_office', $accessZoneOffices);
+            }); 
+
+        }
            
 
 
@@ -109,11 +109,13 @@ class HoController extends Controller
         // $allData = User::with('zons')->find(Auth::user()->id);
         // $allData = $allData->zons()->select('name')->get()->toArray();
 
-        $allData = Zone::where('name', '!=', 'Dhaka')->where('status', 1)->select('name')->get();
+        //$allData = Zone::where('name', '!=', 'Dhaka')->where('status', 1)->select('name')->get();
+
+        $allData = Zone::where('status', 1)->select('name')->get();
       
         // Custom Field Data Add
-        $custom = collect( [['name' => 'All']] );
-        $allData = $custom->merge($allData);
+        // $custom = collect( [['name' => 'All']] );
+        // $allData = $custom->merge($allData);
 
         //dd($allData);
 

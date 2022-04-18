@@ -497,6 +497,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
                     // action_remarks
                     Route::post('/action_remarks', 'HoController@action_remarks');
                     Route::get('/action_remarks_data/{id}', 'HoController@action_remarks_data');
+                    Route::get('/zone_data', 'HoController@zone_data');
+                    
                 });
                 
                 
