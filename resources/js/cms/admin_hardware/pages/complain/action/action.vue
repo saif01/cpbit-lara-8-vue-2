@@ -680,6 +680,13 @@
                     this.actionAccess = false
                 }
 
+                // Closed
+                if ( currPro == 'Closed' ) {
+                    this.actionBtnText = 'Sorry! Complain already closed'
+                    this.actionBtnColor = 'error'
+                    this.actionAccess = false
+                }
+
             }
 
 
