@@ -46,7 +46,7 @@ class IndexController extends Controller
         ->count();
 
         // deliverable 
-        $deliverable = HardwareComplain::with('makby', 'category', 'subcategory')
+        $deliverable = HardwareComplain::with('makby')
         ->whereHas('makby', function($q) use($accessZoneOffices){
             $q->whereIn('zone_office', $accessZoneOffices);
         })
@@ -54,23 +54,23 @@ class IndexController extends Controller
         ->count();
 
         
-        $service = HardwareComplain::with('makby', 'category', 'subcategory')
+        $service = HardwareComplain::with('makby')
         ->whereHas('makby', function($q) use($accessZoneOffices){
             $q->whereIn('zone_office', $accessZoneOffices);
         })
         ->where('process', ['Send Service', 'Back Service', 'Again Send Service'])
         ->count();
 
-        $serviceAccess = HardwareComplain::with('makby', 'category', 'subcategory')
+        $serviceAccess = HardwareComplain::with('makby')
         ->where('process', ['Send Service', 'Back Service', 'Again Send Service'])
         ->count();
 
         // HO Service 
-        $hoServiceAccess = HardwareComplain::with('makby', 'category', 'subcategory')
+        $hoServiceAccess = HardwareComplain::with('makby')
         ->where('process', 'HO Service')
         ->count();
 
-        $hoService = HardwareComplain::with('makby', 'category', 'subcategory')
+        $hoService = HardwareComplain::with('makby')
         ->whereHas('makby', function($q) use($accessZoneOffices){
             $q->whereIn('zone_office', $accessZoneOffices);
         })
