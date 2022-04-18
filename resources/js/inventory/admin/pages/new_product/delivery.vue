@@ -226,7 +226,9 @@ export default {
                     'success'
                 );
                 // Refresh Tbl Data with current page
-                this.getResults(this.currentPageNumber);
+                //this.getResults(this.currentPageNumber);
+                // Parent to child
+                this.$emit('childToParent');
                 this.deliverModal = false;
                 this.$Progress.finish();
 

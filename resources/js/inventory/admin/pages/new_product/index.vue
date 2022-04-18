@@ -379,7 +379,7 @@
 
 
         <delivery-component v-if="currentData" :currentData="currentData" :category="currentCategory"
-            :subcategory="currentSubcategory" :key="leaveActionKey"></delivery-component>
+            :subcategory="currentSubcategory" :key="leaveActionKey" @childToParent="childToParentCall"></delivery-component>
 
     </div>
 
@@ -446,7 +446,7 @@
                 allCatData: '',
 
 
-                // Form
+                // Form 
                 form: new Form({
                     id: '',
                     cat_id: '',
@@ -504,6 +504,15 @@
         },
 
         methods: {
+
+            childToParentCall() {
+                //console.log('child') // someValue
+                // refresh data
+                this.getResults();
+
+            },
+
+
 
             // getAllCategory
             getAllCategory() {
