@@ -99,7 +99,11 @@
                                     <span v-if="singleData.makby">{{ singleData.makby.department }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <v-btn @click="action(singleData.id)" color="error" depressed small elevation="20">
+                                    
+                                    <v-btn v-if="singleData.dam_apply.apply_quotation" @click="action(singleData.id)" color="success" depressed small elevation="20">
+                                        <v-icon small>mdi-arch</v-icon> Action
+                                    </v-btn>
+                                     <v-btn v-else @click="action(singleData.id)" color="error" depressed small elevation="20">
                                         <v-icon small>mdi-arch</v-icon> Action
                                     </v-btn>
                                 </td>
