@@ -329,7 +329,7 @@
 
 
 
-                                <!-- Details -->
+                                <!-- Details  -->
                                 <v-col cols="12">
                                     <div class="small text-danger" v-if="form.errors.has('remarks')"
                                         v-html="form.errors.get('remarks')" />
