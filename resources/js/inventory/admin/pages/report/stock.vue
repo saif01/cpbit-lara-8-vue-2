@@ -113,7 +113,7 @@
                         </p>
                     </div>
                 </div>
-                <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Sorry !! Don't use this month</h1>
+                <h1 v-if="!totalValue && !dataLoading" class="text-danger text-center">Don't use this month</h1>
 
                 <div class="col-8">Summary Report:
                 <!-- Summary table -->
