@@ -46,7 +46,7 @@ class DamagedController extends Controller
     // applicable
     public function applicable(){
 
-        // Check access offices
+        // Check access offices 
         $accessZoneOffices = CommonController::ZoneOfficesByAuth();
 
         // dd($size, $finalArrOffices, $zoneAccessName, $zoneOfficeName, $zoneOffices, $zoneAccess ); 
