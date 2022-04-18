@@ -237,11 +237,11 @@ class IndexController extends Controller
     public function office(){
 
         $office = User::where('status', 1)
-            ->whereNotNull('zone_office')
-            ->select('zone_office','id')
-            ->orderBy('zone_office')
-            //->distinct('zone_office')
-            ->groupBy('zone_office')
+            ->whereNotNull('department')
+            ->Where('department','<>','')
+            ->select('department')
+            ->orderBy('department')
+            ->distinct()
             ->get()
             ->toArray();
             

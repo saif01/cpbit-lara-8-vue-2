@@ -53,36 +53,16 @@
                     <table class="table table-bordered">
                         <thead class="text-center">
                             <tr>
-                                <th class="col-2">
-                                    Action
-                                </th>
                                 <th class="col-10">
                                     Details
+                                </th>
+                                <th class="col-2">
+                                    Action
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td class="text-center">
-
-                                    <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20"
-                                        small>
-                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
-                                    </v-btn>
-
-                                    <v-btn class="ma-1" @click="deleteDataTemp(singleData.id)" color="error"
-                                        elevation="20" small>
-                                        <v-icon left>mdi-delete-empty</v-icon> Delete
-                                    </v-btn>
-
-                                    <v-btn class="ma-2" @click="view(singleData)" color="success" elevation="20" small>
-                                        <v-icon left>mdi-eye</v-icon> View
-                                    </v-btn>
-                                    <br>
-                                    <span class="text-muted small">Create By-- </span>
-                                    <v-btn x-small dense v-if="singleData.makby"
-                                        @click="currentUserView(singleData.makby)">{{ singleData.makby.name }}</v-btn>
-                                </td>
                                 <td>
                                     <v-row>
                                         <v-col>
@@ -156,6 +136,27 @@
                                         </v-col>
                                     </v-row>
 
+                                </td>
+
+                                <td class="text-center">
+
+                                    <v-btn class="m-1" v-if="isSuperAdmin()" @click="editDataModel(singleData)"
+                                        color="info" elevation="20" small>
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
+                                    </v-btn>
+
+                                    <v-btn class="ma-1" v-if="isAdministrator()" @click="deleteDataTemp(singleData.id)"
+                                        color="error" elevation="20" small>
+                                        <v-icon left>mdi-delete-empty</v-icon> Delete
+                                    </v-btn>
+
+                                    <v-btn class="ma-2" @click="view(singleData)" color="success" elevation="20" small>
+                                        <v-icon left>mdi-eye</v-icon> View
+                                    </v-btn>
+                                    <br>
+                                    <span class="text-muted small">Create By-- </span>
+                                    <v-btn x-small dense v-if="singleData.makby"
+                                        @click="currentUserView(singleData.makby)">{{ singleData.makby.name }}</v-btn>
                                 </td>
 
                             </tr>

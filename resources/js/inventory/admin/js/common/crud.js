@@ -238,12 +238,12 @@ export default{
     damageChange(data){
         // console.log('status', data.status)
         if(data.damage_st == 1){
-            var text = "Are you want to mark this as Damage ?"
-            var btnText = "Damage"
-           
-        }else{
             var text = "Are you want to mark this as Running ?"
             var btnText = "Running"
+           
+        }else{
+            var text = "Are you want to mark this as Damage ?"
+            var btnText = "Damage"
         }
 
         Swal.fire({

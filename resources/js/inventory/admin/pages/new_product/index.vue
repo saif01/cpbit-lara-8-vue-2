@@ -40,49 +40,21 @@
                     <table class="table table-bordered">
                         <thead class="text-center">
                             <tr>
-                                <th>
-                                    Action
-                                </th>
+                                
                                 <th>Details</th>
                                 <th>
                                     <a href="#" @click.prevent="change_sort('document')">Document</a>
                                     <span v-if="sort_direction == 'desc' && sort_field == 'document'">&uarr;</span>
                                     <span v-if="sort_direction == 'asc' && sort_field == 'document'">&darr;</span>
                                 </th>
+                                <th>
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td class="text-center">
-
-                                    <v-btn class="m-1" @click="editDataModel(singleData)" color="info" elevation="20"
-                                        small>
-                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
-                                    </v-btn>
-
-                                    <v-btn class="ma-2" @click="deleteDataTemp(singleData.id)" color="error"
-                                        elevation="20" small>
-                                        <v-icon left>mdi-delete-empty</v-icon> Delete
-                                    </v-btn>
-
-                                    <v-btn class="ma-2" @click="deliever(singleData)" color="orange" elevation="20"
-                                        small>
-                                        <v-icon left>mdi-upload</v-icon> Delivery
-                                    </v-btn>
-
-                                    <v-btn v-if="singleData.damage_st === null" @click="damageChange(singleData)"
-                                        color="success" depressed small>
-                                        <v-icon left>mdi-check-circle-outline</v-icon> Running
-                                    </v-btn>
-
-                                    <v-btn v-else @click="damageChange(singleData)" color="error" depressed small>
-                                        <v-icon left>mdi-alert-circle-outline </v-icon> Damage
-                                    </v-btn>
-
-                                    <br>
-                                    <span v-if="singleData.makby" class="small text-muted">Create By--
-                                        {{ singleData.makby.name }}</span>
-                                </td>
+                               
                                 <td>
                                     <div class="d-flex justify-content-between align-center">
                                         <div>
@@ -124,6 +96,39 @@
                                         <v-icon left>mdi-download-network-outline</v-icon> File
                                     </v-btn>
                                     <span v-else class="text-danger">Not Attached</span>
+                                </td>
+
+                                 <td class="text-center">
+
+                                    <v-btn class="m-1" v-if="isSuperAdmin()" @click="editDataModel(singleData)" color="info" elevation="20"
+                                        small>
+                                        <v-icon left>mdi-circle-edit-outline</v-icon> Edit
+                                    </v-btn>
+
+                                    <v-btn class="ma-2" v-if="isAdministrator()" @click="deleteDataTemp(singleData.id)" color="error"
+                                        elevation="20" small>
+                                        <v-icon left>mdi-delete-empty</v-icon> Delete
+                                    </v-btn>
+
+                                    <v-btn class="ma-2" @click="deliever(singleData)" color="orange" elevation="20"
+                                        small>
+                                        <v-icon left>mdi-upload</v-icon> Delivery
+                                    </v-btn>
+                                    <span v-if="isSuperAdmin()">
+                                         <v-btn v-if="singleData.damage_st === null" @click="damageChange(singleData)"
+                                        color="success" depressed small>
+                                        <v-icon left>mdi-check-circle-outline</v-icon> Running
+                                    </v-btn>
+
+                                    <v-btn v-else @click="damageChange(singleData)" color="error" depressed small>
+                                        <v-icon left>mdi-alert-circle-outline </v-icon> Damage
+                                    </v-btn>
+                                    </span>
+                                   
+
+                                    <br>
+                                    <span v-if="singleData.makby" class="small text-muted">Create By--
+                                        {{ singleData.makby.name }}</span>
                                 </td>
 
                             </tr>
