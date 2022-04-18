@@ -85,7 +85,7 @@
         }
         @else
         <tr>
-            <td colspan="7" rowspan="9" style="color: red; font-size: 50px">Sorry !! Don't use this month</td>
+            <td colspan="7" rowspan="9" style="color: red; font-size: 50px">Don't use this month</td>
         </tr>
         <tr></tr>
         <tr></tr>
