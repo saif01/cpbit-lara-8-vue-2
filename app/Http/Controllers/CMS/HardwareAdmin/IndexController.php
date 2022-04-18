@@ -61,6 +61,10 @@ class IndexController extends Controller
         ->where('process', ['Send Service', 'Back Service', 'Again Send Service'])
         ->count();
 
+        $serviceAccess = HardwareComplain::with('makby', 'category', 'subcategory')
+        ->where('process', ['Send Service', 'Back Service', 'Again Send Service'])
+        ->count();
+
         // HO Service 
         $hoServiceAccess = HardwareComplain::with('makby', 'category', 'subcategory')
         ->where('process', 'HO Service')
@@ -73,7 +77,7 @@ class IndexController extends Controller
         ->where('process', 'HO Service')
         ->count();
 
-        return response()->json(['notprocess'=>$notprocess,'process'=>$process, 'deliverable'=>$deliverable, 'service'=>$service, 'hoService'=>$hoService, 'hoServiceAccess'=>$hoServiceAccess]);
+        return response()->json(['notprocess'=>$notprocess,'process'=>$process, 'deliverable'=>$deliverable, 'service'=>$service , 'serviceAccess'=>$serviceAccess, 'hoService'=>$hoService, 'hoServiceAccess'=>$hoServiceAccess]);
 
     }
 

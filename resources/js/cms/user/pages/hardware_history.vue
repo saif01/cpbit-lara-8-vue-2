@@ -124,7 +124,8 @@
                                         v-if="singleData.created_at">{{ singleData.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <span v-if="singleData.process == 'Not Process'">
+                                   
+                                    <span v-if="singleData.process == 'Not Process' && !singleData.remarks.length">
                                         <v-btn v-if="singleData.process == 'Not Process' && singleData.status == 1"
                                             @click="complainCancel(singleData.id)" color="error" depressed
                                             elevation="20">
@@ -132,8 +133,10 @@
                                         </v-btn>
                                         <span v-else class="error--text">Canceled</span>
                                     </span>
-                                    <v-btn v-else @click="remarksDetailsShow(singleData)" color="success" depressed
-                                        small elevation="20">
+                                   
+                                   
+                                    <v-btn v-if="singleData.remarks.length" @click="remarksDetailsShow(singleData)" color="success" depressed
+                                         elevation="20">
                                         <v-icon left>mdi-eye-arrow-left </v-icon> View
                                     </v-btn>
 

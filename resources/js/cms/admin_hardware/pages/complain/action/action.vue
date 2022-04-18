@@ -367,10 +367,20 @@
 
 
 
-                <!-- Action Btn -->
+                <!-- Action Btn  -->
                 <div>
-                    <v-btn v-if="checkActionBtnAccess()" :loading="actionBtnLoading" block :class="actionBtnColor"
+                    <!-- <v-btn v-if="checkActionBtnAccess()" :loading="actionBtnLoading" block :class="actionBtnColor"
                         @click="actionDialogShow()" elevation="20">
+                        <v-icon left>mdi-gesture-tap-button</v-icon> {{ actionBtnText }}
+                    </v-btn> -->
+
+                    <v-btn v-if="actionAccess" :loading="actionBtnLoading" block :class="actionBtnColor"
+                        @click="actionDialogShow()" elevation="20">
+                        <v-icon left>mdi-gesture-tap-button</v-icon> {{ actionBtnText }}
+                    </v-btn>
+
+                    <v-btn v-else block :class="actionBtnColor"
+                        elevation="20">
                         <v-icon left>mdi-gesture-tap-button</v-icon> {{ actionBtnText }}
                     </v-btn>
                 </div>
@@ -488,6 +498,7 @@
 
                 actionBtnText: 'Action',
                 actionBtnColor: 'success',
+                actionAccess: true,
 
 
                 // Current User Show By Dilog
@@ -652,18 +663,21 @@
                 if ( !this.isHardwareHoService() && currPro == 'HO Service' ) {
                     this.actionBtnText = 'Sorry! You have no HO access'
                     this.actionBtnColor = 'error'
+                    this.actionAccess = false
                 }
 
                 // Delivery access
                 if ( !this.isHardwareDelivery() && currPro == 'Deliverable' ) {
                     this.actionBtnText = 'Sorry! You have no Delivery access'
                     this.actionBtnColor = 'error'
+                    this.actionAccess = false
                 }
 
                 // Damaged access
                 if ( !this.isHardwareDamaged() &&  (currPro == 'Damaged' || currPro == 'Partial Damaged') ) {
                     this.actionBtnText = 'Sorry! You have no Damage access'
                     this.actionBtnColor = 'error'
+                    this.actionAccess = false
                 }
 
             }

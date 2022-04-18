@@ -104,27 +104,16 @@
                     <table class="table table-bordered responsive">
                         <thead class="text-center">
                             <tr>
-                                <th>View</th>
+                               
                                 <th>Product Details</th>
                                 <th>Delivery Details</th>
-
+                                <th>View</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
 
-                                <td class="text-center">
-                                    <v-btn @click="action(singleData.comp_id)" color="error" depressed small
-                                        elevation="20">
-                                        <v-icon small>mdi-arch</v-icon> View
-                                    </v-btn>
-
-                                    <hr>
-
-                                    <div class="pa-1 info rounded-pill h5 text-white text-center mt-2">
-                                        {{ singleData.comp_id }}
-                                    </div>
-                                </td>
+                               
                                 <td>
                                     <v-row>
                                         <v-col cols="4">
@@ -297,6 +286,19 @@
                                             </div>
                                         </v-col>
                                     </v-row>
+                                </td>
+
+                                <td class="text-center">
+                                    <v-btn @click="action(singleData.comp_id)" color="error" depressed small
+                                        elevation="20">
+                                        <v-icon small>mdi-arch</v-icon> View
+                                    </v-btn>
+
+                                    <hr>
+
+                                    <div class="pa-1 info rounded-pill h5 text-white text-center mt-2">
+                                        {{ singleData.comp_id }}
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

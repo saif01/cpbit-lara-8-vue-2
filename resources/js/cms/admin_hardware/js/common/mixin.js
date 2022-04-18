@@ -142,6 +142,7 @@ export default {
                 store.commit('setCountProcess', response.data.process)
                 store.commit('setCountDeliverable', response.data.deliverable)
                 store.commit('setCountService', response.data.service )
+                store.commit('setCountServiceAccess', response.data.serviceAccess )
                 store.commit('setConuntHOService', response.data.hoService )
                 store.commit('setConuntHOServiceAccess', response.data.hoServiceAccess )
                 
@@ -250,6 +251,7 @@ export default {
             'CountProcess'     : 'getCountProcess',
             'CountDeliverable' : 'getCountDeliverable',
             'CountService'     : 'getCountService',
+            'CountServiceAccess'     : 'getCountServiceAccess',
             'CountHOService'     : 'getConuntHOService',
             'CountHOServiceAccess'     : 'getConuntHOServiceAccess',
         }),

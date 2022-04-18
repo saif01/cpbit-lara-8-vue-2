@@ -125,7 +125,8 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Service
-                            <v-badge v-if="CountService" color="error ml-2" :content="CountService"></v-badge>
+                            <v-badge v-if="CountServiceAccess && isHardwareHoService()" color="error ml-2" :content="CountServiceAccess"></v-badge>
+                            <v-badge v-if="CountService && !isHardwareHoService()" color="error ml-2" :content="CountService"></v-badge>
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>

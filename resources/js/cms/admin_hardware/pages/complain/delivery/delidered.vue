@@ -142,7 +142,7 @@
                                     <span v-if="singleData.complain.makby">{{ singleData.complain.makby.department }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <v-btn @click="action(singleData.id)" color="error" depressed small elevation="20">
+                                    <v-btn @click="action(singleData.complain.id)" color="error" depressed small elevation="20">
                                         <v-icon small>mdi-arch</v-icon> View
                                     </v-btn>
                                 </td>

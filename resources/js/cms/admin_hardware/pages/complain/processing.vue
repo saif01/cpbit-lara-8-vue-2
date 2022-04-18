@@ -161,6 +161,9 @@
                         this.dataLoading = false;
 
                     });
+
+                // For sidebar counter
+                this.countAll();
             },
 
 
