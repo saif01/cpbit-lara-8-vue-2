@@ -7,7 +7,7 @@
                         All Old Product Deleted Data
                     </v-col>
                     <v-col cols="2">
-                        
+
                     </v-col>
                 </v-row>
             </v-card-title>
@@ -22,51 +22,38 @@
                         </v-col>
 
                         <v-col lg="10" cols="8">
-                            <v-text-field
-                                v-model="search"
-                                append-icon="mdi-magnify"
-                                label="Search"
-                                hide-details
-                                class="mb-5"
-                                outlined
-                                dense
-                            ></v-text-field>
+                            <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" hide-details
+                                class="mb-5" outlined dense></v-text-field>
                         </v-col>
                     </v-row>
 
                     <table class="table table-bordered">
                         <thead class="text-center">
                             <tr>
-                                <th>
-                                    Action
-                                </th>
+
                                 <th>
                                     Details
                                 </th>
                                 <th>Deleted By</th>
+                                <th>
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="singleData in allData.data" :key="singleData.id">
-                                <td class="text-center">
 
-                                    <v-btn class="ma-2" @click="deleteData(singleData.id, 'old')" color="error" elevation="20" small>
-                                        <v-icon small>mdi-delete-empty</v-icon> Delete
-                                    </v-btn>
-
-                                    <v-btn class="ma-2" @click="restoreData(singleData.id, 'old')" color="success" elevation="20" small>
-                                        <v-icon small>mdi-delete-restore</v-icon> Restore
-                                    </v-btn>
-                                </td>
                                 <td>
                                     <div>
                                         <b>Product Name: </b>{{ singleData.name }}
                                     </div>
                                     <div>
-                                        <b>Product Category: </b><span v-if="singleData.category">{{ singleData.category.name }}</span>
+                                        <b>Product Category: </b><span
+                                            v-if="singleData.category">{{ singleData.category.name }}</span>
                                     </div>
                                     <div>
-                                        <b>Product Subcategory: </b><span v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
+                                        <b>Product Subcategory: </b><span
+                                            v-if="singleData.subcategory">{{ singleData.subcategory.name }}</span>
                                     </div>
                                     <div>
                                         <b>Product Serial: </b>{{ singleData.serial }}
@@ -74,6 +61,18 @@
                                 </td>
                                 <td class="text-center text-muted">
                                     -----{{singleData.makby.name}}-----
+                                </td>
+                                <td class="text-center">
+
+                                    <v-btn class="ma-2" @click="deleteData(singleData.id, 'old')" color="error"
+                                        elevation="20" small>
+                                        <v-icon small>mdi-delete-empty</v-icon> Delete
+                                    </v-btn>
+
+                                    <v-btn class="ma-2" @click="restoreData(singleData.id, 'old')" color="success"
+                                        elevation="20" small>
+                                        <v-icon small>mdi-delete-restore</v-icon> Restore
+                                    </v-btn>
                                 </td>
 
                             </tr>
@@ -107,7 +106,6 @@
 
 
 <script>
-
     export default {
 
 
@@ -194,4 +192,3 @@
     }
 
 </script>
-
