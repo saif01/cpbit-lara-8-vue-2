@@ -135,7 +135,7 @@ class CreateIvcaAuditFoodTable extends Migration
             $table->string('labeling_c_remarks')->nullable();
             $table->string('labeling_c_image')->nullable();
             $table->integer('labeling_status')->nullable();
-            
+            $table->string('group_image')->nullable();
 
             $table->integer('status')->nullable();
             $table->integer('created_by')->nullable();

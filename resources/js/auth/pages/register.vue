@@ -42,7 +42,7 @@
                             </v-card-text>
                         </form>
 
-                        <div class="text-center">Are you want to back ?<router-link :to="{ name: 'Login' }"
+                        <div class="text-center">Do you want to back ?<router-link :to="{ name: 'Login' }"
                             class="text_color"> <button class="teal--text"><v-icon size="16">
                                     mdi-login</v-icon> Login </button> </router-link>
                         </div>

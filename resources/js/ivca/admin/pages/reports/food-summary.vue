@@ -442,6 +442,12 @@
             </div>
         </div>
 
+        <div>
+            <div class="font-weight-bold">Group Image</div>
+            
+            <img v-if="auditData.group_image" :src="auditData.imglgpath + auditData.group_image" alt="image" class="img-fluid evidence">
+        </div>
+
         <!-- <div class="d-flex justify-content-between">
             <div class="d-flex flex-column align-items-center">
                 <div class="font-weight-bold">Auditee Name:</div>

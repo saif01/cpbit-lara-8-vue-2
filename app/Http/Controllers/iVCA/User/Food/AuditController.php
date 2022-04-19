@@ -591,6 +591,20 @@ class AuditController extends Controller
  
         // // Common audit data update
         $data = $this->commonUpdateData($token);
+
+
+        // Image 1
+        $currentImage   = $request->group_image; 
+        $oldImage       = $data->group_image;
+        $imagePath      = 'images/ivca/food/';
+        // Save Image
+        if($currentImage != $oldImage){
+            $imgName= $this->imageUplaodByName($currentImage, $oldImage, $imagePath); 
+            $data->group_image = $imgName;
+        }
+
+        $data->status = 1;
+        $data->save();
  
         $data->status = 1;
         $data->save();

@@ -166,7 +166,7 @@
 
     <div class="d-flex justify-content-between">
         <div>REC/QC-041 (REV 2: 24-1-17)</div>
-        <div>Page 1 of 5</div>
+        <div>Page 1 of 6</div>
         <div>Retention time 3years</div>
     </div>
     <div class="page-break"></div>
@@ -282,7 +282,7 @@
 
     <div class="d-flex justify-content-between">
         <div>REC/QC-041 (REV 2: 24-1-17)</div>
-        <div>Page 2 of 5</div>
+        <div>Page 2 of 6</div>
         <div>Retention time 3years</div>
     </div>
     <div class="page-break"></div>
@@ -372,7 +372,7 @@
 
     <div class="d-flex justify-content-between">
         <div>REC/QC-041 (REV 2: 24-1-17)</div>
-        <div>Page 3 of 5</div>
+        <div>Page 3 of 6</div>
         <div>Retention time 3years</div>
     </div>
     <div class="page-break"></div>
@@ -465,7 +465,7 @@
 
     <div class="d-flex justify-content-between">
         <div>REC/QC-041 (REV 2: 24-1-17)</div>
-        <div>Page 4 of 5</div>
+        <div>Page 4 of 6</div>
         <div>Retention time 3years</div>
     </div>
     <div class="page-break"></div>
@@ -604,7 +604,23 @@
 
     <div class="d-flex justify-content-between ">
         <div>REC/QC-041 (REV 2: 24-1-17)</div>
-        <div>Page 5 of 5</div>
+        <div>Page 5 of 6</div>
+        <div>Retention time 3years</div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="font-weight-bold">Group Image</div>
+    
+    <div>
+        @if($auditData->group_image)
+            <img src="{{ $auditData->imglgpath.$auditData->group_image }}" alt="image" class="img-fluid">
+        @endif
+    </div>
+
+    <div class="d-flex justify-content-between ">
+        <div>REC/QC-041 (REV 2: 24-1-17)</div>
+        <div>Page 6 of 6</div>
         <div>Retention time 3years</div>
     </div>
     

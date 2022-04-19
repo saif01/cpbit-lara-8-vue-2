@@ -1031,6 +1031,17 @@
             <form @submit.prevent="finalDataUpdate()">
 
                 <div class="col-12">
+                    <v-file-input prepend-icon="mdi-camera" @change="uploadImageByName($event, 'group_image')"
+                        label="Group Image" small accept=".jpg, .png, .jpeg">
+                    </v-file-input>
+                    <div class="small text-danger" v-if="form.errors.has('group_image')"
+                            v-html="form.errors.get('group_image')" />
+                    <div class="mt-1">
+                        <img :src="showImageByName('group_image')" class="rounded mx-auto d-block image-thum-size" />
+                    </div>
+                </div>
+
+                <div class="col-12">
                     <v-btn v-if="!auditComplete" type="submit" block dense :loading="final_loading" color="error">
                         <v-icon>mdi-check-circle-outline </v-icon> Final Submit
                     </v-btn>
@@ -1213,6 +1224,8 @@
                     labeling_c: null,
                     labeling_c_remarks: null,
                     labeling_c_image: null,
+
+                    group_image: null,
                 }),
 
 
