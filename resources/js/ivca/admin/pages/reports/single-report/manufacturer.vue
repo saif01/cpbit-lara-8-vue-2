@@ -494,7 +494,7 @@
                             link.click();
                             
                        }else{
-                           this.$refs['data_view_modal'].hide();
+                           //this.$refs['data_view_modal'].hide();
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error !!',
@@ -503,7 +503,7 @@
                         }
                         
                     }).catch( error=>{
-                        this.$refs['data_view_modal'].hide();
+                        //this.$refs['data_view_modal'].hide();
                         //stop Loading
                         this.pdfDownLoading = false
                         console.log(error)

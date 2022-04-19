@@ -1051,6 +1051,10 @@
 
         </div>
 
+        <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
+
     </div>
 </template>
 
@@ -1062,6 +1066,8 @@
 
         data() {
             return {
+                // overlay
+                overlay: false,
                 valid: false,
                 numberRules: [
                     v => v == 0 || v == 2 || 'This Field is required',
@@ -1316,9 +1322,11 @@
             building_facilitiesDataUpdate() {
                 // Start loading
                 this.building_facilities_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/building_facilities_store/' + this.token)
                     .then(response => {
                         this.building_facilities_loading = false
+                        this.overlay = false
                         //console.log(response.data)
 
                         // Refresh all data
@@ -1333,6 +1341,7 @@
 
                     }).catch(error => {
                         this.building_facilities_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1347,9 +1356,11 @@
             equipmentDataUpdate() {
                 // Start loading
                 this.equipment_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/equipment_store/' + this.token)
                     .then(response => {
                         this.equipment_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         this.auditDataRefresh();
                         // Alert
@@ -1361,6 +1372,7 @@
 
                     }).catch(error => {
                         this.equipment_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1375,9 +1387,11 @@
             personnelDataUpdate() {
                 // Start loading
                 this.personnel_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/personnel_store/' + this.token)
                     .then(response => {
                         this.personnel_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         this.auditDataRefresh();
                         // Alert
@@ -1389,6 +1403,7 @@
 
                     }).catch(error => {
                         this.personnel_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1404,9 +1419,11 @@
             raw_materialsDataUpdate() {
                 // Start loading
                 this.raw_materials_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/raw_materials_store/' + this.token)
                     .then(response => {
                         this.raw_materials_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         this.auditDataRefresh();
                         // Alert
@@ -1418,6 +1435,7 @@
 
                     }).catch(error => {
                         this.raw_materials_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1433,9 +1451,11 @@
             productionDataUpdate() {
                 // Start loading
                 this.production_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/production_store/' + this.token)
                     .then(response => {
                         this.production_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         this.auditDataRefresh();
                         // Alert
@@ -1447,6 +1467,7 @@
 
                     }).catch(error => {
                         this.production_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1462,9 +1483,11 @@
             recordsDataUpdate() {
                 // Start loading
                 this.records_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/records_store/' + this.token)
                     .then(response => {
                         this.records_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         this.auditDataRefresh();
                         // Alert
@@ -1476,6 +1499,7 @@
 
                     }).catch(error => {
                         this.records_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1491,9 +1515,11 @@
             labelingDataUpdate() {
                 // Start loading
                 this.labeling_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/labeling_store/' + this.token)
                     .then(response => {
                         this.labeling_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         this.auditDataRefresh();
                         // Alert
@@ -1505,6 +1531,7 @@
 
                     }).catch(error => {
                         this.labeling_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1520,9 +1547,11 @@
             finalDataUpdate() {
                 // Start loading
                 this.final_loading = true
+                this.overlay = true
                 this.form.post(this.currentUrl + '/store/final_store/' + this.token)
                     .then(response => {
                         this.final_loading = false
+                        this.overlay = false
                         //console.log(response.data)
                         this.auditDataRefresh();
                         // Alert
@@ -1539,6 +1568,7 @@
 
                     }).catch(error => {
                         this.final_loading = false
+                        this.overlay = false
                         // Error
                         Swal.fire({
                             icon: 'error',
@@ -1550,55 +1580,18 @@
             },
 
 
-            // get Lat lng 
-            getLocationLatLong(){
-
-                if (navigator.geolocation) {
-                    // navigator.geolocation.getCurrentPosition(location=>{
-                    //     console.log('latitude: ', location.coords.latitude);
-                    //     console.log('longitude: ', location.coords.longitude);
-                    //     console.log('accuracy: ', location.coords.accuracy); 
-                    // });
-
-                    navigator.geolocation.getCurrentPosition(getPosition)
-
-                } else { 
-                    console.log('Geolocation is not supported by this browser.');
-                }
-
-                function getPosition(position) {
-                    var lat = position.coords.latitude
-                    var long = position.coords.longitude
-                    var accuracy = position.coords.accuracy
-
-                    console.log('latitude: ', lat);
-                    console.log('longitude: ', long);
-                    console.log('accuracy: ', accuracy); 
-                }
-
-            },
-
-            
-
-
-
         },
-
-    
 
 
         created() {
             this.$Progress.start();
-            // Location
-            this.getLocationLatLong();
-
             // Template data
             this.auditTempalte();
 
             // Current Audit data
             this.auditDataRefresh()
 
-            console.log('Token type : ' + this.token, this.userType)
+            //console.log('Token type : ' + this.token, this.userType)
 
             this.$Progress.finish();
         }

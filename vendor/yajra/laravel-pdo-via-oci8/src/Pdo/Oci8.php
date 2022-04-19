@@ -495,6 +495,21 @@ class Oci8 extends PDO
     }
 
     /**
+     * Set the client identifier.
+     *
+     * @param $identifier
+     * @return bool
+     */
+    public function setClientIdentifier($identifier)
+    {
+        if (! $this->dbh) {
+            return false;
+        }
+
+        return oci_set_client_identifier($this->dbh, $identifier);
+    }
+
+    /**
      * Configure proper charset.
      *
      * @param array $options
@@ -533,6 +548,16 @@ class Oci8 extends PDO
     public function getOptions()
     {
         return $this->options;
+    }
+
+    /**
+     * Special non PDO function to get DB resource.
+     *
+     * @return resource
+     */
+    public function getResource()
+    {
+        return $this->dbh;
     }
 
     /**

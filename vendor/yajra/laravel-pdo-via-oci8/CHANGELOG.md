@@ -1,5 +1,15 @@
 # PDO-VIA-OCI8 Changelog
 
+## v2.4.0 - 2022-02-09
+
+- Add method to set client identifier. #101
+- Fix yajra/laravel-oci8#453
+- Fix #99
+
+## v2.3.0 - 2022-01-31
+
+- Fix #96, add method to get db resource. #97
+
 ## v2.2.0 - 2020-12-11
 
 - Added support for oci_set_call_timeout function [#85](https://github.com/yajra/pdo-via-oci8/pull/85), credits to @ognjenVlad.
