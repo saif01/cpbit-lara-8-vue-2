@@ -26,24 +26,10 @@ class Color extends Supervisor
     const COLOR_DARKGREEN = 'FF008000';
     const COLOR_YELLOW = 'FFFFFF00';
     const COLOR_DARKYELLOW = 'FF808000';
-    const COLOR_MAGENTA = 'FFFF00FF';
-    const COLOR_CYAN = 'FF00FFFF';
-
-    const NAMED_COLOR_TRANSLATIONS = [
-        'Black' => self::COLOR_BLACK,
-        'White' => self::COLOR_WHITE,
-        'Red' => self::COLOR_RED,
-        'Green' => self::COLOR_GREEN,
-        'Blue' => self::COLOR_BLUE,
-        'Yellow' => self::COLOR_YELLOW,
-        'Magenta' => self::COLOR_MAGENTA,
-        'Cyan' => self::COLOR_CYAN,
-    ];
 
     const VALIDATE_ARGB_SIZE = 8;
     const VALIDATE_RGB_SIZE = 6;
-    const VALIDATE_COLOR_6 = '/^[A-F0-9]{6}$/i';
-    const VALIDATE_COLOR_8 = '/^[A-F0-9]{8}$/i';
+    const VALIDATE_COLOR_VALUE = '/^[A-F0-9]{%d}$/i';
 
     /**
      * Indexed colors array.
@@ -58,9 +44,6 @@ class Color extends Supervisor
      * @var null|string
      */
     protected $argb;
-
-    /** @var bool */
-    private $hasChanged = false;
 
     /**
      * Create a new Color.
@@ -80,7 +63,7 @@ class Color extends Supervisor
 
         //    Initialise values
         if (!$isConditional) {
-            $this->argb = $this->validateColor($colorValue) ?: self::COLOR_BLACK;
+            $this->argb = $this->validateColor($colorValue, self::VALIDATE_ARGB_SIZE) ? $colorValue : self::COLOR_BLACK;
         }
     }
 
@@ -92,15 +75,12 @@ class Color extends Supervisor
      */
     public function getSharedComponent()
     {
-        /** @var Style */
-        $parent = $this->parent;
         /** @var Border|Fill $sharedComponent */
-        $sharedComponent = $parent->getSharedComponent();
-        if ($sharedComponent instanceof Fill) {
-            if ($this->parentPropertyName === 'endColor') {
-                return $sharedComponent->getEndColor();
-            }
-
+        $sharedComponent = $this->parent->getSharedComponent();
+        if ($this->parentPropertyName === 'endColor') {
+            return $sharedComponent->getEndColor();
+        }
+        if ($this->parentPropertyName === 'startColor') {
             return $sharedComponent->getStartColor();
         }
 
@@ -116,10 +96,7 @@ class Color extends Supervisor
      */
     public function getStyleArray($array)
     {
-        /** @var Style */
-        $parent = $this->parent;
-
-        return $parent->getStyleArray([$this->parentPropertyName => $array]);
+        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -149,23 +126,10 @@ class Color extends Supervisor
         return $this;
     }
 
-    private function validateColor(?string $colorValue): string
+    private function validateColor(string $colorValue, int $size): bool
     {
-        if ($colorValue === null || $colorValue === '') {
-            return self::COLOR_BLACK;
-        }
-        $named = ucfirst(strtolower($colorValue));
-        if (array_key_exists($named, self::NAMED_COLOR_TRANSLATIONS)) {
-            return self::NAMED_COLOR_TRANSLATIONS[$named];
-        }
-        if (preg_match(self::VALIDATE_COLOR_8, $colorValue) === 1) {
-            return $colorValue;
-        }
-        if (preg_match(self::VALIDATE_COLOR_6, $colorValue) === 1) {
-            return 'FF' . $colorValue;
-        }
-
-        return '';
+        return in_array(ucfirst(strtolower($colorValue)), self::NAMED_COLORS) ||
+            preg_match(sprintf(self::VALIDATE_COLOR_VALUE, $size), $colorValue);
     }
 
     /**
@@ -189,9 +153,9 @@ class Color extends Supervisor
      */
     public function setARGB(?string $colorValue = self::COLOR_BLACK)
     {
-        $this->hasChanged = true;
-        $colorValue = $this->validateColor($colorValue);
-        if ($colorValue === '') {
+        if ($colorValue === '' || $colorValue === null) {
+            $colorValue = self::COLOR_BLACK;
+        } elseif (!$this->validateColor($colorValue, self::VALIDATE_ARGB_SIZE)) {
             return $this;
         }
 
@@ -226,7 +190,20 @@ class Color extends Supervisor
      */
     public function setRGB(?string $colorValue = self::COLOR_BLACK)
     {
-        return $this->setARGB($colorValue);
+        if ($colorValue === '' || $colorValue === null) {
+            $colorValue = '000000';
+        } elseif (!$this->validateColor($colorValue, self::VALIDATE_RGB_SIZE)) {
+            return $this;
+        }
+
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['argb' => 'FF' . $colorValue]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->argb = 'FF' . $colorValue;
+        }
+
+        return $this;
     }
 
     /**
@@ -243,7 +220,7 @@ class Color extends Supervisor
     {
         $colour = substr($rgbValue, $offset, 2);
 
-        return ($hex) ? $colour : (int) hexdec($colour);
+        return ($hex) ? $colour : hexdec($colour);
     }
 
     /**
@@ -432,14 +409,5 @@ class Color extends Supervisor
         $this->exportArray2($exportedArray, 'argb', $this->getARGB());
 
         return $exportedArray;
-    }
-
-    public function getHasChanged(): bool
-    {
-        if ($this->isSupervisor) {
-            return $this->getSharedComponent()->hasChanged;
-        }
-
-        return $this->hasChanged;
     }
 }

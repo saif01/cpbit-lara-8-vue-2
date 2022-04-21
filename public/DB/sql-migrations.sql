@@ -109,10 +109,17 @@ UPDATE `application_complains` SET `subcategory`='43' WHERE `subcategory` = 'Int
 
 
 -- application_complains
-INSERT INTO `cpbit_8`.`application_complains`(`id`, `user_id`, `cat_id`, `subcat_id`, `details`, `process`, `document`, `document2`, `document3`, `document4`, `status`, `created_at`, `updated_at`) SELECT `id`, `user_id`, `category`, `subcategory`, `details`, `process`, `document`, `document2`, `document3`, `document4`, `status`, `created_at`, `updated_at` FROM `cpbit_copy`.`application_complains`
+INSERT INTO `cpbit_8`.`application_complains`(`id`, `user_id`, `cat_id`, `subcat_id`, `details`, `process`, `document`, `document2`, `document3`, `document4`, `status`, `created_at`, `updated_at`) SELECT `id`, `user_id`, `category`, `subcategory`, `details`, `process`, `document`, `document2`, `document3`, `document4`, `status`, `created_at`, `updated_at` FROM `cpbit`.`application_complains`
 
 -- application_remarks
-INSERT INTO `cpbit_8`.`application_remarks`(`id`, `comp_id`, `process`, `details`, `document`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `comp_id`, `process`, `details`, `document`, `created_by`, `created_at`, `updated_at` FROM `cpbit_copy`.`application_remarks`
+INSERT INTO `cpbit_8`.`application_remarks`(`id`, `comp_id`, `process`, `details`, `document`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `comp_id`, `process`, `details`, `document`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`application_remarks`
+
+
+
+-- hardware_complains
+INSERT INTO `cpbit_8`.`hardware_complains`(`id`, `user_id`,  `details`, `process`, `computer_name`, `document`, `accessories`, `status`, `created_at`, `updated_at`) SELECT `id`, `user_id`, `details`, `process`, `computer_name`, `document`, `tools`, `status`, `created_at`, `updated_at` FROM `cpbit`.`hardware_complains`
+
+
 
 
 
@@ -308,4 +315,35 @@ UPDATE `rooms` SET `projector`= 1  where `id` = 13;
 
 -- room_bookings
 INSERT INTO `cpbit_8`.`room_bookings`(`id`, `user_id`, `room_id`, `start`, `end`, `duration`, `purpose`, `status`, `created_at`, `updated_at`) SELECT `id`, `user_id`, `room_id`, `start`, `end`, `hours`, `purpose`, `status`, `created_at`, `updated_at` FROM `cpbit`.`room_bookings`
+
+
+
+--Carpool
+
+--carpool_bookings
+INSERT INTO `cpbit_8`.`carpool_bookings`(`id`, `user_id`, `car_id`, `driver_id`, `start`, `end`, `destination`, `purpose`, `status`, `gas`, `octane`, `toll`, `cost`, `driver_rating`, `start_mileage`, `end_mileage`, `km`, `comit_st`, `created_at`, `updated_at`) SELECT `id`, `user_id`, `car_id`, `driver_id`, `start`, `end`, `destination`, `purpose`, `status`, `gas`, `octane`, `toll`, `cost`, `driver_rating`, `start_mileage`, `end_mileage`, `km`, `comit_st`, `created_at`, `updated_at` FROM `cpbit`.`carpool_bookings` 
+
+-- carpool_cars
+INSERT INTO `cpbit_8`.`carpool_cars`(`id`, `number`, `name`, `capacity`, `temporary`, `image`, `image2`, `image3`, `remarks`, `last_use`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at`) SELECT `id`, `number`, `name`, `capacity`, `temporary`, `image`, `image2`, `image3`, `remarks`, `last_use`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at` FROM `cpbit`.`carpool_cars`
+
+
+UPDATE `carpool_cars` SET `image`=REPLACE(`image`, 'images/carpool/cars/original/', ''),
+`image2`=REPLACE(`image2`, 'images/carpool/cars/original/', ''),
+`image3`=REPLACE(`image3`, 'images/carpool/cars/original/', '');
+
+
+INSERT INTO `cpbit_8`.`carpool_car_maintenances`(`id`, `car_id`, `driver_id`, `start`, `end`, `status`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `car_id`, `driver_id`, `start`, `end`, `status`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`carpool_car_maintenances`
+
+
+INSERT INTO `cpbit_8`.`carpool_car_requisitions`(`id`, `car_id`, `driver_id`, `start`, `end`, `status`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `car_id`, `driver_id`, `start`, `end`, `status`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`carpool_car_requisitions`
+
+INSERT INTO `cpbit_8`.`carpool_destinations`(`id`, `name`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`carpool_destinations`
+
+-- carpool_drivers
+INSERT INTO `cpbit_8`.`carpool_drivers`(`id`, `name`, `contact`, `car_id`, `image`, `image_small`, `license`, `nid`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at`) SELECT `id`, `name`, `contact`, `car_id`, `image`, `image_small`, `license`, `nid`, `status`, `created_by`, `delete_temp`, `delete_by`, `created_at`, `updated_at` FROM `cpbit`.`carpool_drivers`
+
+-- carpool_driver_leaves
+INSERT INTO `cpbit_8`.`carpool_driver_leaves`(`id`, `car_id`, `driver_id`, `start`, `end`, `status`, `created_by`, `created_at`, `updated_at`) SELECT `id`, `car_id`, `driver_id`, `start`, `end`, `status`, `created_by`, `created_at`, `updated_at` FROM `cpbit`.`carpool_driver_leaves`
+ 
+
 

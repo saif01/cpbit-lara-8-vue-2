@@ -148,6 +148,7 @@ class RetailerController extends Controller
         ->setOption('margin-bottom', 4)
         ->setOption("encoding", "UTF-8")
         ->output();
+        //->download('invoice.pdf');
 
         return $pdf;
     }
@@ -171,6 +172,10 @@ class RetailerController extends Controller
 
     // download
     public function download($id){
+
+       // return PDF::loadFile('http://www.github.com')->setTemporaryFolder('C:\Temp')->inline('github.pdf');
+
+        //return PDF::loadFile('https://www.google.com/')->inline('github.pdf');
         
         $templateData = ivcaTemplateMroRetailer::first();
         $auditData = ivcaAuditMroRetailer::with(['auditordata', 'vendor'])->find($id); 
@@ -187,8 +192,11 @@ class RetailerController extends Controller
         ->setOption('margin-bottom', 4)
         ->setOption("encoding", "UTF-8")
         ->output();
+        //->download('invoice.pdf');
 
         return $pdf;
+
+
     }
 
 }

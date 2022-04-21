@@ -1,5 +1,24 @@
 <?php
 
+
+// return array(
+//     'pdf' => array(
+//     'enabled' => true,
+//     'binary' => base_path('vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltopdf'),
+//     'timeout' => false,
+//     'options' => array(),
+//     'env' => array(),
+//     ),
+//     'image' => array(
+//     'enabled' => true,
+//     'binary' => base_path('vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltopdf'),
+//     'timeout' => false,
+//     'options' => array(),
+//     'env' => array(),
+//     )
+//     );
+
+
 return [
 
     /*
@@ -35,7 +54,8 @@ return [
     
     'pdf' => [
         'enabled' => true,
-        'binary'  => "C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf",
+        'binary'  => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"',
+        //'binary'  => base_path('vendor\h4cc\wkhtmltopdf-amd64\bin\wkhtmltopdf-amd64'),
         'timeout' => false,
         'options' => [],
         'env'     => [],
@@ -43,7 +63,8 @@ return [
     
     'image' => [
         'enabled' => true,
-        'binary'  => "C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage --viewport-size 1024x768",
+        'binary'  => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage --viewport-size 1024x768"',
+        //'binary'  => 'vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltoimage',
         'timeout' => false,
         'options' => [],
         'options' => array(

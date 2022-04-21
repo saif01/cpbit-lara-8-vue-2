@@ -1,0 +1,638 @@
+User Section
+    Carpool
+        1. Notification
+            1.1 Car Not Commented Details
+            1.2 Comment Car
+        2. Dashboard
+            2.1 Calendar For Select Date
+            2.2 Select Driver
+            2.3 Book
+        3. My Booked
+            3.1 Booking History
+            3.2 Modify Booking
+            3.3 Cancen Booking
+        4. My Cancelled
+            4.1 Cancel Car List
+        5. Booked History
+            5.1 All Booking History
+        6. Logout
+
+
+    
+    Room
+        1. Dashboard
+            1.1 Calendar For Select Date
+            1.2 Select room
+            1.3 Book
+        2. My Booked
+            2.1 Booking History
+            2.2 Modify Booking
+            2.3 Cancen Booking
+        3. My Cancelled
+            3.1 Cancel Car List
+        4. Booked History
+            4.1 All Booking History
+        5. Logout
+
+
+    CMS
+        1. Dashboard
+            1.1 Hardware Complain
+                1.1.1 Give details & launch complain
+            1.2 Application Complain
+                1.2.1 Give details & launch complain
+        2. Hardware History
+            2.1 All complain Details and current status
+        3. Application History
+            3.1 All complain Details and current status
+        4. Logout
+
+
+    SMS
+        1. Dashboard
+            1.1 Download Report
+        2. Logout
+
+
+    iTemp
+        1. Home
+            1.1 Total Employee count
+            1.2 Total Temp Measured today count
+            1.3 Total Temp Record count
+            1.4 Department by temparature pie chart
+        2. All Emloyee
+            2.1 Add temparature
+            2.2 Search employee record temparature
+        3. Employee Records
+            3.1 All Employee Records
+            3.2 Filter records by user, date and day
+        4. Others
+            4.1 Others employee records
+            4.2 Filter records by user, date and day
+        5. My Profile
+            5.1 Cureent login user information
+        6. Logout
+
+    iVCA
+        1. Dashboard
+            1.1 MRO
+            1.2 Food
+        2. MRO Schedules
+            2.1 Cuurent MRO audit schedules
+                2.2 Genrate Token
+                    2.2.1 Share Token
+                2.3 Choose audit template between (MRO Importer, MRO Retailer, MRO Manufacturer) these.
+                2.4 Fill the audit question's answer
+                2.5 Update audit question's answer
+                2.6 Final submit audit question's answer
+        3. Food Schedules
+            3.1 Cuurent Food audit schedules
+                3.2 Genrate Token
+                    3.2.1 Share Token
+                3.3 Fill the audit question's answer
+                3.4 Update audit question's answer
+                3.5 Final submit audit question's answer
+        4. Logout
+
+    iAccess
+        1. Dashboard
+            1.1 Email Access Request Form
+                1.1.1 User Information
+                1.1.2 Request For Information
+            1.2 Internet Access Request Form
+                1.2.1 User Information
+                1.2.2 Request For Information
+            1.3 Account Authority Request Form
+                1.3.1 User Information
+                1.3.2 Access For Information
+            1.4 Guest User Request Form
+                1.4.1 User Information
+                1.1.2 Guest User Information
+
+
+Admin Section
+    Carpool
+        1. Dashboard
+            1.1 All booking car record in calendar
+        2. Cars
+            2.1 All Car List
+            2.2 Search car
+            2.2 Add Car
+            2.3 Make car Active/Inactive
+            2.4 Make car Regular/Temporary
+            2.5 Asssign deadline for a car
+            2.6 Edit Car information
+            2.7 Delete Car information
+        3. Drivers
+            3.1 All Driver List
+                3.2 Search driver
+                3.2 Add driver
+                3.3 Make driver Active/Inactive
+                3.4 Asssign leave for a driver
+                    3.4.1 Leave time and purpose Details
+                    3.4.2 Submit
+                3.5 Edit driver information
+                3.6 Delete driver information
+        4. Report
+            4.1 All Reports
+                4.1.1 All car booking details
+                4.1.2 Filter information by date, car & day.
+                4.1.3 Driver Details
+                4.1.4 Bookby user details
+            4.2 Driver Leave
+                4.2.1 All driver leave details
+                4.2.2 Search driver.
+                4.2.3 Driver Details
+            4.3 Car Maintenance
+                4.3.1 All Car in Maintenance details
+                4.3.2 Search car.
+                4.3.3 Driver Details
+            4.4 Car Requisition
+                4.4.1 All Car in Requisition details
+                4.4.2 Search car.
+                4.4.3 Driver Details
+        5. Destinations
+            5.1 Add Destinations
+            5.2 Edit Destinations
+            5.3 Delete Destinations
+        6. Logout
+
+
+    Room
+        1. Dashboard
+            1.1 All booking room record in calendar
+        2. Rooms
+            2.1 All room List
+            2.2 Search room
+            2.2 Add room
+            2.3 Make room Active/Inactive
+            2.4 Edit room information
+            2.5 Delete room information
+        3. Report
+        4. Logout
+
+
+    Application
+        1. Dashboard
+            1.1 Total softwares count
+            1.2 Total modules count
+            1.3 Total CMS user count
+            1.4 Software vs Complain doughnut chart count
+        2. Not Process
+            2.1 All Not Process Complain List 
+            2.1 Search
+            2.3 Take action against complain
+                2.3.1 Action current status 
+                2.3.2 Give Solution against complain
+                2.3.3 Change complain status
+            2.4 View complain by user details
+        3. Processing
+            3.1 All Processing Complain List 
+            3.1 Search
+            3.3 Take action against complain
+                3.3.1 Action current status 
+                3.3.2 Give Solution against complain
+                3.3.3 Change complain status
+            1.4 View complain by user details
+        4. Closed
+            4.1 All Closed Complain List 
+            4.1 Search
+            4.3 Show all action against complain
+            4.4 View complain by user details
+        5. Reports
+            5.1 All Reports
+                5.1.1 All Complain Records
+                5.1.2 Search by date, regular search, search by zones, search by department.
+                5.1.3 Show all action against complain
+                5.1.3 View complain by user details
+            5.2 All Canceled
+                5.2.1 All Canceled Records
+                5.2.2 Search by date, regular search, search by zones, search by department.
+                5.2.3 Show all action against complain
+                5.2.3 View complain by user details  
+        6. Others
+            6.1 Category
+                6.1.1 All Software List
+                6.1.2 Add Software
+                6.1.3 Edit Software
+                6.1.4 Delete Software
+                6.1.5 Search Software
+            6.2 Subcategory
+                6.2.1 All Models List
+                6.2.2 Add Models
+                6.2.3 Edit Models
+                6.2.4 Delete Models
+                6.2.5 Search Models
+        7. Logout
+
+
+    Hardware
+        1. Dashboard
+        2. User Manage
+            2.1 Users
+                2.1.1 All User List
+                2.1.2 Search user by zone
+                2.1.3 Search user by department
+                2.1.4 Search by all relative search types
+                2.1.5 Assign role
+            2.2 Roles
+                2.2.1 All Role List
+                2.2.2 Search
+                2.2.3 Add Role
+                2.2.4 Edit Role
+                2.2.5 Delete role
+        3. Not Process
+            3.1 All Not Process Complain List 
+            3.1 Search
+            3.3 Take action against complain
+                3.3.1 Action current status 
+                3.3.2 Give Solution against complain
+                3.3.3 Change complain status
+            3.4 View complain by user details
+        4. Preocessing
+            4.1 All Preocessing Complain List 
+            4.1 Search
+            4.3 Take action against complain
+                4.3.1 Action current status 
+                4.3.2 Give Solution against complain
+                4.3.3 Change complain status
+            4.4 View complain by user details
+        5. Closed
+            5.1 All Closed Complain List 
+            5.1 Search
+            5.3 Show all action against complain
+            5.4 View complain by user details
+        6. Service
+            6.1 All product liat which are sent to Service 
+            6.1 Search
+            6.3 Take action against complain
+                6.3.1 Action current status 
+                6.3.2 Give Solution against complain
+                6.3.3 Change complain status
+            6.4 View complain-by user details
+        7. Deliverable
+            7.1 All Deliverable product complain list
+            7.2 Search
+            7.3 Give delivery information
+        8. Reports
+            8.1 All
+                8.1.1 All Complain List
+                8.1.2 Search complain by zone
+                8.1.3 Search complain by department
+                8.1.4 Search by time frame
+                8.1.5 Regular search
+                8.1.6 Show all action against complain
+                8.1.7 View complain by user details
+                8.1.8 Export to excel
+            8.2 Damaged
+                8.2.1 All Damaged product Complain List
+                8.2.2 Search complain by zone
+                8.2.3 Search complain by department
+                8.2.4 Search by time frame
+                8.2.5 Search by Applicable Type
+                8.2.6 Search by Damaged Type
+                8.2.7 Search by Damaged Reason
+                8.2.8 Regular search
+                8.2.9 Show all action against complain
+                8.2.10 View complain by user details
+                8.2.11 Export to excel
+            8.3 Damaged Replace
+                8.3.1 All Damaged Replace product Complain List
+                8.3.2 Search complain by zone
+                8.3.3 Search complain by department
+                8.3.4 Search by time frame
+                8.3.5 Search by Applicable Type
+                8.3.6 Search by Damaged Type
+                8.3.7 Search by Damaged Reason
+                8.3.8 Regular search
+                8.3.9 Show all action against complain
+                8.3.10 View complain by user details
+                8.3.11 Export to excel
+        9.  Damaged
+            9.1 All
+                9.1.1 All Damaged and Partial Damaged Complain List 
+                9.1.2 Take action against all damaged and partial damgaged product
+                9.1.2 Show complain-by user details
+            9.2 Applicable
+                9.2.1 Damaged
+                    9.2.1.1 All Damaged Product complain list
+                    9.2.1.2 Search
+                    9.2.1.3 Take action against complain
+                        9.2.1.3.1 Action current status 
+                        9.2.1.3.2 Give Solution against complain (if user applied)
+                        9.2.1.3.3 Change complain status (if user applied)
+                    9.2.1.4 View complain-by user details
+                9.2.2 Partial Damaged
+                    9.2.2.1 All Partial Damaged Product complain list
+                    9.2.2.2 Search
+                    9.2.2.3 Take action against complain
+                        9.2.2.3.1 Action current status 
+                        9.2.2.3.2 Give Solution against complain (if user applied)
+                        9.2.2.3.3 Change complain status (if user applied)
+                    9.2.2.4 View complain-by user details
+            9.3 Not Applicable
+                9.3.1 Damaged
+                    9.3.1.1 All Damaged Product complain list
+                    9.3.1.2 Search
+                    9.3.1.3 Take action against complain
+                        9.3.1.3.1 Action current status 
+                        9.3.1.3.2 Give Solution against complain (if user applied)
+                        9.3.1.3.3 Change complain status (if user applied)
+                    9.3.1.4 View complain-by user details
+                9.3.2 Partial Damaged
+                    9.3.2.1 All Partial Damaged Product complain list
+                    9.3.2.2 Search
+                    9.3.2.3 Take action against complain
+                        9.3.2.3.1 Action current status 
+                        9.3.2.3.2 Give Solution against complain (if user applied)
+                        9.3.2.3.3 Change complain status (if user applied)
+                    9.3.2.4 View complain-by user details
+        10. HO Service
+            10.1 All
+                10.1.1 All HO Service complain list
+                10.1.2 Search complain by zone
+                10.1.3 Take action against complain
+                    10.1.3.1 Action current status 
+                    10.1.3.2 Give Solution against complain
+                    10.1.3.3 Change complain status
+                10.1.4 View complain-by user details
+        11. Draft
+            11.1 All Draft List
+            11.2 Search
+            11.3 Add Draft
+            11.4 Edit Draft
+            11.5 Delete Draft
+        12. Others
+            12.1 Categories
+                12.1.1 All Category List
+                12.1.2 Add Category with label
+                12.1.3 Edit Category with label
+                12.1.4 Delete Category
+                12.1.5 Search Category
+            12.2 Subcategories
+                12.2.1 All Subcategory List
+                12.2.2 Add Subcategory against Category
+                12.2.3 Edit Subcategory against Category
+                12.2.4 Delete Subcategory
+                12.2.5 Search Subcategory
+            12.3 Accessories
+                12.3.1 All Models List
+                12.3.2 Add Models
+                12.3.3 Edit Models
+                12.3.4 Delete Models
+                12.3.5 Search Models
+        13. Logout
+
+
+    iTemp
+        1. Dashboard
+            1.1 Total Employee count
+            1.2 Total Employee Measured count today
+            1.3 Total temparature record count
+            1.4 Total other record count
+        2. All Employee
+            2.1 All employees data
+            2.2 Make employee active/inactive
+            2.3 Delete employee
+            2.4 Search
+        3. All Checkpoint
+            3.1 All Checkpoint list
+            3.2 Add Checkpoint
+            3.3 Edit Checkpoint
+            3.4 Delete Checkpoint
+            3.5 Search
+        4. Report
+            4.1 Employee Records
+                4.1.1 All Employee record
+                4.1.2 Search by user, time period and regular search
+                4.1.3 Export by 3, 7, 10, 15, 30 days report
+                4.1.4 Export data
+            4.2 Other Records
+                4.2.1 All Other Employee record
+                4.2.2 Search by user, time period and regular search
+                4.2.3 Export by 3, 7, 10, 15, 30 days report
+                4.2.4 Export data
+        5. logout
+
+    
+    Inventory
+        1. Dashboard
+            1.1 All types of product name with individual stock count
+        2. New Product
+            2.1 All new product list
+            2.2 Deliver product
+                2.2.1 Give delivery information
+            2.3 Search by product type
+            2.4 All possible search by option
+            2.5 Add product
+            2.6 Edit product
+            2.7 Delete Product
+            2.8 View product information and delivery information if has.
+            2.9 View document if has
+            2.10 Change product type damage/good
+        3. Old Product
+            3.1 All old product list
+            3.2 Search by business unit
+            3.3 Search by product type
+            3.4 All possible search by option
+            3.5 Add product
+            3.6 Edit product
+            3.7 Delete Product
+            3.8 View product information and delivery information if has.
+            3.9 View document if has
+        4. Product Section
+            4.1 Given Product
+                4.1.1 All given product list
+                4.1.2 Search by business unit
+                4.1.3 All possible search by option
+                4.1.4 Export given product data
+            4.2 Running Product
+                4.2.1 All running product list
+                4.2.2 Search by business unit
+                4.2.3 All possible search by option
+                4.2.4 Export running product data
+            4.3 Damaged Product
+                4.3.1 All damaged product list
+                4.3.2 Search by business unit
+                4.3.3 All possible search by option
+                4.3.4 Export damaged product data
+        5. Warranty Section
+            5.1 Warranty Product
+                5.1.1 All Warranty product list
+                5.1.2 All possible search by option
+                5.1.3 Export warranty product
+            5.2 Expire Product
+                5.2.1 All Expire product list
+                5.2.2 All possible search by option
+                5.2.3 Export Expire product
+        6. Report Section
+        7. Operation
+            7.1 All Operation list
+            7.2 Add Operation
+            7.3 Edit Operation
+            7.4 Delete Operation
+            7.5 Search
+        8. Deleted Section
+            8.1 New Product
+                8.1.1 All New Deleted Product list
+                8.1.2 Search
+                8.1.3 Retrive deleted product
+                8.1.4 Permanently delete product
+            8.2 Old Product
+                8.2.1 All Old Deleted Product list
+                8.2.2 Search
+                8.2.3 Retrive deleted product
+                8.2.4 Permanently delete product
+        9. Logout
+
+    iVCA
+        1. Dashboard
+            1.1 iVCA Users count
+            1.2 iVCA Admins count
+            1.3 Active Vendors count
+            1.4 Blacklisted Vendors count
+            1.5 MRO Audit Status count
+            1.6 Food Audit Status count
+        2. User
+            2.1 User List
+                2.1.1 All user list
+                2.1.2 Search by zones, department
+                2.1.3 Search by all possible types
+                2.1.4 Assign role
+            2.2 User Role
+                2.2.1 All role list
+                2.2.2 Add role
+                2.2.3 Edit role
+                2.2.4 Delete role
+                2.2.5 Search
+        3. Vendor
+            3.1 Vendor List
+                3.1.1 All vendors list
+                3.1.2 Add new vendor
+                3.1.3 Modify vendor details
+                3.1.4 Make a vendor Active/Inactive
+            3.2 Vendor Blacklist
+                3.2.1 Make a vendor Blacklisted
+                3.2.1 Change the status of blacklisted vendor
+        4. Audit Templates
+            4.1 MRO Manufacturer
+                4.1.1 All the audit questions for MRO Manufacturer
+                4.1.2 Make changes on audit questions
+            4.2 MRO Importer
+                4.2.1 All the audit questions for MRO Importer
+                4.2.2 Make changes on audit questions
+            4.3 MRO Retailer
+                4.3.3 All the audit questions for MRO Retailer
+                4.3.2 Make changes on audit questions
+            4.4 Food
+                4.4.1 All the audit questions for Food
+                4.4.2 Make changes on audit questions
+        5. Schedules
+            5.1 MRO
+                5.1.1 MRO audit schedule list
+                5.1.2 Add new schedule for audit
+                    5.1.2.1 Assign a auditor for a audit
+                    5.1.2.2 Choose a vendor for audit
+                    5.1.2.2 Select a date for perform audit
+                5.1.3 Make audit status approve/waiting
+            5.2 Food
+                5.2.1 Food audit schedule list
+                5.2.2 Add new schedule for audit
+                    5.2.2.1 Assign a auditor for a audit
+                    5.2.2.2 Choose a vendor for audit
+                    5.2.2.2 Select a date for perform audit
+                5.2.3 Make audit status approve/waiting
+        6. Report
+            6.1 Manufacturer
+                6.1.1 Manufacturer Audit Report
+                6.1.2 View single report for all the users who perform that audit
+                    6.1.2.1 Download pdf
+                    6.1.2.2 View on pdf
+                6.1.3 Summaury of the audit
+                    6.1.3.1 Download pdf
+                    6.1.3.2 View in pdf
+            6.2 Importer
+                6.2.1 Importer Audit Report
+                6.2.2 View single report for all the users who perform that audit
+                    6.2.2.1 Download pdf
+                    6.2.2.2 View on pdf
+                6.2.3 Summaury of the audit
+                    6.2.3.1 Download pdf
+                    6.2.3.2 View in pdf
+            6.3 Retailer
+                6.3.1 Retailer Audit Report
+                6.3.2 View single report for all the users who perform that audit
+                    6.3.2.1 Download pdf
+                    6.3.2.2 View on pdf
+                6.3.3 Summaury of the audit
+                    6.3.3.1 Download pdf
+                    6.3.3.2 View in pdf
+            6.4 Food
+                6.4.1 Food Audit Report
+                6.4.2 View report of the audit
+                    6.4.2.1 Download pdf
+                    6.4.2.2 View in pdf
+        7. Logout
+
+    SMS
+        1. Dashboard
+            1.1 Total SMS Operation
+            1.2 Total SMS User
+            1.3 Total SMS Admin
+        2. Users
+            2.1 All User List
+            2.2 Search user by zone
+            2.3 Search user by department
+            2.4 Search by all relative search types
+            2.5 Assign role
+        3. Operation
+            3.1 All Operation list
+            3.2 Add Operation
+            3.3 Edit Operation
+            3.4 Delete Operation
+            3.5 Search
+        4. Logout
+
+    Super Admin
+        1. Dashboard
+        2. All User
+            2.1 All User List
+            2.2 Search user by zone
+            2.3 Search user by department
+            2.4 Search by all relative search types
+            2.5 Assign role
+            2.6 Make user Admin/User
+            2.7 Make user status active/inactive
+        3. All Registered
+            3.1 All Registered User List
+            3.2 Search user by zone
+            3.3 Search user by department
+            3.4 Search by all relative search types
+            3.5 Create User
+                3.5.1 Give all the necessary information
+        4. All Roles
+            4.1 All Role list
+            4.2 Add Role
+            4.3 Edit Role
+            4.4 Delete Role
+            4.5 Search
+            4.6 Make role status active/inactive
+        5. All zones
+            5.1 All Zone list
+            5.2 Add Zone
+            5.3 Edit Zone
+            5.4 Delete Zone
+            5.5 Search
+            5.6 Make zone status active/inactive
+        6. All zone office
+            6.1 All Zone office list
+            6.2 Add Zone office
+                6.2.1 Select Zone
+                6.2.2 Select offices
+            6.3 Edit Zone office
+            6.4 Delete Zone office
+            6.5 Search
+            6.6 Make zone office status active/inactive
+        7. Logout
+
+                    

@@ -21,7 +21,6 @@ use UnexpectedValueException;
  * @property-read HigherOrderCollectionProxy $average
  * @property-read HigherOrderCollectionProxy $avg
  * @property-read HigherOrderCollectionProxy $contains
- * @property-read HigherOrderCollectionProxy $doesntContain
  * @property-read HigherOrderCollectionProxy $each
  * @property-read HigherOrderCollectionProxy $every
  * @property-read HigherOrderCollectionProxy $filter
@@ -63,7 +62,6 @@ trait EnumeratesValues
         'average',
         'avg',
         'contains',
-        'doesntContain',
         'each',
         'every',
         'filter',
@@ -721,22 +719,6 @@ trait EnumeratesValues
     public function pipeInto($class)
     {
         return new $class($this);
-    }
-
-    /**
-     * Pass the collection through a series of callable pipes and return the result.
-     *
-     * @param  array<callable>  $pipes
-     * @return mixed
-     */
-    public function pipeThrough($pipes)
-    {
-        return static::make($pipes)->reduce(
-            function ($carry, $pipe) {
-                return $pipe($carry);
-            },
-            $this,
-        );
     }
 
     /**

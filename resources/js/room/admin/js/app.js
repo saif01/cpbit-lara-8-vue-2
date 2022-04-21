@@ -13,9 +13,6 @@ import common from './common/mixin';
 Vue.mixin(common);
 
 
-// import  BootstrapVue from 'bootstrap-vue';
-// Vue.use(BootstrapVue)
-
 // Vuetify
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)

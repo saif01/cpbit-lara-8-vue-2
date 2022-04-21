@@ -762,6 +762,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function(){
             Route::get('/dashboard_data', 'IndexController@dashboard_data');
             Route::get('/inactive_list', 'IndexController@inactive_list');
 
+            Route::get('/pdf_test', 'IndexController@pdf_test');
 
             // User Managment
             Route::namespace('User')->prefix('user')->group( function(){
