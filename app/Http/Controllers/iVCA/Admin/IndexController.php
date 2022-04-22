@@ -22,7 +22,7 @@ use App\Models\iVca\ivcaTemplateMroImporter;
 use App\Models\iVca\ivcaTemplateMroManufacturer;
 use App\Models\iVca\ivcaTemplateMroRetailer;
 use App\Models\iVca\ivcaTemplateFood;
-use PDF;
+
 
 class IndexController extends Controller
 {
@@ -138,15 +138,6 @@ class IndexController extends Controller
             'activeFoodSchedulePercent'  => $activeFoodSchedulePercent,
         ],200);
 
-    }
-
-
-    // pdf_test
-    public function pdf_test(){
-         // PDF Generate
-         $pdf = PDF::loadView('ivca.admin.pdf.test')->download('test.pdf');
-
-         return $pdf;
     }
    
 }

@@ -12,6 +12,10 @@ use App\Models\iVCA\ivcaAuditMroToken;
 
 use App\Models\iVCA\ivcaAuditMroRetailer;
 use App\Models\iVca\ivcaTemplateMroRetailer;
+use App\Exports\ivca\summuryRetailer;
+
+use App\Exports\ivca\singleRetailer;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RetailerController extends Controller
 {
@@ -62,7 +66,28 @@ class RetailerController extends Controller
 
         // return response()->json(['auditData'=>$auditData, 'templateData'=>$templateData ], 200);
 
-    } 
+    }
+
+
+    // export_single_audit_data
+    public function export_single_audit_data($id){
+
+        $templateData = ivcaTemplateMroRetailer::first();
+        $auditData = ivcaAuditMroRetailer::with(['auditordata', 'vendor'])->find($id);
+
+        // dd($templateData); 
+
+        if( $auditData->status == 1 ){
+
+           $singleAuditReport = $this->retailerSingleRiport($auditData);
+
+            return Excel::download(new singleRetailer($singleAuditReport, $templateData), 'product-' . time() . '.xlsx');
+
+        }else{
+            return response()->json(['No Data Available'], 204);
+        }
+
+    }
 
     
 
@@ -91,6 +116,29 @@ class RetailerController extends Controller
             return response()->json(['No Data Available'], 204);
         }
         
+    }
+
+
+    public function export_summary_audit_data(Request $request){
+        $token = $request->token;
+
+        $allData = ivcaAuditMroRetailer::with(['vendor', 'auditordata'])
+                    ->where('token', $token)
+                    ->where('status', 1)
+                    ->orderBy('id')
+                    ->get();
+
+        // dd($token, $allData, $allData->isEmpty());
+
+        if( ! $allData->isEmpty() ){
+
+            $finalResult = $this->retailerSummaryReport($allData);
+
+            return Excel::download(new summuryRetailer($finalResult), 'product-' . time() . '.xlsx');
+
+        }else{
+            return response()->json(['No Data Available'], 204);
+        }
     }
 
 
@@ -148,7 +196,6 @@ class RetailerController extends Controller
         ->setOption('margin-bottom', 4)
         ->setOption("encoding", "UTF-8")
         ->output();
-        //->download('invoice.pdf');
 
         return $pdf;
     }
@@ -172,10 +219,6 @@ class RetailerController extends Controller
 
     // download
     public function download($id){
-
-       // return PDF::loadFile('http://www.github.com')->setTemporaryFolder('C:\Temp')->inline('github.pdf');
-
-        //return PDF::loadFile('https://www.google.com/')->inline('github.pdf');
         
         $templateData = ivcaTemplateMroRetailer::first();
         $auditData = ivcaAuditMroRetailer::with(['auditordata', 'vendor'])->find($id); 
@@ -192,11 +235,8 @@ class RetailerController extends Controller
         ->setOption('margin-bottom', 4)
         ->setOption("encoding", "UTF-8")
         ->output();
-        //->download('invoice.pdf');
 
         return $pdf;
-
-
     }
 
 }

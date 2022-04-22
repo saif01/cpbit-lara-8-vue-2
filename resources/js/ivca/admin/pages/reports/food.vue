@@ -62,7 +62,7 @@
                                 <td>
                                     <span v-for="(item, i) in singleData.audits" :key="i">
                                         <!-- {{ item.id }}, -->
-                                        <button v-if="item.status == 1" @click="reportSummary(item.id)" class="btn btn-info btn-sm m-1">Audit by {{ item.auditordata.name }}</button>
+                                        <v-btn v-if="item.status == 1" @click="reportSummary(item.id)" small class="info m-1">Audit by {{ item.auditordata.name }}</v-btn>
                                     </span>
                                 </td>
 

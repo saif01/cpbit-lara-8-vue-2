@@ -18,7 +18,12 @@
                                     <v-btn v-else color="success" small>><v-icon>mdi-download-circle-outline</v-icon> Downloading ..</v-btn>
 
                                     <!-- v-if="isAdministrator()" -->
-                                    <a  :href="currentUrl+'/pdf/view/'+audit_id" class="btn btn-sm mr-2 float-right" target="_blank">PDF View</a>
+                                    <a  :href="currentUrl+'/pdf/view/'+audit_id" class="btn btn-sm mr-2" target="_blank">PDF View</a>
+
+                                    <v-btn outlined elevation="5" small @click="exportExcel()" :loading="exportLoading">
+                                        <v-icon left color="success">mdi-file-excel</v-icon>
+                                        Export
+                                    </v-btn>
                                 </div>
                             </div>
                         </div>
@@ -391,6 +396,9 @@
 
                 pdfDownLoading: false,
 
+                // exportLoading
+                exportLoading: false,
+
 
             }
         },
@@ -455,7 +463,7 @@
                             link.click();
                             
                        }else{
-                           //this.$refs['data_view_modal'].hide();
+                           this.$refs['data_view_modal'].hide();
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error !!',
@@ -464,7 +472,7 @@
                         }
                         
                     }).catch( error=>{
-                        //this.$refs['data_view_modal'].hide();
+                        this.$refs['data_view_modal'].hide();
                         //stop Loading
                         this.pdfDownLoading = false
                         console.log(error)
@@ -474,6 +482,51 @@
                                 text: 'Somthing going wrong !!'
                             })
                     })
+
+            },
+
+            // exportExcel
+            exportExcel() {
+                this.exportLoading = true;
+
+                axios({
+                    method: 'get',
+                    url: this.currentUrl + '/export_single_audit_data/' + this.audit_id,
+
+                    responseType: 'blob', // important
+                }).then((response) => {
+
+                    if (response.status == 200) {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        let fileName = this.auditData.vendor.vendor_number + '-audit.xlsx'
+                        link.setAttribute('download', fileName);
+                        document.body.appendChild(link);
+                        link.click();
+
+                        this.exportLoading = false;
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error !!',
+                            text: 'Data Not Found !!'
+                        })
+                        this.exportLoading = false;
+                    }
+
+                }).catch(error => {
+                    //stop Loading
+                    this.exportLoading = false
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Somthing going wrong !!'
+                    })
+                })
+
 
             },
 

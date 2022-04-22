@@ -11,7 +11,12 @@
                     <!-- v-if="isAdministrator()" -->
                     <a  :href="currentUrl+'/pdf/view_summary/'+$route.query.token" class="mr-2" small target="_blank">PDF View</a>
                     <v-btn v-if="!pdfDownLoading" @click="downloadPdf()" color="error" small><v-icon>mdi-file-document-outline </v-icon> Download PDF</v-btn>
-                    <v-btn v-else color="success" small>><v-icon>mdi-download-circle-outline</v-icon> Downloading ..</v-btn>
+                    <v-btn v-else color="success" small><v-icon>mdi-download-circle-outline</v-icon> Downloading ..</v-btn>
+
+                    <v-btn outlined elevation="5" small @click="exportExcel()" :loading="exportLoading">
+                        <v-icon left color="success">mdi-file-excel</v-icon>
+                        Export
+                    </v-btn>
 
                 </div>
 
@@ -322,6 +327,9 @@
                 avg_cooperate_percentage_val: '',
                 avg_cooperate_actual_val: '',
 
+                // exportLoading
+                exportLoading: false,
+
             }
 
         },
@@ -450,6 +458,51 @@
                                 text: 'Somthing going wrong !!'
                             })
                     })
+
+            },
+
+             // exportExcel
+            exportExcel() {
+                this.exportLoading = true;
+
+                axios({
+                    method: 'get',
+                    url: this.currentUrl + '/export_summary_audit_data/' + this.$route.query.token,
+
+                    responseType: 'blob', // important
+                }).then((response) => {
+
+                    if (response.status == 200) {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        let fileName = this.singleData.vendor.vendor_number+'-audit-summary.xlsx'
+                        link.setAttribute('download', fileName);
+                        document.body.appendChild(link);
+                        link.click();
+
+                        this.exportLoading = false;
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error !!',
+                            text: 'Data Not Found !!'
+                        })
+                        this.exportLoading = false;
+                    }
+
+                }).catch(error => {
+                    //stop Loading
+                    this.exportLoading = false
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Somthing going wrong !!'
+                    })
+                })
+
 
             },
 

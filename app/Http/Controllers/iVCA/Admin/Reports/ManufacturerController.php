@@ -14,6 +14,10 @@ use App\Models\iVCA\ivcaAuditMroToken;
 use App\Models\iVCA\ivcaAuditMroManufacturer;
 use App\Models\iVca\ivcaTemplateMroManufacturer;
 
+use App\Exports\ivca\singleManufacturer;
+use App\Exports\ivca\summuryManufacturer;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ManufacturerController extends Controller
 {
     use CommonFunction;
@@ -63,7 +67,28 @@ class ManufacturerController extends Controller
 
         // return response()->json(['auditData'=>$auditData, 'templateData'=>$templateData ], 200);
 
-    } 
+    }
+
+
+    // export_single_audit_data
+    public function export_single_audit_data($id){
+
+        $templateData = ivcaTemplateMroManufacturer::first();
+        $auditData = ivcaAuditMroManufacturer::with(['auditordata', 'vendor'])->find($id);
+
+        // dd($templateData); 
+
+        if( $auditData->status == 1 ){
+
+           $singleAuditReport = $this->manufacturerSingleRiport($auditData);
+
+            return Excel::download(new singleManufacturer($singleAuditReport, $templateData), 'product-' . time() . '.xlsx');
+
+        }else{
+            return response()->json(['No Data Available'], 204);
+        }
+
+    }
 
     
 
@@ -90,6 +115,28 @@ class ManufacturerController extends Controller
             return response()->json(['No Data Available'], 204);
         }
         
+    }
+
+    public function export_summary_audit_data(Request $request){
+        $token = $request->token;
+
+        $allData = ivcaAuditMroManufacturer::with(['vendor', 'auditordata'])
+                    ->where('token', $token)
+                    ->where('status', 1)
+                    ->orderBy('id')
+                    ->get();
+
+        // dd($token, $allData, $allData->isEmpty());
+
+        if( ! $allData->isEmpty() ){
+
+            $finalResult = $this->manufacturerSummaryReport($allData);
+
+            return Excel::download(new summuryManufacturer($finalResult), 'product-' . time() . '.xlsx');
+
+        }else{
+            return response()->json(['No Data Available'], 204);
+        }
     }
 
 

@@ -1,11 +1,11 @@
 <template>
 
     <div v-if="singleAuditReportShow" class="p-0">
-     
+
         <div class="d-flex flex-wrap">
             <div class="col-lg-12 col-12 pl-1">
                 <div class="mb-2">
-                     
+
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
@@ -13,15 +13,23 @@
                                     Vendor Details :
                                 </div>
                                 <div class="col-md-6">
-                                     
-                                    <!-- <b-button v-if="!pdfDownLoading" @click="downloadPdf()" variant="danger" class="float-right" size="sm"><i class="far fa-file-pdf"></i> Download PDF</b-button>
-                                    <b-button v-else variant="success" class="float-right" size="sm"><i class="fas fa-spinner fa-pulse"></i> Downloading ..</b-button> -->
 
-                                    <v-btn v-if="!pdfDownLoading" @click="downloadPdf()" color="error" small><v-icon>mdi-file-document-outline </v-icon> Download PDF</v-btn>
-                                    <v-btn v-else color="success" small>><v-icon>mdi-download-circle-outline</v-icon> Downloading ..</v-btn>
+                                    <v-btn v-if="!pdfDownLoading" @click="downloadPdf()" color="error" small>
+                                        <v-icon>mdi-file-document-outline </v-icon> Download PDF
+                                    </v-btn>
+                                    <v-btn v-else color="success" small>
+                                        <v-icon>mdi-download-circle-outline</v-icon>
+                                        Downloading ..
+                                    </v-btn>
 
                                     <!-- v-if="isAdministrator()" -->
-                                    <a :href="currentUrl+'/pdf/view/'+audit_id" class="btn btn-sm mr-2 float-right" target="_blank">PDF View</a>
+                                    <a :href="currentUrl+'/pdf/view/'+audit_id" class="btn btn-sm mr-2"
+                                        target="_blank">PDF View</a>
+
+                                    <v-btn outlined elevation="5" small @click="exportExcel()" :loading="exportLoading">
+                                        <v-icon left color="success">mdi-file-excel</v-icon>
+                                        Export
+                                    </v-btn>
                                 </div>
                             </div>
                         </div>
@@ -45,10 +53,11 @@
                                 </tr>
                                 <tr class="text-right font-weight-bold">
                                     <th>Vendor Code : </th>
-                                    <td class="text-left" v-if="auditData.vendor">{{ auditData.vendor.vendor_number }}</td>
+                                    <td class="text-left" v-if="auditData.vendor">{{ auditData.vendor.vendor_number }}
+                                    </td>
                                 </tr>
                             </table>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -265,7 +274,7 @@
                     <td></td>
                 </tr>
 
-              
+
                 <tr>
                     <th class="text-left bg-gray"><u>To cooperate with the company</u></th>
                     <td class="bg-gray"></td>
@@ -394,6 +403,9 @@
 
                 pdfDownLoading: false,
 
+                // exportLoading
+                exportLoading: false,
+
 
             }
         },
@@ -412,7 +424,7 @@
                         // data loading off
                         this.singleAuditDtaLoading = false;
                         this.singleAuditReportShow = true;
-                      
+
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -434,49 +446,97 @@
             },
 
             // downloadPdf
-            downloadPdf(){
-                    //start Loading
-                    this.pdfDownLoading = true
+            downloadPdf() {
+                //start Loading
+                this.pdfDownLoading = true
 
-                    axios({
-                        method: 'get',
-                        url: this.currentUrl+'/pdf/download/'+ this.audit_id,
-                        responseType: 'blob', // important
-                    }).then((response) => {
+                axios({
+                    method: 'get',
+                    url: this.currentUrl + '/pdf/download/' + this.audit_id,
+                    responseType: 'blob', // important
+                }).then((response) => {
 
-                        console.log(response.data)
-                        //stop Loading
-                        this.pdfDownLoading = false
+                    console.log(response.data)
+                    //stop Loading
+                    this.pdfDownLoading = false
 
-                        if( response.status == 200 ){
-                            const url = window.URL.createObjectURL(new Blob([response.data]));
-                            const link = document.createElement('a');
-                            link.href = url;
-                            let fileName = this.auditData.vendor.vendor_number+'-audit.pdf' 
-                            link.setAttribute('download', fileName);
-                            document.body.appendChild(link);
-                            link.click();
-                            
-                       }else{
-                           //this.$refs['data_view_modal'].hide();
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error !!',
-                                text: 'Data Not Found !!'
-                            })
-                        }
-                        
-                    }).catch( error=>{
-                        //this.$refs['data_view_modal'].hide();
-                        //stop Loading
-                        this.pdfDownLoading = false
-                        console.log(error)
+                    if (response.status == 200) {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        let fileName = this.auditData.vendor.vendor_number + '-audit.pdf'
+                        link.setAttribute('download', fileName);
+                        document.body.appendChild(link);
+                        link.click();
+
+                    } else {
+                        this.$refs['data_view_modal'].hide();
                         Swal.fire({
-                                icon: 'error',
-                                title: 'Error !!',
-                                text: 'Somthing going wrong !!'
-                            })
+                            icon: 'error',
+                            title: 'Error !!',
+                            text: 'Data Not Found !!'
+                        })
+                    }
+
+                }).catch(error => {
+                    this.$refs['data_view_modal'].hide();
+                    //stop Loading
+                    this.pdfDownLoading = false
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Somthing going wrong !!'
                     })
+                })
+
+            },
+
+
+
+
+            // exportExcel
+            exportExcel() {
+                this.exportLoading = true;
+
+                axios({
+                    method: 'get',
+                    url: this.currentUrl + '/export_single_audit_data/' + this.audit_id,
+
+                    responseType: 'blob', // important
+                }).then((response) => {
+
+                    if (response.status == 200) {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        let fileName = this.auditData.vendor.vendor_number + '-audit.xlsx'
+                        link.setAttribute('download', fileName);
+                        document.body.appendChild(link);
+                        link.click();
+
+                        this.exportLoading = false;
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error !!',
+                            text: 'Data Not Found !!'
+                        })
+                        this.exportLoading = false;
+                    }
+
+                }).catch(error => {
+                    //stop Loading
+                    this.exportLoading = false
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error !!',
+                        text: 'Somthing going wrong !!'
+                    })
+                })
+
 
             },
 

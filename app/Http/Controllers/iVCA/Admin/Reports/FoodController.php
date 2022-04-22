@@ -13,6 +13,9 @@ use App\Models\iVCA\ivcaAuditFoodToken;
 use App\Models\iVCA\ivcaAuditFood;
 use App\Models\iVca\ivcaTemplateFood;
 
+use App\Exports\ivca\foodExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class FoodController extends Controller
 {
     use CommonFunction;
@@ -52,7 +55,22 @@ class FoodController extends Controller
          
         //dd( $singleAuditReport );
         return response()->json(['auditData'=>$auditData, 'templateData'=>$templateData ], 200);
-    } 
+    }
+
+
+    public function export_summary_audit_data($id){
+        
+        $templateData = ivcaTemplateFood::first();
+        $auditData = ivcaAuditFood::with(['auditordata', 'schedule', 'vendor'])->find($id);
+
+        // dd($templateData); 
+
+         
+        //dd( $singleAuditReport );
+
+        return Excel::download(new foodExport($auditData, $templateData), 'product-' . time() . '.xlsx');
+
+    }
 
     
 
